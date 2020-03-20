@@ -1,0 +1,43 @@
+#bg {
+  background-image: url('./bg.png');
+  /* background-size: cover; */
+  background-repeat: repeat;
+  /* background-position: center; */
+  /* background-attachment: fixed; */
+  /* position: fixed; */
+  height: 90vh;
+  width: 100%;
+  z-index: -1;
+  padding-top: 100px;
+}
+
+@media screen and (max-width: 930px) {
+  #bg {
+    /* margin: 10px 100px; */
+    padding-top: 100px;
+  }
+}
+
+@media screen and (max-width: 788px) {
+  #bg {
+    padding-top: 100px;
+  }
+}
+
+@media screen and (max-width: 656px) {
+  #bg {
+    /* padding-top: 20px; */
+    padding-top: 20px;
+    height: 100vh;
+    /* height: 70vh; */
+  }
+}
+
+@media screen and (max-width: 497px) {
+  #bg {
+    padding-top: 20px;
+    height: 100vh;
+    /* padding: 20px */
+    /* height: 70vh; */
+  }
+}
