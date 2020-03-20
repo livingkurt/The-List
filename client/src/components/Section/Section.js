@@ -6,7 +6,7 @@ import './section.css'
 
 function Section({ children }) {
   return (
-    <div className="section fade_in">
+    <div className="section">
       {children}
     </div>
   );
