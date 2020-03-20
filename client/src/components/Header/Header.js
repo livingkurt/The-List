@@ -3,7 +3,7 @@ import { Link, useLocation } from "react-router-dom";
 import './header.css'
 
 
-function Header() {
+const Header = () => {
   return (
     <ul className="nav">
       <li className="nav_items">

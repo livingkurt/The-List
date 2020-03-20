@@ -4,7 +4,7 @@ import React from "react";
 import './section.css'
 
 
-function Section({ children }) {
+const Section = ({ children }) => {
   return (
     <div className="section">
       {children}

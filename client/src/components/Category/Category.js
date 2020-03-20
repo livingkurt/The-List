@@ -4,10 +4,7 @@ import React from "react";
 import './list_item.css'
 
 
-const ListItem = ({ children }) => {
-
-
-
+function ListItem({ children }) {
   return (
     <div className="list_item">
       {children}
