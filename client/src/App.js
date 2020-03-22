@@ -8,6 +8,8 @@ import Header from './components/Header/Header';
 import ListItem from './components/ListItem/ListItem';
 import ScrollContainer from './components/ScrollContainer/ScrollContainer.js';
 import Title from './components/Title/Title';
+import TextField from './components/TextField/TextField';
+import TitleField from './components/TitleField/TitleField';
 
 const App = () => {
 
@@ -61,7 +63,11 @@ const App = () => {
             </ScrollContainer>
           </Section>
           <Section>
-
+            <Title>
+              Create Note
+            </Title>
+            <TitleField></TitleField>
+            <TextField></TextField>
           </Section>
         </Container>
 
