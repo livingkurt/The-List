@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import './App.css';
 import Background from './components/Background/Background';
 import Container from './components/Container/Container';
@@ -10,13 +10,37 @@ import Title from './components/Title/Title';
 import TextField from './components/TextField/TextField';
 import TitleField from './components/TitleField/TitleField';
 import AddButton from './components/AddButton/AddButton';
+import API from "./utils/API";
 
 const App = () => {
-  const [master_todo_state, set_master_todo_state] = useState()
-  const [todo_dump_state, set_todo_dump_state] = useState()
+  const [master_todo_state, set_master_todo_state] = useState([])
+  const [todo_dump_state, set_todo_dump_state] = useState([])
+  const [note_state, set_note_state] = useState({
+    title: "",
+    description: "",
+  })
+  console.log(note_state)
+
+  useEffect(() => {
+    // get_notes();
+  }, []);
+
+  const get_notes = () => {
+    API.get_notes()
+      .then(res => {
+        set_todo_dump_state(res.data)
+      })
+      .catch(err => console.log(err));
+  };
 
   const new_note = () => {
+    // let new_state = todo_dump_state + 
+    console.log(note_state)
+  }
 
+  const handle_text_field_change = (e) => {
+    console.log(note_state)
+    set_note_state({ ...note_state, description: e.target.value })
   }
 
   return (
@@ -29,11 +53,30 @@ const App = () => {
               <Title>
                 Create Note
               </Title>
-              <AddButton />
+              <AddButton onClick={() => new_note()} />
             </div>
             <div style={{ padding: "10px" }}>
-              <TitleField></TitleField>
-              <TextField></TextField>
+              {/* <TitleField
+                onChange={e => set_note_state({ ...note_state, title: e.target.value })}
+              >
+                {note_state.title}
+              </TitleField> */}
+              <input
+                className="title_field"
+                onChange={e => set_note_state({ ...note_state, title: e.target.value })}
+                placeholder="Title"
+                onBlur={(e) => e.target.placeholder = "Title"}
+                onFocus={(e) => e.target.placeholder = ""}></input>
+
+              <textarea
+                className="text_field"
+                onChange={e => set_note_state({ ...note_state, description: e.target.value })}
+              />
+              {/* <TextField
+                onChange={e => handle_text_field_change(e)}
+              >
+                {note_state.description}
+              </TextField> */}
             </div>
           </Section>
 

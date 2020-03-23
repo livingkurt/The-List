@@ -9,18 +9,14 @@ const TextField = ({ children }) => {
 
   const handle_text_input = () => {
     if (Number.isInteger(textState[0]))
-      return (<ol contenteditable="true" >
-        <li contenteditable="true" ></li>
+      return (<ol contentEditable="true" >
+        <li contentEditable="true" ></li>
       </ol>)
   }
 
   return (
-    <div className="text_container">
-      <div contenteditable="true" className="text_field">
-        {textState}
-        {handle_text_input}
-      </div>
-
+    <div className="">
+      <textarea className="text_field"></textarea>
     </div>
   );
 }

@@ -11,18 +11,17 @@ const ListItem = ({ children }) => {
   return (
     <div className="list_div zoom">
       <Checkbox />
-      <div
-        contenteditable={itemState}
-        className="list_item"
-        onClick={() => {
-          setItemState("true")
-        }}
-        onBlur={() => setItemState("false")}
-        style={{ display: "flex" }}
-      >
+      {/* <div
+      // contentEditable={itemState}
+      // className="list_item"
+      // style={{ display: "flex" }}
+      > */}
+      <input
+        className="list_item list_input"
+        placeholder="Title"></input>
 
-        {children}
-      </div>
+      {/* {children} */}
+      {/* </div> */}
     </div>
   );
 }

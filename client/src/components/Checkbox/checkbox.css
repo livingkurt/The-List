@@ -18,8 +18,8 @@ label input {
 
 label span {
   /* <-- Style the artificial checkbox */
-  height: 15px;
-  width: 15px;
+  height: 18px;
+  width: 18px;
   border: 1px solid grey;
   display: inline-block;
   border-radius: 15px;
