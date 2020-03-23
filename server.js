@@ -7,7 +7,7 @@ const PORT = process.env.PORT || 5000
 require('./routes/api_routes')(app);
 
 mongoose.connect(
-  process.env.MONGODB_URI || "mongodb://localhost/master_db",
+  process.env.MONGODB_URI || "mongodb://localhost/list_db",
   { useNewUrlParser: true }
 );
 
