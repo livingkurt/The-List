@@ -1,5 +1,4 @@
 import React from 'react';
-// import logo from './logo.svg';
 import './App.css';
 import Background from './components/Background/Background';
 import Container from './components/Container/Container';
@@ -10,8 +9,12 @@ import ScrollContainer from './components/ScrollContainer/ScrollContainer.js';
 import Title from './components/Title/Title';
 import TextField from './components/TextField/TextField';
 import TitleField from './components/TitleField/TitleField';
+import AddButton from './components/AddButton/AddButton';
 
 const App = () => {
+  const new_note = () => {
+
+  }
 
   return (
     <div >
@@ -19,9 +22,12 @@ const App = () => {
         <Header></Header>
         <Container>
           <Section>
-            <Title>
-              Master Todo List
-            </Title>
+            <div style={{ display: "flex", justifyContent: "space-between" }}>
+              <Title>
+                Master Todo List
+              </Title>
+              <AddButton onclick={new_note} />
+            </div>
             <ScrollContainer>
               <ListItem>List Item 1</ListItem>
               <ListItem>List Item 2</ListItem>
@@ -41,9 +47,12 @@ const App = () => {
             </ScrollContainer>
           </Section>
           <Section>
-            <Title>
-              Todo Dump
+            <div style={{ display: "flex", justifyContent: "space-between" }}>
+              <Title>
+                Todo Dump
             </Title>
+              <AddButton />
+            </div>
             <ScrollContainer>
               <ListItem>List Item 1</ListItem>
               <ListItem>List Item 2</ListItem>
@@ -63,12 +72,20 @@ const App = () => {
             </ScrollContainer>
           </Section>
           <Section>
-            <Title>
-              Create Note
+            <div style={{ display: "flex", justifyContent: "space-between" }}>
+              <Title>
+                Create Note
             </Title>
-            <TitleField></TitleField>
-            <TextField></TextField>
+              <AddButton />
+            </div>
+            <div style={{ padding: "10px" }}>
+              <TitleField></TitleField>
+              <TextField></TextField>
+            </div>
           </Section>
+        </Container>
+        <Container>
+          <Section width="100%"></Section>
         </Container>
 
       </Background >

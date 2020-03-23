@@ -1,0 +1,35 @@
+.checkbox {
+  border-radius: 15px;
+  height: 16px;
+  width: 13px;
+  border: 1px silver solid;
+  margin-right: 5px;
+}
+
+label input {
+  visibility: hidden;
+  /* <-- Hide the default checkbox. The rest is to hide and allow tabbing, which display:none prevents */
+  display: block;
+  height: 0;
+  width: 0;
+  position: absolute;
+  overflow: hidden;
+}
+
+label span {
+  /* <-- Style the artificial checkbox */
+  height: 15px;
+  width: 15px;
+  border: 1px solid grey;
+  display: inline-block;
+  border-radius: 15px;
+  /* height: 16px; */
+  /* width: 13px; */
+  border: 1px silver solid;
+  margin-right: 5px;
+}
+
+[type=checkbox]:checked+span {
+  /* <-- Style its checked state */
+  background: rgb(64, 155, 241);
+}
