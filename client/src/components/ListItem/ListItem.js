@@ -9,7 +9,7 @@ const ListItem = ({ children }) => {
   const [itemState, setItemState] = useState("false")
 
   return (
-    <div className="list_div">
+    <div className="list_div zoom">
       <Checkbox />
       <div
         contenteditable={itemState}

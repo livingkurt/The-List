@@ -4,14 +4,14 @@ import React from "react";
 import './title.css'
 
 
-const Title = ({ children }) => {
+const Title = (props) => {
 
 
 
   return (
-    <div className="title">
-      <h2>{children}</h2>
-    </div>
+    <div className="title" >
+      <h2 style={{ margin: props.margin }}>{props.children}</h2>
+    </div >
   );
 }
 

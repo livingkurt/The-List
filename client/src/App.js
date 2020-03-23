@@ -30,7 +30,7 @@ const App = () => {
             </div>
             <ScrollContainer>
               <ListItem>List Item 1</ListItem>
-              <ListItem>List Item 2</ListItem>
+              {/* <ListItem>List Item 2</ListItem>
               <ListItem>List Item 3</ListItem>
               <ListItem>List Item 4</ListItem>
               <ListItem>List Item 5</ListItem>
@@ -43,7 +43,7 @@ const App = () => {
               <ListItem>List Item 12</ListItem>
               <ListItem>List Item 13</ListItem>
               <ListItem>List Item 14</ListItem>
-              <ListItem>List Item 15</ListItem>
+              <ListItem>List Item 15</ListItem> */}
             </ScrollContainer>
           </Section>
           <Section>
@@ -55,7 +55,7 @@ const App = () => {
             </div>
             <ScrollContainer>
               <ListItem>List Item 1</ListItem>
-              <ListItem>List Item 2</ListItem>
+              {/* <ListItem>List Item 2</ListItem>
               <ListItem>List Item 3</ListItem>
               <ListItem>List Item 4</ListItem>
               <ListItem>List Item 5</ListItem>
@@ -68,14 +68,14 @@ const App = () => {
               <ListItem>List Item 12</ListItem>
               <ListItem>List Item 13</ListItem>
               <ListItem>List Item 14</ListItem>
-              <ListItem>List Item 15</ListItem>
+              <ListItem>List Item 15</ListItem> */}
             </ScrollContainer>
           </Section>
           <Section>
             <div style={{ display: "flex", justifyContent: "space-between" }}>
               <Title>
                 Create Note
-            </Title>
+              </Title>
               <AddButton />
             </div>
             <div style={{ padding: "10px" }}>
