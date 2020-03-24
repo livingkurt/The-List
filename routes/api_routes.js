@@ -60,7 +60,6 @@ module.exports = function (app) {
         priority: req.body.priority,
         scheduled: req.body.scheduled,
         scheduled_date_time: req.body.scheduled_date_time,
-        date_created: Date.now,
         date_modified: Date.now
       })
     // Send the request back to the front end

@@ -20,6 +20,7 @@ const App = () => {
     body: "",
   })
   // console.log(note_state)
+  console.log(todo_dump_state)
 
   useEffect(() => {
     get_notes();
@@ -30,7 +31,7 @@ const App = () => {
       .then(res => {
         console.log(res.data)
         set_todo_dump_state(res.data)
-        console.log(todo_dump_state)
+
       })
       .catch(err => console.log(err));
   };
@@ -101,8 +102,10 @@ const App = () => {
               <button onClick={() => new_todo_dump()} className="add_button">+</button>
             </div>
             <ScrollContainer>
-              {/* {todo_dump_state} */}
-              <ListItem>List Item 1</ListItem>
+              {todo_dump_state.map((note, index) => {
+                return <ListItem key={index}>{note.title}</ListItem>
+              })}
+              {/* <ListItem>List Item 1</ListItem> */}
             </ScrollContainer>
           </Section>
           <Section>

@@ -17,10 +17,12 @@ const ListItem = ({ children }) => {
       // style={{ display: "flex" }}
       > */}
       <input
+        defaultValue={children}
+        // onChange={(e) => e.target.value = children}
         className="list_item list_input"
         placeholder="Title"></input>
 
-      {/* {children} */}
+
       {/* </div> */}
     </div>
   );
