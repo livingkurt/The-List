@@ -1,7 +1,7 @@
 const mongoose = require('mongoose');
 const { Schema } = mongoose;
 
-const master_list_schema = new Schema({
+const note_schema = new Schema({
   title: {
     type: String,
     required: true
@@ -17,6 +17,6 @@ const master_list_schema = new Schema({
   date_modified: Date,
 });
 
-const Master_List = mongoose.model('Master_List', master_list_schema);
+const Note = mongoose.model('Note', note_schema);
 
-module.exports = Master_List;
+module.exports = Note;

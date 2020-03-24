@@ -1,7 +1,7 @@
 const mongoose = require('mongoose');
 const { Schema } = mongoose;
 
-const master_list_schema = new Schema({
+const folder_schema = new Schema({
   folder_name: {
     type: String,
     required: true
@@ -14,6 +14,6 @@ const master_list_schema = new Schema({
   date_modified: Date,
 });
 
-const Master_List = mongoose.model('Master_List', master_list_schema);
+const Folder = mongoose.model('Folder', folder_schema);
 
-module.exports = Master_List;
+module.exports = Folder;
