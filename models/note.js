@@ -9,7 +9,9 @@ const note_schema = new Schema({
   body: String,
   folder_id: String,
   list_id: String,
-  priority: String,
+  priority: Number,
+  scheduled: Boolean,
+  scheduled_date_time: Date,
   date_created: {
     type: Date,
     default: Date.now

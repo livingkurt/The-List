@@ -28,7 +28,7 @@ const App = () => {
   const get_notes = () => {
     API.get_notes()
       .then(res => {
-        console.log(res)
+        console.log(res.data)
         // set_todo_dump_state(res.data)
       })
       .catch(err => console.log(err));

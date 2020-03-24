@@ -1,3 +1,4 @@
 module.exports = {
-  Notes: require("./note")
+  Notes: require("./note"),
+  Folders: require("./folder")
 };

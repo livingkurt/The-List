@@ -27,9 +27,12 @@ module.exports = function (app) {
   // Get all "needs" from local database based location - Working
   // ==================================================================================================
   app.get('/api/notes', async (req, res) => {
+
+
     const request = await db.Notes.find({})
     // Send the request back to the front end
-    res.send({ "Get All Notes": request })
+    console.log({ "api_routes.js": request })
+    res.send(request)
   })
 
   // ==================================================================================================
