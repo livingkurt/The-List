@@ -8,9 +8,15 @@ const note_schema = new Schema({
   },
   body: String,
   folder_id: String,
-  list_id: String,
+  list_id: {
+    type: String,
+    default: "dump"
+  },
   priority: Number,
-  scheduled: Boolean,
+  scheduled: {
+    type: Boolean,
+    default: false
+  },
   scheduled_date_time: Date,
   date_created: {
     type: Date,

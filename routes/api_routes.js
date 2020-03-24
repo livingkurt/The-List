@@ -14,10 +14,12 @@ module.exports = function (app) {
     const request = await db.Notes.create({
       title: req.body.title,
       body: req.body.body,
-      // category: req.body.category,
-      // priority: req.body.priority,
-      // date_created: Date.now,
-      // date_modified: Date.now
+      folder_id: req.body.folder_id,
+      priority: req.body.priority,
+      scheduled: req.body.scheduled,
+      scheduled_date_time: req.body.scheduled_date_time,
+      date_created: Date.now,
+      date_modified: Date.now
     })
     // Send the request back to the front end
     res.send(request)
@@ -31,7 +33,7 @@ module.exports = function (app) {
 
     const request = await db.Notes.find({})
     // Send the request back to the front end
-    console.log({ "api_routes.js": request })
+    // console.log({ "api_routes.js": request })
     res.send(request)
   })
 
@@ -54,9 +56,12 @@ module.exports = function (app) {
       {
         title: req.body.title,
         body: req.body.body,
-        // category: req.body.category,
-        // priority: req.body.priority,
-        // date_modified: Date.now
+        folder_id: req.body.folder_id,
+        priority: req.body.priority,
+        scheduled: req.body.scheduled,
+        scheduled_date_time: req.body.scheduled_date_time,
+        date_created: Date.now,
+        date_modified: Date.now
       })
     // Send the request back to the front end
     res.send({ "Update Note": request })
