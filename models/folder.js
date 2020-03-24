@@ -7,6 +7,12 @@ const folder_schema = new Schema({
     required: true
   },
   folder_id: String,
+  notes: [
+    {
+      type: Schema.Types.ObjectId,
+      ref: "notes"
+    }
+  ],
   date_created: {
     type: Date,
     default: Date.now
