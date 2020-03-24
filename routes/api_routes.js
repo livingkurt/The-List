@@ -1,6 +1,6 @@
-const Master_List = require("../models/master_list");
+const db = require("../models/index");
 // const axios = require("axios");
-const mongojs = require('mongojs')
+// const mongojs = require('mongojs')
 
 // Export API Routes to Express
 module.exports = function (app) {
@@ -8,14 +8,16 @@ module.exports = function (app) {
   // Create "need" via TILE(images of preset groceries) or INPUT BOX(custom need, like medicine)
   // ==================================================================================================
   app.post('/api/note', async (req, res) => {
+    // console.log({ "api_routes.js": "Hello" })
+    console.log({ "api_routes.js": req.body })
     // Save Need to Database
-    const request = await Master_List.create({
+    const request = await db.Notes.create({
       title: req.body.title,
       body: req.body.body,
-      category: req.body.category,
-      priority: req.body.priority,
-      date_created: Date.now,
-      date_modified: Date.now
+      // category: req.body.category,
+      // priority: req.body.priority,
+      // date_created: Date.now,
+      // date_modified: Date.now
     })
     // Send the request back to the front end
     res.send(request)
@@ -25,7 +27,7 @@ module.exports = function (app) {
   // Get all "needs" from local database based location - Working
   // ==================================================================================================
   app.get('/api/notes', async (req, res) => {
-    const request = await Master_List.find({})
+    const request = await db.Notes.find({})
     // Send the request back to the front end
     res.send({ "Get All Notes": request })
   })
@@ -34,7 +36,7 @@ module.exports = function (app) {
   // Get single "need" from local database based on the user - Working
   // ==================================================================================================
   app.get('/api/note/:id', async (req, res) => {
-    const request = await Master_List.findOne({ _id: req.params.id })
+    const request = await db.Notes.findOne({ _id: req.params.id })
     // Send the request back to the front end
     res.send({ "Get Single Note": request })
 
@@ -45,13 +47,13 @@ module.exports = function (app) {
   // ==================================================================================================
   app.patch('/api/note/:id', async (req, res) => {
     // Create an empty workout object ready for exercises to get put into it
-    const request = await Master_List.findOneAndUpdate({ _id: req.params.id },
+    const request = await db.Notes.findOneAndUpdate({ _id: req.params.id },
       {
         title: req.body.title,
         body: req.body.body,
-        category: req.body.category,
-        priority: req.body.priority,
-        date_modified: Date.now
+        // category: req.body.category,
+        // priority: req.body.priority,
+        // date_modified: Date.now
       })
     // Send the request back to the front end
     res.send({ "Update Note": request })
@@ -62,7 +64,7 @@ module.exports = function (app) {
   // ==================================================================================================
   app.delete('/api/note/:id', async (req, res) => {
     // Create an empty workout object ready for exercises to get put into it
-    const request = await Master_List.remove({ _id: req.params.id })
+    const request = await db.Notes.remove({ _id: req.params.id })
     // Send the request back to the front end
     res.send({ "Deleted Note": request })
   })

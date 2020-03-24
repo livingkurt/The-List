@@ -2,13 +2,11 @@ const mongoose = require('mongoose');
 const { Schema } = mongoose;
 
 const master_list_schema = new Schema({
-  title: {
+  folder_name: {
     type: String,
     required: true
   },
-  body: String,
-  category: String,
-  priority: String,
+  folder_id: String,
   date_created: {
     type: Date,
     default: Date.now

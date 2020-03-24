@@ -4,11 +4,11 @@ import React from "react";
 import './add_button.css'
 
 
-const AddButton = () => {
+const AddButton = (props) => {
 
   return (
     <div>
-      <button className="add_button">+</button>
+      <button onClick={() => props.data} className="add_button">+</button>
     </div>
   );
 }

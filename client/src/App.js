@@ -17,30 +17,48 @@ const App = () => {
   const [todo_dump_state, set_todo_dump_state] = useState([])
   const [note_state, set_note_state] = useState({
     title: "",
-    description: "",
+    body: "",
   })
   console.log(note_state)
 
   useEffect(() => {
-    // get_notes();
+    get_notes();
   }, []);
 
   const get_notes = () => {
     API.get_notes()
       .then(res => {
-        set_todo_dump_state(res.data)
+        console.log(res)
+        // set_todo_dump_state(res.data)
       })
       .catch(err => console.log(err));
   };
 
   const new_note = () => {
-    // let new_state = todo_dump_state + 
     console.log(note_state)
+    API.post_note(note_state)
+      .then(res => {
+        set_note_state({
+          title: "",
+          body: "",
+        })
+      })
+      .catch(err => console.log(err));
+  }
+  const new_todo_dump = () => {
+    console.log(note_state)
+    set_todo_dump_state()
+
+  }
+  const new_todo_master = () => {
+    console.log(note_state)
+    set_todo_dump_state()
+
   }
 
   const handle_text_field_change = (e) => {
     console.log(note_state)
-    set_note_state({ ...note_state, description: e.target.value })
+    set_note_state({ ...note_state, body: e.target.value })
   }
 
   return (
@@ -53,30 +71,23 @@ const App = () => {
               <Title>
                 Create Note
               </Title>
-              <AddButton onClick={() => new_note()} />
+              {/* <AddButton data={new_note} /> */}
+              <button onClick={() => new_note()} className="add_button">+</button>
             </div>
             <div style={{ padding: "10px" }}>
-              {/* <TitleField
-                onChange={e => set_note_state({ ...note_state, title: e.target.value })}
-              >
-                {note_state.title}
-              </TitleField> */}
               <input
                 className="title_field"
                 onChange={e => set_note_state({ ...note_state, title: e.target.value })}
                 placeholder="Title"
                 onBlur={(e) => e.target.placeholder = "Title"}
                 onFocus={(e) => e.target.placeholder = ""}></input>
-
               <textarea
                 className="text_field"
-                onChange={e => set_note_state({ ...note_state, description: e.target.value })}
+                onChange={e => set_note_state({ ...note_state, body: e.target.value })}
+                placeholder="Description"
+                onBlur={(e) => e.target.placeholder = "Description"}
+                onFocus={(e) => e.target.placeholder = ""}
               />
-              {/* <TextField
-                onChange={e => handle_text_field_change(e)}
-              >
-                {note_state.description}
-              </TextField> */}
             </div>
           </Section>
 
@@ -85,25 +96,12 @@ const App = () => {
               <Title>
                 Todo Dump
             </Title>
-              <AddButton />
+              {/* <AddButton /> */}
+              <button onClick={() => new_todo_dump()} className="add_button">+</button>
             </div>
             <ScrollContainer>
               {todo_dump_state}
               <ListItem>List Item 1</ListItem>
-              {/* <ListItem>List Item 2</ListItem>
-              <ListItem>List Item 3</ListItem>
-              <ListItem>List Item 4</ListItem>
-              <ListItem>List Item 5</ListItem>
-              <ListItem>List Item 6</ListItem>
-              <ListItem>List Item 7</ListItem>
-              <ListItem>List Item 8</ListItem>
-              <ListItem>List Item 9</ListItem>
-              <ListItem>List Item 10</ListItem>
-              <ListItem>List Item 11</ListItem>
-              <ListItem>List Item 12</ListItem>
-              <ListItem>List Item 13</ListItem>
-              <ListItem>List Item 14</ListItem>
-              <ListItem>List Item 15</ListItem> */}
             </ScrollContainer>
           </Section>
           <Section>
@@ -111,29 +109,20 @@ const App = () => {
               <Title>
                 Master Todo List
               </Title>
-              <AddButton onclick={new_note} />
+              {/* <AddButton onclick={new_note} /> */}
+              <button onClick={() => new_todo_master()} className="add_button">+</button>
             </div>
             <ScrollContainer>
               <ListItem>List Item 1</ListItem>
-              {/* <ListItem>List Item 2</ListItem>
-              <ListItem>List Item 3</ListItem>
-              <ListItem>List Item 4</ListItem>
-              <ListItem>List Item 5</ListItem>
-              <ListItem>List Item 6</ListItem>
-              <ListItem>List Item 7</ListItem>
-              <ListItem>List Item 8</ListItem>
-              <ListItem>List Item 9</ListItem>
-              <ListItem>List Item 10</ListItem>
-              <ListItem>List Item 11</ListItem>
-              <ListItem>List Item 12</ListItem>
-              <ListItem>List Item 13</ListItem>
-              <ListItem>List Item 14</ListItem>
-              <ListItem>List Item 15</ListItem> */}
             </ScrollContainer>
           </Section>
         </Container>
         <Container>
-          <Section width="100%"></Section>
+          <Section width="100%">
+            <Title>
+              Calender
+              </Title>
+          </Section>
         </Container>
 
       </Background >

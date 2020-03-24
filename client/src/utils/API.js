@@ -1,21 +1,22 @@
-import axios from "axios";
+import axios from 'axios';
 
 export default {
   // Project Routes
   post_note: function (note_data) {
-    return axios.post("/api/note", note_data);
+    console.log({ 'API.js': note_data })
+    return axios.post('/api/note', note_data);
   },
   get_notes: function () {
-    return axios.get("/api/notes");
+    return axios.get('/api/notes');
   },
-  get_note: function (id) {
-    return axios.get("/api/note/" + id);
+  get_note: function (note_id) {
+    return axios.get('/api/note/' + note_id);
   },
-  update_note: function (id, note_data) {
-    return axios.patch("/api/note/" + id, note_data);
+  update_note: function (note_id, note_data) {
+    return axios.patch('/api/note/' + note_id, note_data);
   },
-  delete_note: function (id, note_data) {
-    return axios.delete("/api/note/" + id, note_data);
+  delete_note: function (note_id, note_data) {
+    return axios.delete('/api/note/' + note_id, note_data);
   },
 
 }
