@@ -27,11 +27,20 @@ module.exports = function (app) {
   })
 
   // ==================================================================================================
-  // Get all "needs" from local database based location - Working
+  // Get all "notes" from local database based location - Working
   // ==================================================================================================
+
+
   app.get('/api/notes', async (req, res) => {
 
     const request = await db.Notes.find({})
+    // Send the request back to the front end
+    res.send(request)
+  })
+
+  app.get('/api/notes/:list_id', async (req, res) => {
+
+    const request = await db.Notes.find({ list_id: req.params.list_id })
     // Send the request back to the front end
     res.send(request)
   })
@@ -60,7 +69,7 @@ module.exports = function (app) {
         priority: req.body.priority,
         scheduled: req.body.scheduled,
         scheduled_date_time: req.body.scheduled_date_time,
-        date_modified: Date.now
+        // date_modified: Date.now
       })
     // Send the request back to the front end
     res.send({ "Update Note": request })

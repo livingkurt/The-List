@@ -13,7 +13,7 @@ import AddButton from './components/AddButton/AddButton';
 import API from "./utils/API";
 
 const App = () => {
-  const [master_todo_state, set_master_todo_state] = useState([])
+  const [todo_master_state, set_todo_master_state] = useState([])
   const [todo_dump_state, set_todo_dump_state] = useState([])
   const [todo_state, set_todo_state] = useState({
     title: "",
@@ -37,17 +37,43 @@ const App = () => {
   console.log(todo_dump_state)
 
   useEffect(() => {
-    get_notes();
+    get_all_notes("dump");
+    get_all_notes("master");
   }, []);
 
-  const get_notes = () => {
-    API.get_notes()
-      .then(res => {
-        console.log(res.data)
-        set_todo_dump_state(res.data)
-        return res.data;
-      })
-      .catch(err => console.log(err));
+  const get_all_notes = (list_id) => {
+    //   API.get_all_notes()
+    //     .then(res => {
+    //       console.log(res.data)
+    //       set_todo_dump_state(res.data)
+    //       return res.data;
+    //     })
+    //     .catch(err => console.log(err));
+    // };
+
+    // const get_dump_notes = () => {
+    if (list_id === "dump") {
+      API.get_notes_by_list_id(list_id)
+        .then(res => {
+          console.log(res.data)
+          set_todo_dump_state(res.data)
+          return res.data;
+        })
+        .catch(err => console.log(err));
+    }
+    if (list_id === "master") {
+      API.get_notes_by_list_id(list_id)
+        .then(res => {
+          console.log(res.data)
+          set_todo_master_state(res.data)
+          return res.data;
+        })
+        .catch(err => console.log(err));
+    }
+    // };
+
+    // const get_master_notes = () => {
+
   };
 
   const new_note = () => {
@@ -58,22 +84,14 @@ const App = () => {
           title: "",
           body: "",
         })
-        get_notes();
+        get_all_notes("dump");
         document.querySelector(".title_field").value = ""
         document.querySelector(".text_field").value = ""
       })
       .catch(err => console.log(err));
   }
 
-  const update_note = () => {
-    API.update_note(todo_state)
-      .then(res => {
-        get_notes();
-        // document.querySelector(".title_field").value = ""
-        // document.querySelector(".text_field").value = ""
-      })
-      .catch(err => console.log(err));
-  }
+
 
   const new_todo_dump = () => {
     console.log(note_state)
@@ -127,11 +145,11 @@ const App = () => {
                 Todo Dump
             </Title>
               {/* <AddButton /> */}
-              <button onClick={() => new_todo_dump()} className="add_button">+</button>
+              <button onClick={() => get_all_notes("dump")} className="add_button">+</button>
             </div>
             <ScrollContainer>
               {todo_dump_state.map((note, index) => {
-                return <ListItem onChange={e => set_todo_state({ ...todo_state, title: e.target.value })} key={index}>{note.title}</ListItem>
+                return <ListItem id={note._id} get_todos={get_all_notes()} key={index + 1}>{note.title}</ListItem>
               })}
               {/* <ListItem>List Item 1</ListItem> */}
             </ScrollContainer>
@@ -142,10 +160,12 @@ const App = () => {
                 Master Todo List
               </Title>
               {/* <AddButton onclick={new_note} /> */}
-              <button onClick={() => new_todo_master()} className="add_button">+</button>
+              <button onClick={() => get_all_notes("master")} className="add_button">+</button>
             </div>
             <ScrollContainer>
-              <ListItem>List Item 1</ListItem>
+              {todo_master_state.map((note, index) => {
+                return <ListItem onChange={e => set_todo_state({ ...todo_state, title: e.target.value })} key={index}>{note.title}</ListItem>
+              })}
             </ScrollContainer>
           </Section>
         </Container>
