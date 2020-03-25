@@ -15,11 +15,12 @@ module.exports = function (app) {
       title: req.body.title,
       body: req.body.body,
       folder_id: req.body.folder_id,
+      list_id: req.body.list_id,
       priority: req.body.priority,
       scheduled: req.body.scheduled,
       scheduled_date_time: req.body.scheduled_date_time,
-      date_created: Date.now,
-      date_modified: Date.now
+      // date_created: Date.now,
+      // date_modified: Date.now
     })
     // Send the request back to the front end
     res.send(request)
@@ -30,10 +31,8 @@ module.exports = function (app) {
   // ==================================================================================================
   app.get('/api/notes', async (req, res) => {
 
-
     const request = await db.Notes.find({})
     // Send the request back to the front end
-    // console.log({ "api_routes.js": request })
     res.send(request)
   })
 
@@ -57,6 +56,7 @@ module.exports = function (app) {
         title: req.body.title,
         body: req.body.body,
         folder_id: req.body.folder_id,
+        list_id: req.body.list_id,
         priority: req.body.priority,
         scheduled: req.body.scheduled,
         scheduled_date_time: req.body.scheduled_date_time,

@@ -1,7 +1,6 @@
 import axios from 'axios';
 
 export default {
-  // Project Routes
   post_note: function (note_data) {
     console.log({ 'API.js': note_data })
     return axios.post('/api/note', note_data);
