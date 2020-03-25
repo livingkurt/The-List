@@ -37,58 +37,39 @@ const App = () => {
   console.log(todo_dump_state)
 
   useEffect(() => {
-    get_all_notes("dump");
+    const list_ids = ["dump", "master"]
+    // get_all_notes(...list_ids);
     get_all_notes("master");
+    get_all_notes("dump");
   }, []);
 
-  const get_all_notes = (list_id) => {
-    //   API.get_all_notes()
-    //     .then(res => {
-    //       console.log(res.data)
-    //       set_todo_dump_state(res.data)
-    //       return res.data;
-    //     })
-    //     .catch(err => console.log(err));
-    // };
-
-    // const get_dump_notes = () => {
+  const get_all_notes = async (list_id) => {
     if (list_id === "dump") {
-      API.get_notes_by_list_id(list_id)
-        .then(res => {
-          console.log(res.data)
-          set_todo_dump_state(res.data)
-          return res.data;
-        })
-        .catch(err => console.log(err));
+      try {
+        const res = await API.get_notes_by_list_id(list_id)
+        set_todo_dump_state(res.data)
+      }
+      catch (err) {
+        console.log(err);
+      }
     }
     if (list_id === "master") {
-      API.get_notes_by_list_id(list_id)
-        .then(res => {
-          console.log(res.data)
-          set_todo_master_state(res.data)
-          return res.data;
-        })
-        .catch(err => console.log(err));
+      try {
+        const res = await API.get_notes_by_list_id(list_id)
+        set_todo_master_state(res.data)
+      }
+      catch (err) {
+        console.log(err);
+      }
     }
-    // };
-
-    // const get_master_notes = () => {
-
   };
 
-  const new_note = () => {
-    // console.log(note_state)
-    API.post_note(note_state)
-      .then(res => {
-        set_note_state({
-          title: "",
-          body: "",
-        })
-        get_all_notes("dump");
-        document.querySelector(".title_field").value = ""
-        document.querySelector(".text_field").value = ""
-      })
-      .catch(err => console.log(err));
+  const new_note = async () => {
+    const res = await API.post_note(note_state)
+    set_note_state({ title: "", body: "" })
+    get_all_notes("dump");
+    document.querySelector(".title_field").value = ""
+    document.querySelector(".text_field").value = ""
   }
 
 

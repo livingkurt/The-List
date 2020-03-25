@@ -1,5 +1,5 @@
 {
-  "name": "master-todo-list",
+  "name": "thelist",
   "version": "1.0.0",
   "description": "",
   "main": "server.js",
@@ -13,14 +13,14 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/livingkurt/Master-Todo-List.git"
+    "url": "git+https://github.com/livingkurt/.git"
   },
   "author": "",
   "license": "ISC",
   "bugs": {
-    "url": "https://github.com/livingkurt/Master-Todo-List/issues"
+    "url": "https://github.com/livingkurt/TheList/issues"
   },
-  "homepage": "https://github.com/livingkurt/Master-Todo-List#readme",
+  "homepage": "https://github.com/livingkurt/TheList#readme",
   "dependencies": {
     "axios": "^0.19.2",
     "body-parser": "^1.19.0",

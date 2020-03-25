@@ -51,16 +51,17 @@ module.exports = function (app) {
   app.get('/api/note/:id', async (req, res) => {
     const request = await db.Notes.findOne({ _id: req.params.id })
     // Send the request back to the front end
-    res.send({ "Get Single Note": request })
+    res.send(request)
 
   })
 
   // ==================================================================================================
   // Update "need" to COMPLETE - Working
   // ==================================================================================================
-  app.patch('/api/note/:id', async (req, res) => {
+  app.put('/api/note/:id', async (req, res) => {
     // Create an empty workout object ready for exercises to get put into it
-    const request = await db.Notes.findOneAndUpdate({ _id: req.params.id },
+    console.log({ "api_routes.js": req.body })
+    const request = await db.Notes.updateOne({ _id: req.params.id },
       {
         title: req.body.title,
         body: req.body.body,
@@ -72,7 +73,7 @@ module.exports = function (app) {
         // date_modified: Date.now
       })
     // Send the request back to the front end
-    res.send({ "Update Note": request })
+    res.send(request)
   })
 
   // ==================================================================================================
@@ -82,6 +83,6 @@ module.exports = function (app) {
     // Create an empty workout object ready for exercises to get put into it
     const request = await db.Notes.remove({ _id: req.params.id })
     // Send the request back to the front end
-    res.send({ "Deleted Note": request })
+    res.send(request)
   })
 }
