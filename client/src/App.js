@@ -130,7 +130,7 @@ const App = () => {
             </div>
             <ScrollContainer>
               {todo_dump_state.map((note, index) => {
-                return <ListItem id={note._id} get_todos={get_all_notes()} key={index + 1}>{note.title}</ListItem>
+                return <ListItem id={note._id} key={index + 1}>{note.title}</ListItem>
               })}
               {/* <ListItem>List Item 1</ListItem> */}
             </ScrollContainer>
@@ -145,7 +145,7 @@ const App = () => {
             </div>
             <ScrollContainer>
               {todo_master_state.map((note, index) => {
-                return <ListItem onChange={e => set_todo_state({ ...todo_state, title: e.target.value })} key={index}>{note.title}</ListItem>
+                return <ListItem id={note._id} key={index}>{note.title}</ListItem>
               })}
             </ScrollContainer>
           </Section>
