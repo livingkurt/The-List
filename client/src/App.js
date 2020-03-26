@@ -34,118 +34,48 @@ const App = () => {
     scheduled: false,
     scheduled_date_time: "",
   })
-  // console.log(note_state)
   console.log(todo_dump_state)
 
   useEffect(() => {
     const list_ids = ["dump", "master"]
-    // get_all_notes(...list_ids);
     get_all_notes("master");
     get_all_notes("dump");
   }, []);
 
   const get_all_notes = async (list_id) => {
-    if (list_id === "dump") {
-      try {
-        const res = await API.get_notes_by_list_id(list_id)
+    try {
+      const res = await API.get_notes_by_list_id(list_id)
+      if (list_id === "dump") {
         set_todo_dump_state(res.data)
       }
-      catch (err) {
-        console.log(err);
-      }
-    }
-    else if (list_id === "master") {
-      try {
-        const res = await API.get_notes_by_list_id(list_id)
+      else {
         set_todo_master_state(res.data)
       }
-      catch (err) {
-        console.log(err);
-      }
+    }
+    catch (err) {
+      console.log(err);
     }
   };
 
   const create_empty_list_item = async (list_id) => {
-    const empty_list_item_dump = {
-      title: "",
-      body: "",
-      folder_id: "",
-      list_id: "dump",
-      priority: 5,
-      scheduled: false,
-      scheduled_date_time: "",
-    }
-    const empty_list_item_master = {
-      title: "",
-      body: "",
-      folder_id: "",
-      list_id: "master",
-      priority: 5,
-      scheduled: false,
-      scheduled_date_time: "",
-    }
+    const res = await API.get_notes_by_list_id(list_id)
+    const new_data = [...res.data, { ...todo_state, list_id: list_id }]
     if (list_id === "dump") {
-      const res = await API.get_notes_by_list_id(list_id)
-      const new_data = [...res.data, empty_list_item_dump]
-      console.log({ "dump_state": todo_dump_state })
       set_todo_dump_state(new_data)
-      new_note_dump(list_id);
-      // set_todo_dump_state({ ...todo_dump_state, empty_list_item })
-      // console.log(todo_dump_state)
     }
     else if (list_id === "master") {
-      const res = await API.get_notes_by_list_id(list_id)
-      const new_data = [...res.data, empty_list_item_master]
-      console.log({ "master_state": todo_master_state })
       set_todo_master_state(new_data)
-      // new_note(list_id);
-      new_note_master(list_id);
     }
+    new_note(list_id);
   };
 
-  // const new_note = async (list_id) => {
-  //   const res = await API.post_note(note_state)
 
-  //   if (list_id === "dump") {
-  //     get_all_notes("dump");
-  //   }
-  //   else if (list_id === "master") {
-  //     get_all_notes("master");
-  //   }
-  //   set_note_state({ title: "", body: "" })
-
-  //   document.querySelector(".title_field").value = ""
-  //   document.querySelector(".text_field").value = ""
-  // }
-
-  const new_note = async () => {
-    const res = await API.post_note(note_state)
+  const new_note = async (list_id, create_id) => {
+    const res = await API.post_note(create_id ? note_state : { ...todo_state, list_id: list_id })
     set_note_state({ title: "", body: "" })
-    get_all_notes("dump");
+    get_all_notes(list_id);
     document.querySelector(".title_field").value = ""
     document.querySelector(".text_field").value = ""
-  }
-
-  const new_note_dump = async () => {
-    const res = await API.post_note(note_state)
-    set_note_state({ title: "", body: "" })
-    get_all_notes("dump");
-    document.querySelector(".title_field").value = ""
-    document.querySelector(".text_field").value = ""
-  }
-
-  const new_note_master = async () => {
-    const empty_list_item_master = {
-      title: "",
-      body: "",
-      folder_id: "",
-      list_id: "master",
-      priority: 5,
-      scheduled: false,
-      scheduled_date_time: "",
-    }
-    const res = await API.post_note(empty_list_item_master)
-    get_all_notes("master");
   }
 
   const handle_text_field_change = (e) => {
@@ -164,7 +94,7 @@ const App = () => {
                 Create Note
               </Title>
               {/* <AddButton data={new_note} /> */}
-              <button onClick={() => new_note()} className="add_button">+</button>
+              <button onClick={() => new_note("dump", "create")} className="add_button">+</button>
             </div>
             <div style={{ padding: "10px" }}>
               <input
