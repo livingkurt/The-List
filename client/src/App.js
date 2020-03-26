@@ -11,6 +11,7 @@ import TextField from './components/TextField/TextField';
 import TitleField from './components/TitleField/TitleField';
 import AddButton from './components/AddButton/AddButton';
 import API from "./utils/API";
+import styled from 'styled-components';
 
 const App = () => {
   const [todo_master_state, set_todo_master_state] = useState([])
@@ -120,7 +121,7 @@ const App = () => {
             </div>
           </Section>
 
-          <Section>
+          <Section >
             <div style={{ display: "flex", justifyContent: "space-between" }}>
               <Title>
                 Todo Dump

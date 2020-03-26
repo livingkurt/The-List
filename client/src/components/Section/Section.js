@@ -6,7 +6,7 @@ import './section.css'
 
 const Section = ({ children }) => {
   return (
-    <div className="section">
+    <div className="section container-drag">
       {children}
     </div>
   );
