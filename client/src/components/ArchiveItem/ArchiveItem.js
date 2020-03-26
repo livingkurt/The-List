@@ -1,13 +1,13 @@
 // React
 import React, { useState, useEffect } from "react";
 // Styles
-import './list_item.css'
+import './archive_item.css'
 import Checkbox from '../Checkbox/Checkbox';
 import DeleteButton from '../DeleteButton/DeleteButton';
 import API from "../../utils/API";
 
 
-const ListItem = (props) => {
+const ArchiveItem = (props) => {
 
   const update_note = async (e) => {
     e.persist();
@@ -23,20 +23,18 @@ const ListItem = (props) => {
     }
   }
 
-
-
   return (
-    <div className="list_div zoom">
-      <Checkbox />
+    <div className="archive_item zoom">
+      {/* <Checkbox /> */}
       <input
         defaultValue={props.children}
-        className="list_input"
+        className="archive_input"
         placeholder="Title"
         id={props.id}
         onBlur={e => update_note(e)} />
-      <DeleteButton index={props.id} get_all_notes_by_list_id={props.get_all_notes_by_list_id} id={props.id} />
+      {/* <DeleteButton index={props.id} get_all_notes={props.get_all_notes} id={props.id} /> */}
     </div>
   );
 }
 
-export default ListItem;
+export default ArchiveItem;

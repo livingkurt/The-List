@@ -8,6 +8,7 @@ import ListItem from './components/ListItem/ListItem';
 import ScrollContainer from './components/ScrollContainer/ScrollContainer.js';
 import Title from './components/Title/Title';
 import NoteArchive from './components/NoteArchive/NoteArchive';
+import ArchiveItem from './components/ArchiveItem/ArchiveItem';
 import TextField from './components/TextField/TextField';
 import TitleField from './components/TitleField/TitleField';
 import AddButton from './components/AddButton/AddButton';
@@ -17,6 +18,7 @@ import styled from 'styled-components';
 const App = () => {
   const [todo_master_state, set_todo_master_state] = useState([])
   const [todo_dump_state, set_todo_dump_state] = useState([])
+  const [all_todo_state, set_all_todo_state] = useState([])
   const [todo_state, set_todo_state] = useState({
     title: "",
     body: "",
@@ -35,15 +37,15 @@ const App = () => {
     scheduled: false,
     scheduled_date_time: "",
   })
-  console.log(todo_dump_state)
+  console.log(all_todo_state)
 
   useEffect(() => {
-    const list_ids = ["dump", "master"]
-    get_all_notes("master");
-    get_all_notes("dump");
+    get_all_notes_by_list_id("master");
+    get_all_notes_by_list_id("dump");
+    get_all_notes();
   }, []);
 
-  const get_all_notes = async (list_id) => {
+  const get_all_notes_by_list_id = async (list_id) => {
     try {
       const res = await API.get_notes_by_list_id(list_id)
       if (list_id === "dump") {
@@ -52,6 +54,16 @@ const App = () => {
       else {
         set_todo_master_state(res.data)
       }
+    }
+    catch (err) {
+      console.log(err);
+    }
+  };
+
+  const get_all_notes = async (list_id) => {
+    try {
+      const res = await API.get_all_notes(list_id)
+      set_all_todo_state(res.data)
     }
     catch (err) {
       console.log(err);
@@ -74,7 +86,7 @@ const App = () => {
   const new_note = async (list_id, create_id) => {
     const res = await API.post_note(create_id ? note_state : { ...todo_state, list_id: list_id })
     set_note_state({ title: "", body: "" })
-    get_all_notes(list_id);
+    get_all_notes_by_list_id(list_id);
     document.querySelector(".title_field").value = ""
     document.querySelector(".text_field").value = ""
   }
@@ -110,7 +122,11 @@ const App = () => {
         </Header>
         <Container>
           <NoteArchive >
-
+            <ScrollContainer height={"83vh"}>
+              {all_todo_state.map((note, index) => {
+                return <ArchiveItem get_all_notes={get_all_notes} index={note._id} id={note._id} key={note._id}>{note.title}</ArchiveItem>
+              })}
+            </ScrollContainer>
           </NoteArchive>
           <Section>
             <div style={{ display: "flex", justifyContent: "space-between" }}>
@@ -147,7 +163,7 @@ const App = () => {
             </div>
             <ScrollContainer>
               {todo_dump_state.map((note, index) => {
-                return <ListItem get_all_notes={get_all_notes} index={note._id} id={note._id} key={note._id}>{note.title}</ListItem>
+                return <ListItem get_all_notes_by_list_id={get_all_notes_by_list_id} index={note._id} id={note._id} key={note._id}>{note.title}</ListItem>
               })}
               {/* <ListItem>List Item 1</ListItem> */}
             </ScrollContainer>
@@ -162,7 +178,7 @@ const App = () => {
             </div>
             <ScrollContainer>
               {todo_master_state.map((note, index) => {
-                return <ListItem get_all_notes={get_all_notes} index={note._id} id={note._id} key={note._id}>{note.title}</ListItem>
+                return <ListItem get_all_notes_by_list_id={get_all_notes_by_list_id} index={note._id} id={note._id} key={note._id}>{note.title}</ListItem>
               })}
             </ScrollContainer>
           </Section>

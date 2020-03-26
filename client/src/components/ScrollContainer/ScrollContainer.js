@@ -5,13 +5,13 @@ import React from "react";
 import './scroll_container.css'
 
 
-const ScrollContainer = ({ children }) => {
+const ScrollContainer = (props) => {
 
 
   return (
-    <div className="scroll_container">
+    <div className="scroll_container" style={{ height: props.height }}>
       {/* <div className="scroll_container" onMouseDown={handleMouseDown}></div> */}
-      {children}
+      {props.children}
     </div>
   );
 }

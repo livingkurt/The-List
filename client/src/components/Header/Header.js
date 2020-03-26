@@ -30,7 +30,7 @@ const Header = (props) => {
     <ul className="nav">
       <li className="nav_items">
         {props.children}
-        <button onClick={props.sidebar_show_hide} className="nav_button"><i class="fas fa-bars"></i></button>
+        <button onClick={props.sidebar_show_hide} className="nav_button"><i className="fas fa-bars"></i></button>
       </li>
       <li className="nav_items">
         {/* <button>Button</button> */}

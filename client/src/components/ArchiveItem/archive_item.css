@@ -1,0 +1,22 @@
+.archive_item {
+  font-size: 12px;
+  display: flex;
+  border: 1px silver solid;
+  padding: 5px;
+}
+
+.archive_input {
+  border-radius: 5px;
+  display: flex;
+  border: 0px;
+  font-size: 12px;
+  padding: 0px;
+  width: 100%;
+  margin-top: -4px;
+  overflow: scroll;
+  overflow-y: auto;
+}
+
+.archive_input:focus {
+  outline: 0;
+}

@@ -20,7 +20,7 @@
   overflow-y: auto;
 }
 
-.list_item:focus {
+.list_input:focus {
   outline: 0;
 }
 
