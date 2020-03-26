@@ -1,3 +1,6 @@
 .title {
   padding: 0px 10px;
+  display: flex;
 }
+
+.show_hide_sidebar_button {}

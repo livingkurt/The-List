@@ -4,12 +4,13 @@ import React from "react";
 import './note_archive.css'
 
 
-const Section = ({ children }) => {
+const NoteArchive = ({ children }) => {
+
   return (
-    <div className="note_archive">
+    <div className="sidebar">
       {children}
     </div>
   );
 }
 
-export default Section;
+export default NoteArchive;

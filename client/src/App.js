@@ -7,6 +7,7 @@ import Header from './components/Header/Header';
 import ListItem from './components/ListItem/ListItem';
 import ScrollContainer from './components/ScrollContainer/ScrollContainer.js';
 import Title from './components/Title/Title';
+import NoteArchive from './components/NoteArchive/NoteArchive';
 import TextField from './components/TextField/TextField';
 import TitleField from './components/TitleField/TitleField';
 import AddButton from './components/AddButton/AddButton';
@@ -78,16 +79,39 @@ const App = () => {
     document.querySelector(".text_field").value = ""
   }
 
-  const handle_text_field_change = (e) => {
-    console.log(note_state)
-    set_note_state({ ...note_state, body: e.target.value })
+
+  const [sidebar_state, set_sidebar_state] = useState(false)
+
+  // const openMenu = () => {
+  //   document.querySelector(".sidebar").classList.add("open");
+  // }
+  // const closeMenu = () => {
+  //   document.querySelector(".sidebar").classList.remove("open")
+  // }
+
+  const sidebar_show_hide = () => {
+    if (sidebar_state) {
+      document.querySelector(".sidebar").classList.remove("open");
+      set_sidebar_state(false)
+    }
+    else {
+      document.querySelector(".sidebar").classList.add("open");
+      set_sidebar_state(true)
+    }
   }
 
   return (
     <div >
       <Background>
-        <Header></Header>
+        <Header sidebar_show_hide={sidebar_show_hide}>
+          <Title margin="0px">
+            TheList
+        </Title>
+        </Header>
         <Container>
+          <NoteArchive >
+
+          </NoteArchive>
           <Section>
             <div style={{ display: "flex", justifyContent: "space-between" }}>
               <Title>
