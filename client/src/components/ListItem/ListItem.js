@@ -1,16 +1,20 @@
 // React
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 // Styles
 import './list_item.css'
 import Checkbox from '../Checkbox/Checkbox';
+import DeleteButton from '../DeleteButton/DeleteButton';
 import API from "../../utils/API";
 
 
 const ListItem = (props) => {
 
-  const [todo_state, set_todo_state] = useState({})
+  const [todo_state, set_todo_state] = useState("")
   // console.log({ "todo_state global": todo_state })
 
+  // useEffect(() => {
+  //   set_todo_state(props.id)
+  // }, []);
 
   const update_note = async (e) => {
     e.persist();
@@ -26,6 +30,8 @@ const ListItem = (props) => {
     }
   }
 
+
+
   return (
     <div className="list_div zoom">
       <Checkbox />
@@ -35,9 +41,7 @@ const ListItem = (props) => {
         placeholder="Title"
         id={props.id}
         onBlur={e => update_note(e)} />
-
-
-      {/* </div> */}
+      <DeleteButton index={props.id} get_all_notes={props.get_all_notes} id={props.id} />
     </div>
   );
 }

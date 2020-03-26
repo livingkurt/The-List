@@ -48,7 +48,6 @@ module.exports = function (app) {
   // Get single "need" from local database based on the user - Working
   // ==================================================================================================
   app.get('/api/note/:id', async (req, res) => {
-    console.log("req.params.id")
     const request = await db.Notes.findOne({ _id: req.params.id })
     // Send the request back to the front end
     res.send(request)
@@ -60,7 +59,7 @@ module.exports = function (app) {
   // ==================================================================================================
   app.put('/api/note/:id', async (req, res) => {
     // Create an empty workout object ready for exercises to get put into it
-    console.log({ "api_routes.js": req.body })
+
     const request = await db.Notes.updateOne({ _id: req.params.id },
       {
         title: req.body.title,
@@ -82,6 +81,7 @@ module.exports = function (app) {
   // ==================================================================================================
   app.delete('/api/note/:id', async (req, res) => {
     // Create an empty workout object ready for exercises to get put into it
+    // console.log({ "api_routes.js": req.params.id})
     const request = await db.Notes.remove({ _id: req.params.id })
     // Send the request back to the front end
     res.send(request)
