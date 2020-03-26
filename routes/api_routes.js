@@ -19,8 +19,7 @@ module.exports = function (app) {
       priority: req.body.priority,
       scheduled: req.body.scheduled,
       scheduled_date_time: req.body.scheduled_date_time,
-      // date_created: Date.now,
-      // date_modified: Date.now
+      date_modified: new Date().setDate(new Date().getDate())
     })
     // Send the request back to the front end
     res.send(request)
@@ -49,6 +48,7 @@ module.exports = function (app) {
   // Get single "need" from local database based on the user - Working
   // ==================================================================================================
   app.get('/api/note/:id', async (req, res) => {
+    console.log("req.params.id")
     const request = await db.Notes.findOne({ _id: req.params.id })
     // Send the request back to the front end
     res.send(request)
@@ -70,7 +70,8 @@ module.exports = function (app) {
         priority: req.body.priority,
         scheduled: req.body.scheduled,
         scheduled_date_time: req.body.scheduled_date_time,
-        // date_modified: Date.now
+        date_created: new Date().setDate(new Date().getDate()),
+        date_modified: new Date().setDate(new Date().getDate())
       })
     // Send the request back to the front end
     res.send(request)

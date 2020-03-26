@@ -9,13 +9,8 @@ import API from "../../utils/API";
 const ListItem = (props) => {
 
   const [todo_state, set_todo_state] = useState({})
+  // console.log({ "todo_state global": todo_state })
 
-  const [drag_state, set_drag_state] = useState({
-    isDragging: false,
-    origin: POSITION,
-    translation: POSITION
-  })
-  console.log({ "todo_state global": todo_state })
 
   const update_note = async (e) => {
     e.persist();

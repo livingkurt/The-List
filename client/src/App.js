@@ -54,7 +54,7 @@ const App = () => {
         console.log(err);
       }
     }
-    if (list_id === "master") {
+    else if (list_id === "master") {
       try {
         const res = await API.get_notes_by_list_id(list_id)
         set_todo_master_state(res.data)
@@ -65,6 +65,59 @@ const App = () => {
     }
   };
 
+  const create_empty_list_item = async (list_id) => {
+    const empty_list_item_dump = {
+      title: "",
+      body: "",
+      folder_id: "",
+      list_id: "dump",
+      priority: 5,
+      scheduled: false,
+      scheduled_date_time: "",
+    }
+    const empty_list_item_master = {
+      title: "",
+      body: "",
+      folder_id: "",
+      list_id: "master",
+      priority: 5,
+      scheduled: false,
+      scheduled_date_time: "",
+    }
+    if (list_id === "dump") {
+      const res = await API.get_notes_by_list_id(list_id)
+      const new_data = [...res.data, empty_list_item_dump]
+      console.log({ "dump_state": todo_dump_state })
+      set_todo_dump_state(new_data)
+      new_note_dump(list_id);
+      // set_todo_dump_state({ ...todo_dump_state, empty_list_item })
+      // console.log(todo_dump_state)
+    }
+    else if (list_id === "master") {
+      const res = await API.get_notes_by_list_id(list_id)
+      const new_data = [...res.data, empty_list_item_master]
+      console.log({ "master_state": todo_master_state })
+      set_todo_master_state(new_data)
+      // new_note(list_id);
+      new_note_master(list_id);
+    }
+  };
+
+  // const new_note = async (list_id) => {
+  //   const res = await API.post_note(note_state)
+
+  //   if (list_id === "dump") {
+  //     get_all_notes("dump");
+  //   }
+  //   else if (list_id === "master") {
+  //     get_all_notes("master");
+  //   }
+  //   set_note_state({ title: "", body: "" })
+
+  //   document.querySelector(".title_field").value = ""
+  //   document.querySelector(".text_field").value = ""
+  // }
+
   const new_note = async () => {
     const res = await API.post_note(note_state)
     set_note_state({ title: "", body: "" })
@@ -73,17 +126,26 @@ const App = () => {
     document.querySelector(".text_field").value = ""
   }
 
-
-
-  const new_todo_dump = () => {
-    console.log(note_state)
-    // set_todo_dump_state({todo_dump_state : ...})
-
+  const new_note_dump = async () => {
+    const res = await API.post_note(note_state)
+    set_note_state({ title: "", body: "" })
+    get_all_notes("dump");
+    document.querySelector(".title_field").value = ""
+    document.querySelector(".text_field").value = ""
   }
-  const new_todo_master = () => {
-    console.log(note_state)
-    set_todo_dump_state()
 
+  const new_note_master = async () => {
+    const empty_list_item_master = {
+      title: "",
+      body: "",
+      folder_id: "",
+      list_id: "master",
+      priority: 5,
+      scheduled: false,
+      scheduled_date_time: "",
+    }
+    const res = await API.post_note(empty_list_item_master)
+    get_all_notes("master");
   }
 
   const handle_text_field_change = (e) => {
@@ -127,7 +189,7 @@ const App = () => {
                 Todo Dump
             </Title>
               {/* <AddButton /> */}
-              <button onClick={() => get_all_notes("dump")} className="add_button">+</button>
+              <button onClick={() => create_empty_list_item("dump")} className="add_button">+</button>
             </div>
             <ScrollContainer>
               {todo_dump_state.map((note, index) => {
@@ -142,7 +204,7 @@ const App = () => {
                 Master Todo List
               </Title>
               {/* <AddButton onclick={new_note} /> */}
-              <button onClick={() => get_all_notes("master")} className="add_button">+</button>
+              <button onClick={() => create_empty_list_item("master")} className="add_button">+</button>
             </div>
             <ScrollContainer>
               {todo_master_state.map((note, index) => {

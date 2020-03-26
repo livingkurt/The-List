@@ -5,8 +5,10 @@ import './section.css'
 
 
 const Section = ({ children }) => {
+
+
   return (
-    <div className="section container-drag">
+    <div className="section">
       {children}
     </div>
   );
