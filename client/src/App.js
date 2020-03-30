@@ -9,6 +9,7 @@ import ScrollContainer from './components/ScrollContainer/ScrollContainer.js';
 import Title from './components/Title/Title';
 import NoteArchive from './components/NoteArchive/NoteArchive';
 import ArchiveItem from './components/ArchiveItem/ArchiveItem';
+import ListItemModal from './components/ListItemModal/ListItemModal';
 import TextField from './components/TextField/TextField';
 import TitleField from './components/TitleField/TitleField';
 import AddButton from './components/AddButton/AddButton';
@@ -151,14 +152,13 @@ const App = () => {
               <Title>
                 Todo Dump
             </Title>
-              {/* <AddButton /> */}
+
               <button onClick={() => create_empty_list_item("dump")} className="add_button">+</button>
             </div>
             <ScrollContainer>
               {todo_dump_state.map((note, index) => {
                 return <ListItem get_all_notes_by_list_id={get_all_notes_by_list_id} index={note._id} id={note._id} key={note._id}>{note.title}</ListItem>
               })}
-              {/* <ListItem>List Item 1</ListItem> */}
             </ScrollContainer>
           </Section>
           <Section>

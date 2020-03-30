@@ -8,6 +8,7 @@
   /* margin: 20px; */
   display: flex;
   justify-content: space-evenly;
+  position: relative;
 }
 
 .fade_in {
