@@ -1,7 +1,7 @@
 // React
 import React, { useState } from "react";
 // Styles
-// import './checkbox.css'
+import './checkbox.css'
 import API from "../../utils/API";
 
 
@@ -36,10 +36,10 @@ function Checkbox(props) {
   }
 
   return (
-    <div onClick={() => save_check_status()}>
-      <label>
+    <div >
+      <label >
         <input type='checkbox' />
-        <span></span>
+        <span onClick={() => save_check_status()}></span>
       </label>
     </div>
   );
