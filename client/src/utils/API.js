@@ -2,7 +2,6 @@ import axios from 'axios';
 
 export default {
   post_note: function (note_data) {
-
     return axios.post('/api/note', note_data);
   },
   get_all_notes: function () {

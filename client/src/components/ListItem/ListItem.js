@@ -23,11 +23,9 @@ const ListItem = (props) => {
     }
   }
 
-
-
   return (
     <div className="list_div zoom">
-      <Checkbox />
+      <Checkbox id={props.id} />
       <input
         defaultValue={props.children}
         className="list_input"

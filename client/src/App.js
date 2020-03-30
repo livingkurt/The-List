@@ -94,13 +94,6 @@ const App = () => {
 
   const [sidebar_state, set_sidebar_state] = useState(false)
 
-  // const openMenu = () => {
-  //   document.querySelector(".sidebar").classList.add("open");
-  // }
-  // const closeMenu = () => {
-  //   document.querySelector(".sidebar").classList.remove("open")
-  // }
-
   const sidebar_show_hide = () => {
     if (sidebar_state) {
       document.querySelector(".sidebar").classList.remove("open");

@@ -18,6 +18,10 @@ const note_schema = new Schema({
     default: false
   },
   scheduled_date_time: Date,
+  completed: {
+    type: Boolean,
+    default: false
+  },
   date_created: {
     type: Date,
     default: Date.now

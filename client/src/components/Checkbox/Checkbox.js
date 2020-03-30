@@ -1,37 +1,42 @@
 // React
 import React, { useState } from "react";
 // Styles
-import './checkbox.css'
+// import './checkbox.css'
+import API from "../../utils/API";
 
 
-function Checkbox() {
-  const [checkboxState, setCheckboxState] = useState({
-    checkbox: false,
-    backgroundColor: "white"
-  })
+function Checkbox(props) {
+  const [checkboxState, setCheckboxState] = useState(false)
 
-  const handle_checkbox = () => {
-
-    if (checkboxState.checkbox === false) {
-      setCheckboxState({ ...checkboxState, checkbox: true })
-      setCheckboxState({ ...checkboxState, backgroundColor: "red" })
+  const save_check_status = () => {
+    console.log("Hello")
+    console.log(props.id)
+    if (checkboxState === false) {
+      setCheckboxState(true)
       console.log({ "false": checkboxState })
+      update_note(props.id, true)
     }
-    if (checkboxState.checkbox === true) {
-      setCheckboxState({ ...checkboxState, checkbox: false })
-      setCheckboxState({ ...checkboxState, backgroundColor: "white" })
+    if (checkboxState === true) {
+      setCheckboxState(false)
       console.log({ "true": checkboxState })
+      update_note(props.id, false)
     }
+  }
 
+  const update_note = async (id, completed) => {
+    const todo_id = id
+    try {
+      const res = await API.get_note(todo_id)
+      const update_todo = { ...res.data, completed: completed }
+      API.update_note(todo_id, update_todo)
+    }
+    catch (err) {
+      console.log(err);
+    }
   }
 
   return (
-    <div>
-      {/* <input type="checkbox" className="checkbox" /> */}
-      {/* <button
-        style={{ backgroundColor: checkboxState.backgroundColor }}
-        onClick={() => handle_checkbox()}
-        className="checkbox"></button> */}
+    <div onClick={() => save_check_status()}>
       <label>
         <input type='checkbox' />
         <span></span>
@@ -41,28 +46,3 @@ function Checkbox() {
 }
 
 export default Checkbox;
-
-
-// return (
-//   <div>
-//     {/* <input type="checkbox" className="checkbox" /> */}
-//     {/* <button
-//       style={{ backgroundColor: checkboxState.backgroundColor }}
-//       onClick={() => handle_checkbox()}
-//       className="checkbox"></button> */}
-//     <div class="card">
-//       <div class="checkbox-container">
-//         <label class="checkbox-label" />
-//         <input type="checkbox" />
-//         <span class="checkbox-custom rectangular"></span>
-//         <div class="input-title">Rectangular</div>
-//       </div>
-//       <div class="checkbox-container circular-container">
-//         <label class="checkbox-label" />
-//         <input type="checkbox" />
-//         <span class="checkbox-custom circular"></span>
-//         <div class="input-title">Circular</div>
-//       </div>
-//     </div>
-//   </div>
-// );

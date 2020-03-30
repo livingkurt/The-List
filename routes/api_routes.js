@@ -19,6 +19,7 @@ module.exports = function (app) {
       priority: req.body.priority,
       scheduled: req.body.scheduled,
       scheduled_date_time: req.body.scheduled_date_time,
+      completed: req.body.completed,
       date_modified: new Date().setDate(new Date().getDate())
     })
     // Send the request back to the front end
@@ -69,6 +70,7 @@ module.exports = function (app) {
         priority: req.body.priority,
         scheduled: req.body.scheduled,
         scheduled_date_time: req.body.scheduled_date_time,
+        completed: req.body.completed,
         date_created: new Date().setDate(new Date().getDate()),
         date_modified: new Date().setDate(new Date().getDate())
       })
