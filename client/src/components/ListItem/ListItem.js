@@ -35,13 +35,6 @@ const ListItem = (props) => {
       set_modal_state("none")
     }
 
-
-    //   try {
-    //     const res = await API.get_note(todo_id)
-    //   }
-    //   catch (err) {
-    //     console.log(err);
-    //   }
   }
 
   return (

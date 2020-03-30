@@ -28,6 +28,7 @@ const App = () => {
     priority: 5,
     scheduled: false,
     scheduled_date_time: "",
+    completed: false,
   })
   const [note_state, set_note_state] = useState({
     title: "",
@@ -37,6 +38,7 @@ const App = () => {
     priority: 5,
     scheduled: false,
     scheduled_date_time: "",
+    completed: false,
   })
   console.log(all_todo_state)
 

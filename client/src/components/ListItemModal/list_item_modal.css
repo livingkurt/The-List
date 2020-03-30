@@ -9,3 +9,25 @@
   padding: 20px;
   box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
 }
+
+.modal_text_field {
+  height: 20vh;
+  background-color: white;
+  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+  border-radius: 5px;
+  overflow: scroll;
+  overflow-x: auto;
+  border: 0px;
+  padding: 10px;
+  margin-top: 10px;
+  width: 95%;
+  font-size: 16px;
+}
+
+.modal_text_field:focus {
+  outline: 0;
+}
+
+textarea {
+  resize: none;
+}
