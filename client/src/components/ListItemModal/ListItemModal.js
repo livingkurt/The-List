@@ -22,6 +22,8 @@ const ListItemModal = (props) => {
     completed: false,
   })
 
+  const [dropdown_state, set_dropdown_state] = useState("none")
+
   useEffect(() => {
     get_note()
   }, [])
@@ -50,6 +52,31 @@ const ListItemModal = (props) => {
     }
   }
 
+  /* When the user clicks on the button,
+toggle between hiding and showing the dropdown content */
+  const drop_down = () => {
+    if (dropdown_state === "none") {
+      set_dropdown_state("flex")
+    }
+    else if (dropdown_state === "flex") {
+      set_dropdown_state("none")
+    }
+
+  }
+
+  window.onclick = function (event) {
+    if (!event.target.matches('.dropbtn')) {
+      var dropdowns = document.getElementsByClassName("dropdown-content");
+      var i;
+      for (i = 0; i < dropdowns.length; i++) {
+        var openDropdown = dropdowns[i];
+        if (openDropdown.classList.contains('show')) {
+          openDropdown.classList.remove('show');
+        }
+      }
+    }
+  }
+
 
 
 
@@ -72,6 +99,14 @@ const ListItemModal = (props) => {
         onBlur={(e) => e.target.placeholder = "Description"}
         onFocus={(e) => e.target.placeholder = ""}
       />
+      <div className="dropdown">
+        <button onClick={() => drop_down()} className="dropbtn">Priority</button>
+        <div style={{ display: dropdown_state }} id="myDropdown" className="dropdown-content">
+          <li>High Priority</li>
+          <li>Medium Priority</li>
+          <li>Low Priority</li>
+        </div>
+      </div>
       {/* <input
         defaultValue={note_state.body}
         onChange={e => set_note_state({ ...note_state, body: e.target.value })}
