@@ -16,7 +16,7 @@ const ListItemModal = (props) => {
     body: "",
     folder_id: "",
     list_id: "dump",
-    priority: 5,
+    priority: "Low",
     scheduled: false,
     scheduled_date_time: "",
     completed: false,
@@ -32,9 +32,14 @@ const ListItemModal = (props) => {
     e.persist();
     const todo_id = e.target.id
     const todo_data = e.target.value
+    const field_name = e.target.name
+    console.log(field_name)
     try {
       const res = await API.get_note(todo_id)
-      const update_todo = { ...res.data, title: todo_data }
+      const update_todo = {
+        ...res.data,
+        [field_name]: todo_data
+      }
       API.update_note(todo_id, update_todo)
     }
     catch (err) {
@@ -52,8 +57,6 @@ const ListItemModal = (props) => {
     }
   }
 
-  /* When the user clicks on the button,
-toggle between hiding and showing the dropdown content */
   const drop_down = () => {
     if (dropdown_state === "none") {
       set_dropdown_state("flex")
@@ -85,7 +88,8 @@ toggle between hiding and showing the dropdown content */
       <div className="title_close_div">
         <input
           defaultValue={note_state.title}
-          className="list_input"
+          className="title_input modal_inputs"
+          name="title"
           placeholder="Title"
           id={props.id}
           onBlur={e => update_note(e)} />
@@ -96,24 +100,34 @@ toggle between hiding and showing the dropdown content */
         className="modal_text_field"
         onChange={e => set_note_state({ ...note_state, body: e.target.value })}
         placeholder="Description"
-        onBlur={(e) => e.target.placeholder = "Description"}
+        name="body"
+        id={props.id}
+        onBlur={(e) => {
+          e.target.placeholder = "Description"
+          update_note(e)
+        }
+        }
         onFocus={(e) => e.target.placeholder = ""}
       />
-      <div className="dropdown">
+      {/* <div className="dropdown">
         <button onClick={() => drop_down()} className="dropbtn">Priority</button>
         <div style={{ display: dropdown_state }} id="myDropdown" className="dropdown-content">
           <li>High Priority</li>
           <li>Medium Priority</li>
           <li>Low Priority</li>
         </div>
+      </div> */}
+      <div>
+        <label>Priority: </label>
+        <input
+          defaultValue={note_state.priority}
+          onChange={e => set_note_state({ ...note_state, priority: e.target.value })}
+          className="priority_input modal_inputs"
+          placeholder="High, Medium, Low"
+          name="priority"
+          id={props.id}
+          onBlur={e => update_note(e)} />
       </div>
-      {/* <input
-        defaultValue={note_state.body}
-        onChange={e => set_note_state({ ...note_state, body: e.target.value })}
-        className="list_input"
-        placeholder="Description"
-        id={props.id}
-        onBlur={e => update_note(e)} /> */}
       <DeleteButton index={props.id} get_all_notes_by_list_id={props.get_all_notes_by_list_id} id={props.id}>
         Delete
       </DeleteButton>

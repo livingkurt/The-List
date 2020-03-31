@@ -26,6 +26,28 @@
   margin-bottom: 10px;
 }
 
+.modal_inputs {
+  border-radius: 5px;
+  display: flex;
+  border: 0px;
+  font-size: 16px;
+  padding-left: 5px;
+  width: 100%;
+  margin-top: -4px;
+  overflow: scroll;
+  overflow-y: auto;
+  /* box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.2), 0 2px 4px 0 rgba(0, 0, 0, 0.19); */
+  transition: box-shadow 1s ease;
+}
+
+.modal_inputs:hover {
+  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+}
+
+.priority_input {
+  width: 40%;
+}
+
 .modal_text_field:focus {
   outline: 0;
 }
