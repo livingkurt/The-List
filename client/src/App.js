@@ -44,7 +44,6 @@ const App = () => {
   console.log(all_todo_state)
 
   const date = new Date()
-  console.log(date.getDate())
   let month = date.getMonth() + 1
   let day = date.getDate()
   let year = date.getFullYear();
@@ -53,15 +52,6 @@ const App = () => {
     get_all_notes_by_list_id("dump");
     // get_all_notes();
   }, []);
-
-  const get_todays_date = () => {
-    const date = new Date()
-    let month = date.getMonth()
-    let day = date.getDay()
-    let year = date.getFullYear();
-
-    return `${month}/${day}/${year}`
-  }
 
   const get_all_notes_by_list_id = async (list_id) => {
     try {
@@ -100,7 +90,6 @@ const App = () => {
     new_note(list_id);
   };
 
-
   const new_note = async (list_id, create_id) => {
     const res = await API.post_note(create_id ? note_state : { ...todo_state, list_id: list_id })
     set_note_state({ title: "", body: "" })
@@ -108,6 +97,41 @@ const App = () => {
     document.querySelector(".title_field").value = ""
     document.querySelector(".text_field").value = ""
   }
+
+  // const new_note = async (list_id, create_id) => {
+  //   console.log({ "new_note": note_state })
+  //   const res = await API.post_note(create_id ? note_state : ...todo_state, list_id: list_id)
+  //   set_note_state({
+  //     title: "",
+  //     body: "",
+  //     folder_id: "",
+  //     list_id: "",
+  //     priority: "Low",
+  //     scheduled: false,
+  //     scheduled_date_time: "",
+  //     completed: false,
+  //   })
+  //   get_all_notes_by_list_id(list_id);
+  //   document.querySelector(".title_field").value = ""
+  //   document.querySelector(".text_field").value = ""
+  // }
+
+  // const new_note = async () => {
+  //   const res = await API.post_note({
+  //     title: todo_state.title,
+  //     body: todo_state.body,
+  //     folder_id: todo_state.folder_id,
+  //     list_id: todo_state.list_id,
+  //     priority: todo_state.priority,
+  //     scheduled: todo_state.scheduled,
+  //     scheduled_date_time: todo_state.scheduled_date_time,
+  //     completed: todo_state.completed
+  //   })
+  //   set_note_state({ title: "", body: "" })
+  //   get_all_notes_by_list_id(todo_state.list_id);
+  //   document.querySelector(".title_field").value = ""
+  //   document.querySelector(".text_field").value = ""
+  // }
 
 
   const [sidebar_state, set_sidebar_state] = useState(false)
@@ -120,6 +144,25 @@ const App = () => {
     else {
       document.querySelector(".sidebar").classList.add("open");
       set_sidebar_state(true)
+    }
+  }
+
+  const update_note = async (e) => {
+    e.persist();
+    const todo_id = e.target.id
+    const todo_data = e.target.value
+    const field_name = e.target.name
+    console.log(field_name)
+    try {
+      const res = await API.get_note(todo_id)
+      const update_todo = {
+        ...res.data,
+        [field_name]: todo_data
+      }
+      API.update_note(todo_id, update_todo)
+    }
+    catch (err) {
+      console.log(err);
     }
   }
 
@@ -165,6 +208,7 @@ const App = () => {
               <div>
                 <label className="modal_labels">Priority: </label>
                 <input
+                  defaultValue={note_state.priority}
                   onChange={e => set_note_state({ ...note_state, priority: e.target.value })}
                   className="priority_input modal_inputs"
                   placeholder="High, Medium, Low"
@@ -173,6 +217,7 @@ const App = () => {
               <div>
                 <label className="modal_labels">List Name: </label>
                 <input
+                  defaultValue={note_state.list_id}
                   onChange={e => set_note_state({ ...note_state, list_id: e.target.value })}
                   className="list_id_input modal_input modal_inputs"
                   placeholder="List Name"
@@ -180,7 +225,7 @@ const App = () => {
               </div>
               <label className="modal_labels">Date Created: {month}/{day}/{year}</label>
               <div className="modal_scheduled_field ">
-                <lable className="modal_labels">Schedule: </lable>
+                <label className="modal_labels">Schedule: </label>
                 <Checkbox />
               </div>
             </div>
@@ -230,3 +275,5 @@ const App = () => {
 }
 
 export default App;
+
+

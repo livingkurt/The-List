@@ -96,7 +96,6 @@ const ListItemModal = (props) => {
     const month = unformatted_date.slice(5, 7)
     const day = unformatted_date.slice(8, 10)
     const formatted_date = `${month}/${day}/${year}`
-    console.log(formatted_date)
     return formatted_date;
   }
 
@@ -162,7 +161,7 @@ const ListItemModal = (props) => {
       <label className="modal_labels">Date Modified: {date_state.date_modified}</label>
       <label className="modal_labels">Date Created: {date_state.date_created}</label>
       <div className="modal_scheduled_field ">
-        <lable className="modal_labels">Schedule: </lable>
+        <label className="modal_labels">Schedule: </label>
         <Checkbox id={props.id} />
       </div>
       <DeleteButton index={props.id} get_all_notes_by_list_id={props.get_all_notes_by_list_id} id={props.id}>

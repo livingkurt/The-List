@@ -33,14 +33,14 @@ module.exports = function (app) {
 
   app.get('/api/notes', async (req, res) => {
 
-    const request = await db.Notes.find({})
+    const request = await db.Notes.find({}).sort({ x: 1 })
     // Send the request back to the front end
     res.send(request)
   })
 
   app.get('/api/notes/:list_id', async (req, res) => {
 
-    const request = await db.Notes.find({ list_id: req.params.list_id })
+    const request = await db.Notes.find({ list_id: req.params.list_id }).sort({ _id: -1 })
     // Send the request back to the front end
     res.send(request)
   })
