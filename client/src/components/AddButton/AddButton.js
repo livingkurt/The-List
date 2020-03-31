@@ -8,7 +8,7 @@ const AddButton = (props) => {
 
   return (
     <div>
-      <button onClick={() => props.data} className="add_button">+</button>
+      <button onClick={() => props.data} className="add_button zoom">+</button>
     </div>
   );
 }
