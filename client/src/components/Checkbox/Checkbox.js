@@ -1,5 +1,5 @@
 // React
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 // Styles
 import './checkbox.css'
 import API from "../../utils/API";
@@ -8,17 +8,21 @@ import API from "../../utils/API";
 function Checkbox(props) {
   const [checkboxState, setCheckboxState] = useState(false)
 
+  useEffect(() => {
+    get_checkbox_state()
+  }, [])
+
   const save_check_status = () => {
     console.log("Hello")
     console.log(props.id)
     if (checkboxState === false) {
       setCheckboxState(true)
-      console.log({ "false": checkboxState })
+      // console.log({ "false": checkboxState })
       update_note(props.id, true)
     }
     if (checkboxState === true) {
       setCheckboxState(false)
-      console.log({ "true": checkboxState })
+      // console.log({ "true": checkboxState })
       update_note(props.id, false)
     }
   }
@@ -35,10 +39,32 @@ function Checkbox(props) {
     }
   }
 
+  const get_checkbox_state = async () => {
+    const todo_id = props.id
+    console.log(todo_id)
+    try {
+      const res = await API.get_note(todo_id)
+      console.log(res.data.completed)
+      setCheckboxState(res.data.completed)
+      // console.log(res.data.completed)
+      document.querySelector("#checked_or_not").checked = res.data.completed;
+      // const update_todo = { ...res.data, completed: completed }
+    }
+    catch (err) {
+      console.log(err);
+    }
+  }
+  // if (props.list_item_state === "true") {
+  //   document.getElementById("checkbox_state-toggle").checked = false;
+  // }
+  // else {
+  //   document.getElementById("checkbox_state-toggle").checked = true;
+  // }
+
   return (
     <div >
       <label >
-        <input type='checkbox' />
+        <input id="checked_or_not" type='checkbox' checked={checkboxState} />
         <span onClick={() => save_check_status()}></span>
       </label>
     </div>

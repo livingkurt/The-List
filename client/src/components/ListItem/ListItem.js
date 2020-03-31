@@ -10,6 +10,7 @@ import API from "../../utils/API";
 
 const ListItem = (props) => {
   const [modal_state, set_modal_state] = useState("none")
+  const [list_item_state, set_list_item_state] = useState({})
 
   const update_note = async (e) => {
     e.persist();
@@ -17,6 +18,7 @@ const ListItem = (props) => {
     const todo_data = e.target.value
     try {
       const res = await API.get_note(todo_id)
+      set_list_item_state(res.data)
       const update_todo = { ...res.data, title: todo_data }
       API.update_note(todo_id, update_todo)
     }
@@ -34,12 +36,11 @@ const ListItem = (props) => {
     else {
       set_modal_state("none")
     }
-
   }
 
   return (
     <div className="list_div zoom">
-      <Checkbox id={props.id} />
+      <Checkbox list_item_state={list_item_state} id={props.id} />
       <input
         defaultValue={props.children}
         className="list_input"
@@ -47,8 +48,10 @@ const ListItem = (props) => {
         id={props.id}
         onBlur={e => update_note(e)} />
       {/* <ListItemButton index={props.id} get_all_notes_by_list_id={props.get_all_notes_by_list_id} id={props.id} /> */}
-      <button onClick={() => show_modal()} className="show_modal_button zoom"></button>
-      <ListItemModal id={props.id} show_modal={show_modal} show_modal_state={modal_state} get_all_notes_by_list_id={props.get_all_notes_by_list_id} />
+      <button onClick={() => show_modal()} className="show_modal_button zoom"><i className="fas fa-sort-up"></i></button>
+      <ListItemModal id={props.id} show_modal={show_modal} show_modal_state={modal_state} get_all_notes_by_list_id={props.get_all_notes_by_list_id}>
+
+      </ListItemModal>
     </div>
   );
 }
