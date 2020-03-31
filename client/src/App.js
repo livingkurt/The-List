@@ -90,12 +90,48 @@ const App = () => {
     new_note(list_id);
   };
 
-  const new_note = async (list_id, create_id) => {
-    const res = await API.post_note(create_id ? note_state : { ...todo_state, list_id: list_id })
+  const new_note = async (list_id) => {
+    const res = await API.post_note({ ...note_state, list_id: list_id })
+    // const new_data = [...todo_dump_state, res.data]
+    if (list_id === "dump") {
+      set_todo_dump_state([res.data, ...todo_dump_state])
+    }
+    else if (list_id === "master") {
+      set_todo_master_state([res.data, ...todo_master_state])
+    }
     set_note_state({ title: "", body: "" })
     get_all_notes_by_list_id(list_id);
     document.querySelector(".title_field").value = ""
     document.querySelector(".text_field").value = ""
+  }
+
+  const create_new_note = async () => {
+    const res = await API.post_note(note_state)
+    console.log(todo_dump_state)
+    console.log(todo_master_state)
+    // const new_data = [...todo_dump_state, res.data]
+    get_all_notes_by_list_id("master");
+    get_all_notes_by_list_id("dump");
+    // if (list_id === "dump") {
+    //   set_todo_dump_state([res.data, ...todo_dump_state])
+    // }
+    // else if (list_id === "master") {
+    //   set_todo_master_state([res.data, ...todo_master_state])
+    // }
+    set_note_state({
+      title: "",
+      body: "",
+      folder_id: "",
+      list_id: "dump",
+      priority: "Low",
+      scheduled: false,
+      scheduled_date_time: "",
+      completed: false,
+    })
+    document.querySelector(".title_field").value = ""
+    document.querySelector(".text_field").value = ""
+    document.querySelector(".priority_input").value = "Low"
+    document.querySelector(".list_id_input").value = "dump"
   }
 
   // const new_note = async (list_id, create_id) => {
@@ -178,7 +214,7 @@ const App = () => {
           <NoteArchive >
             <ScrollContainer height={"83vh"}>
               {all_todo_state.map((note, index) => {
-                return <ArchiveItem get_all_notes={get_all_notes} index={note._id} id={note._id} key={note._id}>{note.title}</ArchiveItem>
+                return <ArchiveItem get_all_notes={get_all_notes} index={note._id} id={note._id} key={index}>{note.title}</ArchiveItem>
               })}
             </ScrollContainer>
           </NoteArchive>
@@ -188,7 +224,7 @@ const App = () => {
                 Create Note
               </Title>
               {/* <AddButton data={new_note} /> */}
-              <button onClick={() => new_note("dump", "create")} className="add_button">+</button>
+              <button onClick={() => create_new_note()} className="add_button">+</button>
             </div>
             <div className="todays_date" >Create a New Note Below</div>
             <div>

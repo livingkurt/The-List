@@ -27,7 +27,7 @@ const note_schema = new Schema({
   },
   date_created: {
     type: Date,
-    default: Date.now
+    default: new Date().setDate(new Date().getDate())
   },
   date_modified: Date,
 });
