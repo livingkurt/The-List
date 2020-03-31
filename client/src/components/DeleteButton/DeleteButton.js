@@ -7,7 +7,7 @@ import './delete_button.css'
 
 function DeleteButton(props) {
 
-  const [todo_state, set_todo_state] = useState("")
+  // const [todo_state, set_todo_state] = useState("")
 
   const delete_note = async (e) => {
     const todo_id = e.target.id

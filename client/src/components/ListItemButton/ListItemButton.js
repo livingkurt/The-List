@@ -7,11 +7,11 @@ import './list_item_button.css'
 
 function DeleteButton(props) {
 
-  const [modal_state, set_modal_state] = useState(false)
+  // const [modal_state, set_modal_state] = useState(false)
 
   const show_modal = async (e) => {
     const todo_id = e.target.id
-    set_modal_state(true)
+    // set_modal_state(true)
 
     try {
       const res = await API.get_note(todo_id)

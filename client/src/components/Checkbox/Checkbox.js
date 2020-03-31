@@ -9,7 +9,7 @@ function Checkbox(props) {
   const [checkboxState, setCheckboxState] = useState(false)
 
   useEffect(() => {
-    get_checkbox_state()
+    get_checkbox_state();
   }, [])
 
   const save_check_status = () => {
@@ -35,24 +35,26 @@ function Checkbox(props) {
       API.update_note(todo_id, update_todo)
     }
     catch (err) {
-      console.log(err);
+      console.log({ "update_note": err });
     }
   }
 
   const get_checkbox_state = async () => {
     const todo_id = props.id
     console.log(todo_id)
-    try {
-      const res = await API.get_note(todo_id)
-      console.log(res.data.completed)
-      setCheckboxState(res.data.completed)
-      // console.log(res.data.completed)
-      document.querySelector("#checked_or_not").checked = res.data.completed;
-      // const update_todo = { ...res.data, completed: completed }
+    if (todo_id != undefined) {
+      try {
+        const res = await API.get_note(todo_id)
+        console.log(res.data.completed)
+        setCheckboxState(res.data.completed)
+        // console.log(res.data.completed)
+        // const update_todo = { ...res.data, completed: completed }
+      }
+      catch (err) {
+        console.log({ "get_checkbox_state": err });
+      }
     }
-    catch (err) {
-      console.log(err);
-    }
+
   }
   // if (props.list_item_state === "true") {
   //   document.getElementById("checkbox_state-toggle").checked = false;

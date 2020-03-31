@@ -79,95 +79,79 @@ const App = () => {
   };
 
   const create_empty_list_item = async (list_id) => {
-    const res = await API.get_notes_by_list_id(list_id)
-    const new_data = [...res.data, { ...todo_state, list_id: list_id }]
-    if (list_id === "dump") {
-      set_todo_dump_state(new_data)
+    try {
+      const res = await API.get_notes_by_list_id(list_id)
+      const new_data = [...res.data, { ...todo_state, list_id: list_id }]
+      if (list_id === "dump") {
+        set_todo_dump_state(new_data)
+      }
+      else if (list_id === "master") {
+        set_todo_master_state(new_data)
+      }
+      new_note(list_id);
     }
-    else if (list_id === "master") {
-      set_todo_master_state(new_data)
+    catch (err) {
+      console.log(err);
     }
-    new_note(list_id);
+
   };
 
   const new_note = async (list_id) => {
-    const res = await API.post_note({ ...note_state, list_id: list_id })
-    // const new_data = [...todo_dump_state, res.data]
-    if (list_id === "dump") {
-      set_todo_dump_state([res.data, ...todo_dump_state])
+    try {
+      const res = await API.post_note({ ...note_state, list_id: list_id })
+      // const new_data = [...todo_dump_state, res.data]
+      if (list_id === "dump") {
+        set_todo_dump_state([res.data, ...todo_dump_state])
+      }
+      else if (list_id === "master") {
+        set_todo_master_state([res.data, ...todo_master_state])
+      }
+      set_note_state({ title: "", body: "" })
+      get_all_notes_by_list_id(list_id);
+      document.querySelector(".title_field").value = ""
+      document.querySelector(".text_field").value = ""
     }
-    else if (list_id === "master") {
-      set_todo_master_state([res.data, ...todo_master_state])
+    catch (err) {
+      console.log(err);
     }
-    set_note_state({ title: "", body: "" })
-    get_all_notes_by_list_id(list_id);
-    document.querySelector(".title_field").value = ""
-    document.querySelector(".text_field").value = ""
+
   }
 
   const create_new_note = async () => {
-    const res = await API.post_note(note_state)
-    console.log(todo_dump_state)
-    console.log(todo_master_state)
-    // const new_data = [...todo_dump_state, res.data]
-    get_all_notes_by_list_id("master");
-    get_all_notes_by_list_id("dump");
-    // if (list_id === "dump") {
-    //   set_todo_dump_state([res.data, ...todo_dump_state])
-    // }
-    // else if (list_id === "master") {
-    //   set_todo_master_state([res.data, ...todo_master_state])
-    // }
-    set_note_state({
-      title: "",
-      body: "",
-      folder_id: "",
-      list_id: "dump",
-      priority: "Low",
-      scheduled: false,
-      scheduled_date_time: "",
-      completed: false,
-    })
-    document.querySelector(".title_field").value = ""
-    document.querySelector(".text_field").value = ""
-    document.querySelector(".priority_input").value = "Low"
-    document.querySelector(".list_id_input").value = "dump"
+    try {
+      const res = await API.post_note(note_state)
+      console.log(todo_dump_state)
+      console.log(todo_master_state)
+      // const new_data = [...todo_dump_state, res.data]
+      get_all_notes_by_list_id("master");
+      get_all_notes_by_list_id("dump");
+      // if (list_id === "dump") {
+      //   set_todo_dump_state([res.data, ...todo_dump_state])
+      // }
+      // else if (list_id === "master") {
+      //   set_todo_master_state([res.data, ...todo_master_state])
+      // }
+      set_note_state({
+        title: "",
+        body: "",
+        folder_id: "",
+        list_id: "dump",
+        priority: "Low",
+        scheduled: false,
+        scheduled_date_time: "",
+        completed: false,
+      })
+      document.querySelector(".title_field").value = ""
+      document.querySelector(".text_field").value = ""
+      document.querySelector(".priority_input").value = "Low"
+      document.querySelector(".list_id_input").value = "dump"
+    }
+    catch (err) {
+      console.log(err);
+    }
   }
 
-  // const new_note = async (list_id, create_id) => {
-  //   console.log({ "new_note": note_state })
-  //   const res = await API.post_note(create_id ? note_state : ...todo_state, list_id: list_id)
-  //   set_note_state({
-  //     title: "",
-  //     body: "",
-  //     folder_id: "",
-  //     list_id: "",
-  //     priority: "Low",
-  //     scheduled: false,
-  //     scheduled_date_time: "",
-  //     completed: false,
-  //   })
-  //   get_all_notes_by_list_id(list_id);
-  //   document.querySelector(".title_field").value = ""
-  //   document.querySelector(".text_field").value = ""
-  // }
 
-  // const new_note = async () => {
-  //   const res = await API.post_note({
-  //     title: todo_state.title,
-  //     body: todo_state.body,
-  //     folder_id: todo_state.folder_id,
-  //     list_id: todo_state.list_id,
-  //     priority: todo_state.priority,
-  //     scheduled: todo_state.scheduled,
-  //     scheduled_date_time: todo_state.scheduled_date_time,
-  //     completed: todo_state.completed
-  //   })
-  //   set_note_state({ title: "", body: "" })
-  //   get_all_notes_by_list_id(todo_state.list_id);
-  //   document.querySelector(".title_field").value = ""
-  //   document.querySelector(".text_field").value = ""
-  // }
 
 
   const [sidebar_state, set_sidebar_state] = useState(false)
@@ -183,24 +167,6 @@ const App = () => {
     }
   }
 
-  const update_note = async (e) => {
-    e.persist();
-    const todo_id = e.target.id
-    const todo_data = e.target.value
-    const field_name = e.target.name
-    console.log(field_name)
-    try {
-      const res = await API.get_note(todo_id)
-      const update_todo = {
-        ...res.data,
-        [field_name]: todo_data
-      }
-      API.update_note(todo_id, update_todo)
-    }
-    catch (err) {
-      console.log(err);
-    }
-  }
 
   return (
     <div >
@@ -214,7 +180,7 @@ const App = () => {
           <NoteArchive >
             <ScrollContainer height={"83vh"}>
               {all_todo_state.map((note, index) => {
-                return <ArchiveItem get_all_notes={get_all_notes} index={note._id} id={note._id} key={index}>{note.title}</ArchiveItem>
+                return <ArchiveItem get_all_notes={get_all_notes} index={note._id} id={note._id} key={note._id}>{note.title}</ArchiveItem>
               })}
             </ScrollContainer>
           </NoteArchive>
@@ -228,41 +194,45 @@ const App = () => {
             </div>
             <div className="todays_date" >Create a New Note Below</div>
             <div>
-              <input
-                className="title_field"
-                onChange={e => set_note_state({ ...note_state, title: e.target.value })}
-                placeholder="Title"
-                onBlur={(e) => e.target.placeholder = "Title"}
-                onFocus={(e) => e.target.placeholder = ""}></input>
-              <textarea
-                className="text_field"
-                onChange={e => set_note_state({ ...note_state, body: e.target.value })}
-                placeholder="Description"
-                onBlur={(e) => e.target.placeholder = "Description"}
-                onFocus={(e) => e.target.placeholder = ""}
-              />
-              <div>
-                <label className="modal_labels">Priority: </label>
+              <div id="create_note_title_description">
                 <input
-                  defaultValue={note_state.priority}
-                  onChange={e => set_note_state({ ...note_state, priority: e.target.value })}
-                  className="priority_input modal_inputs"
-                  placeholder="High, Medium, Low"
-                  name="priority" />
+                  className="title_field"
+                  onChange={e => set_note_state({ ...note_state, title: e.target.value })}
+                  placeholder="Title"
+                  onBlur={(e) => e.target.placeholder = "Title"}
+                  onFocus={(e) => e.target.placeholder = ""}></input>
+                <textarea
+                  className="text_field"
+                  onChange={e => set_note_state({ ...note_state, body: e.target.value })}
+                  placeholder="Description"
+                  onBlur={(e) => e.target.placeholder = "Description"}
+                  onFocus={(e) => e.target.placeholder = ""}
+                />
               </div>
-              <div>
-                <label className="modal_labels">List Name: </label>
-                <input
-                  defaultValue={note_state.list_id}
-                  onChange={e => set_note_state({ ...note_state, list_id: e.target.value })}
-                  className="list_id_input modal_input modal_inputs"
-                  placeholder="List Name"
-                  name="list_id" />
-              </div>
-              <label className="modal_labels">Date Created: {month}/{day}/{year}</label>
-              <div className="modal_scheduled_field ">
-                <label className="modal_labels">Schedule: </label>
-                <Checkbox />
+              <div id="create_note_fields">
+                <div>
+                  <label className="modal_labels">Priority: </label>
+                  <input
+                    defaultValue={note_state.priority}
+                    onChange={e => set_note_state({ ...note_state, priority: e.target.value })}
+                    className="priority_input create_note_inputs"
+                    placeholder="High, Medium, Low"
+                    name="priority" />
+                </div>
+                <div>
+                  <label className="modal_labels">List Name: </label>
+                  <input
+                    defaultValue={note_state.list_id}
+                    onChange={e => set_note_state({ ...note_state, list_id: e.target.value })}
+                    className="list_id_input modal_input create_note_inputs"
+                    placeholder="List Name"
+                    name="list_id" />
+                </div>
+                <label className="modal_labels">Date Created: {month}/{day}/{year}</label>
+                <div className="modal_scheduled_field ">
+                  <label className="modal_labels">Schedule: </label>
+                  <Checkbox />
+                </div>
               </div>
             </div>
           </Section>

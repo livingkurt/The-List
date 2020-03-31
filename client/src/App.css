@@ -61,6 +61,40 @@ li {
   font-weight: 700;
 }
 
+#create_note_title_description {
+  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+  border-radius: 10px;
+  border: 1px silver solid;
+  margin-bottom: 10px;
+  padding: 1px;
+}
+
+#create_note_fields {
+  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+  border-radius: 10px;
+  border: 1px silver solid;
+  margin-bottom: 10px;
+  padding: 10px;
+  height: 23vh;
+}
+
+.create_note_inputs {
+  border-radius: 5px;
+  display: flex;
+  border: 0px;
+  font-size: 16px;
+  padding-left: 5px;
+  margin-top: -4px;
+  overflow: scroll;
+  overflow-y: auto;
+  /* box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.2), 0 2px 4px 0 rgba(0, 0, 0, 0.19); */
+  transition: box-shadow 1s ease;
+}
+
+.create_note_inputs:hover {
+  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+}
+
 /* .zoom {
   -webkit-transition: all 0.6s cubic-bezier(0.165, 0.84, 0.44, 1);
   transition: all 0.6s cubic-bezier(0.165, 0.84, 0.44, 1);
