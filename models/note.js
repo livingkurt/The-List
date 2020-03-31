@@ -12,7 +12,10 @@ const note_schema = new Schema({
     type: String,
     default: "dump"
   },
-  priority: Number,
+  priority: {
+    type: String,
+    default: "Low"
+  },
   scheduled: {
     type: Boolean,
     default: false

@@ -9,6 +9,7 @@ import ScrollContainer from './components/ScrollContainer/ScrollContainer.js';
 import Title from './components/Title/Title';
 import NoteArchive from './components/NoteArchive/NoteArchive';
 import ArchiveItem from './components/ArchiveItem/ArchiveItem';
+import Checkbox from './components/Checkbox/Checkbox';
 import ListItemModal from './components/ListItemModal/ListItemModal';
 import TextField from './components/TextField/TextField';
 import TitleField from './components/TitleField/TitleField';
@@ -42,11 +43,25 @@ const App = () => {
   })
   console.log(all_todo_state)
 
+  const date = new Date()
+  console.log(date.getDate())
+  let month = date.getMonth() + 1
+  let day = date.getDate()
+  let year = date.getFullYear();
   useEffect(() => {
     get_all_notes_by_list_id("master");
     get_all_notes_by_list_id("dump");
-    get_all_notes();
+    // get_all_notes();
   }, []);
+
+  const get_todays_date = () => {
+    const date = new Date()
+    let month = date.getMonth()
+    let day = date.getDay()
+    let year = date.getFullYear();
+
+    return `${month}/${day}/${year}`
+  }
 
   const get_all_notes_by_list_id = async (list_id) => {
     try {
@@ -132,7 +147,8 @@ const App = () => {
               {/* <AddButton data={new_note} /> */}
               <button onClick={() => new_note("dump", "create")} className="add_button">+</button>
             </div>
-            <div style={{ padding: "10px" }}>
+            <div className="todays_date" >Create a New Note Below</div>
+            <div>
               <input
                 className="title_field"
                 onChange={e => set_note_state({ ...note_state, title: e.target.value })}
@@ -146,6 +162,27 @@ const App = () => {
                 onBlur={(e) => e.target.placeholder = "Description"}
                 onFocus={(e) => e.target.placeholder = ""}
               />
+              <div>
+                <label className="modal_labels">Priority: </label>
+                <input
+                  onChange={e => set_note_state({ ...note_state, priority: e.target.value })}
+                  className="priority_input modal_inputs"
+                  placeholder="High, Medium, Low"
+                  name="priority" />
+              </div>
+              <div>
+                <label className="modal_labels">List Name: </label>
+                <input
+                  onChange={e => set_note_state({ ...note_state, list_id: e.target.value })}
+                  className="list_id_input modal_input modal_inputs"
+                  placeholder="List Name"
+                  name="list_id" />
+              </div>
+              <label className="modal_labels">Date Created: {month}/{day}/{year}</label>
+              <div className="modal_scheduled_field ">
+                <lable className="modal_labels">Schedule: </lable>
+                <Checkbox />
+              </div>
             </div>
           </Section>
 
@@ -157,6 +194,7 @@ const App = () => {
 
               <button onClick={() => create_empty_list_item("dump")} className="add_button">+</button>
             </div>
+            <div className="todays_date" >Get your Ideas Down Fast</div>
             <ScrollContainer>
               {todo_dump_state.map((note, index) => {
                 return <ListItem get_all_notes_by_list_id={get_all_notes_by_list_id} index={note._id} id={note._id} key={note._id}>{note.title}</ListItem>
@@ -166,11 +204,11 @@ const App = () => {
           <Section>
             <div style={{ display: "flex", justifyContent: "space-between" }}>
               <Title>
-                Master Todo List
+                Master Todo List:
               </Title>
-              {/* <AddButton onclick={new_note} /> */}
               <button onClick={() => create_empty_list_item("master")} className="add_button">+</button>
             </div>
+            <div className="todays_date" >Today {month}/{day}/{year}</div>
             <ScrollContainer>
               {todo_master_state.map((note, index) => {
                 return <ListItem get_all_notes_by_list_id={get_all_notes_by_list_id} index={note._id} id={note._id} key={note._id}>{note.title}</ListItem>

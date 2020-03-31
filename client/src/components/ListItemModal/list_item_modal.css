@@ -1,6 +1,6 @@
 .list_modal {
   position: absolute;
-  height: 25%;
+  height: 40%;
   width: 25%;
   top: 25vh;
   left: 50vh;
@@ -24,6 +24,16 @@
   margin-top: 10px;
   font-size: 16px;
   margin-bottom: 10px;
+}
+
+.modal_scheduled_field {
+  display: flex;
+}
+
+.modal_labels {
+  font-size: 14px;
+  margin: 5px 0px;
+  margin-right: 10px;
 }
 
 .modal_inputs {

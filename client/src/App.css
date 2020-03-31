@@ -37,6 +37,10 @@
   }
 }
 
+h2 {
+  margin: 0px;
+}
+
 button:focus {
   outline: 0;
 }
@@ -47,6 +51,14 @@ input:focus {
 
 li {
   list-style: none;
+}
+
+.todays_date {
+  font-size: 16px;
+  /* margin: 10px; */
+  margin-top: -30px;
+  margin-bottom: 11px;
+  font-weight: 700;
 }
 
 /* .zoom {

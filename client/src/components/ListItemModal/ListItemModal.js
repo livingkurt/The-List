@@ -4,6 +4,7 @@ import React, { useState, useEffect } from "react";
 import './list_item_modal.css'
 // import Checkbox from '../Checkbox/Checkbox';
 import DeleteButton from '../DeleteButton/DeleteButton';
+import Checkbox from '../Checkbox/Checkbox';
 import API from "../../utils/API";
 
 
@@ -15,14 +16,18 @@ const ListItemModal = (props) => {
     title: "",
     body: "",
     folder_id: "",
-    list_id: "dump",
-    priority: "Low",
+    list_id: "",
+    priority: "",
     scheduled: false,
     scheduled_date_time: "",
     completed: false,
   })
 
   const [dropdown_state, set_dropdown_state] = useState("none")
+  const [date_state, set_date_state] = useState({
+    date_created: "",
+    date_modified: "",
+  })
 
   useEffect(() => {
     get_note()
@@ -51,6 +56,11 @@ const ListItemModal = (props) => {
     try {
       const res = await API.get_note(todo_id)
       set_note_state(res.data)
+      set_date_state({
+        ...date_state,
+        date_created: format_date(res.data.date_created),
+        date_modified: format_date(res.data.date_modified)
+      })
     }
     catch (err) {
       console.log(err);
@@ -78,6 +88,16 @@ const ListItemModal = (props) => {
         }
       }
     }
+  }
+
+  const format_date = unformatted_date => {
+    unformatted_date = unformatted_date.toString()
+    const year = unformatted_date.slice(0, 4)
+    const month = unformatted_date.slice(5, 7)
+    const day = unformatted_date.slice(8, 10)
+    const formatted_date = `${month}/${day}/${year}`
+    console.log(formatted_date)
+    return formatted_date;
   }
 
 
@@ -118,7 +138,7 @@ const ListItemModal = (props) => {
         </div>
       </div> */}
       <div>
-        <label>Priority: </label>
+        <label className="modal_labels">Priority: </label>
         <input
           defaultValue={note_state.priority}
           onChange={e => set_note_state({ ...note_state, priority: e.target.value })}
@@ -127,6 +147,23 @@ const ListItemModal = (props) => {
           name="priority"
           id={props.id}
           onBlur={e => update_note(e)} />
+      </div>
+      <div>
+        <label className="modal_labels">List Name: </label>
+        <input
+          defaultValue={note_state.list_id}
+          onChange={e => set_note_state({ ...note_state, list_id: e.target.value })}
+          className="list_id_input modal_input modal_inputs"
+          placeholder="List Name"
+          name="list_id"
+          id={props.id}
+          onBlur={e => update_note(e)} />
+      </div>
+      <label className="modal_labels">Date Modified: {date_state.date_modified}</label>
+      <label className="modal_labels">Date Created: {date_state.date_created}</label>
+      <div className="modal_scheduled_field ">
+        <lable className="modal_labels">Schedule: </lable>
+        <Checkbox id={props.id} />
       </div>
       <DeleteButton index={props.id} get_all_notes_by_list_id={props.get_all_notes_by_list_id} id={props.id}>
         Delete
