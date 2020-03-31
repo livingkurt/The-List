@@ -54,13 +54,16 @@ const ListItemModal = (props) => {
 
 
   return (
-    <div style={{ display: props.show_modal }} className="list_modal zoom">
-      <input
-        defaultValue={note_state.title}
-        className="list_input"
-        placeholder="Title"
-        id={props.id}
-        onBlur={e => update_note(e)} />
+    <div style={{ display: props.show_modal_state }} className="list_modal zoom">
+      <div className="title_close_div">
+        <input
+          defaultValue={note_state.title}
+          className="list_input"
+          placeholder="Title"
+          id={props.id}
+          onBlur={e => update_note(e)} />
+        <button onClick={props.show_modal} className="show_modal_button"></button>
+      </div>
       <textarea
         defaultValue={note_state.body}
         className="modal_text_field"
@@ -69,14 +72,16 @@ const ListItemModal = (props) => {
         onBlur={(e) => e.target.placeholder = "Description"}
         onFocus={(e) => e.target.placeholder = ""}
       />
-      <input
+      {/* <input
         defaultValue={note_state.body}
         onChange={e => set_note_state({ ...note_state, body: e.target.value })}
         className="list_input"
         placeholder="Description"
         id={props.id}
-        onBlur={e => update_note(e)} />
-      <DeleteButton index={props.id} get_all_notes_by_list_id={props.get_all_notes_by_list_id} id={props.id} />
+        onBlur={e => update_note(e)} /> */}
+      <DeleteButton index={props.id} get_all_notes_by_list_id={props.get_all_notes_by_list_id} id={props.id}>
+        Delete
+      </DeleteButton>
     </div>
   );
 }

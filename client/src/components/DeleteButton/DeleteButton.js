@@ -22,7 +22,7 @@ function DeleteButton(props) {
   }
   return (
     <div>
-      <button index={props.index} id={props.id} onClick={e => delete_note(e)} className="delete_button"></button>
+      <button index={props.index} id={props.id} onClick={e => delete_note(e)} className="delete_button">{props.children}</button>
     </div>
   );
 }

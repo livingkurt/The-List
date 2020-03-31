@@ -48,7 +48,7 @@ const ListItem = (props) => {
         onBlur={e => update_note(e)} />
       {/* <ListItemButton index={props.id} get_all_notes_by_list_id={props.get_all_notes_by_list_id} id={props.id} /> */}
       <button onClick={() => show_modal()} className="show_modal_button"></button>
-      <ListItemModal id={props.id} show_modal={modal_state} get_all_notes_by_list_id={props.get_all_notes_by_list_id} />
+      <ListItemModal id={props.id} show_modal={show_modal} show_modal_state={modal_state} get_all_notes_by_list_id={props.get_all_notes_by_list_id} />
     </div>
   );
 }
