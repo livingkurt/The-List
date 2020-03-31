@@ -41,16 +41,28 @@ const App = () => {
     scheduled_date_time: "",
     completed: false,
   })
-  console.log(all_todo_state)
 
   const date = new Date()
   let month = date.getMonth() + 1
+  if (month.length === 1) {
+    month = `0${month}`
+  }
   let day = date.getDate()
+  if (day.length === 1) {
+    day = `0${day}`
+  }
   let year = date.getFullYear();
+
+  // const [date_state, set_date_state] = useState("")
+
+
+
+  const formatted_date_slash = `${month}/${day}/${year}`
+  const formatted_date_dash = `${year}-${month}-${day}`
   useEffect(() => {
     get_all_notes_by_list_id("master");
     get_all_notes_by_list_id("dump");
-    // get_all_notes();
+    get_all_notes();
   }, []);
 
   const get_all_notes_by_list_id = async (list_id) => {
@@ -68,14 +80,18 @@ const App = () => {
     }
   };
 
-  const get_all_notes = async (list_id) => {
+  const get_all_notes = async () => {
+    // if (list_id != undefined) {
     try {
-      const res = await API.get_all_notes(list_id)
+      const res = await API.get_all_notes()
       set_all_todo_state(res.data)
     }
     catch (err) {
       console.log(err);
     }
+    // }
+
+
   };
 
   const create_empty_list_item = async (list_id) => {
@@ -99,7 +115,6 @@ const App = () => {
   const new_note = async (list_id) => {
     try {
       const res = await API.post_note({ ...note_state, list_id: list_id })
-      // const new_data = [...todo_dump_state, res.data]
       if (list_id === "dump") {
         set_todo_dump_state([res.data, ...todo_dump_state])
       }
@@ -120,17 +135,8 @@ const App = () => {
   const create_new_note = async () => {
     try {
       const res = await API.post_note(note_state)
-      console.log(todo_dump_state)
-      console.log(todo_master_state)
-      // const new_data = [...todo_dump_state, res.data]
       get_all_notes_by_list_id("master");
       get_all_notes_by_list_id("dump");
-      // if (list_id === "dump") {
-      //   set_todo_dump_state([res.data, ...todo_dump_state])
-      // }
-      // else if (list_id === "master") {
-      //   set_todo_master_state([res.data, ...todo_master_state])
-      // }
       set_note_state({
         title: "",
         body: "",
@@ -164,6 +170,43 @@ const App = () => {
     else {
       document.querySelector(".sidebar").classList.add("open");
       set_sidebar_state(true)
+    }
+  }
+
+  // const [schedule_state, set_schedule_state] = useState({
+  //   display: "none",
+  //   checked: false
+  // })
+
+  const [schedule_state, set_schedule_state] = useState(false)
+
+  // const show_scheduling = () => {
+  //   // console.log("show_scheduling")
+  //   if (schedule_state === "none") {
+  //     set_schedule_state({
+  //       ...schedule_state,
+  //       display: "flex",
+  //       checked: true
+  //     })
+
+  //   }
+  //   else {
+  //     set_schedule_state({
+  //       ...schedule_state,
+  //       display: "none",
+  //       checked: false
+  //     })
+  //   }
+  // }
+
+  const show_scheduling = () => {
+    // console.log("show_scheduling")
+    if (schedule_state === false) {
+      set_schedule_state(true)
+
+    }
+    else {
+      set_schedule_state(false)
     }
   }
 
@@ -228,10 +271,27 @@ const App = () => {
                     placeholder="List Name"
                     name="list_id" />
                 </div>
-                <label className="modal_labels">Date Created: {month}/{day}/{year}</label>
+                <label className="modal_labels">Date Created: {formatted_date_slash}</label>
                 <div className="modal_scheduled_field ">
                   <label className="modal_labels">Schedule: </label>
-                  <Checkbox />
+                  <Checkbox onCheck={show_scheduling} checkboxState={schedule_state} />
+                </div>
+                <div id="schedule_div" style={{ display: schedule_state ? "flex" : "none" }}>
+                  <label className="modal_labels">Date: </label>
+                  <input id="scheduled_date" type="date"
+                    defaultValue={date}
+                    // min="2018-01-01"
+                    // onChange={e => set_note_state({ ...note_state, list_id: e.target.value })}
+                    // className="list_id_input modal_input create_note_inputs"
+                    placeholder="List Name"
+                    name="scheduled_date" />
+                  <label className="modal_labels"> Time: </label>
+                  <input id="scheduled_time" type="time"
+                    // defaultValue={note_state.list_id}
+                    // onChange={e => set_note_state({ ...note_state, list_id: e.target.value })}
+                    // className="list_id_input modal_input create_note_inputs"
+                    placeholder="List Name"
+                    name="scheduled_time" />
                 </div>
               </div>
             </div>
@@ -259,7 +319,7 @@ const App = () => {
               </Title>
               <button onClick={() => create_empty_list_item("master")} className="add_button">+</button>
             </div>
-            <div className="todays_date" >Today {month}/{day}/{year}</div>
+            <div className="todays_date" >Today {formatted_date_slash}</div>
             <ScrollContainer>
               {todo_master_state.map((note, index) => {
                 return <ListItem get_all_notes_by_list_id={get_all_notes_by_list_id} index={note._id} id={note._id} key={note._id}>{note.title}</ListItem>

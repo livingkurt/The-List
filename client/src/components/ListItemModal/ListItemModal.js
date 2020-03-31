@@ -39,31 +39,36 @@ const ListItemModal = (props) => {
     const todo_data = e.target.value
     const field_name = e.target.name
     console.log(field_name)
-    try {
-      const res = await API.get_note(todo_id)
-      const update_todo = {
-        ...res.data,
-        [field_name]: todo_data
+    if (todo_id != undefined) {
+      try {
+        const res = await API.get_note(todo_id)
+        const update_todo = {
+          ...res.data,
+          [field_name]: todo_data
+        }
+        API.update_note(todo_id, update_todo)
       }
-      API.update_note(todo_id, update_todo)
+      catch (err) {
+        console.log(err);
+      }
     }
-    catch (err) {
-      console.log(err);
-    }
+
   }
   const get_note = async () => {
     const todo_id = props.id
-    try {
-      const res = await API.get_note(todo_id)
-      set_note_state(res.data)
-      set_date_state({
-        ...date_state,
-        date_created: format_date(res.data.date_created),
-        date_modified: format_date(res.data.date_modified)
-      })
-    }
-    catch (err) {
-      console.log(err);
+    if (todo_id != undefined) {
+      try {
+        const res = await API.get_note(todo_id)
+        set_note_state(res.data)
+        set_date_state({
+          ...date_state,
+          date_created: format_date(res.data.date_created),
+          date_modified: format_date(res.data.date_modified)
+        })
+      }
+      catch (err) {
+        console.log(err);
+      }
     }
   }
 

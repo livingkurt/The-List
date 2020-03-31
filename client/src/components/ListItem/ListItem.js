@@ -12,6 +12,10 @@ const ListItem = (props) => {
   const [modal_state, set_modal_state] = useState("none")
   const [list_item_state, set_list_item_state] = useState({})
 
+  useEffect(() => {
+    get_checkbox_state();
+  }, [])
+
   const update_note = async (e) => {
     e.persist();
     const todo_id = e.target.id
@@ -38,9 +42,52 @@ const ListItem = (props) => {
     }
   }
 
+  const [checkboxState, setCheckboxState] = useState(false)
+
+  const save_check_status = () => {
+    console.log("Hello")
+    console.log(props.id)
+    if (checkboxState === false) {
+      setCheckboxState(true)
+      // console.log({ "false": checkboxState })
+      update_note_checkbox(props.id, true)
+    }
+    if (checkboxState === true) {
+      setCheckboxState(false)
+      // console.log({ "true": checkboxState })
+      update_note_checkbox(props.id, false)
+    }
+  }
+
+  const update_note_checkbox = async (id, completed) => {
+    const todo_id = id
+    try {
+      const res = await API.get_note(todo_id)
+      const update_todo = { ...res.data, completed: completed }
+      API.update_note(todo_id, update_todo)
+    }
+    catch (err) {
+      console.log({ "update_note": err });
+    }
+  }
+
+  const get_checkbox_state = async () => {
+    const todo_id = props.id
+    if (todo_id != undefined) {
+      try {
+        const res = await API.get_note(todo_id)
+        setCheckboxState(res.data.completed)
+      }
+      catch (err) {
+        console.log({ "get_checkbox_state": err });
+      }
+    }
+
+  }
+
   return (
     <div className="list_div zoom">
-      <Checkbox list_item_state={list_item_state} id={props.id} />
+      <Checkbox checkboxState={checkboxState} update_note_checkbox={update_note_checkbox} onCheck={save_check_status} list_item_state={list_item_state} id={props.id} />
       <input
         defaultValue={props.children}
         className="list_input"
