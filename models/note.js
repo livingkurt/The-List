@@ -21,7 +21,7 @@ const note_schema = new Schema({
     default: false
   },
   scheduled_date: Date,
-  scheduled_time: Date,
+  scheduled_time: String,
   completed: {
     type: Boolean,
     default: false

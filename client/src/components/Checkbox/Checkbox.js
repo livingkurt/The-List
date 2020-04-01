@@ -6,7 +6,7 @@ import API from "../../utils/API";
 
 
 function Checkbox(props) {
-
+  console.log({ "Checkbox": props.checkboxState })
   return (
     <div >
       <label className="checkbox_label">

@@ -75,7 +75,7 @@ li {
   border: 1px silver solid;
   margin-bottom: 10px;
   padding: 10px;
-  height: 18vh;
+  /* height: 18vh; */
 }
 
 .create_note_inputs {
@@ -93,6 +93,15 @@ li {
 
 .create_note_inputs:hover {
   box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+}
+
+#create_note_container {
+  display: flex;
+  flex-direction: row;
+}
+
+#schedule_div {
+  flex-direction: column;
 }
 
 /* 

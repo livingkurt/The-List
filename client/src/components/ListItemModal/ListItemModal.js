@@ -31,6 +31,9 @@ const ListItemModal = (props) => {
 
   useEffect(() => {
     get_note()
+    get_formatted_date();
+    get_formatted_time();
+    get_checkbox_state();
   }, [])
 
   const update_note = async (e) => {
@@ -104,6 +107,99 @@ const ListItemModal = (props) => {
     return formatted_date;
   }
 
+  const [schedule_state, set_schedule_state] = useState(false)
+
+  const show_scheduling = () => {
+    // console.log("show_scheduling")
+    if (schedule_state === false) {
+      set_schedule_state(true)
+      set_note_state({ ...note_state, scheduled: false })
+
+      update_scheduled_checkbox(props.id, true)
+
+    }
+    else {
+      set_schedule_state(false)
+
+      set_note_state({ ...note_state, scheduled: true })
+      update_scheduled_checkbox(props.id, true)
+    }
+    console.log(note_state)
+
+  }
+
+
+  const update_scheduled_checkbox = async (id, scheduled) => {
+    const todo_id = id
+    try {
+      const res = await API.get_note(todo_id)
+      const update_todo = { ...res.data, scheduled: scheduled }
+      API.update_note(todo_id, update_todo)
+    }
+    catch (err) {
+      console.log({ "update_note": err });
+    }
+  }
+  const [date_state_2, set_date_state_2] = useState("")
+  const [time_state, set_time_state] = useState("")
+
+  const date = new Date()
+  let month = date.getMonth() + 1
+  if (month.length === 1) {
+    month = `0${month}`
+  }
+  let day = date.getDate()
+  if (day.length === 1) {
+    day = `0${day}`
+  }
+  let year = date.getFullYear();
+
+
+  const formatted_date_slash = `${month}/${day}/${year}`
+  const formatted_date_dash = `${year}-${month}-${day}`
+
+  const get_formatted_date = () => {
+    var hours = date.getHours();
+    var seconds = date.getMinutes();
+
+    if (month < 10) month = "0" + month;
+    if (day < 10) day = "0" + day;
+
+    var today = hours + ":" + seconds
+    set_time_state(today)
+    // document.getElementById("scheduled_time").value = today;
+
+  }
+
+  const get_formatted_time = () => {
+    var day = date.getDate();
+    var month = date.getMonth() + 1;
+    var year = date.getFullYear();
+
+    if (month < 10) month = "0" + month;
+    if (day < 10) day = "0" + day;
+
+    var today = year + "-" + month + "-" + day;
+    set_date_state(today)
+    return today;
+    // document.getElementById("scheduled_date").value = today;
+  }
+
+
+  const get_checkbox_state = async () => {
+    const todo_id = props.id
+    if (todo_id != undefined) {
+      try {
+        const res = await API.get_note(todo_id)
+        set_schedule_state(res.data.scheduled)
+      }
+      catch (err) {
+        console.log({ "get_checkbox_state": err });
+      }
+    }
+
+  }
+
 
 
 
@@ -141,33 +237,64 @@ const ListItemModal = (props) => {
           <li>Low Priority</li>
         </div>
       </div> */}
-      <div>
-        <label className="modal_labels">Priority: </label>
-        <input
-          defaultValue={note_state.priority}
-          onChange={e => set_note_state({ ...note_state, priority: e.target.value })}
-          className="priority_input modal_inputs"
-          placeholder="High, Medium, Low"
-          name="priority"
-          id={props.id}
-          onBlur={e => update_note(e)} />
-      </div>
-      <div>
-        <label className="modal_labels">List Name: </label>
-        <input
-          defaultValue={note_state.list_id}
-          onChange={e => set_note_state({ ...note_state, list_id: e.target.value })}
-          className="list_id_input modal_input modal_inputs"
-          placeholder="List Name"
-          name="list_id"
-          id={props.id}
-          onBlur={e => update_note(e)} />
-      </div>
-      <label className="modal_labels">Date Modified: {date_state.date_modified}</label>
-      <label className="modal_labels">Date Created: {date_state.date_created}</label>
-      <div className="modal_scheduled_field ">
-        <label className="modal_labels">Schedule: </label>
-        <Checkbox id={props.id} />
+      <div id="modal_fields_container" style={{ border: 0 }}>
+        {/* <div id="create_note_container_modal"> */}
+        <div id="modal_fields_section">
+          <div style={{ display: "flex" }} >
+            <div id="modal_priority_list_name" >
+              <div>
+                <label className="modal_labels">Priority: </label>
+                <input
+                  defaultValue={note_state.priority}
+                  onChange={e => set_note_state({ ...note_state, priority: e.target.value })}
+                  className="priority_input modal_inputs"
+                  placeholder="High, Medium, Low"
+                  name="priority"
+                  id={props.id}
+                  onBlur={e => update_note(e)} />
+              </div>
+              <div>
+                <label className="modal_labels">List Name: </label>
+                <input
+                  defaultValue={note_state.list_id}
+                  onChange={e => set_note_state({ ...note_state, list_id: e.target.value })}
+                  className="list_id_input modal_input modal_inputs"
+                  placeholder="List Name"
+                  name="list_id"
+                  id={props.id}
+                  onBlur={e => update_note(e)} />
+              </div>
+            </div>
+
+            <div id="modal_dates" >
+              <label className="modal_labels">Date Modified:</label>
+              <label className="modal_labels">{date_state.date_modified}</label>
+              <label className="modal_labels">Date Created:</label>
+              <label className="modal_labels">{date_state.date_created}</label>
+            </div>
+          </div>
+          <div className="modal_scheduled_field ">
+            <label className="modal_labels">Schedule: </label>
+            {console.log({ "Modal": schedule_state })}
+            <Checkbox id={props.id} onCheck={show_scheduling} checkboxState={schedule_state} />
+          </div>
+        </div>
+
+        <div id="modal_schedule_div" style={{ display: schedule_state ? "flex" : "none" }}>
+          <label className="modal_labels">Date: </label>
+          <input id="scheduled_date" type="date"
+            defaultValue={date_state_2}
+            onChange={e => set_note_state({ ...note_state, scheduled_date: e.target.value })}
+            placeholder="List Name"
+            name="scheduled_date" />
+          <label className="modal_labels"> Time: </label>
+          <input id="scheduled_time" type="time"
+            defaultValue={time_state}
+            onChange={e => set_note_state({ ...note_state, scheduled_time: e.target.value })}
+            placeholder="List Name"
+            name="scheduled_time" />
+        </div>
+        {/* </div> */}
       </div>
       <DeleteButton index={props.id} get_all_notes_by_list_id={props.get_all_notes_by_list_id} id={props.id}>
         Delete

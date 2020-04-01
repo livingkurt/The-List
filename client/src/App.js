@@ -288,7 +288,6 @@ const App = () => {
               <Title>
                 Create Note
               </Title>
-              {/* <AddButton data={new_note} /> */}
               <button onClick={() => create_new_note()} className="add_button">+</button>
             </div>
             <div className="todays_date" >Create a New Note Below</div>
@@ -308,43 +307,49 @@ const App = () => {
                   onFocus={(e) => e.target.placeholder = ""}
                 />
               </div>
+
               <div id="create_note_fields">
-                <div>
-                  <label className="modal_labels">Priority: </label>
-                  <input
-                    defaultValue={note_state.priority}
-                    onChange={e => set_note_state({ ...note_state, priority: e.target.value })}
-                    className="priority_input create_note_inputs"
-                    placeholder="High, Medium, Low"
-                    name="priority" />
-                </div>
-                <div>
-                  <label className="modal_labels">List Name: </label>
-                  <input
-                    defaultValue={note_state.list_id}
-                    onChange={e => set_note_state({ ...note_state, list_id: e.target.value })}
-                    className="list_id_input modal_input create_note_inputs"
-                    placeholder="List Name"
-                    name="list_id" />
-                </div>
-                <label className="modal_labels">Date Created: {formatted_date_slash}</label>
-                <div className="modal_scheduled_field ">
-                  <label className="modal_labels">Schedule: </label>
-                  <Checkbox onCheck={show_scheduling} checkboxState={schedule_state} />
-                </div>
-                <div id="schedule_div" style={{ display: schedule_state ? "flex" : "none" }}>
-                  <label className="modal_labels">Date: </label>
-                  <input id="scheduled_date" type="date"
-                    defaultValue={date_state}
-                    onChange={e => set_note_state({ ...note_state, scheduled_date: e.target.value })}
-                    placeholder="List Name"
-                    name="scheduled_date" />
-                  <label className="modal_labels"> Time: </label>
-                  <input id="scheduled_time" type="time"
-                    defaultValue={time_state}
-                    onChange={e => set_note_state({ ...note_state, scheduled_time: e.target.value })}
-                    placeholder="List Name"
-                    name="scheduled_time" />
+                <div id="create_note_container">
+                  <div style={{ width: "55%" }}>
+                    <div >
+                      <label className="modal_labels">Priority: </label>
+                      <input
+                        defaultValue={note_state.priority}
+                        onChange={e => set_note_state({ ...note_state, priority: e.target.value })}
+                        className="priority_input create_note_inputs"
+                        placeholder="High, Medium, Low"
+                        name="priority" />
+                    </div>
+                    <div>
+                      <label className="modal_labels">List Name: </label>
+                      <input
+                        defaultValue={note_state.list_id}
+                        onChange={e => set_note_state({ ...note_state, list_id: e.target.value })}
+                        className="list_id_input modal_input create_note_inputs"
+                        placeholder="List Name"
+                        name="list_id" />
+                    </div>
+                    <label className="modal_labels">Date Created: {formatted_date_slash}</label>
+                    <div className="modal_scheduled_field ">
+                      <label className="modal_labels">Schedule: </label>
+                      <Checkbox onCheck={show_scheduling} checkboxState={schedule_state} />
+                    </div>
+                  </div>
+
+                  <div id="schedule_div" style={{ display: schedule_state ? "flex" : "none" }}>
+                    <label className="modal_labels">Date: </label>
+                    <input id="scheduled_date" type="date"
+                      defaultValue={date_state}
+                      onChange={e => set_note_state({ ...note_state, scheduled_date: e.target.value })}
+                      placeholder="List Name"
+                      name="scheduled_date" />
+                    <label className="modal_labels"> Time: </label>
+                    <input id="scheduled_time" type="time"
+                      defaultValue={time_state}
+                      onChange={e => set_note_state({ ...note_state, scheduled_time: e.target.value })}
+                      placeholder="List Name"
+                      name="scheduled_time" />
+                  </div>
                 </div>
               </div>
             </div>

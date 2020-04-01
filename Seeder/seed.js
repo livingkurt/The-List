@@ -8,26 +8,29 @@ mongoose.connect('mongodb://localhost/thelist_db', {
 
 const note_seed = [
   {
-    title: "Connecting server to Local MongoDB Database",
-    body: `Inside of `,
+    title: "Start Learning Java First",
+    body: `It seems to be the majority of jobs that are avaiable`,
     folder_id: "1",
     list_id: "master",
     priority: 5,
     scheduled: true,
     scheduled_date_time: "2020-03-24T11:37:16.233Z",
-    date_created: new Date(Date.now()),
+    date_created: new Date(Date.now() - 3),
     date_modified: new Date(Date.now())
 
   },
   {
-    title: "Set up a Route Server Side",
-    body: `Create a `,
+    title: "What coding languages you need to learn ",
+    body: `Java
+    Python
+    C++
+    PHP`,
     folder_id: "1",
     list_id: "dump",
     priority: 3,
     scheduled: false,
     scheduled_date_time: "2020-05-02T11:37:16.233Z",
-    date_created: new Date(Date.now()),
+    date_created: new Date(Date.now() - 12),
     date_modified: new Date(Date.now())
   },
   {
@@ -38,7 +41,7 @@ const note_seed = [
     priority: 1,
     scheduled: true,
     scheduled_date_time: "2020-06-10T11:37:16.233Z",
-    date_created: new Date(Date.now()),
+    date_created: new Date(Date.now() - 5),
     date_modified: new Date(Date.now())
   },
   {
@@ -49,7 +52,7 @@ const note_seed = [
     priority: 2,
     scheduled: false,
     scheduled_date_time: "2020-08-20T11:37:16.233Z",
-    date_created: new Date(Date.now()),
+    date_created: new Date(Date.now() - 1),
     date_modified: new Date(Date.now())
   }
 
