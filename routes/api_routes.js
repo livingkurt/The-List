@@ -9,7 +9,7 @@ module.exports = function (app) {
   // ==================================================================================================
   app.post('/api/note', async (req, res) => {
     // console.log({ "api_routes.js": "Hello" })
-    console.log({ "api_routes.js": req.body })
+    console.log({ "api_routes.js - post": req.body })
     // Save Need to Database
     try {
       const request = await db.Notes.create({
@@ -37,6 +37,7 @@ module.exports = function (app) {
 
 
   app.get('/api/notes', async (req, res) => {
+    console.log({ "api_routes.js - get all": req.body })
     try {
       const request = await db.Notes.find({}).sort({ x: 1 })
       // Send the request back to the front end
@@ -48,6 +49,7 @@ module.exports = function (app) {
   })
 
   app.get('/api/notes/:list_id', async (req, res) => {
+    console.log({ "api_routes.js - get by list_id": req.body })
     try {
       const request = await db.Notes.find({ list_id: req.params.list_id }).sort({ _id: -1 })
       // Send the request back to the front end
@@ -62,6 +64,7 @@ module.exports = function (app) {
   // Get single "need" from local database based on the user - Working
   // ==================================================================================================
   app.get('/api/note/:id', async (req, res) => {
+    console.log({ "api_routes.js - get one": req.body })
     try {
       const request = await db.Notes.findOne({ _id: req.params.id })
       // Send the request back to the front end
@@ -78,6 +81,7 @@ module.exports = function (app) {
   // ==================================================================================================
   app.put('/api/note/:id', async (req, res) => {
     // Create an empty workout object ready for exercises to get put into it
+    console.log({ "api_routes.js - update one": req.body })
     try {
       const request = await db.Notes.updateOne({ _id: req.params.id },
         {
@@ -87,7 +91,8 @@ module.exports = function (app) {
           list_id: req.body.list_id,
           priority: req.body.priority,
           scheduled: req.body.scheduled,
-          scheduled_date_time: req.body.scheduled_date_time,
+          scheduled_date: req.body.scheduled_date,
+          scheduled_time: req.body.scheduled_time,
           completed: req.body.completed,
           date_created: new Date().setDate(new Date().getDate()),
           date_modified: new Date().setDate(new Date().getDate())
@@ -106,6 +111,7 @@ module.exports = function (app) {
   app.delete('/api/note/:id', async (req, res) => {
     // Create an empty workout object ready for exercises to get put into it
     // console.log({ "api_routes.js": req.params.id})
+    console.log({ "api_routes.js - delete one": req.body })
     try {
       const request = await db.Notes.remove({ _id: req.params.id })
       // Send the request back to the front end

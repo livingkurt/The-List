@@ -19,20 +19,22 @@ const ListItemModal = (props) => {
     list_id: "",
     priority: "",
     scheduled: false,
-    scheduled_date_time: "",
+    scheduled_date: "",
+    scheduled_time: "",
     completed: false,
-  })
-
-  const [dropdown_state, set_dropdown_state] = useState("none")
-  const [date_state, set_date_state] = useState({
     date_created: "",
     date_modified: "",
   })
 
+  const [dropdown_state, set_dropdown_state] = useState("none")
+  // const [date_state, set_date_state] = useState({
+  //   date_created: "",
+  //   date_modified: "",
+  // })
   useEffect(() => {
     get_note()
-    get_formatted_date();
-    get_formatted_time();
+    // get_formatted_date();
+    // get_formatted_time();
     get_checkbox_state();
   }, [])
 
@@ -45,9 +47,11 @@ const ListItemModal = (props) => {
     if (todo_id != undefined) {
       try {
         const res = await API.get_note(todo_id)
+        console.log({ "update_note": res.data })
         const update_todo = {
           ...res.data,
-          [field_name]: todo_data
+          [field_name]: todo_data,
+          date_modified: new Date().setDate(new Date().getDate())
         }
         API.update_note(todo_id, update_todo)
       }
@@ -63,16 +67,44 @@ const ListItemModal = (props) => {
       try {
         const res = await API.get_note(todo_id)
         set_note_state(res.data)
-        set_date_state({
-          ...date_state,
-          date_created: format_date(res.data.date_created),
-          date_modified: format_date(res.data.date_modified)
+        set_date_state(format_date_element(res.data.scheduled_date))
+        set_time_state(res.data.scheduled_time)
+
+        // format_date(res.data.date_created)
+        set_note_state({
+          ...res.data, date_modified: format_date_display(res.data.date_modified),
+          date_created: format_date_display(res.data.date_created)
         })
+        // set_note_state({
+        //   ...note_state,
+        //   date_created: format_date(res.data.date_created),
+        //   date_modified: format_date(res.data.date_modified)
+        // })
       }
       catch (err) {
         console.log(err);
       }
     }
+  }
+
+  const format_date_element = unformatted_date => {
+    unformatted_date = unformatted_date.toString()
+    let year = unformatted_date.slice(0, 4)
+    let month = unformatted_date.slice(5, 7)
+    let day = unformatted_date.slice(8, 10)
+    // const formatted_date = `${month}-${day}-${year}`
+    // return formatted_date;
+    // var day = date.getDate();
+    // var month = date.getMonth() + 1;
+    // var year = date.getFullYear();
+
+    if (month < 10) month = "0" + month;
+    if (day < 10) day = "0" + day;
+
+    var today = year + "-" + month + "-" + day;
+    set_date_state(today)
+    // set_note_state({ ...note_state, date_modified: today })
+    return today;
   }
 
   const drop_down = () => {
@@ -98,7 +130,7 @@ const ListItemModal = (props) => {
     }
   }
 
-  const format_date = unformatted_date => {
+  const format_date_display = unformatted_date => {
     unformatted_date = unformatted_date.toString()
     const year = unformatted_date.slice(0, 4)
     const month = unformatted_date.slice(5, 7)
@@ -140,38 +172,28 @@ const ListItemModal = (props) => {
       console.log({ "update_note": err });
     }
   }
-  const [date_state_2, set_date_state_2] = useState("")
+  // const [date_state_2, set_date_state_2] = useState("")
+  const [date_state, set_date_state] = useState("")
   const [time_state, set_time_state] = useState("")
 
   const date = new Date()
-  let month = date.getMonth() + 1
-  if (month.length === 1) {
-    month = `0${month}`
-  }
-  let day = date.getDate()
-  if (day.length === 1) {
-    day = `0${day}`
-  }
-  let year = date.getFullYear();
 
+  // const get_formatted_time = () => {
+  //   var hours = date.getHours();
+  //   var seconds = date.getMinutes();
 
-  const formatted_date_slash = `${month}/${day}/${year}`
-  const formatted_date_dash = `${year}-${month}-${day}`
+  //   if (hours < 10) hours = "0" + hours;
+  //   if (seconds < 10) seconds = "0" + seconds;
+
+  //   var today = hours + ":" + seconds
+  //   // set_time_state(today)
+  //   // set_note_state({ ...note_state, date_modified: today })
+  //   return today
+  //   // document.getElementById("scheduled_time").value = today;
+
+  // }
 
   const get_formatted_date = () => {
-    var hours = date.getHours();
-    var seconds = date.getMinutes();
-
-    if (month < 10) month = "0" + month;
-    if (day < 10) day = "0" + day;
-
-    var today = hours + ":" + seconds
-    set_time_state(today)
-    // document.getElementById("scheduled_time").value = today;
-
-  }
-
-  const get_formatted_time = () => {
     var day = date.getDate();
     var month = date.getMonth() + 1;
     var year = date.getFullYear();
@@ -180,7 +202,7 @@ const ListItemModal = (props) => {
     if (day < 10) day = "0" + day;
 
     var today = year + "-" + month + "-" + day;
-    set_date_state(today)
+    // set_note_state({ ...note_state, date_modified: today })
     return today;
     // document.getElementById("scheduled_date").value = today;
   }
@@ -198,6 +220,37 @@ const ListItemModal = (props) => {
       }
     }
 
+  }
+
+  const save_scheduling = (e) => {
+    if (e.target.name === "time") {
+      set_note_state({ ...note_state, scheduled_time: e.target.value })
+    }
+    else if (e.target.name === "date") {
+      set_note_state({ ...note_state, scheduled_date: e.target.value })
+    }
+  }
+  const update_scheduling = async (e) => {
+    const todo_id = e.target.id
+    const todo_data = e.target.value
+    const field_name = e.target.name
+    console.log(field_name)
+    // if (todo_id != undefined) {
+    try {
+      console.log("hello")
+      // consol
+      const res = await API.get_note(todo_id)
+      console.log({ "update_note": res.data })
+      const update_todo = {
+        ...res.data,
+        [field_name]: todo_data
+      }
+      API.update_note(todo_id, update_todo)
+    }
+    catch (err) {
+      console.log({ "save_scheduling": err });
+    }
+    // }
   }
 
 
@@ -268,31 +321,35 @@ const ListItemModal = (props) => {
 
             <div id="modal_dates" >
               <label className="modal_labels">Date Modified:</label>
-              <label className="modal_labels">{date_state.date_modified}</label>
+              <label className="modal_labels">{note_state.date_modified}</label>
               <label className="modal_labels">Date Created:</label>
-              <label className="modal_labels">{date_state.date_created}</label>
+              <label className="modal_labels">{note_state.date_created}</label>
             </div>
           </div>
           <div className="modal_scheduled_field ">
             <label className="modal_labels">Schedule: </label>
-            {console.log({ "Modal": schedule_state })}
+            {/* {console.log({ "Modal": schedule_state })} */}
             <Checkbox id={props.id} onCheck={show_scheduling} checkboxState={schedule_state} />
           </div>
         </div>
 
         <div id="modal_schedule_div" style={{ display: schedule_state ? "flex" : "none" }}>
           <label className="modal_labels">Date: </label>
-          <input id="scheduled_date" type="date"
-            defaultValue={date_state_2}
-            onChange={e => set_note_state({ ...note_state, scheduled_date: e.target.value })}
+          <input className="scheduled_date" type="date"
+            defaultValue={date_state}
+            onChange={e => save_scheduling(e)}
             placeholder="List Name"
-            name="scheduled_date" />
+            name="scheduled_date"
+            id={props.id}
+            onBlur={e => update_scheduling(e)} />
           <label className="modal_labels"> Time: </label>
-          <input id="scheduled_time" type="time"
+          <input className="scheduled_time" type="time"
             defaultValue={time_state}
-            onChange={e => set_note_state({ ...note_state, scheduled_time: e.target.value })}
+            id={props.id}
+            onChange={e => save_scheduling(e)}
             placeholder="List Name"
-            name="scheduled_time" />
+            name="scheduled_time"
+            onBlur={e => update_scheduling(e)} />
         </div>
         {/* </div> */}
       </div>

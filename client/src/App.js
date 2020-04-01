@@ -74,7 +74,7 @@ const App = () => {
 
 
 
-  const get_formatted_date = () => {
+  const get_formatted_time = () => {
     var hours = date.getHours();
     var seconds = date.getMinutes();
 
@@ -87,7 +87,7 @@ const App = () => {
 
   }
 
-  const get_formatted_time = () => {
+  const get_formatted_date = () => {
     var day = date.getDate();
     var month = date.getMonth() + 1;
     var year = date.getFullYear();
@@ -209,31 +209,8 @@ const App = () => {
     }
   }
 
-  // const [schedule_state, set_schedule_state] = useState({
-  //   display: "none",
-  //   checked: false
-  // })
 
   const [schedule_state, set_schedule_state] = useState(false)
-
-  // const show_scheduling = () => {
-  //   // console.log("show_scheduling")
-  //   if (schedule_state === "none") {
-  //     set_schedule_state({
-  //       ...schedule_state,
-  //       display: "flex",
-  //       checked: true
-  //     })
-
-  //   }
-  //   else {
-  //     set_schedule_state({
-  //       ...schedule_state,
-  //       display: "none",
-  //       checked: false
-  //     })
-  //   }
-  // }
 
   const show_scheduling = () => {
     // console.log("show_scheduling")
@@ -253,18 +230,6 @@ const App = () => {
 
   }
 
-
-  // const update_scheduled_checkbox = async (id, completed) => {
-  //   const todo_id = id
-  //   try {
-  //     const res = await API.get_note(todo_id)
-  //     const update_todo = { ...res.data, scheduled: scheduled }
-  //     API.update_note(todo_id, update_todo)
-  //   }
-  //   catch (err) {
-  //     console.log({ "update_note": err });
-  //   }
-  // }
 
 
   return (
