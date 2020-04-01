@@ -53,17 +53,49 @@ const App = () => {
   }
   let year = date.getFullYear();
 
-  // const [date_state, set_date_state] = useState("")
+
+
+  const [date_state, set_date_state] = useState("")
 
 
 
   const formatted_date_slash = `${month}/${day}/${year}`
   const formatted_date_dash = `${year}-${month}-${day}`
+
+
   useEffect(() => {
     get_all_notes_by_list_id("master");
     get_all_notes_by_list_id("dump");
     get_all_notes();
+    get_formatted_date();
   }, []);
+
+
+
+  const get_formatted_date = () => {
+    var hours = date.getHours();
+    var seconds = date.getMinutes();
+
+    if (month < 10) month = "0" + month;
+    if (day < 10) day = "0" + day;
+
+    var today = hours + ":" + seconds
+    // set_date_state(`${month}/${day}/${year}`)
+    document.getElementById("scheduled_time").value = today;
+  }
+
+  const get_formatted_time = () => {
+    var day = date.getDate();
+    var month = date.getMonth() + 1;
+    var year = date.getFullYear();
+
+    if (month < 10) month = "0" + month;
+    if (day < 10) day = "0" + day;
+
+    var today = year + "-" + month + "-" + day;
+    set_date_state(`${month}/${day}/${year}`)
+    document.getElementById("scheduled_date").value = today;
+  }
 
   const get_all_notes_by_list_id = async (list_id) => {
     try {
@@ -279,7 +311,7 @@ const App = () => {
                 <div id="schedule_div" style={{ display: schedule_state ? "flex" : "none" }}>
                   <label className="modal_labels">Date: </label>
                   <input id="scheduled_date" type="date"
-                    defaultValue={date}
+                    // defaultValue={date}
                     // min="2018-01-01"
                     // onChange={e => set_note_state({ ...note_state, list_id: e.target.value })}
                     // className="list_id_input modal_input create_note_inputs"
