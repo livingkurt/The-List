@@ -3,10 +3,10 @@ import React, { useState, useEffect } from "react";
 import Label from "../Label/Label"
 import Checkbox from "../Checkbox/Checkbox"
 // Styles
-import './note_editor.css'
+import './note_attribute_editor.css'
 
 
-function NoteEditor(props) {
+function NoteAttributeEditor(props) {
 
 
   return (
@@ -57,4 +57,4 @@ function NoteEditor(props) {
   );
 }
 
-export default NoteEditor;
+export default NoteAttributeEditor;

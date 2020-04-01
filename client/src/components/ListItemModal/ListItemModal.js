@@ -6,7 +6,7 @@ import './list_item_modal.css'
 import DeleteButton from '../DeleteButton/DeleteButton';
 import Checkbox from '../Checkbox/Checkbox';
 import API from "../../utils/API";
-import NoteEditor from '../NoteEditor/NoteEditor';
+import NoteAttributeEditor from '../NoteAttributeEditor/NoteAttributeEditor';
 
 
 const ListItemModal = (props) => {
@@ -373,7 +373,7 @@ const ListItemModal = (props) => {
           <li>Low Priority</li>
         </div>
       </div> */}
-      <NoteEditor set_todo_state={set_todo_state} note_state={note_state} formatted_date_slash={formatted_date_slash} on_change_note_editor={on_change_note_editor} checkboxState={note_state.completed} show_scheduling={show_scheduling} schedule_state={schedule_state} />
+      <NoteAttributeEditor set_todo_state={set_todo_state} note_state={note_state} formatted_date_slash={formatted_date_slash} on_change_note_editor={on_change_note_editor} checkboxState={note_state.completed} show_scheduling={show_scheduling} schedule_state={schedule_state} />
       <DeleteButton index={props.id} get_all_notes_by_list_id={props.get_all_notes_by_list_id} id={props.id}>
         Delete
       </DeleteButton>

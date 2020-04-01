@@ -9,7 +9,8 @@ import ScrollContainer from './components/ScrollContainer/ScrollContainer.js';
 import Title from './components/Title/Title';
 import NoteArchive from './components/NoteArchive/NoteArchive';
 import ArchiveItem from './components/ArchiveItem/ArchiveItem';
-import NoteEditor from './components/NoteEditor/NoteEditor';
+import NoteAttributeEditor from './components/NoteAttributeEditor/NoteAttributeEditor';
+import NoteTextEditor from './components/NoteTextEditor/NoteTextEditor';
 import Checkbox from './components/Checkbox/Checkbox';
 import Label from './components/Label/Label';
 import ListItemModal from './components/ListItemModal/ListItemModal';
@@ -276,25 +277,19 @@ const App = () => {
             </div>
             <Title margin="-30px 0px 0px 0px" fontSize="16px">Create a New Note Below</Title>
             <div>
-              <div id="create_note_title_description">
-                <input
-                  className="title_field"
-                  onChange={e => set_note_state({ ...note_state, title: e.target.value })}
-                  placeholder="Title"
-                  onBlur={(e) => e.target.placeholder = "Title"}
-                  onFocus={(e) => e.target.placeholder = ""}></input>
-                <textarea
-                  className="text_field"
-                  onChange={e => set_note_state({ ...note_state, body: e.target.value })}
-                  placeholder="Description"
-                  onBlur={(e) => e.target.placeholder = "Description"}
-                  onFocus={(e) => e.target.placeholder = ""}
-                />
-              </div>
-              <NoteEditor set_todo_state={set_todo_state} note_state={note_state} formatted_date_slash={formatted_date_slash} on_change_note_editor={on_change_note_editor} show_scheduling={show_scheduling} schedule_state={schedule_state} />
+              <NoteTextEditor
+                set_todo_state={set_todo_state}
+                note_state={note_state}
+                on_change_note_editor={on_change_note_editor} />
+              <NoteAttributeEditor
+                set_todo_state={set_todo_state}
+                note_state={note_state}
+                formatted_date_slash={formatted_date_slash}
+                on_change_note_editor={on_change_note_editor}
+                show_scheduling={show_scheduling}
+                schedule_state={schedule_state} />
             </div>
           </Section>
-
           <Section >
             <div style={{ display: "flex", justifyContent: "space-between" }}>
               <Title>Todo Dump</Title>
@@ -322,9 +317,7 @@ const App = () => {
         </Container>
         <Container>
           <Section width="100%">
-            <Title>
-              Calender
-              </Title>
+            <Title>Calender</Title>
           </Section>
         </Container>
 
