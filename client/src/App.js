@@ -336,16 +336,13 @@ const App = () => {
                   <label className="modal_labels">Date: </label>
                   <input id="scheduled_date" type="date"
                     defaultValue={date_state}
-                    // min="2018-01-01"
-                    // onChange={e => set_note_state({ ...note_state, list_id: e.target.value })}
-                    // className="list_id_input modal_input create_note_inputs"
+                    onChange={e => set_note_state({ ...note_state, scheduled_date: e.target.value })}
                     placeholder="List Name"
                     name="scheduled_date" />
                   <label className="modal_labels"> Time: </label>
                   <input id="scheduled_time" type="time"
                     defaultValue={time_state}
-                    // onChange={e => set_note_state({ ...note_state, list_id: e.target.value })}
-                    // className="list_id_input modal_input create_note_inputs"
+                    onChange={e => set_note_state({ ...note_state, scheduled_time: e.target.value })}
                     placeholder="List Name"
                     name="scheduled_time" />
                 </div>
