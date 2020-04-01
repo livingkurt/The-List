@@ -8,7 +8,7 @@ const Title = (props) => {
 
   return (
     <div className="title" >
-      <h2 style={{ margin: props.margin }}>{props.children}</h2>
+      <h2 style={{ margin: props.margin, fontSize: props.fontSize }}>{props.children}</h2>
     </div >
   );
 }

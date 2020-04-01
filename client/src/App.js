@@ -259,9 +259,7 @@ const App = () => {
     <div >
       <Background>
         <Header sidebar_show_hide={sidebar_show_hide}>
-          <Title margin="0px">
-            TheList
-        </Title>
+          <Title margin="0px">TheList</Title>
         </Header>
         <Container>
           <NoteArchive >
@@ -273,12 +271,10 @@ const App = () => {
           </NoteArchive>
           <Section>
             <div style={{ display: "flex", justifyContent: "space-between" }}>
-              <Title>
-                Create Note
-              </Title>
+              <Title >Create Note</Title>
               <Button onclick_function={create_new_note} >+</Button>
             </div>
-            <div className="todays_date" >Create a New Note Below</div>
+            <Title margin="-30px 0px 0px 0px" fontSize="16px">Create a New Note Below</Title>
             <div>
               <div id="create_note_title_description">
                 <input
@@ -301,13 +297,10 @@ const App = () => {
 
           <Section >
             <div style={{ display: "flex", justifyContent: "space-between" }}>
-              <Title>
-                Todo Dump
-            </Title>
-
+              <Title>Todo Dump</Title>
               <Button onclick_function={create_empty_list_item} listId="dump" >+</Button>
             </div>
-            <div className="todays_date" >Get your Ideas Down Fast</div>
+            <Title margin="-30px 0px 0px 0px" fontSize="16px">Get your Ideas Down Fast</Title>
             <ScrollContainer>
               {todo_dump_state.map((note, index) => {
                 return <ListItem get_all_notes_by_list_id={get_all_notes_by_list_id} index={note._id} id={note._id} key={note._id}>{note.title}</ListItem>
@@ -316,12 +309,10 @@ const App = () => {
           </Section>
           <Section>
             <div style={{ display: "flex", justifyContent: "space-between" }}>
-              <Title>
-                Master Todo List:
-              </Title>
+              <Title>Master Todo List:</Title>
               <Button onclick_function={create_empty_list_item} listId="master" >+</Button>
             </div>
-            <div className="todays_date" >Today {formatted_date_slash}</div>
+            <Title margin="-30px 0px 0px 0px" fontSize="16px">Today {formatted_date_slash}</Title>
             <ScrollContainer>
               {todo_master_state.map((note, index) => {
                 return <ListItem get_all_notes_by_list_id={get_all_notes_by_list_id} index={note._id} id={note._id} key={note._id}>{note.title}</ListItem>
