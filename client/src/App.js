@@ -15,7 +15,7 @@ import Label from './components/Label/Label';
 import ListItemModal from './components/ListItemModal/ListItemModal';
 import TextField from './components/TextField/TextField';
 import TitleField from './components/TitleField/TitleField';
-import AddButton from './components/AddButton/AddButton';
+import Button from './components/Button/Button';
 import API from "./utils/API";
 import styled from 'styled-components';
 
@@ -276,7 +276,7 @@ const App = () => {
               <Title>
                 Create Note
               </Title>
-              <button onClick={() => create_new_note()} className="add_button">+</button>
+              <Button onclick_function={create_new_note} >+</Button>
             </div>
             <div className="todays_date" >Create a New Note Below</div>
             <div>
@@ -296,50 +296,6 @@ const App = () => {
                 />
               </div>
               <NoteEditor set_todo_state={set_todo_state} note_state={note_state} formatted_date_slash={formatted_date_slash} on_change_note_editor={on_change_note_editor} show_scheduling={show_scheduling} schedule_state={schedule_state} />
-              {/* <div id="create_note_fields">
-                <div id="create_note_container">
-                  <div style={{ width: "55%" }}>
-                    <div >
-                      <Label>Priority: </Label>
-                      <input
-                        defaultValue={note_state.priority}
-                        onChange={e => set_note_state({ ...note_state, priority: e.target.value })}
-                        className="priority_input create_note_inputs"
-                        placeholder="High, Medium, Low"
-                        name="priority" />
-                    </div>
-                    <div>
-                      <Label>List Name: </Label>
-                      <input
-                        defaultValue={note_state.list_id}
-                        onChange={e => set_note_state({ ...note_state, list_id: e.target.value })}
-                        className="list_id_input modal_input create_note_inputs"
-                        placeholder="List Name"
-                        name="list_id" />
-                    </div>
-                    <Label>Date Created: {formatted_date_slash}</Label>
-                    <div className="modal_scheduled_field ">
-                      <Label>Schedule: </Label>
-                      <Checkbox onCheck={show_scheduling} checkboxState={schedule_state} />
-                    </div>
-                  </div>
-
-                  <div id="schedule_div" style={{ display: schedule_state ? "flex" : "none" }}>
-                    <Label>Date: </Label>
-                    <input id="scheduled_date" type="date"
-                      defaultValue={date_state}
-                      onChange={e => set_note_state({ ...note_state, scheduled_date: e.target.value })}
-                      placeholder="List Name"
-                      name="scheduled_date" />
-                    <Label> Time: </Label>
-                    <input id="scheduled_time" type="time"
-                      defaultValue={time_state}
-                      onChange={e => set_note_state({ ...note_state, scheduled_time: e.target.value })}
-                      placeholder="List Name"
-                      name="scheduled_time" />
-                  </div>
-                </div>
-              </div> */}
             </div>
           </Section>
 
@@ -349,7 +305,7 @@ const App = () => {
                 Todo Dump
             </Title>
 
-              <button onClick={() => create_empty_list_item("dump")} className="add_button">+</button>
+              <Button onclick_function={create_empty_list_item} listId="dump" >+</Button>
             </div>
             <div className="todays_date" >Get your Ideas Down Fast</div>
             <ScrollContainer>
@@ -363,7 +319,7 @@ const App = () => {
               <Title>
                 Master Todo List:
               </Title>
-              <button onClick={() => create_empty_list_item("master")} className="add_button">+</button>
+              <Button onclick_function={create_empty_list_item} listId="master" >+</Button>
             </div>
             <div className="todays_date" >Today {formatted_date_slash}</div>
             <ScrollContainer>
