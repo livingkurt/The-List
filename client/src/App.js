@@ -56,6 +56,7 @@ const App = () => {
 
 
   const [date_state, set_date_state] = useState("")
+  const [time_state, set_time_state] = useState("")
 
 
 
@@ -68,6 +69,7 @@ const App = () => {
     get_all_notes_by_list_id("dump");
     get_all_notes();
     get_formatted_date();
+    get_formatted_time();
   }, []);
 
 
@@ -80,8 +82,9 @@ const App = () => {
     if (day < 10) day = "0" + day;
 
     var today = hours + ":" + seconds
-    // set_date_state(`${month}/${day}/${year}`)
-    document.getElementById("scheduled_time").value = today;
+    set_time_state(today)
+    // document.getElementById("scheduled_time").value = today;
+
   }
 
   const get_formatted_time = () => {
@@ -93,8 +96,9 @@ const App = () => {
     if (day < 10) day = "0" + day;
 
     var today = year + "-" + month + "-" + day;
-    set_date_state(`${month}/${day}/${year}`)
-    document.getElementById("scheduled_date").value = today;
+    set_date_state(today)
+    return today;
+    // document.getElementById("scheduled_date").value = today;
   }
 
   const get_all_notes_by_list_id = async (list_id) => {
@@ -235,12 +239,32 @@ const App = () => {
     // console.log("show_scheduling")
     if (schedule_state === false) {
       set_schedule_state(true)
+      set_note_state({ ...note_state, scheduled: false })
+
+      // update_scheduled_checkbox(props.id, true)
 
     }
     else {
       set_schedule_state(false)
+      // update_scheduled_checkbox(props.id, true)
+      set_note_state({ ...note_state, scheduled: true })
     }
+    console.log(note_state)
+
   }
+
+
+  // const update_scheduled_checkbox = async (id, completed) => {
+  //   const todo_id = id
+  //   try {
+  //     const res = await API.get_note(todo_id)
+  //     const update_todo = { ...res.data, scheduled: scheduled }
+  //     API.update_note(todo_id, update_todo)
+  //   }
+  //   catch (err) {
+  //     console.log({ "update_note": err });
+  //   }
+  // }
 
 
   return (
@@ -311,7 +335,7 @@ const App = () => {
                 <div id="schedule_div" style={{ display: schedule_state ? "flex" : "none" }}>
                   <label className="modal_labels">Date: </label>
                   <input id="scheduled_date" type="date"
-                    // defaultValue={date}
+                    defaultValue={date_state}
                     // min="2018-01-01"
                     // onChange={e => set_note_state({ ...note_state, list_id: e.target.value })}
                     // className="list_id_input modal_input create_note_inputs"
@@ -319,7 +343,7 @@ const App = () => {
                     name="scheduled_date" />
                   <label className="modal_labels"> Time: </label>
                   <input id="scheduled_time" type="time"
-                    // defaultValue={note_state.list_id}
+                    defaultValue={time_state}
                     // onChange={e => set_note_state({ ...note_state, list_id: e.target.value })}
                     // className="list_id_input modal_input create_note_inputs"
                     placeholder="List Name"

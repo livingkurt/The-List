@@ -117,7 +117,7 @@ const ListItemModal = (props) => {
           placeholder="Title"
           id={props.id}
           onBlur={e => update_note(e)} />
-        <button onClick={props.show_modal} className="show_modal_button"></button>
+        <button onClick={props.show_modal} className="show_modal_button"><i className="fas fa-times"></i></button>
       </div>
       <textarea
         defaultValue={note_state.body}
