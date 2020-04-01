@@ -8,21 +8,7 @@ import './note_editor.css'
 
 function NoteEditor(props) {
 
-  const [schedule_state, set_schedule_state] = useState(false)
 
-  const show_scheduling = () => {
-    // console.log("show_scheduling")
-    if (schedule_state === false) {
-      set_schedule_state(true)
-      props.on_change_note_editor(true)
-    }
-    else {
-      set_schedule_state(false)
-      props.on_change_note_editor(false)
-    }
-    // console.log(note_state)
-
-  }
   return (
     <div id="create_note_fields">
       <div id="create_note_container">
@@ -48,11 +34,11 @@ function NoteEditor(props) {
           <Label>Date Created: {props.formatted_date_slash}</Label>
           <div className="modal_scheduled_field ">
             <Label>Schedule: </Label>
-            <Checkbox onCheck={show_scheduling} checkboxState={schedule_state} />
+            <Checkbox onCheck={props.show_scheduling} checkboxState={props.schedule_state} />
           </div>
         </div>
 
-        <div id="schedule_div" style={{ display: schedule_state ? "flex" : "none" }}>
+        <div id="schedule_div" style={{ display: props.schedule_state ? "flex" : "none" }}>
           <Label>Date: </Label>
           <input id="scheduled_date" type="date"
             defaultValue={props.date_state}

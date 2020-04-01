@@ -6,6 +6,7 @@ import './list_item_modal.css'
 import DeleteButton from '../DeleteButton/DeleteButton';
 import Checkbox from '../Checkbox/Checkbox';
 import API from "../../utils/API";
+import NoteEditor from '../NoteEditor/NoteEditor';
 
 
 const ListItemModal = (props) => {
@@ -230,14 +231,83 @@ const ListItemModal = (props) => {
       set_note_state({ ...note_state, scheduled_date: e.target.value })
     }
   }
-  const update_scheduling = async (e) => {
-    const todo_id = e.target.id
-    const todo_data = e.target.value
-    const field_name = e.target.name
+  // const update_scheduling = async (e) => {
+  //   const todo_id = e.target.id
+  //   const todo_data = e.target.value
+  //   const field_name = e.target.name
+  //   console.log(field_name)
+  //   // if (todo_id != undefined) {
+  //   try {
+  //     console.log("hello")
+  //     // consol
+  //     const res = await API.get_note(todo_id)
+  //     console.log({ "update_note": res.data })
+  //     const update_todo = {
+  //       ...res.data,
+  //       [field_name]: todo_data
+  //     }
+  //     API.update_note(todo_id, update_todo)
+  //   }
+  //   catch (err) {
+  //     console.log({ "save_scheduling": err });
+  //   }
+  //   // }
+  // }
+
+  const [todo_state, set_todo_state] = useState({
+    title: "",
+    body: "",
+    folder_id: "",
+    list_id: "",
+    priority: "Low",
+    scheduled: false,
+    scheduled_date_time: "",
+    completed: false,
+  })
+  // const date = new Date()
+  let month = date.getMonth() + 1
+  if (month.length === 1) {
+    month = `0${month}`
+  }
+  let day = date.getDate()
+  if (day.length === 1) {
+    day = `0${day}`
+  }
+  let year = date.getFullYear();
+
+
+
+  // const [date_state, set_date_state] = useState("")
+  // const [time_state, set_time_state] = useState("")
+
+
+
+  const formatted_date_slash = `${month}/${day}/${year}`
+  const formatted_date_dash = `${year}-${month}-${day}`
+
+  const on_change_note_editor = async (e) => {
+    const todo_id = props.id
+    let todo_data = ""
+    let field_name = ""
+    // const todo_id = e.target.id
+    console.log({ "on_change_note_editor": e })
+    if (e.target === undefined) {
+      set_note_state({ ...note_state, scheduled: e })
+      todo_data = e
+      field_name = "scheduled"
+    }
+    else {
+
+      todo_data = e.target.value
+      field_name = e.target.name
+      set_note_state({ ...note_state, [field_name]: todo_data })
+    }
+    // const todo_data = e.target.value
+    // const field_name = e.target.name
     console.log(field_name)
     // if (todo_id != undefined) {
     try {
-      console.log("hello")
+      // console.log("hello")
       // consol
       const res = await API.get_note(todo_id)
       console.log({ "update_note": res.data })
@@ -250,10 +320,23 @@ const ListItemModal = (props) => {
     catch (err) {
       console.log({ "save_scheduling": err });
     }
-    // }
+
   }
+  // const [schedule_state, set_schedule_state] = useState(false)
 
+  // const show_scheduling = () => {
+  //   // console.log("show_scheduling")
+  //   if (schedule_state === false) {
+  //     set_schedule_state(true)
+  //     on_change_note_editor(true)
+  //   }
+  //   else {
+  //     set_schedule_state(false)
+  //     on_change_note_editor(false)
+  //   }
+  //   // console.log(note_state)
 
+  // }
 
 
   return (
@@ -290,69 +373,7 @@ const ListItemModal = (props) => {
           <li>Low Priority</li>
         </div>
       </div> */}
-      <div id="modal_fields_container" style={{ border: 0 }}>
-        {/* <div id="create_note_container_modal"> */}
-        <div id="modal_fields_section">
-          <div style={{ display: "flex" }} >
-            <div id="modal_priority_list_name" >
-              <div>
-                <label className="modal_labels">Priority: </label>
-                <input
-                  defaultValue={note_state.priority}
-                  onChange={e => set_note_state({ ...note_state, priority: e.target.value })}
-                  className="priority_input modal_inputs"
-                  placeholder="High, Medium, Low"
-                  name="priority"
-                  id={props.id}
-                  onBlur={e => update_note(e)} />
-              </div>
-              <div>
-                <label className="modal_labels">List Name: </label>
-                <input
-                  defaultValue={note_state.list_id}
-                  onChange={e => set_note_state({ ...note_state, list_id: e.target.value })}
-                  className="list_id_input modal_input modal_inputs"
-                  placeholder="List Name"
-                  name="list_id"
-                  id={props.id}
-                  onBlur={e => update_note(e)} />
-              </div>
-            </div>
-
-            <div id="modal_dates" >
-              <label className="modal_labels">Date Modified:</label>
-              <label className="modal_labels">{note_state.date_modified}</label>
-              <label className="modal_labels">Date Created:</label>
-              <label className="modal_labels">{note_state.date_created}</label>
-            </div>
-          </div>
-          <div className="modal_scheduled_field ">
-            <label className="modal_labels">Schedule: </label>
-            {/* {console.log({ "Modal": schedule_state })} */}
-            <Checkbox id={props.id} onCheck={show_scheduling} checkboxState={schedule_state} />
-          </div>
-        </div>
-
-        <div id="modal_schedule_div" style={{ display: schedule_state ? "flex" : "none" }}>
-          <label className="modal_labels">Date: </label>
-          <input className="scheduled_date" type="date"
-            defaultValue={date_state}
-            onChange={e => save_scheduling(e)}
-            placeholder="List Name"
-            name="scheduled_date"
-            id={props.id}
-            onBlur={e => update_scheduling(e)} />
-          <label className="modal_labels"> Time: </label>
-          <input className="scheduled_time" type="time"
-            defaultValue={time_state}
-            id={props.id}
-            onChange={e => save_scheduling(e)}
-            placeholder="List Name"
-            name="scheduled_time"
-            onBlur={e => update_scheduling(e)} />
-        </div>
-        {/* </div> */}
-      </div>
+      <NoteEditor set_todo_state={set_todo_state} note_state={note_state} formatted_date_slash={formatted_date_slash} on_change_note_editor={on_change_note_editor} checkboxState={note_state.completed} show_scheduling={show_scheduling} schedule_state={schedule_state} />
       <DeleteButton index={props.id} get_all_notes_by_list_id={props.get_all_notes_by_list_id} id={props.id}>
         Delete
       </DeleteButton>
@@ -361,3 +382,68 @@ const ListItemModal = (props) => {
 }
 
 export default ListItemModal;
+
+
+// <div id="modal_fields_container" style={{ border: 0 }}>
+//         {/* <div id="create_note_container_modal"> */}
+//         <div id="modal_fields_section">
+//           <div style={{ display: "flex" }} >
+//             <div id="modal_priority_list_name" >
+//               <div>
+//                 <label className="modal_labels">Priority: </label>
+//                 <input
+//                   defaultValue={note_state.priority}
+//                   onChange={e => set_note_state({ ...note_state, priority: e.target.value })}
+//                   className="priority_input modal_inputs"
+//                   placeholder="High, Medium, Low"
+//                   name="priority"
+//                   id={props.id}
+//                   onBlur={e => update_note(e)} />
+//               </div>
+//               <div>
+//                 <label className="modal_labels">List Name: </label>
+//                 <input
+//                   defaultValue={note_state.list_id}
+//                   onChange={e => set_note_state({ ...note_state, list_id: e.target.value })}
+//                   className="list_id_input modal_input modal_inputs"
+//                   placeholder="List Name"
+//                   name="list_id"
+//                   id={props.id}
+//                   onBlur={e => update_note(e)} />
+//               </div>
+//             </div>
+
+//             <div id="modal_dates" >
+//               <label className="modal_labels">Date Modified:</label>
+//               <label className="modal_labels">{note_state.date_modified}</label>
+//               <label className="modal_labels">Date Created:</label>
+//               <label className="modal_labels">{note_state.date_created}</label>
+//             </div>
+//           </div>
+//           <div className="modal_scheduled_field ">
+//             <label className="modal_labels">Schedule: </label>
+//             {/* {console.log({ "Modal": schedule_state })} */}
+//             <Checkbox id={props.id} onCheck={show_scheduling} checkboxState={schedule_state} />
+//           </div>
+//         </div>
+
+//         <div id="modal_schedule_div" style={{ display: schedule_state ? "flex" : "none" }}>
+//           <label className="modal_labels">Date: </label>
+//           <input className="scheduled_date" type="date"
+//             defaultValue={date_state}
+//             onChange={e => save_scheduling(e)}
+//             placeholder="List Name"
+//             name="scheduled_date"
+//             id={props.id}
+//             onBlur={e => update_scheduling(e)} />
+//           <label className="modal_labels"> Time: </label>
+//           <input className="scheduled_time" type="time"
+//             defaultValue={time_state}
+//             id={props.id}
+//             onChange={e => save_scheduling(e)}
+//             placeholder="List Name"
+//             name="scheduled_time"
+//             onBlur={e => update_scheduling(e)} />
+//         </div>
+//         {/* </div> */}
+//       </div>

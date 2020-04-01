@@ -236,6 +236,22 @@ const App = () => {
   // }
 
 
+  const [schedule_state, set_schedule_state] = useState(false)
+
+  const show_scheduling = () => {
+    // console.log("show_scheduling")
+    if (schedule_state === false) {
+      set_schedule_state(true)
+      on_change_note_editor(true)
+    }
+    else {
+      set_schedule_state(false)
+      on_change_note_editor(false)
+    }
+    // console.log(note_state)
+
+  }
+
 
 
 
@@ -279,7 +295,7 @@ const App = () => {
                   onFocus={(e) => e.target.placeholder = ""}
                 />
               </div>
-              <NoteEditor set_todo_state={set_todo_state} note_state={note_state} formatted_date_slash={formatted_date_slash} on_change_note_editor={on_change_note_editor} />
+              <NoteEditor set_todo_state={set_todo_state} note_state={note_state} formatted_date_slash={formatted_date_slash} on_change_note_editor={on_change_note_editor} show_scheduling={show_scheduling} schedule_state={schedule_state} />
               {/* <div id="create_note_fields">
                 <div id="create_note_container">
                   <div style={{ width: "55%" }}>
