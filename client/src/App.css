@@ -53,57 +53,6 @@ li {
   list-style: none;
 }
 
-.todays_date {
-  font-size: 16px;
-  /* margin: 10px; */
-  margin-top: -30px;
-  margin-bottom: 11px;
-  font-weight: 700;
-}
-
-#create_note_title_description {
-  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
-  border-radius: 10px;
-  border: 1px silver solid;
-  margin-bottom: 10px;
-  padding: 1px;
-}
-
-#create_note_fields {
-  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
-  border-radius: 10px;
-  border: 1px silver solid;
-  margin-bottom: 10px;
-  padding: 10px;
-  /* height: 18vh; */
-}
-
-.create_note_inputs {
-  border-radius: 5px;
-  display: flex;
-  border: 0px;
-  font-size: 16px;
-  padding-left: 5px;
-  margin-top: -4px;
-  overflow: scroll;
-  overflow-y: auto;
-  /* box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.2), 0 2px 4px 0 rgba(0, 0, 0, 0.19); */
-  transition: box-shadow 1s ease;
-}
-
-.create_note_inputs:hover {
-  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
-}
-
-#create_note_container {
-  display: flex;
-  flex-direction: row;
-}
-
-#schedule_div {
-  flex-direction: column;
-}
-
 /* 
 ::-webkit-datetime-edit {
   padding: 1em;
@@ -137,38 +86,6 @@ li {
 ::-webkit-calendar-picker-indicator {
   background: orange;
 } */
-
-input[type="date"] {
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen', 'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue', sans-serif;
-  -webkit-font-smoothing: antialiased;
-  font-size: 14px;
-  width: 135px;
-  padding: 3px;
-  border-radius: 5px;
-  border: 0px;
-  transition: box-shadow 1s ease;
-  /* box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19); */
-}
-
-input[type="time"] {
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen', 'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue', sans-serif;
-  -webkit-font-smoothing: antialiased;
-  font-size: 14px;
-  width: 100px;
-  padding: 3px;
-  border-radius: 5px;
-  border: 0px;
-  transition: box-shadow 1s ease;
-  /* box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19); */
-}
-
-input[type="time"]:hover, input[type="date"]:hover {
-  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
-}
-
-#schedule_div {
-  display: none;
-}
 
 /* -webkit-align-items: center;
   display: -webkit-inline-flex;

@@ -19,7 +19,8 @@ module.exports = function (app) {
         list_id: req.body.list_id,
         priority: req.body.priority,
         scheduled: req.body.scheduled,
-        scheduled_date_time: req.body.scheduled_date_time,
+        scheduled_date: req.body.scheduled_date,
+        scheduled_time: req.body.scheduled_time,
         completed: req.body.completed,
         date_modified: new Date().setDate(new Date().getDate())
       })

@@ -9,7 +9,9 @@ import ScrollContainer from './components/ScrollContainer/ScrollContainer.js';
 import Title from './components/Title/Title';
 import NoteArchive from './components/NoteArchive/NoteArchive';
 import ArchiveItem from './components/ArchiveItem/ArchiveItem';
+import NoteEditor from './components/NoteEditor/NoteEditor';
 import Checkbox from './components/Checkbox/Checkbox';
+import Label from './components/Label/Label';
 import ListItemModal from './components/ListItemModal/ListItemModal';
 import TextField from './components/TextField/TextField';
 import TitleField from './components/TitleField/TitleField';
@@ -187,11 +189,14 @@ const App = () => {
       document.querySelector(".text_field").value = ""
       document.querySelector(".priority_input").value = "Low"
       document.querySelector(".list_id_input").value = "dump"
+      document.querySelector(".list_id_input").value = "dump"
+      document.querySelector("#checkbox_input").checked = false
     }
     catch (err) {
       console.log(err);
     }
   }
+
 
 
 
@@ -209,26 +214,28 @@ const App = () => {
     }
   }
 
-
-  const [schedule_state, set_schedule_state] = useState(false)
-
-  const show_scheduling = () => {
-    // console.log("show_scheduling")
-    if (schedule_state === false) {
-      set_schedule_state(true)
-      set_note_state({ ...note_state, scheduled: false })
-
-      // update_scheduled_checkbox(props.id, true)
-
+  const on_change_note_editor = (e) => {
+    // const todo_id = e.target.id
+    console.log({ "on_change_note_editor": e })
+    if (e.target === undefined) {
+      set_note_state({ ...note_state, scheduled: e })
     }
     else {
-      set_schedule_state(false)
-      // update_scheduled_checkbox(props.id, true)
-      set_note_state({ ...note_state, scheduled: true })
+      const todo_data = e.target.value
+      const field_name = e.target.name
+      set_note_state({ ...note_state, [field_name]: todo_data })
     }
-    console.log(note_state)
 
   }
+
+  // const on_change_note_editor = (e) => {
+  //   // const todo_id = e.target.id
+  //   const todo_data = e.target.value
+  //   const field_name = e.target.name
+  //   set_note_state({ ...note_state, [field_name]: e.target.value })
+  // }
+
+
 
 
 
@@ -272,12 +279,12 @@ const App = () => {
                   onFocus={(e) => e.target.placeholder = ""}
                 />
               </div>
-
-              <div id="create_note_fields">
+              <NoteEditor set_todo_state={set_todo_state} note_state={note_state} formatted_date_slash={formatted_date_slash} on_change_note_editor={on_change_note_editor} />
+              {/* <div id="create_note_fields">
                 <div id="create_note_container">
                   <div style={{ width: "55%" }}>
                     <div >
-                      <label className="modal_labels">Priority: </label>
+                      <Label>Priority: </Label>
                       <input
                         defaultValue={note_state.priority}
                         onChange={e => set_note_state({ ...note_state, priority: e.target.value })}
@@ -286,7 +293,7 @@ const App = () => {
                         name="priority" />
                     </div>
                     <div>
-                      <label className="modal_labels">List Name: </label>
+                      <Label>List Name: </Label>
                       <input
                         defaultValue={note_state.list_id}
                         onChange={e => set_note_state({ ...note_state, list_id: e.target.value })}
@@ -294,21 +301,21 @@ const App = () => {
                         placeholder="List Name"
                         name="list_id" />
                     </div>
-                    <label className="modal_labels">Date Created: {formatted_date_slash}</label>
+                    <Label>Date Created: {formatted_date_slash}</Label>
                     <div className="modal_scheduled_field ">
-                      <label className="modal_labels">Schedule: </label>
+                      <Label>Schedule: </Label>
                       <Checkbox onCheck={show_scheduling} checkboxState={schedule_state} />
                     </div>
                   </div>
 
                   <div id="schedule_div" style={{ display: schedule_state ? "flex" : "none" }}>
-                    <label className="modal_labels">Date: </label>
+                    <Label>Date: </Label>
                     <input id="scheduled_date" type="date"
                       defaultValue={date_state}
                       onChange={e => set_note_state({ ...note_state, scheduled_date: e.target.value })}
                       placeholder="List Name"
                       name="scheduled_date" />
-                    <label className="modal_labels"> Time: </label>
+                    <Label> Time: </Label>
                     <input id="scheduled_time" type="time"
                       defaultValue={time_state}
                       onChange={e => set_note_state({ ...note_state, scheduled_time: e.target.value })}
@@ -316,7 +323,7 @@ const App = () => {
                       name="scheduled_time" />
                   </div>
                 </div>
-              </div>
+              </div> */}
             </div>
           </Section>
 
