@@ -87,7 +87,7 @@ const ListItem = (props) => {
   }
 
   return (
-    <div className="list_div zoom">
+    <div className="list_item zoom">
       <Checkbox checkboxState={checkboxState} update_note_checkbox={update_note_checkbox} onCheck={save_check_status} list_item_state={list_item_state} id={props.id} />
       <input
         defaultValue={props.children}
