@@ -11,6 +11,8 @@ import NoteArchive from './components/NoteArchive/NoteArchive';
 import ArchiveItem from './components/ArchiveItem/ArchiveItem';
 import NoteAttributeEditor from './components/NoteAttributeEditor/NoteAttributeEditor';
 import NoteTextEditor from './components/NoteTextEditor/NoteTextEditor';
+import PriorityContainer from './components/PriorityContainer/PriorityContainer';
+import TodoContainer from './components/TodoContainer/TodoContainer';
 import Checkbox from './components/Checkbox/Checkbox';
 import Label from './components/Label/Label';
 import ListItemModal from './components/ListItemModal/ListItemModal';
@@ -88,7 +90,6 @@ const App = () => {
   };
 
   const get_all_notes = async () => {
-    // if (list_id != undefined) {
     try {
       const res = await API.get_all_notes()
       set_all_todo_state(res.data)
@@ -183,6 +184,33 @@ const App = () => {
     }
   }
 
+  const [priority_state, set_priority_state] = useState(
+    {
+      master_high: "100%",
+      master_medium: "100%",
+      master_low: "100%",
+      dump_high: "100%",
+      dump_medium: "100%",
+      dump_low: "100%",
+    }
+  )
+
+  const show_hide_by_priority = (priority, list_id) => {
+    console.log({ "show_hide_by_priority": priority })
+
+    priority = priority.toLowerCase()
+    let field_name = list_id + "_" + priority
+    if (priority_state[field_name] === "100%") {
+      set_priority_state({ ...priority_state, [field_name]: "0px" })
+      console.log({ "show_hide_by_priority": priority_state })
+    }
+    else if (priority_state[field_name] === "0px") {
+      set_priority_state({ ...priority_state, [field_name]: "100%" })
+      console.log({ "show_hide_by_priority": priority_state })
+    }
+
+  }
+
 
 
 
@@ -203,7 +231,7 @@ const App = () => {
           <Section>
             <div style={{ display: "flex", justifyContent: "space-between" }}>
               <Title >Create Note</Title>
-              <Button margin="18px 0px 18px 18px" onclick_function={create_new_note} >+</Button>
+              <Button margin="18px 0px 18px 18px" on_click_function={create_new_note} >+</Button>
             </div>
             <Title margin="-30px 0px 0px 0px" fontSize="16px">Create a New Note Below</Title>
             <div>
@@ -224,25 +252,79 @@ const App = () => {
           <Section >
             <div style={{ display: "flex", justifyContent: "space-between" }}>
               <Title>Todo Dump</Title>
-              <Button margin="18px 0px 18px 18px" onclick_function={create_empty_list_item} listId="dump" >+</Button>
+              <Button margin="18px 0px 18px 18px" on_click_function={create_empty_list_item} listId="dump" >+</Button>
             </div>
             <Title margin="-30px 0px 0px 0px" fontSize="16px">Get your Ideas Down Fast</Title>
             <ScrollContainer>
-              {todo_dump_state.map((note, index) => {
-                return <ListItem get_all_notes_by_list_id={get_all_notes_by_list_id} index={note._id} id={note._id} key={note._id}>{note.title}</ListItem>
-              })}
+              <PriorityContainer >
+                <Title fontSize="16px" on_click_function={show_hide_by_priority} list_id="dump" priority="High" border="1px solid silver" margin="10px">High Priority</Title>
+                <TodoContainer height={priority_state.dump_high}>
+                  {todo_dump_state.map((note, index) => {
+                    if (note.priority === "High") {
+                      return <ListItem get_all_notes_by_list_id={get_all_notes_by_list_id} index={note._id} id={note._id} key={note._id}>{note.title}</ListItem>
+                    }
+                  })}
+                </TodoContainer>
+              </PriorityContainer>
+              <PriorityContainer >
+                <Title fontSize="16px" on_click_function={show_hide_by_priority} list_id="dump" priority="Medium" border="1px solid silver" margin="10px">Medium Priority</Title>
+                <TodoContainer height={priority_state.dump_medium}>
+                  {todo_dump_state.map((note, index) => {
+                    if (note.priority === "Medium") {
+                      return <ListItem get_all_notes_by_list_id={get_all_notes_by_list_id} index={note._id} id={note._id} key={note._id}>{note.title}</ListItem>
+                    }
+                  })}
+                </TodoContainer>
+              </PriorityContainer>
+              <PriorityContainer >
+                <Title fontSize="16px" on_click_function={show_hide_by_priority} list_id="dump" priority="Low" border="1px solid silver" margin="10px">Low Priority</Title>
+                <TodoContainer height={priority_state.dump_low}>
+                  {todo_dump_state.map((note, index) => {
+                    if (note.priority === "Low") {
+                      return <ListItem get_all_notes_by_list_id={get_all_notes_by_list_id} index={note._id} id={note._id} key={note._id}>{note.title}</ListItem>
+                    }
+                  })}
+                </TodoContainer>
+              </PriorityContainer>
             </ScrollContainer>
           </Section>
           <Section>
             <div style={{ display: "flex", justifyContent: "space-between" }}>
               <Title>Master Todo List:</Title>
-              <Button margin="18px 0px 18px 18px" onclick_function={create_empty_list_item} listId="master" >+</Button>
+              <Button margin="18px 0px 18px 18px" on_click_function={create_empty_list_item} listId="master" >+</Button>
             </div>
             <Title margin="-30px 0px 0px 0px" fontSize="16px">Today {formatted_date_slash}</Title>
             <ScrollContainer>
-              {todo_master_state.map((note, index) => {
-                return <ListItem get_all_notes_by_list_id={get_all_notes_by_list_id} index={note._id} id={note._id} key={note._id}>{note.title}</ListItem>
-              })}
+              <PriorityContainer >
+                <Title fontSize="16px" on_click_function={show_hide_by_priority} list_id="master" priority="High" border="1px solid silver" margin="10px">High Priority</Title>
+                <TodoContainer height={priority_state.master_high}>
+                  {todo_master_state.map((note, index) => {
+                    if (note.priority === "High") {
+                      return <ListItem get_all_notes_by_list_id={get_all_notes_by_list_id} index={note._id} id={note._id} key={note._id}>{note.title}</ListItem>
+                    }
+                  })}
+                </TodoContainer>
+              </PriorityContainer>
+              <PriorityContainer >
+                <Title fontSize="16px" on_click_function={show_hide_by_priority} list_id="master" priority="Medium" border="1px solid silver" margin="10px">Medium Priority</Title>
+                <TodoContainer height={priority_state.master_medium}>
+                  {todo_master_state.map((note, index) => {
+                    if (note.priority === "Medium") {
+                      return <ListItem get_all_notes_by_list_id={get_all_notes_by_list_id} index={note._id} id={note._id} key={note._id}>{note.title}</ListItem>
+                    }
+                  })}
+                </TodoContainer>
+              </PriorityContainer>
+              <PriorityContainer >
+                <Title fontSize="16px" on_click_function={show_hide_by_priority} list_id="master" priority="Low" border="1px solid silver" margin="10px">Low Priority</Title>
+                <TodoContainer height={priority_state.master_low}>
+                  {todo_master_state.map((note, index) => {
+                    if (note.priority === "Low") {
+                      return <ListItem get_all_notes_by_list_id={get_all_notes_by_list_id} index={note._id} id={note._id} key={note._id}>{note.title}</ListItem>
+                    }
+                  })}
+                </TodoContainer>
+              </PriorityContainer>
             </ScrollContainer>
           </Section>
         </Container>

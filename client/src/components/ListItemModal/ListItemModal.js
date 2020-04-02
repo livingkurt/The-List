@@ -181,36 +181,6 @@ const ListItemModal = (props) => {
 
   const date = new Date()
 
-  // const get_formatted_time = () => {
-  //   var hours = date.getHours();
-  //   var seconds = date.getMinutes();
-
-  //   if (hours < 10) hours = "0" + hours;
-  //   if (seconds < 10) seconds = "0" + seconds;
-
-  //   var today = hours + ":" + seconds
-  //   // set_time_state(today)
-  //   // set_note_state({ ...note_state, date_modified: today })
-  //   return today
-  //   // document.getElementById("scheduled_time").value = today;
-
-  // }
-
-  const get_formatted_date = () => {
-    var day = date.getDate();
-    var month = date.getMonth() + 1;
-    var year = date.getFullYear();
-
-    if (month < 10) month = "0" + month;
-    if (day < 10) day = "0" + day;
-
-    var today = year + "-" + month + "-" + day;
-    // set_note_state({ ...note_state, date_modified: today })
-    return today;
-    // document.getElementById("scheduled_date").value = today;
-  }
-
-
   const get_checkbox_state = async () => {
     const todo_id = props.id
     if (todo_id != undefined) {
@@ -224,37 +194,6 @@ const ListItemModal = (props) => {
     }
 
   }
-
-  const save_scheduling = (e) => {
-    if (e.target.name === "time") {
-      set_note_state({ ...note_state, scheduled_time: e.target.value })
-    }
-    else if (e.target.name === "date") {
-      set_note_state({ ...note_state, scheduled_date: e.target.value })
-    }
-  }
-  // const update_scheduling = async (e) => {
-  //   const todo_id = e.target.id
-  //   const todo_data = e.target.value
-  //   const field_name = e.target.name
-  //   console.log(field_name)
-  //   // if (todo_id != undefined) {
-  //   try {
-  //     console.log("hello")
-  //     // consol
-  //     const res = await API.get_note(todo_id)
-  //     console.log({ "update_note": res.data })
-  //     const update_todo = {
-  //       ...res.data,
-  //       [field_name]: todo_data
-  //     }
-  //     API.update_note(todo_id, update_todo)
-  //   }
-  //   catch (err) {
-  //     console.log({ "save_scheduling": err });
-  //   }
-  //   // }
-  // }
 
   const [todo_state, set_todo_state] = useState({
     title: "",
@@ -278,14 +217,7 @@ const ListItemModal = (props) => {
   let year = date.getFullYear();
 
 
-
-  // const [date_state, set_date_state] = useState("")
-  // const [time_state, set_time_state] = useState("")
-
-
-
   const formatted_date_slash = `${month}/${day}/${year}`
-  const formatted_date_dash = `${year}-${month}-${day}`
 
   const on_change_note_editor = async (e) => {
     const todo_id = props.id
@@ -304,13 +236,8 @@ const ListItemModal = (props) => {
       field_name = e.target.name
       set_note_state({ ...note_state, [field_name]: todo_data })
     }
-    // const todo_data = e.target.value
-    // const field_name = e.target.name
     console.log(field_name)
-    // if (todo_id != undefined) {
     try {
-      // console.log("hello")
-      // consol
       const res = await API.get_note(todo_id)
       console.log({ "update_note": res.data })
       const update_todo = {
@@ -324,58 +251,12 @@ const ListItemModal = (props) => {
     }
 
   }
-  // const [schedule_state, set_schedule_state] = useState(false)
 
-  // const show_scheduling = () => {
-  //   // console.log("show_scheduling")
-  //   if (schedule_state === false) {
-  //     set_schedule_state(true)
-  //     on_change_note_editor(true)
-  //   }
-  //   else {
-  //     set_schedule_state(false)
-  //     on_change_note_editor(false)
-  //   }
-  //   // console.log(note_state)
-
-  // }
 
 
   return (
     <div style={{ display: props.show_modal_state }} className="list_modal zoom">
-      {/* <div className="title_close_div">
-        <input
-          defaultValue={note_state.title}
-          className="title_input modal_inputs"
-          name="title"
-          placeholder="Title"
-          id={props.id}
-          onBlur={e => update_note(e)} />
-        <button onClick={props.show_modal} className="show_modal_button"><i className="fas fa-times"></i></button>
-      </div>
-      <textarea
-        defaultValue={note_state.body}
-        className="modal_text_field"
-        onChange={e => set_note_state({ ...note_state, body: e.target.value })}
-        placeholder="Description"
-        name="body"
-        id={props.id}
-        onBlur={(e) => {
-          e.target.placeholder = "Description"
-          update_note(e)
-        }
-        }
-        onFocus={(e) => e.target.placeholder = ""}
-      /> */}
-      {/* <div className="dropdown">
-        <button onClick={() => drop_down()} className="dropbtn">Priority</button>
-        <div style={{ display: dropdown_state }} id="myDropdown" className="dropdown-content">
-          <li>High Priority</li>
-          <li>Medium Priority</li>
-          <li>Low Priority</li>
-        </div>
-      </div> */}
-      <Button margin="-10px 0px 8px" onclick_function={props.show_modal}><i className="fas fa-times"></i></Button>
+      <Button margin="-10px 0px 8px" on_click_function={props.show_modal}><i className="fas fa-times"></i></Button>
       <NoteTextEditor
         note_state={note_state}
         on_change_note_editor={on_change_note_editor}

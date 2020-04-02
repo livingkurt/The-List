@@ -10,6 +10,9 @@ export default {
   get_notes_by_list_id: function (list_id) {
     return axios.get('/api/notes/' + list_id);
   },
+  get_notes_by_priority: function (priority) {
+    return axios.get('/api/notes/' + priority);
+  },
   get_note: function (note_id) {
     return axios.get('/api/note/' + note_id);
   },

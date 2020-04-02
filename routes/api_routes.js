@@ -61,6 +61,18 @@ module.exports = function (app) {
     }
   })
 
+  app.get('/api/notes/:priority', async (req, res) => {
+    console.log({ "api_routes.js - get by priority": req.body })
+    try {
+      const request = await db.Notes.find({ priority: req.params.priority })
+      // Send the request back to the front end
+      res.send(request)
+    }
+    catch (err) {
+      console.log(err);
+    }
+  })
+
   // ==================================================================================================
   // Get single "need" from local database based on the user - Working
   // ==================================================================================================
