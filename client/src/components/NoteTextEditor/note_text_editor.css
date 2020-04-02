@@ -80,3 +80,49 @@ input[type="time"]:hover, input[type="date"]:hover {
 #schedule_div {
   display: none;
 }
+
+.text_container {}
+
+.text_field {
+  height: 45vh;
+  background-color: white;
+  /* box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19); */
+  border-radius: 0px 0px 10px 10px;
+  overflow: scroll;
+  overflow-x: auto;
+  border: 0px;
+  padding: 10px;
+  /* margin-top: 10px; */
+  width: 95%;
+  font-size: 16px;
+}
+
+.text_field:focus {
+  outline: 0;
+}
+
+textarea {
+  resize: none;
+}
+
+.title_container {}
+
+.title_field {
+  height: 2vh;
+  width: 95%;
+  background-color: white;
+  /* box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19); */
+  border-radius: 10px 10px 0px 0px;
+  /* border: 1px silver solid; */
+  overflow: scroll;
+  overflow-x: auto;
+  border: 0px;
+  padding: 10px;
+  font-size: 20px;
+  font-weight: Bold;
+  border-bottom: 1px solid silver;
+}
+
+.title_field:focus {
+  outline: 0;
+}

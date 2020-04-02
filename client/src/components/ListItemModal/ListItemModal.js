@@ -91,23 +91,25 @@ const ListItemModal = (props) => {
   }
 
   const format_date_element = unformatted_date => {
-    unformatted_date = unformatted_date.toString()
-    let year = unformatted_date.slice(0, 4)
-    let month = unformatted_date.slice(5, 7)
-    let day = unformatted_date.slice(8, 10)
-    // const formatted_date = `${month}-${day}-${year}`
-    // return formatted_date;
-    // var day = date.getDate();
-    // var month = date.getMonth() + 1;
-    // var year = date.getFullYear();
+    if (unformatted_date !== null || unformatted_date !== undefined) {
+      unformatted_date = unformatted_date.toString()
+      let year = unformatted_date.slice(0, 4)
+      let month = unformatted_date.slice(5, 7)
+      let day = unformatted_date.slice(8, 10)
+      // const formatted_date = `${month}-${day}-${year}`
+      // return formatted_date;
+      // var day = date.getDate();
+      // var month = date.getMonth() + 1;
+      // var year = date.getFullYear();
 
-    if (month < 10) month = "0" + month;
-    if (day < 10) day = "0" + day;
+      if (month < 10) month = "0" + month;
+      if (day < 10) day = "0" + day;
 
-    var today = year + "-" + month + "-" + day;
-    set_date_state(today)
-    // set_note_state({ ...note_state, date_modified: today })
-    return today;
+      var today = year + "-" + month + "-" + day;
+      set_date_state(today)
+      // set_note_state({ ...note_state, date_modified: today })
+      return today;
+    }
   }
 
   const drop_down = () => {
@@ -134,12 +136,14 @@ const ListItemModal = (props) => {
   }
 
   const format_date_display = unformatted_date => {
-    unformatted_date = unformatted_date.toString()
-    const year = unformatted_date.slice(0, 4)
-    const month = unformatted_date.slice(5, 7)
-    const day = unformatted_date.slice(8, 10)
-    const formatted_date = `${month}/${day}/${year}`
-    return formatted_date;
+    if (unformatted_date !== null || unformatted_date !== undefined) {
+      unformatted_date = unformatted_date.toString()
+      const year = unformatted_date.slice(0, 4)
+      const month = unformatted_date.slice(5, 7)
+      const day = unformatted_date.slice(8, 10)
+      const formatted_date = `${month}/${day}/${year}`
+      return formatted_date;
+    }
   }
 
   const [schedule_state, set_schedule_state] = useState(false)
