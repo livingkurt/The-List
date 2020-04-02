@@ -208,11 +208,7 @@ const App = () => {
       set_priority_state({ ...priority_state, [field_name]: "100%" })
       console.log({ "show_hide_by_priority": priority_state })
     }
-
   }
-
-
-
 
   return (
     <div >
