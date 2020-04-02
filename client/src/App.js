@@ -193,7 +193,7 @@ const App = () => {
       dump_high: "100%",
       dump_medium: "100%",
       dump_low: "100%",
-      priorites: ["high", "medium", "low"]
+      priorites: ["High", "Medium", "Low"]
     }
   )
 
@@ -256,8 +256,20 @@ const App = () => {
             </div>
             <Title margin="-30px 0px 0px 0px" fontSize="16px">Get your Ideas Down Fast</Title>
             <ScrollContainer>
-
-              <PriorityContainer >
+              {priority_state.priorites.map((priority, index) => {
+                // console.log(priority)
+                return <PriorityContainer >
+                  <PriorityTitle fontSize="16px" on_click_function={show_hide_by_priority} list_id="dump" priority={priority} border="1px solid silver" margin="10px">{priority} Priority</PriorityTitle>
+                  <TodoContainer id={"dump_" + priority.toLowerCase()} height={priority_state["dump_" + priority.toLowerCase()]}>
+                    {todo_dump_state.map((note, index) => {
+                      if (note.priority === priority) {
+                        return <ListItem get_all_notes_by_list_id={get_all_notes_by_list_id} index={note._id} id={note._id} key={note._id}>{note.title}</ListItem>
+                      }
+                    })}
+                  </TodoContainer>
+                </PriorityContainer>
+              })}
+              {/* <PriorityContainer >
                 <PriorityTitle fontSize="16px" on_click_function={show_hide_by_priority} list_id="dump" priority="High" border="1px solid silver" margin="10px">High Priority</PriorityTitle>
                 <TodoContainer id={"dump_high"} height={priority_state.dump_high}>
                   {todo_dump_state.map((note, index) => {
@@ -286,7 +298,7 @@ const App = () => {
                     }
                   })}
                 </TodoContainer>
-              </PriorityContainer>
+              </PriorityContainer> */}
             </ScrollContainer>
           </Section>
           <Section>
@@ -296,7 +308,20 @@ const App = () => {
             </div>
             <Title margin="-30px 0px 0px 0px" fontSize="16px">Today {formatted_date_slash}</Title>
             <ScrollContainer>
-              <PriorityContainer >
+              {priority_state.priorites.map((priority, index) => {
+                // console.log(priority)
+                return <PriorityContainer >
+                  <PriorityTitle fontSize="16px" on_click_function={show_hide_by_priority} list_id="master" priority={priority} border="1px solid silver" margin="10px">{priority} Priority</PriorityTitle>
+                  <TodoContainer id={"master_" + priority.toLowerCase()} height={priority_state["master_" + priority.toLowerCase()]}>
+                    {todo_master_state.map((note, index) => {
+                      if (note.priority === priority) {
+                        return <ListItem get_all_notes_by_list_id={get_all_notes_by_list_id} index={note._id} id={note._id} key={note._id}>{note.title}</ListItem>
+                      }
+                    })}
+                  </TodoContainer>
+                </PriorityContainer>
+              })}
+              {/* <PriorityContainer >
                 <PriorityTitle fontSize="16px" on_click_function={show_hide_by_priority} list_id="master" priority="High" border="1px solid silver" margin="10px">High Priority</PriorityTitle>
                 <TodoContainer id={"master_high"} height={priority_state.master_high}>
                   {todo_master_state.map((note, index) => {
@@ -325,7 +350,7 @@ const App = () => {
                     }
                   })}
                 </TodoContainer>
-              </PriorityContainer>
+              </PriorityContainer> */}
             </ScrollContainer>
           </Section>
         </Container>
