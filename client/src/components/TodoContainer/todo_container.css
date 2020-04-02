@@ -9,9 +9,11 @@
   flex-direction: column;
   height: 100%;
   /* transition: height 1s ease; */
-  /* -webkit-transition: height 1s ease-out; */
+  /* transition: height 1s ease;
+  
+  -webkit-transition: height 1s ease; */
 }
 
-.todo_container:after {
+.todo_container:hover {
   height: 0px;
 }
