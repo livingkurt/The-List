@@ -273,7 +273,7 @@ const App = () => {
           <Section>
             <div style={{ display: "flex", justifyContent: "space-between" }}>
               <Title >Create Note</Title>
-              <Button onclick_function={create_new_note} >+</Button>
+              <Button margin="18px 0px 18px 18px" onclick_function={create_new_note} >+</Button>
             </div>
             <Title margin="-30px 0px 0px 0px" fontSize="16px">Create a New Note Below</Title>
             <div>
@@ -293,7 +293,7 @@ const App = () => {
           <Section >
             <div style={{ display: "flex", justifyContent: "space-between" }}>
               <Title>Todo Dump</Title>
-              <Button onclick_function={create_empty_list_item} listId="dump" >+</Button>
+              <Button margin="18px 0px 18px 18px" onclick_function={create_empty_list_item} listId="dump" >+</Button>
             </div>
             <Title margin="-30px 0px 0px 0px" fontSize="16px">Get your Ideas Down Fast</Title>
             <ScrollContainer>
@@ -305,7 +305,7 @@ const App = () => {
           <Section>
             <div style={{ display: "flex", justifyContent: "space-between" }}>
               <Title>Master Todo List:</Title>
-              <Button onclick_function={create_empty_list_item} listId="master" >+</Button>
+              <Button margin="18px 0px 18px 18px" onclick_function={create_empty_list_item} listId="master" >+</Button>
             </div>
             <Title margin="-30px 0px 0px 0px" fontSize="16px">Today {formatted_date_slash}</Title>
             <ScrollContainer>

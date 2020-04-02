@@ -5,6 +5,7 @@ import './list_item.css'
 import Checkbox from '../Checkbox/Checkbox';
 import ListItemButton from '../ListItemButton/ListItemButton';
 import ListItemModal from '../ListItemModal/ListItemModal';
+import Button from '../Button/Button';
 import API from "../../utils/API";
 
 
@@ -95,7 +96,8 @@ const ListItem = (props) => {
         id={props.id}
         onBlur={e => update_note(e)} />
       {/* <ListItemButton index={props.id} get_all_notes_by_list_id={props.get_all_notes_by_list_id} id={props.id} /> */}
-      <button onClick={() => show_modal()} className="show_modal_button zoom"><i className="fas fa-sort-up"></i></button>
+      {/* <Button onClick={() => show_modal()} className="show_modal_button zoom"><i className="fas fa-sort-up"></i></Button> */}
+      <Button margin="0px" padding="0px 2px 7px 0px" onclick_function={show_modal} ><i className="fas fa-sort-up"></i></Button>
       <ListItemModal id={props.id} show_modal={show_modal} show_modal_state={modal_state} get_all_notes_by_list_id={props.get_all_notes_by_list_id}>
 
       </ListItemModal>

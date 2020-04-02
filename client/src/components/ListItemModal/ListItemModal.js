@@ -7,6 +7,8 @@ import DeleteButton from '../DeleteButton/DeleteButton';
 import Checkbox from '../Checkbox/Checkbox';
 import API from "../../utils/API";
 import NoteAttributeEditor from '../NoteAttributeEditor/NoteAttributeEditor';
+import NoteTextEditor from '../NoteTextEditor/NoteTextEditor';
+import Button from '../Button/Button';
 
 
 const ListItemModal = (props) => {
@@ -341,7 +343,7 @@ const ListItemModal = (props) => {
 
   return (
     <div style={{ display: props.show_modal_state }} className="list_modal zoom">
-      <div className="title_close_div">
+      {/* <div className="title_close_div">
         <input
           defaultValue={note_state.title}
           className="title_input modal_inputs"
@@ -364,7 +366,7 @@ const ListItemModal = (props) => {
         }
         }
         onFocus={(e) => e.target.placeholder = ""}
-      />
+      /> */}
       {/* <div className="dropdown">
         <button onClick={() => drop_down()} className="dropbtn">Priority</button>
         <div style={{ display: dropdown_state }} id="myDropdown" className="dropdown-content">
@@ -373,7 +375,19 @@ const ListItemModal = (props) => {
           <li>Low Priority</li>
         </div>
       </div> */}
-      <NoteAttributeEditor set_todo_state={set_todo_state} note_state={note_state} formatted_date_slash={formatted_date_slash} on_change_note_editor={on_change_note_editor} checkboxState={note_state.completed} show_scheduling={show_scheduling} schedule_state={schedule_state} />
+      <Button margin="-10px 0px 8px" onclick_function={props.show_modal}><i className="fas fa-times"></i></Button>
+      <NoteTextEditor
+        note_state={note_state}
+        on_change_note_editor={on_change_note_editor}
+        update_note={update_note}
+        height="20vh" />
+      <NoteAttributeEditor
+        note_state={note_state}
+        formatted_date_slash={formatted_date_slash}
+        on_change_note_editor={on_change_note_editor}
+        checkboxState={note_state.completed}
+        show_scheduling={show_scheduling}
+        schedule_state={schedule_state} />
       <DeleteButton index={props.id} get_all_notes_by_list_id={props.get_all_notes_by_list_id} id={props.id}>
         Delete
       </DeleteButton>
