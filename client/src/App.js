@@ -21,6 +21,15 @@ import API from "./utils/API";
 import styled from 'styled-components';
 
 const App = () => {
+
+
+  useEffect(() => {
+    get_all_notes_by_list_id("master");
+    get_all_notes_by_list_id("dump");
+    get_all_notes();
+  }, []);
+
+
   const [todo_master_state, set_todo_master_state] = useState([])
   const [todo_dump_state, set_todo_dump_state] = useState([])
   const [all_todo_state, set_all_todo_state] = useState([])
@@ -45,6 +54,7 @@ const App = () => {
     completed: false,
   })
 
+
   const date = new Date()
   let month = date.getMonth() + 1
   if (month.length === 1) {
@@ -57,52 +67,9 @@ const App = () => {
   let year = date.getFullYear();
 
 
-
-  const [date_state, set_date_state] = useState("")
-  const [time_state, set_time_state] = useState("")
-
-
-
   const formatted_date_slash = `${month}/${day}/${year}`
   const formatted_date_dash = `${year}-${month}-${day}`
 
-
-  useEffect(() => {
-    get_all_notes_by_list_id("master");
-    get_all_notes_by_list_id("dump");
-    get_all_notes();
-    get_formatted_date();
-    get_formatted_time();
-  }, []);
-
-
-
-  const get_formatted_time = () => {
-    var hours = date.getHours();
-    var seconds = date.getMinutes();
-
-    if (month < 10) month = "0" + month;
-    if (day < 10) day = "0" + day;
-
-    var today = hours + ":" + seconds
-    set_time_state(today)
-    // document.getElementById("scheduled_time").value = today;
-
-  }
-
-  const get_formatted_date = () => {
-    var day = date.getDate();
-    var month = date.getMonth() + 1;
-    var year = date.getFullYear();
-
-    if (month < 10) month = "0" + month;
-    if (day < 10) day = "0" + day;
-
-    var today = year + "-" + month + "-" + day;
-    set_date_state(today)
-    return today;
-    // document.getElementById("scheduled_date").value = today;
-  }
 
   const get_all_notes_by_list_id = async (list_id) => {
     try {
@@ -113,6 +80,7 @@ const App = () => {
       else {
         set_todo_master_state(res.data)
       }
+      return res;
     }
     catch (err) {
       console.log(err);
@@ -128,48 +96,27 @@ const App = () => {
     catch (err) {
       console.log(err);
     }
-    // }
-
-
   };
 
   const create_empty_list_item = async (list_id) => {
     try {
       const res = await API.get_notes_by_list_id(list_id)
       const new_data = [...res.data, { ...todo_state, list_id: list_id }]
+      const response = await API.post_note({ ...note_state, list_id: list_id })
       if (list_id === "dump") {
         set_todo_dump_state(new_data)
+        set_todo_dump_state([response.data, ...todo_dump_state])
       }
       else if (list_id === "master") {
         set_todo_master_state(new_data)
+        set_todo_master_state([response.data, ...todo_master_state])
       }
-      new_note(list_id);
-    }
-    catch (err) {
-      console.log(err);
-    }
-
-  };
-
-  const new_note = async (list_id) => {
-    try {
-      const res = await API.post_note({ ...note_state, list_id: list_id })
-      if (list_id === "dump") {
-        set_todo_dump_state([res.data, ...todo_dump_state])
-      }
-      else if (list_id === "master") {
-        set_todo_master_state([res.data, ...todo_master_state])
-      }
-      set_note_state({ title: "", body: "" })
       get_all_notes_by_list_id(list_id);
-      document.querySelector(".title_field").value = ""
-      document.querySelector(".text_field").value = ""
     }
     catch (err) {
       console.log(err);
     }
-
-  }
+  };
 
   const create_new_note = async () => {
     try {
@@ -198,10 +145,6 @@ const App = () => {
     }
   }
 
-
-
-
-
   const [sidebar_state, set_sidebar_state] = useState(false)
 
   const sidebar_show_hide = () => {
@@ -216,8 +159,6 @@ const App = () => {
   }
 
   const on_change_note_editor = (e) => {
-    // const todo_id = e.target.id
-    console.log({ "on_change_note_editor": e })
     if (e.target === undefined) {
       set_note_state({ ...note_state, scheduled: e })
     }
@@ -229,18 +170,9 @@ const App = () => {
 
   }
 
-  // const on_change_note_editor = (e) => {
-  //   // const todo_id = e.target.id
-  //   const todo_data = e.target.value
-  //   const field_name = e.target.name
-  //   set_note_state({ ...note_state, [field_name]: e.target.value })
-  // }
-
-
   const [schedule_state, set_schedule_state] = useState(false)
 
   const show_scheduling = () => {
-    // console.log("show_scheduling")
     if (schedule_state === false) {
       set_schedule_state(true)
       on_change_note_editor(true)
@@ -249,8 +181,6 @@ const App = () => {
       set_schedule_state(false)
       on_change_note_editor(false)
     }
-    // console.log(note_state)
-
   }
 
 
@@ -285,6 +215,7 @@ const App = () => {
                 set_todo_state={set_todo_state}
                 note_state={note_state}
                 formatted_date_slash={formatted_date_slash}
+                formatted_date_dash={formatted_date_dash}
                 on_change_note_editor={on_change_note_editor}
                 show_scheduling={show_scheduling}
                 schedule_state={schedule_state} />
