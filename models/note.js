@@ -31,6 +31,7 @@ const note_schema = new Schema({
     default: new Date().setDate(new Date().getDate())
   },
   date_modified: Date,
+  deleted: false,
 });
 
 const Note = mongoose.model('Note', note_schema);
