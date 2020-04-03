@@ -13,6 +13,7 @@ import NoteAttributeEditor from './components/NoteAttributeEditor/NoteAttributeE
 import NoteTextEditor from './components/NoteTextEditor/NoteTextEditor';
 import PriorityContainer from './components/PriorityContainer/PriorityContainer';
 import TodoContainer from './components/TodoContainer/TodoContainer';
+import FolderContainer from './components/FolderContainer/FolderContainer';
 import PriorityTitle from './components/PriorityTitle/PriorityTitle';
 import Button from './components/Button/Button';
 import API from "./utils/API";
@@ -25,6 +26,7 @@ const App = () => {
     get_all_notes_by_list_id("master");
     get_all_notes_by_list_id("dump");
     get_all_notes();
+    get_all_folders();
   }, []);
 
 
@@ -51,6 +53,7 @@ const App = () => {
     scheduled_date_time: "",
     completed: false,
   })
+  const [folder_state, set_folder_state] = useState([])
 
 
   const date = new Date()
@@ -209,6 +212,66 @@ const App = () => {
     }
   }
 
+  const easing_functions = {
+    // no easing, no acceleration
+    linear: t => t,
+    // accelerating from zero velocity
+    easeInQuad: t => t * t,
+    // decelerating to zero velocity
+    easeOutQuad: t => t * (2 - t),
+    // acceleration until halfway, then deceleration
+    easeInOutQuad: t => t < .5 ? 2 * t * t : -1 + (4 - 2 * t) * t,
+    // accelerating from zero velocity 
+    easeInCubic: t => t * t * t,
+    // decelerating to zero velocity 
+    easeOutCubic: t => (--t) * t * t + 1,
+    // acceleration until halfway, then deceleration 
+    easeInOutCubic: t => t < .5 ? 4 * t * t * t : (t - 1) * (2 * t - 2) * (2 * t - 2) + 1,
+    // accelerating from zero velocity 
+    easeInQuart: t => t * t * t * t,
+    // decelerating to zero velocity 
+    easeOutQuart: t => 1 - (--t) * t * t * t,
+    // acceleration until halfway, then deceleration
+    easeInOutQuart: t => t < .5 ? 8 * t * t * t * t : 1 - 8 * (--t) * t * t * t,
+    // accelerating from zero velocity
+    easeInQuint: t => t * t * t * t * t,
+    // decelerating to zero velocity
+    easeOutQuint: t => 1 + (--t) * t * t * t * t,
+    // acceleration until halfway, then deceleration 
+    easeInOutQuint: t => t < .5 ? 16 * t * t * t * t * t : 1 + 16 * (--t) * t * t * t * t
+  }
+
+  const create_new_folder = async (list_id) => {
+    try {
+      const res = await API.get_notes_by_list_id(list_id)
+      const new_data = [...res.data, { ...todo_state, list_id: list_id }]
+      const response = await API.post_note({ ...note_state, list_id: list_id })
+      if (list_id === "dump") {
+        set_todo_dump_state(new_data)
+        set_todo_dump_state([response.data, ...todo_dump_state])
+      }
+      else if (list_id === "master") {
+        set_todo_master_state(new_data)
+        set_todo_master_state([response.data, ...todo_master_state])
+      }
+      get_all_notes_by_list_id(list_id);
+    }
+    catch (err) {
+      console.log(err);
+    }
+  };
+
+  const get_all_folders = async () => {
+    try {
+      const res = await API.get_all_folders()
+      set_folder_state(res.data)
+      console.log({ "App.js - get_all_folders": res.data })
+    }
+    catch (err) {
+      console.log(err);
+    }
+  };
+
   return (
     <div >
       <Background>
@@ -218,9 +281,27 @@ const App = () => {
         <Container>
           <NoteArchive >
             <ScrollContainer height={"83vh"}>
-              {all_todo_state.map((note, index) => {
-                return <ArchiveItem get_all_notes={get_all_notes} index={note._id} id={note._id} key={note._id}>{note.title}</ArchiveItem>
+              <Button margin="18px 0px 18px 18px" on_click_function={create_new_folder} >+</Button>
+              {folder_state.map((folder, index) => {
+                return <FolderContainer >
+                  <PriorityTitle fontSize="16px" list_id="dump" margin="10px">{folder.folder_name}</PriorityTitle>
+                </FolderContainer>
               })}
+              {/* {all_todo_state.map((note, index) => {
+                return <ArchiveItem get_all_notes={get_all_notes} index={note._id} id={note._id} key={note._id}>{note.title}</ArchiveItem>
+              })} */}
+              {/* {priority_state.priorites.map((priority, index) => {
+                return <PriorityContainer key={index}>
+                  <PriorityTitle fontSize="16px" on_click_function={show_hide_by_priority} list_id="dump" priority={priority} border="1px solid silver" margin="10px">{priority} Priority</PriorityTitle>
+                  <TodoContainer id={"dump_" + priority.toLowerCase()} height={priority_state["dump_" + priority.toLowerCase()]}>
+                    {todo_dump_state.map((note, index) => {
+                      if (note.priority === priority) {
+                        return <ListItem get_all_notes_by_list_id={get_all_notes_by_list_id} index={note._id} id={note._id} key={note._id}>{note.title}</ListItem>
+                      }
+                    })}
+                  </TodoContainer>
+                </PriorityContainer>
+              })} */}
             </ScrollContainer>
           </NoteArchive>
           <Section>

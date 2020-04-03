@@ -1,7 +1,10 @@
 import axios from 'axios';
 
 export default {
+
+  // Note Routes
   post_note: function (note_data) {
+    console.log({ 'API.js': note_data })
     return axios.post('/api/note', note_data);
   },
   get_all_notes: function () {
@@ -21,7 +24,12 @@ export default {
     return axios.put('/api/note/' + note_id, note_data);
   },
   delete_note: function (note_id, note_data) {
+    console.log({ 'API.js': note_data })
     return axios.delete('/api/note/' + note_id, note_data);
+  },
+  // Folder Routes
+  get_all_folders: function () {
+    return axios.get('/api/folders');
   },
 
 }
