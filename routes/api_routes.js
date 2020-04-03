@@ -113,9 +113,30 @@ module.exports = function (app) {
   })
   // Folder Routes
   app.get('/api/folders', async (req, res) => {
-    console.log({ "api_routes.js - get all folders": req.body })
+    // console.log({ "api_routes.js - get all folders": req.body })
     try {
       const request = await db.Folders.find({})
+      // Send the request back to the front end
+      res.send(request)
+    }
+    catch (err) {
+      console.log(err);
+    }
+  })
+  app.post('/api/folder', async (req, res) => {
+    // console.log({ "api_routes.js": "Hello" })
+    console.log({ "api_routes.js - post folder": req.body })
+    // Save Need to Database
+    try {
+      const request = await db.Folders.create({
+        folder_name: req.body.folder_name,
+        folder_id: req.body.folder_id,
+        notes: req.body.notes,
+        folders: req.body.folders,
+        completed: req.body.completed,
+        date_created: new Date().setDate(new Date().getDate()),
+        date_modified: new Date().setDate(new Date().getDate())
+      })
       // Send the request back to the front end
       res.send(request)
     }

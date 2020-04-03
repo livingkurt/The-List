@@ -227,25 +227,58 @@ const App = () => {
     easeInOutQuint: t => t < .5 ? 16 * t * t * t * t * t : 1 + 16 * (--t) * t * t * t * t
   }
 
-  const create_new_folder = async (list_id) => {
+  const [folders_state, set_folders_state] = useState([])
+
+  const create_new_folder = async () => {
+    const blank_folder = {
+      folder_name: "",
+      folder_id: "",
+      notes: [],
+      folders: []
+    }
     try {
-      const res = await API.get_notes_by_list_id(list_id)
-      const new_data = [...res.data, { ...todo_state, list_id: list_id }]
-      const response = await API.post_note({ ...note_state, list_id: list_id })
-      if (list_id === "dump") {
-        set_todo_dump_state(new_data)
-        set_todo_dump_state([response.data, ...todo_dump_state])
-      }
-      else if (list_id === "master") {
-        set_todo_master_state(new_data)
-        set_todo_master_state([response.data, ...todo_master_state])
-      }
-      get_all_notes_by_list_id(list_id);
+      // const res = await API.get_all_folders()
+
+      const res = await API.post_folder(blank_folder)
+      console.log(res.data)
+      // set_folders_state(response.data)
+      // const new_data = [blank_folder, ...folders_state]
+      // console.log(new_data)
+      get_all_folders();
+      // if (list_id === "dump") {
+      //   set_todo_dump_state(new_data)
+      //   set_todo_dump_state([response.data, ...todo_dump_state])
+      // }
+      // else if (list_id === "master") {
+      //   set_todo_master_state(new_data)
+      //   set_todo_master_state([response.data, ...todo_master_state])
+      // }
+      // get_all_notes_by_list_id(list_id);
     }
     catch (err) {
       console.log(err);
     }
   };
+
+  // const create_empty_list_item = async (list_id) => {
+  //   try {
+  //     const res = await API.get_notes_by_list_id(list_id)
+  //     const new_data = [...res.data, { ...todo_state, list_id: list_id }]
+  //     const response = await API.post_note({ ...note_state, list_id: list_id })
+  //     if (list_id === "dump") {
+  //       set_todo_dump_state(new_data)
+  //       set_todo_dump_state([response.data, ...todo_dump_state])
+  //     }
+  //     else if (list_id === "master") {
+  //       set_todo_master_state(new_data)
+  //       set_todo_master_state([response.data, ...todo_master_state])
+  //     }
+  //     get_all_notes_by_list_id(list_id);
+  //   }
+  //   catch (err) {
+  //     console.log(err);
+  //   }
+  // };
 
   const get_all_folders = async () => {
     try {
@@ -268,7 +301,7 @@ const App = () => {
     }
   };
 
-  const [folders_state, set_folders_state] = useState([])
+
 
   const [priority_state, set_priority_state] = useState(
     {

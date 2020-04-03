@@ -12,7 +12,7 @@ function NoteAttributeEditor(props) {
   return (
     <div id="create_note_fields">
       <div id="create_note_container">
-        <div style={{ width: "55%" }}>
+        <div >
           <div >
             <Label>Priority: </Label>
             <input

@@ -4,7 +4,7 @@ const { Schema } = mongoose;
 const folder_schema = new Schema({
   folder_name: {
     type: String,
-    required: true
+    // required: true
   },
   folder_id: String,
   notes: [

@@ -31,6 +31,10 @@ export default {
   get_all_folders: function () {
     return axios.get('/api/folders');
   },
+  post_folder: function (folder_data) {
+    console.log({ 'API.js': folder_data })
+    return axios.post('/api/folder', folder_data);
+  },
 
 }
 
