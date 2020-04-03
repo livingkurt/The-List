@@ -13,6 +13,12 @@ const folder_schema = new Schema({
       ref: "notes"
     }
   ],
+  folders: [
+    {
+      type: Schema.Types.ObjectId,
+      ref: "folders"
+    }
+  ],
   date_created: {
     type: Date,
     default: new Date().setDate(new Date().getDate())

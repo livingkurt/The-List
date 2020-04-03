@@ -15,6 +15,7 @@ import PriorityContainer from './components/PriorityContainer/PriorityContainer'
 import TodoContainer from './components/TodoContainer/TodoContainer';
 import FolderContainer from './components/FolderContainer/FolderContainer';
 import PriorityTitle from './components/PriorityTitle/PriorityTitle';
+import FolderTitle from './components/FolderTitle/FolderTitle';
 import Button from './components/Button/Button';
 import API from "./utils/API";
 // import styled from 'styled-components';
@@ -271,6 +272,22 @@ const App = () => {
       console.log(err);
     }
   };
+  const show_hide_by_folder = (folder_id) => {
+    console.log({ "show_hide_by_priority": folder_id })
+
+    // priority = priority.toLowerCase()
+    // let field_name = list_id + "_" + priority
+    // if (priority_state[field_name] === "100%") {
+    //   set_priority_state({ ...priority_state, [field_name]: "0px" })
+    //   // document.querySelector(`#${field_name}`).classList.toggle = ('todo_container_collapsed')
+    //   console.log({ "show_hide_by_priority": priority_state })
+    // }
+    // else if (priority_state[field_name] === "0px") {
+    //   set_priority_state({ ...priority_state, [field_name]: "100%" })
+    //   // document.querySelector(`#${field_name}`).classList.toggle = ('todo_container_collapsed')
+    //   console.log({ "show_hide_by_priority": priority_state })
+    // }
+  }
 
   return (
     <div >
@@ -284,7 +301,13 @@ const App = () => {
               <Button margin="18px 0px 18px 18px" on_click_function={create_new_folder} >+</Button>
               {folder_state.map((folder, index) => {
                 return <FolderContainer >
-                  <PriorityTitle fontSize="16px" list_id="dump" margin="10px">{folder.folder_name}</PriorityTitle>
+                  <FolderTitle on_click_function={show_hide_by_priority} fontSize="16px" list_id="dump" margin="10px">{folder.folder_name}</FolderTitle>
+                  {/* <FolderContainer id={"dump_" + priority.toLowerCase()} height={priority_state["dump_" + priority.toLowerCase()]}>
+                    {todo_dump_state.map((note, index) => {
+                      if (note.priority === priority) {
+                        return <ListItem get_all_notes_by_list_id={get_all_notes_by_list_id} index={note._id} id={note._id} key={note._id}>{note.title}</ListItem>
+                      }
+                    })} */}
                 </FolderContainer>
               })}
               {/* {all_todo_state.map((note, index) => {
