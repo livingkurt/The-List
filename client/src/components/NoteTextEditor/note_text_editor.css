@@ -14,15 +14,6 @@
   padding: 1px;
 }
 
-#create_note_fields {
-  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
-  border-radius: 10px;
-  border: 1px silver solid;
-  margin-bottom: 10px;
-  padding: 10px;
-  /* height: 18vh; */
-}
-
 .create_note_inputs {
   border-radius: 5px;
   display: flex;
@@ -84,7 +75,7 @@ input[type="time"]:hover, input[type="date"]:hover {
 .text_container {}
 
 .text_field {
-  height: 45vh;
+  height: 44vh;
   background-color: white;
   /* box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19); */
   border-radius: 0px 0px 10px 10px;
@@ -125,4 +116,12 @@ textarea {
 
 .title_field:focus {
   outline: 0;
+}
+
+#create_note_title_description {
+  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+  border-radius: 10px;
+  border: 1px silver solid;
+  margin-bottom: 10px;
+  padding: 1px;
 }

@@ -19,11 +19,11 @@
   border-radius: 10px;
   border: 1px silver solid;
   margin-bottom: 10px;
-  padding: 10px;
+  padding: 10px 10px 0px 10px;
   /* height: 18vh; */
 }
 
-.create_note_inputs {
+.editor_inputs {
   border-radius: 5px;
   display: flex;
   border: 0px;
@@ -36,8 +36,12 @@
   transition: box-shadow 1s ease;
 }
 
-.create_note_inputs:hover {
+.editor_inputs:hover {
   box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+}
+
+.priority_input {
+  width: 40%;
 }
 
 #create_note_container {
@@ -78,5 +82,11 @@ input[type="time"]:hover, input[type="date"]:hover {
 }
 
 #schedule_div {
-  display: none;
+  display: flex;
+  flex-direction: row;
+}
+
+.scheduled_field {
+  display: flex;
+  flex-direction: row;
 }

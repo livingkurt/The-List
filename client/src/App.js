@@ -139,7 +139,7 @@ const App = () => {
       document.querySelector(".text_field").value = ""
       document.querySelector(".priority_input").value = "Low"
       document.querySelector(".list_id_input").value = "dump"
-      document.querySelector(".list_id_input").value = "dump"
+      document.querySelector(".folder_id_input").value = ""
       document.querySelector("#checkbox_input").checked = false
     }
     catch (err) {
@@ -270,9 +270,6 @@ const App = () => {
 
   const [folders_state, set_folders_state] = useState([])
 
-
-
-
   const [priority_state, set_priority_state] = useState(
     {
       master_high: "100%",
@@ -311,9 +308,6 @@ const App = () => {
   }
 
 
-
-
-
   const [folder_state, set_folder_state] = useState([])
 
   const show_hide_by_folder = (folder_id) => {
@@ -345,34 +339,16 @@ const App = () => {
               {folders_state.map((folder, index) => {
                 return <FolderContainer >
                   <FolderTitle on_click_function={show_hide_by_folder} fontSize="16px" list_id={folder._id} margin="10px">{folder.folder_name}</FolderTitle>
-                  {/* {console.log({ "folder_state[folder._id]": folder_state[folder._id] })} */}
                   <FolderNoteContainer height={folder_state[folder._id]}>
                     {all_todo_state.map((note, index) => {
-
                       if (note.folder_id === folder._id) {
                         console.log({ "note.folder_id": note.folder_id, "folder._id": folder._id })
-                        // return <ListItem get_all_notes_by_list_id={get_all_notes_by_list_id} index={note._id} id={note._id} key={note._id}>{note.title}</ListItem>
                         return <ArchiveItem get_all_notes={get_all_notes} index={note._id} id={note._id} key={note._id}>{note.title}</ArchiveItem>
                       }
                     })}
                   </FolderNoteContainer>
                 </FolderContainer>
               })}
-              {/* {all_todo_state.map((note, index) => {
-                return <ArchiveItem get_all_notes={get_all_notes} index={note._id} id={note._id} key={note._id}>{note.title}</ArchiveItem>
-              })} */}
-              {/* {priority_state.priorites.map((priority, index) => {
-                return <PriorityContainer key={index}>
-                  <PriorityTitle fontSize="16px" on_click_function={show_hide_by_priority} list_id="dump" priority={priority} border="1px solid silver" margin="10px">{priority} Priority</PriorityTitle>
-                  <TodoContainer id={"dump_" + priority.toLowerCase()} height={priority_state["dump_" + priority.toLowerCase()]}>
-                    {todo_dump_state.map((note, index) => {
-                      if (note.priority === priority) {
-                        return <ListItem get_all_notes_by_list_id={get_all_notes_by_list_id} index={note._id} id={note._id} key={note._id}>{note.title}</ListItem>
-                      }
-                    })}
-                  </TodoContainer>
-                </PriorityContainer>
-              })} */}
             </ScrollContainer>
           </NoteArchive>
           <Section>

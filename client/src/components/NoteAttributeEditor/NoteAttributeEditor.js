@@ -18,7 +18,7 @@ function NoteAttributeEditor(props) {
             <input
               defaultValue={props.note_state.priority}
               onChange={e => props.on_change_note_editor(e)}
-              className="priority_input create_note_inputs"
+              className="priority_input editor_inputs"
               placeholder="High, Medium, Low"
               name="priority" />
           </div>
@@ -27,12 +27,21 @@ function NoteAttributeEditor(props) {
             <input
               defaultValue={props.note_state.list_id}
               onChange={e => props.on_change_note_editor(e)}
-              className="list_id_input modal_input create_note_inputs"
+              className="list_id_input editor_inputs"
               placeholder="List Name"
               name="list_id" />
           </div>
+          <div>
+            <Label>Folder ID: </Label>
+            <input
+              defaultValue={props.note_state.folder_id}
+              onChange={e => props.on_change_note_editor(e)}
+              className="folder_id_input editor_inputs"
+              placeholder="Folder ID"
+              name="folder_id" />
+          </div>
           <Label>Date Created: {props.formatted_date_slash}</Label>
-          <div className="modal_scheduled_field ">
+          <div className="scheduled_field ">
             <Label>Schedule: </Label>
             <Checkbox onCheck={props.show_scheduling} checkboxState={props.schedule_state} />
           </div>
@@ -43,13 +52,11 @@ function NoteAttributeEditor(props) {
           <input id="scheduled_date" type="date"
             defaultValue={props.date_state}
             onChange={e => props.on_change_note_editor(e)}
-            placeholder="List Name"
             name="scheduled_date" />
-          <Label> Time: </Label>
+          <Label>Time: </Label>
           <input id="scheduled_time" type="time"
             defaultValue={props.time_state}
             onChange={e => props.on_change_note_editor(e)}
-            placeholder="List Name"
             name="scheduled_time" />
         </div>
       </div>
