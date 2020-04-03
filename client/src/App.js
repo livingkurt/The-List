@@ -237,48 +237,14 @@ const App = () => {
       folders: []
     }
     try {
-      // const res = await API.get_all_folders()
-
       const res = await API.post_folder(blank_folder)
       console.log(res.data)
-      // set_folders_state(response.data)
-      // const new_data = [blank_folder, ...folders_state]
-      // console.log(new_data)
       get_all_folders();
-      // if (list_id === "dump") {
-      //   set_todo_dump_state(new_data)
-      //   set_todo_dump_state([response.data, ...todo_dump_state])
-      // }
-      // else if (list_id === "master") {
-      //   set_todo_master_state(new_data)
-      //   set_todo_master_state([response.data, ...todo_master_state])
-      // }
-      // get_all_notes_by_list_id(list_id);
     }
     catch (err) {
       console.log(err);
     }
   };
-
-  // const create_empty_list_item = async (list_id) => {
-  //   try {
-  //     const res = await API.get_notes_by_list_id(list_id)
-  //     const new_data = [...res.data, { ...todo_state, list_id: list_id }]
-  //     const response = await API.post_note({ ...note_state, list_id: list_id })
-  //     if (list_id === "dump") {
-  //       set_todo_dump_state(new_data)
-  //       set_todo_dump_state([response.data, ...todo_dump_state])
-  //     }
-  //     else if (list_id === "master") {
-  //       set_todo_master_state(new_data)
-  //       set_todo_master_state([response.data, ...todo_master_state])
-  //     }
-  //     get_all_notes_by_list_id(list_id);
-  //   }
-  //   catch (err) {
-  //     console.log(err);
-  //   }
-  // };
 
   const get_all_folders = async () => {
     try {
@@ -286,15 +252,15 @@ const App = () => {
       set_folders_state(res.data)
       let array = []
       res.data.map(folder => {
-        console.log({ "folder": folder._id })
+        // console.log({ "folder": folder._id })
         let id = folder._id
         array = { ...array, [id]: "0px" }
 
       })
-      // set_folder_state()
-      set_folder_state(array)
+      // set_folder_view_state()
+      set_folder_view_state(array)
       // console.log({ "App.js - get_all_folders": res.data })
-      console.log({ "folder_state": folder_state })
+      // console.log({ "folder_view_state": folder_view_state })
     }
     catch (err) {
       console.log(err);
@@ -323,41 +289,95 @@ const App = () => {
     if (priority_state[field_name] === "100%") {
       set_priority_state({ ...priority_state, [field_name]: "0px" })
       // document.querySelector(`#${field_name}`).classList.toggle = ('todo_container_collapsed')
-      console.log({ "show_hide_by_priority": priority_state })
-      console.log(field_name)
+      // console.log({ "show_hide_by_priority": priority_state })
+      // console.log(field_name)
       // document.querySelector(".todo_container").classList.add("open");
-      console.log(document.querySelector(".todo_container").classList)
+      // console.log(document.querySelector(".todo_container").classList)
 
     }
     else if (priority_state[field_name] === "0px") {
       set_priority_state({ ...priority_state, [field_name]: "100%" })
       // document.querySelector(`#${field_name}`).classList.toggle = ('todo_container_collapsed')
-      console.log({ "show_hide_by_priority": priority_state })
-      console.log(field_name)
+      // console.log({ "show_hide_by_priority": priority_state })
+      // console.log(field_name)
       // document.querySelector(".todo_container").classList.remove("open");
-      console.log(document.querySelector(".todo_container").classList)
+      // console.log(document.querySelector(".todo_container").classList)
 
     }
   }
 
 
-  const [folder_state, set_folder_state] = useState([])
+  const [folder_view_state, set_folder_view_state] = useState([])
 
   const show_hide_by_folder = (folder_id) => {
-    console.log({ "show_hide_by_folder_id": folder_id })
-    console.log({ "show_hide_by_folder_state": folder_state })
+    // console.log({ "show_hide_by_folder_id": folder_id })
+    // console.log({ "show_hide_by_folder_view_state": folder_view_state })
 
-    if (folder_state[folder_id] === "100%") {
-      set_folder_state({ ...folder_state, [folder_id]: "0px" })
+    if (folder_view_state[folder_id] === "100%") {
+      set_folder_view_state({ ...folder_view_state, [folder_id]: "0px" })
       // document.querySelector(`#${field_name}`).classList.toggle = ('todo_container_collapsed')
-      console.log({ "show_hide_by_folder": folder_state })
+      // console.log({ "show_hide_by_folder": folder_view_state })
     }
-    else if (folder_state[folder_id] === "0px") {
-      set_folder_state({ ...folder_state, [folder_id]: "100%" })
+    else if (folder_view_state[folder_id] === "0px") {
+      set_folder_view_state({ ...folder_view_state, [folder_id]: "100%" })
       // document.querySelector(`#${field_name}`).classList.toggle = ('todo_container_collapsed')
-      console.log({ "show_hide_by_folder": folder_state })
+      // console.log({ "show_hide_by_folder": folder_view_state })
     }
   }
+
+  // const on_change_folder_editor = (e) => {
+  //   if (e.target === undefined) {
+  //     set_folder_view_state({ ...note_state, scheduled: e })
+  //   }
+  //   else {
+  //     const folder_data = e.target.value
+  //     const field_name = e.target.name
+  //     set_folder_view_state({ ...folder_view_state, [field_name]: folder_data })
+  //   }
+
+  // }
+
+  const [folder_state, set_folder_state] = useState({})
+
+  const on_change_folder_editor = async (e) => {
+    const folder_id = e.target.id
+    const folder_data = e.target.value
+    const field_name = e.target.name
+    console.log(folder_id, folder_data, field_name)
+    set_folder_state({ ...folder_state, [field_name]: folder_data })
+    try {
+      const res = await API.get_folder(folder_id)
+
+      const update_folder = {
+        ...res.data,
+        [field_name]: folder_data
+      }
+      console.log({ "update_folder": update_folder })
+      API.update_folder(folder_id, update_folder)
+      // get_all_folders();
+    }
+    catch (err) {
+      console.log({ "on_change_folder_editor": err });
+    }
+
+  }
+
+  // const update_folder = async (e) => {
+  //   e.persist();
+  //   const todo_id = e.target.id
+  //   const todo_data = e.target.value
+  //   try {
+  //     const res = await API.get_note(todo_id)
+  //     set_list_item_state(res.data)
+  //     const update_todo = { ...res.data, title: todo_data }
+  //     API.update_note(todo_id, update_todo)
+  //   }
+  //   catch (err) {
+  //     console.log(err);
+  //   }
+  // }
+
+
 
   return (
     <div >
@@ -371,11 +391,11 @@ const App = () => {
               <Button margin="18px 0px 18px 18px" on_click_function={create_new_folder} >+</Button>
               {folders_state.map((folder, index) => {
                 return <FolderContainer >
-                  <FolderTitle on_click_function={show_hide_by_folder} fontSize="16px" list_id={folder._id} margin="10px">{folder.folder_name}</FolderTitle>
-                  <FolderNoteContainer height={folder_state[folder._id]}>
+                  <FolderTitle on_click_function={show_hide_by_folder} on_change_folder_editor={on_change_folder_editor} fontSize="16px" folder_id={folder._id} margin="10px">{folder.folder_name}</FolderTitle>
+                  <FolderNoteContainer height={folder_view_state[folder._id]}>
                     {all_todo_state.map((note, index) => {
                       if (note.folder_id === folder._id) {
-                        console.log({ "note.folder_id": note.folder_id, "folder._id": folder._id })
+                        // console.log({ "note.folder_id": note.folder_id, "folder._id": folder._id })
                         return <ArchiveItem get_all_notes={get_all_notes} index={note._id} id={note._id} key={note._id}>{note.title}</ArchiveItem>
                       }
                     })}

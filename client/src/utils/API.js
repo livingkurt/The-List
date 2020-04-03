@@ -35,6 +35,13 @@ export default {
     console.log({ 'API.js': folder_data })
     return axios.post('/api/folder', folder_data);
   },
+  update_folder: function (folder_id, folder_data) {
+    console.log({ 'API.js': folder_data })
+    return axios.put('/api/folder/' + folder_id, folder_data);
+  },
+  get_folder: function (folder_id) {
+    return axios.get('/api/folder/' + folder_id);
+  },
 
 }
 

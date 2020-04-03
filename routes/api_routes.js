@@ -144,4 +144,35 @@ module.exports = function (app) {
       console.log(err);
     }
   })
+  app.put('/api/folder/:id', async (req, res) => {
+    // Create an empty workout object ready for exercises to get put into it
+    console.log({ "api_routes.js - update one folder": req.body })
+    try {
+      const request = await db.Folders.updateOne({ _id: req.params.id },
+        {
+          folder_name: req.body.folder_name,
+          folder_id: req.body.folder_id,
+          notes: req.body.notes,
+          folders: req.body.folders,
+          completed: req.body.completed,
+          date_modified: new Date().setDate(new Date().getDate())
+        })
+      // Send the request back to the front end
+      res.send(request)
+    }
+    catch (err) {
+      console.log(err);
+    }
+  })
+  app.get('/api/folder/:id', async (req, res) => {
+    // console.log({ "api_routes.js - get one": req.body })
+    try {
+      const request = await db.Folders.findOne({ _id: req.params.id })
+      // Send the request back to the front end
+      res.send(request)
+    }
+    catch (err) {
+      console.log(err);
+    }
+  })
 }
