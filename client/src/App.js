@@ -14,6 +14,7 @@ import NoteTextEditor from './components/NoteTextEditor/NoteTextEditor';
 import PriorityContainer from './components/PriorityContainer/PriorityContainer';
 import TodoContainer from './components/TodoContainer/TodoContainer';
 import FolderContainer from './components/FolderContainer/FolderContainer';
+import FolderNoteContainer from './components/FolderNoteContainer/FolderNoteContainer';
 import PriorityTitle from './components/PriorityTitle/PriorityTitle';
 import FolderTitle from './components/FolderTitle/FolderTitle';
 import Button from './components/Button/Button';
@@ -54,7 +55,7 @@ const App = () => {
     scheduled_date_time: "",
     completed: false,
   })
-  const [folder_state, set_folder_state] = useState([])
+
 
 
   const date = new Date()
@@ -184,34 +185,18 @@ const App = () => {
     }
   }
 
-  const [priority_state, set_priority_state] = useState(
-    {
-      master_high: "100%",
-      master_medium: "100%",
-      master_low: "100%",
-      dump_high: "100%",
-      dump_medium: "100%",
-      dump_low: "100%",
-      priorites: ["High", "Medium", "Low"]
-    }
-  )
 
-  const show_hide_by_priority = (list_id, priority) => {
-    console.log({ "show_hide_by_priority": priority })
 
-    priority = priority.toLowerCase()
-    let field_name = list_id + "_" + priority
-    if (priority_state[field_name] === "100%") {
-      set_priority_state({ ...priority_state, [field_name]: "0px" })
-      // document.querySelector(`#${field_name}`).classList.toggle = ('todo_container_collapsed')
-      console.log({ "show_hide_by_priority": priority_state })
-    }
-    else if (priority_state[field_name] === "0px") {
-      set_priority_state({ ...priority_state, [field_name]: "100%" })
-      // document.querySelector(`#${field_name}`).classList.toggle = ('todo_container_collapsed')
-      console.log({ "show_hide_by_priority": priority_state })
-    }
-  }
+  // const sidebar_show_hide = () => {
+  //   if (sidebar_state) {
+  //     document.querySelector(".sidebar").classList.remove("open");
+  //     set_sidebar_state(false)
+  //   }
+  //   else {
+  //     document.querySelector(".sidebar").classList.add("open");
+  //     set_sidebar_state(true)
+  //   }
+  // }
 
   const easing_functions = {
     // no easing, no acceleration
@@ -265,28 +250,86 @@ const App = () => {
   const get_all_folders = async () => {
     try {
       const res = await API.get_all_folders()
-      set_folder_state(res.data)
-      console.log({ "App.js - get_all_folders": res.data })
+      set_folders_state(res.data)
+      let array = []
+      res.data.map(folder => {
+        console.log({ "folder": folder._id })
+        let id = folder._id
+        array = { ...array, [id]: "0px" }
+
+      })
+      // set_folder_state()
+      set_folder_state(array)
+      // console.log({ "App.js - get_all_folders": res.data })
+      console.log({ "folder_state": folder_state })
     }
     catch (err) {
       console.log(err);
     }
   };
-  const show_hide_by_folder = (folder_id) => {
-    console.log({ "show_hide_by_priority": folder_id })
 
-    // priority = priority.toLowerCase()
-    // let field_name = list_id + "_" + priority
-    // if (priority_state[field_name] === "100%") {
-    //   set_priority_state({ ...priority_state, [field_name]: "0px" })
-    //   // document.querySelector(`#${field_name}`).classList.toggle = ('todo_container_collapsed')
-    //   console.log({ "show_hide_by_priority": priority_state })
-    // }
-    // else if (priority_state[field_name] === "0px") {
-    //   set_priority_state({ ...priority_state, [field_name]: "100%" })
-    //   // document.querySelector(`#${field_name}`).classList.toggle = ('todo_container_collapsed')
-    //   console.log({ "show_hide_by_priority": priority_state })
-    // }
+  const [folders_state, set_folders_state] = useState([])
+
+
+
+
+  const [priority_state, set_priority_state] = useState(
+    {
+      master_high: "100%",
+      master_medium: "100%",
+      master_low: "100%",
+      dump_high: "100%",
+      dump_medium: "100%",
+      dump_low: "100%",
+      priorites: ["High", "Medium", "Low"]
+    }
+  )
+
+  const show_hide_by_priority = (list_id, priority) => {
+    console.log({ "show_hide_by_priority": priority })
+
+    priority = priority.toLowerCase()
+    let field_name = list_id + "_" + priority
+    if (priority_state[field_name] === "100%") {
+      set_priority_state({ ...priority_state, [field_name]: "0px" })
+      // document.querySelector(`#${field_name}`).classList.toggle = ('todo_container_collapsed')
+      console.log({ "show_hide_by_priority": priority_state })
+      console.log(field_name)
+      // document.querySelector(".todo_container").classList.add("open");
+      console.log(document.querySelector(".todo_container").classList)
+
+    }
+    else if (priority_state[field_name] === "0px") {
+      set_priority_state({ ...priority_state, [field_name]: "100%" })
+      // document.querySelector(`#${field_name}`).classList.toggle = ('todo_container_collapsed')
+      console.log({ "show_hide_by_priority": priority_state })
+      console.log(field_name)
+      // document.querySelector(".todo_container").classList.remove("open");
+      console.log(document.querySelector(".todo_container").classList)
+
+    }
+  }
+
+
+
+
+
+  const [folder_state, set_folder_state] = useState([])
+
+  const show_hide_by_folder = (folder_id) => {
+    console.log({ "show_hide_by_folder_id": folder_id })
+    console.log({ "show_hide_by_folder_state": folder_state })
+
+    if (folder_state[folder_id] === "100%") {
+      set_folder_state({ ...folder_state, [folder_id]: "0px" })
+      // document.querySelector(`#${field_name}`).classList.toggle = ('todo_container_collapsed')
+      console.log({ "show_hide_by_folder": folder_state })
+    }
+    else if (folder_state[folder_id] === "0px") {
+      set_folder_state({ ...folder_state, [folder_id]: "100%" })
+      // document.querySelector(`#${field_name}`).classList.toggle = ('todo_container_collapsed')
+      console.log({ "show_hide_by_folder": folder_state })
+    }
   }
 
   return (
@@ -299,15 +342,20 @@ const App = () => {
           <NoteArchive >
             <ScrollContainer height={"83vh"}>
               <Button margin="18px 0px 18px 18px" on_click_function={create_new_folder} >+</Button>
-              {folder_state.map((folder, index) => {
+              {folders_state.map((folder, index) => {
                 return <FolderContainer >
-                  <FolderTitle on_click_function={show_hide_by_priority} fontSize="16px" list_id="dump" margin="10px">{folder.folder_name}</FolderTitle>
-                  {/* <FolderContainer id={"dump_" + priority.toLowerCase()} height={priority_state["dump_" + priority.toLowerCase()]}>
-                    {todo_dump_state.map((note, index) => {
-                      if (note.priority === priority) {
-                        return <ListItem get_all_notes_by_list_id={get_all_notes_by_list_id} index={note._id} id={note._id} key={note._id}>{note.title}</ListItem>
+                  <FolderTitle on_click_function={show_hide_by_folder} fontSize="16px" list_id={folder._id} margin="10px">{folder.folder_name}</FolderTitle>
+                  {/* {console.log({ "folder_state[folder._id]": folder_state[folder._id] })} */}
+                  <FolderNoteContainer height={folder_state[folder._id]}>
+                    {all_todo_state.map((note, index) => {
+
+                      if (note.folder_id === folder._id) {
+                        console.log({ "note.folder_id": note.folder_id, "folder._id": folder._id })
+                        // return <ListItem get_all_notes_by_list_id={get_all_notes_by_list_id} index={note._id} id={note._id} key={note._id}>{note.title}</ListItem>
+                        return <ArchiveItem get_all_notes={get_all_notes} index={note._id} id={note._id} key={note._id}>{note.title}</ArchiveItem>
                       }
-                    })} */}
+                    })}
+                  </FolderNoteContainer>
                 </FolderContainer>
               })}
               {/* {all_todo_state.map((note, index) => {
@@ -358,7 +406,7 @@ const App = () => {
               {priority_state.priorites.map((priority, index) => {
                 return <PriorityContainer key={index}>
                   <PriorityTitle fontSize="16px" on_click_function={show_hide_by_priority} list_id="dump" priority={priority} border="1px solid silver" margin="10px">{priority} Priority</PriorityTitle>
-                  <TodoContainer id={"dump_" + priority.toLowerCase()} height={priority_state["dump_" + priority.toLowerCase()]}>
+                  <TodoContainer className={"dump_" + priority.toLowerCase()} height={priority_state["dump_" + priority.toLowerCase()]}>
                     {todo_dump_state.map((note, index) => {
                       if (note.priority === priority) {
                         return <ListItem get_all_notes_by_list_id={get_all_notes_by_list_id} index={note._id} id={note._id} key={note._id}>{note.title}</ListItem>
@@ -379,7 +427,7 @@ const App = () => {
               {priority_state.priorites.map((priority, index) => {
                 return <PriorityContainer key={index}>
                   <PriorityTitle fontSize="16px" on_click_function={show_hide_by_priority} list_id="master" priority={priority} border="1px solid silver" margin="10px">{priority} Priority</PriorityTitle>
-                  <TodoContainer id={"master_" + priority.toLowerCase()} height={priority_state["master_" + priority.toLowerCase()]}>
+                  <TodoContainer className={"master_" + priority.toLowerCase()} height={priority_state["master_" + priority.toLowerCase()]}>
                     {todo_master_state.map((note, index) => {
                       if (note.priority === priority) {
                         return <ListItem get_all_notes_by_list_id={get_all_notes_by_list_id} index={note._id} id={note._id} key={note._id}>{note.title}</ListItem>
