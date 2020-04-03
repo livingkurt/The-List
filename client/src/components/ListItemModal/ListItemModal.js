@@ -41,29 +41,29 @@ const ListItemModal = (props) => {
     get_checkbox_state();
   }, [])
 
-  const update_note = async (e) => {
-    e.persist();
-    const todo_id = e.target.id
-    const todo_data = e.target.value
-    const field_name = e.target.name
-    console.log(field_name)
-    if (todo_id != undefined) {
-      try {
-        const res = await API.get_note(todo_id)
-        console.log({ "update_note": res.data })
-        const update_todo = {
-          ...res.data,
-          [field_name]: todo_data,
-          date_modified: new Date().setDate(new Date().getDate())
-        }
-        API.update_note(todo_id, update_todo)
-      }
-      catch (err) {
-        console.log(err);
-      }
-    }
+  // const update_note = async (e) => {
+  //   e.persist();
+  //   const todo_id = e.target.id
+  //   const todo_data = e.target.value
+  //   const field_name = e.target.name
+  //   console.log(field_name)
+  //   if (todo_id != undefined) {
+  //     try {
+  //       const res = await API.get_note(todo_id)
+  //       console.log({ "update_note": res.data })
+  //       const update_todo = {
+  //         ...res.data,
+  //         [field_name]: todo_data,
+  //         date_modified: new Date().setDate(new Date().getDate())
+  //       }
+  //       API.update_note(todo_id, update_todo)
+  //     }
+  //     catch (err) {
+  //       console.log(err);
+  //     }
+  //   }
 
-  }
+  // }
   const get_note = async () => {
     const todo_id = props.id
     if (todo_id != undefined) {
@@ -264,7 +264,6 @@ const ListItemModal = (props) => {
       <NoteTextEditor
         note_state={note_state}
         on_change_note_editor={on_change_note_editor}
-        update_note={update_note}
         height="20vh" />
       <NoteAttributeEditor
         note_state={note_state}

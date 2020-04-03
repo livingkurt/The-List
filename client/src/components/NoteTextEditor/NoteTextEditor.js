@@ -17,7 +17,6 @@ function NoteTextEditor(props) {
         name="title"
         onBlur={(e) => {
           e.target.placeholder = "Title"
-          props.update_note(e)
         }}
         onFocus={(e) => e.target.placeholder = ""}></input>
       <textarea
@@ -29,7 +28,6 @@ function NoteTextEditor(props) {
         style={{ height: props.height }}
         onBlur={(e) => {
           e.target.placeholder = "Description"
-          props.update_note(e)
         }
         }
         onFocus={(e) => e.target.placeholder = ""}
