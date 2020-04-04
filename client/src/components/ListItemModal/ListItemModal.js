@@ -257,7 +257,7 @@ const ListItemModal = (props) => {
   }
 
   const delete_note = async (e) => {
-    const todo_id = e.target.id
+    const todo_id = props.id
     try {
       const res = await API.delete_note(todo_id)
       props.get_all_folders()

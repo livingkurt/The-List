@@ -39,13 +39,17 @@ const Note = (props) => {
   return (
     <div className="note zoom">
       {/* <Checkbox /> */}
+      <div style={{ fontSize: "20px", color: "silver", transform: "rotate(270deg)", paddingBottom: "10px" }}>
+        <i className="fas fa-sort-up"></i>
+      </div>
       <input
         defaultValue={props.children}
         className="note_input"
         placeholder="Title"
         id={props.id}
         onBlur={e => update_note(e)} />
-      <ButtonSymbol margin="0px" padding="0px 2px 7px 0px" on_click_function={show_modal} ><i className="fas fa-sort-up"></i></ButtonSymbol>
+      <ButtonSymbol margin="0px" padding="0px" on_click_function={show_modal} ><i className="fas fa-bars"></i></ButtonSymbol>
+      {/* <ButtonSymbol margin="0px" padding="0px" on_click_function={show_modal} ><i className="fas fa-sort-up"></i></ButtonSymbol> */}
       <ListItemModal id={props.id} show_modal={show_modal} show_modal_state={modal_state} get_all_notes_by_list_id={props.get_all_notes_by_list_id}></ListItemModal>
     </div>
   );

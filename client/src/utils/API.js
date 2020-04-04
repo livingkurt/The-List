@@ -2,7 +2,9 @@ import axios from 'axios';
 
 export default {
 
+  // ==================================================
   // Note Routes
+  // ==================================================
   post_note: function (note_data) {
     console.log({ 'API.js': note_data })
     return axios.post('/api/note', note_data);
@@ -23,11 +25,13 @@ export default {
     console.log({ 'API.js': note_data })
     return axios.put('/api/note/' + note_id, note_data);
   },
-  delete_note: function (note_id, note_data) {
-    console.log({ 'API.js': note_data })
-    return axios.delete('/api/note/' + note_id, note_data);
+  delete_note: function (note_id) {
+    console.log({ 'API.js': note_id })
+    return axios.delete('/api/note/' + note_id);
   },
+  // ==================================================
   // Folder Routes
+  // ==================================================
   get_all_folders: function () {
     return axios.get('/api/folders');
   },
@@ -42,9 +46,9 @@ export default {
   get_folder: function (folder_id) {
     return axios.get('/api/folder/' + folder_id);
   },
-  delete_folder: function (folder_id, folder_data) {
-    console.log({ 'API.js': folder_data })
-    return axios.delete('/api/folder/' + folder_id, folder_data);
+  delete_folder: function (folder_id) {
+    console.log({ 'API.js': folder_id })
+    return axios.delete('/api/folder/' + folder_id);
   },
 
 }
