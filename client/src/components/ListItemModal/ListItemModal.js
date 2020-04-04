@@ -3,12 +3,12 @@ import React, { useState, useEffect } from "react";
 // Styles
 import './list_item_modal.css'
 // import Checkbox from '../Checkbox/Checkbox';
-import DeleteButton from '../DeleteButton/DeleteButton';
+import ButtonWord from '../ButtonWord/ButtonWord';
 import Checkbox from '../Checkbox/Checkbox';
 import API from "../../utils/API";
 import NoteAttributeEditor from '../NoteAttributeEditor/NoteAttributeEditor';
 import NoteTextEditor from '../NoteTextEditor/NoteTextEditor';
-import Button from '../Button/Button';
+import ButtonSymbol from '../ButtonSymbol/ButtonSymbol';
 
 
 const ListItemModal = (props) => {
@@ -256,11 +256,23 @@ const ListItemModal = (props) => {
 
   }
 
+  const delete_note = async (e) => {
+    const todo_id = e.target.id
+    try {
+      const res = await API.delete_note(todo_id)
+      props.get_all_notes_by_list_id("dump", props.index)
+      props.get_all_notes_by_list_id("master", props.index)
+    }
+    catch (err) {
+      console.log(err);
+    }
+  }
+
 
 
   return (
     <div style={{ display: props.show_modal_state }} className="list_modal zoom">
-      <Button margin="-10px 0px 8px" on_click_function={props.show_modal}><i className="fas fa-times"></i></Button>
+      <ButtonSymbol margin="-10px 0px 8px" on_click_function={props.show_modal}><i className="fas fa-times"></i></ButtonSymbol>
       <NoteTextEditor
         note_state={note_state}
         on_change_note_editor={on_change_note_editor}
@@ -272,9 +284,9 @@ const ListItemModal = (props) => {
         checkboxState={note_state.completed}
         show_scheduling={show_scheduling}
         schedule_state={schedule_state} />
-      <DeleteButton index={props.id} get_all_notes_by_list_id={props.get_all_notes_by_list_id} id={props.id}>
+      <ButtonWord on_click_function={delete_note} index={props.id} get_all_notes_by_list_id={props.get_all_notes_by_list_id} id={props.id}>
         Delete
-      </DeleteButton>
+      </ButtonWord>
     </div>
   );
 }

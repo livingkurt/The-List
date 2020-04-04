@@ -5,7 +5,7 @@ import API from "../../utils/API";
 import './list_item_button.css'
 
 
-function DeleteButton(props) {
+function ListItemButton(props) {
 
   // const [modal_state, set_modal_state] = useState(false)
 
@@ -27,6 +27,6 @@ function DeleteButton(props) {
   );
 }
 
-export default DeleteButton;
+export default ListItemButton;
 
 // );

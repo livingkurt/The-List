@@ -7,7 +7,7 @@ import Header from './components/Header/Header';
 import ListItem from './components/ListItem/ListItem';
 import ScrollContainer from './components/ScrollContainer/ScrollContainer.js';
 import Title from './components/Title/Title';
-import NoteArchive from './components/NoteArchive/NoteArchive';
+import NoteContainer from './components/NoteContainer/NoteContainer';
 import ArchiveItem from './components/ArchiveItem/ArchiveItem';
 import NoteAttributeEditor from './components/NoteAttributeEditor/NoteAttributeEditor';
 import NoteTextEditor from './components/NoteTextEditor/NoteTextEditor';
@@ -17,7 +17,8 @@ import FolderContainer from './components/FolderContainer/FolderContainer';
 import FolderNoteContainer from './components/FolderNoteContainer/FolderNoteContainer';
 import PriorityTitle from './components/PriorityTitle/PriorityTitle';
 import FolderTitle from './components/FolderTitle/FolderTitle';
-import Button from './components/Button/Button';
+import ButtonSymbol from './components/ButtonSymbol/ButtonSymbol';
+import ButtonWord from './components/ButtonWord/ButtonWord';
 import API from "./utils/API";
 // import styled from 'styled-components';
 
@@ -151,11 +152,11 @@ const App = () => {
 
   const sidebar_show_hide = () => {
     if (sidebar_state) {
-      document.querySelector(".sidebar").classList.remove("open");
+      document.querySelector(".note_archive").classList.remove("open");
       set_sidebar_state(false)
     }
     else {
-      document.querySelector(".sidebar").classList.add("open");
+      document.querySelector(".note_archive").classList.add("open");
       set_sidebar_state(true)
     }
   }
@@ -379,6 +380,8 @@ const App = () => {
 
 
 
+
+
   return (
     <div >
       <Background>
@@ -386,9 +389,13 @@ const App = () => {
           <Title margin="0px">TheList</Title>
         </Header>
         <Container>
-          <NoteArchive >
-            <ScrollContainer height={"83vh"}>
-              <Button margin="18px 0px 18px 18px" on_click_function={create_new_folder} >+</Button>
+          <NoteContainer >
+            <div style={{ display: "flex", justifyContent: "space-between" }}>
+              <Title >Note Archive</Title>
+              <ButtonWord margin="18px 0px 18px 18px" on_click_function={create_new_folder} >New Folder</ButtonWord>
+            </div>
+            <ScrollContainer height={"77vh"}>
+
               {folders_state.map((folder, index) => {
                 return <FolderContainer >
                   <FolderTitle on_click_function={show_hide_by_folder} on_change_folder_editor={on_change_folder_editor} fontSize="16px" folder_id={folder._id} margin="10px">{folder.folder_name}</FolderTitle>
@@ -403,11 +410,11 @@ const App = () => {
                 </FolderContainer>
               })}
             </ScrollContainer>
-          </NoteArchive>
+          </NoteContainer>
           <Section>
             <div style={{ display: "flex", justifyContent: "space-between" }}>
               <Title >Create Note</Title>
-              <Button margin="18px 0px 18px 18px" on_click_function={create_new_note} >+</Button>
+              <ButtonSymbol margin="18px 0px 18px 18px" on_click_function={create_new_note} >+</ButtonSymbol>
             </div>
             <Title margin="-30px 0px 0px 0px" fontSize="16px">Create a New Note Below</Title>
             <div>
@@ -428,7 +435,7 @@ const App = () => {
           <Section >
             <div style={{ display: "flex", justifyContent: "space-between" }}>
               <Title>Todo Dump</Title>
-              <Button margin="18px 0px 18px 18px" on_click_function={create_empty_list_item} list_id="dump" >+</Button>
+              <ButtonSymbol margin="18px 0px 18px 18px" on_click_function={create_empty_list_item} list_id="dump" >+</ButtonSymbol>
             </div>
             <Title margin="-30px 0px 0px 0px" fontSize="16px">Get your Ideas Down Fast</Title>
             <ScrollContainer>
@@ -449,7 +456,7 @@ const App = () => {
           <Section>
             <div style={{ display: "flex", justifyContent: "space-between" }}>
               <Title>Master Todo List:</Title>
-              <Button margin="18px 0px 18px 18px" on_click_function={create_empty_list_item} list_id="master" >+</Button>
+              <ButtonSymbol margin="18px 0px 18px 18px" on_click_function={create_empty_list_item} list_id="master" >+</ButtonSymbol>
             </div>
             <Title margin="-30px 0px 0px 0px" fontSize="16px">Today {formatted_date_slash}</Title>
             <ScrollContainer>

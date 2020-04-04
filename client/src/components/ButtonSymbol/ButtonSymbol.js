@@ -1,10 +1,10 @@
 // React
 import React from "react";
 // Styles
-import './button.css'
+import './button_symbol.css'
 
 
-const Button = (props) => {
+const ButtonSymbol = (props) => {
 
   return (
     <div >
@@ -13,4 +13,4 @@ const Button = (props) => {
   );
 }
 
-export default Button;
+export default ButtonSymbol;

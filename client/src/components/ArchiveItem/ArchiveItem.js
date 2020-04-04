@@ -3,7 +3,7 @@ import React, { useState, useEffect } from "react";
 // Styles
 import './archive_item.css'
 import Checkbox from '../Checkbox/Checkbox';
-import DeleteButton from '../DeleteButton/DeleteButton';
+// import DeleteButton from '../DeleteButton/DeleteButton';
 import API from "../../utils/API";
 
 

@@ -7,23 +7,28 @@
 
 /* Sidebar */
 
-.sidebar {
-  /* position: fixed; */
+.note_archive {
+  display: none;
+  position: relative;
   transition: all .5s;
-  /* transform: translateX(-20rem); */
-  width: 0px;
+  transform: translateX(-51rem);
+  /* width: 0px; */
   background-color: white;
   /* border: 1px silver solid; */
   box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
   border-radius: 0px 0px 20px;
+  padding: 20px;
   /* height: 100%; */
-  height: 85vh;
-  /* left: 0; */
+  height: 81vh;
+  width: 1500px;
+  /* width: 300px; */
+  left: 0;
 }
 
-.sidebar.open {
-  /* transform: translateX(-0); */
-  width: 1500px;
+.note_archive.open {
+  display: unset;
+  transform: translateX(-0);
+  /* width: 1500px; */
 }
 
 /* .sidebar-close-button {
