@@ -1,0 +1,26 @@
+.folder_title {
+  display: flex;
+  /* border: 1px silver solid; */
+  /* border-radius: 5px; */
+  border-bottom: 1px solid silver;
+  /* border: 1px silver; */
+}
+
+/* .zoom {
+  -webkit-transition: all 0.6s cubic-bezier(0.165, 0.84, 0.44, 1);
+  transition: all 0.6s cubic-bezier(0.165, 0.84, 0.44, 1);
+}
+
+.zoom::after {
+  -webkit-transition: all 0.6s cubic-bezier(0.165, 0.84, 0.44, 1);
+  transition: all 0.6s cubic-bezier(0.165, 0.84, 0.44, 1);
+}
+
+.zoom:hover {
+  -webkit-transform: scale(1.03, 1.03);
+  transform: scale(1.03, 1.03);
+}
+
+.zoom:hover::after {
+  opacity: 1;
+} */

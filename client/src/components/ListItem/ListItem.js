@@ -5,7 +5,7 @@ import './list_item.css'
 import Checkbox from '../Checkbox/Checkbox';
 import ListItemButton from '../ListItemButton/ListItemButton';
 import ListItemModal from '../ListItemModal/ListItemModal';
-import Button from '../Button/Button';
+import ButtonSymbol from '../ButtonSymbol/ButtonSymbol';
 import API from "../../utils/API";
 
 
@@ -95,9 +95,9 @@ const ListItem = (props) => {
         placeholder="Title"
         id={props.id}
         onBlur={e => update_note(e)} />
-      {/* <ListItemButton index={props.id} get_all_notes_by_list_id={props.get_all_notes_by_list_id} id={props.id} /> */}
-      {/* <Button onClick={() => show_modal()} className="show_modal_button zoom"><i className="fas fa-sort-up"></i></Button> */}
-      <Button margin="0px" padding="0px 2px 7px 0px" on_click_function={show_modal} ><i className="fas fa-sort-up"></i></Button>
+      {/* <ListItemButtonSymbol index={props.id} get_all_notes_by_list_id={props.get_all_notes_by_list_id} id={props.id} /> */}
+      {/* <ButtonSymbol onClick={() => show_modal()} className="show_modal_ButtonSymbol zoom"><i className="fas fa-sort-up"></i></ButtonSymbol> */}
+      <ButtonSymbol margin="0px" padding="0px 2px 7px 0px" on_click_function={show_modal} ><i className="fas fa-sort-up"></i></ButtonSymbol>
       <ListItemModal id={props.id} show_modal={show_modal} show_modal_state={modal_state} get_all_notes_by_list_id={props.get_all_notes_by_list_id}>
 
       </ListItemModal>

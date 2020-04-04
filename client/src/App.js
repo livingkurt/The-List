@@ -8,7 +8,7 @@ import ListItem from './components/ListItem/ListItem';
 import ScrollContainer from './components/ScrollContainer/ScrollContainer.js';
 import Title from './components/Title/Title';
 import NoteContainer from './components/NoteContainer/NoteContainer';
-import ArchiveItem from './components/ArchiveItem/ArchiveItem';
+import Note from './components/Note/Note';
 import NoteAttributeEditor from './components/NoteAttributeEditor/NoteAttributeEditor';
 import NoteTextEditor from './components/NoteTextEditor/NoteTextEditor';
 import PriorityContainer from './components/PriorityContainer/PriorityContainer';
@@ -289,7 +289,9 @@ const App = () => {
     let field_name = list_id + "_" + priority
     if (priority_state[field_name] === "100%") {
       set_priority_state({ ...priority_state, [field_name]: "0px" })
-      // document.querySelector(`#${field_name}`).classList.toggle = ('todo_container_collapsed')
+      // -webkit-transform: rotate(0deg);
+      document.querySelector(`#${list_id}`).setAttribute("style", "-webkit-transform: rotate(0deg)")
+      // document.querySelector(`#${list_id}`).classList.toggle = ('todo_container_collapsed')
       // console.log({ "show_hide_by_priority": priority_state })
       // console.log(field_name)
       // document.querySelector(".todo_container").classList.add("open");
@@ -391,7 +393,7 @@ const App = () => {
         <Container>
           <NoteContainer >
             <div style={{ display: "flex", justifyContent: "space-between" }}>
-              <Title >Note Archive</Title>
+              <Title >Notes</Title>
               <ButtonWord margin="18px 0px 18px 18px" on_click_function={create_new_folder} >New Folder</ButtonWord>
             </div>
             <ScrollContainer height={"77vh"}>
@@ -403,7 +405,7 @@ const App = () => {
                     {all_todo_state.map((note, index) => {
                       if (note.folder_id === folder._id) {
                         // console.log({ "note.folder_id": note.folder_id, "folder._id": folder._id })
-                        return <ArchiveItem get_all_notes={get_all_notes} index={note._id} id={note._id} key={note._id}>{note.title}</ArchiveItem>
+                        return <Note get_all_notes={get_all_notes} index={note._id} id={note._id} key={note._id}>{note.title}</Note>
                       }
                     })}
                   </FolderNoteContainer>

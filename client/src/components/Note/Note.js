@@ -1,13 +1,11 @@
 // React
 import React, { useState, useEffect } from "react";
 // Styles
-import './archive_item.css'
-import Checkbox from '../Checkbox/Checkbox';
-// import DeleteButton from '../DeleteButton/DeleteButton';
+import './note.css'
 import API from "../../utils/API";
 
 
-const ArchiveItem = (props) => {
+const Note = (props) => {
 
   const update_note = async (e) => {
     e.persist();
@@ -24,11 +22,11 @@ const ArchiveItem = (props) => {
   }
 
   return (
-    <div className="archive_item zoom">
+    <div className="note zoom">
       {/* <Checkbox /> */}
       <input
         defaultValue={props.children}
-        className="archive_input"
+        className="note_input"
         placeholder="Title"
         id={props.id}
         onBlur={e => update_note(e)} />
@@ -37,4 +35,4 @@ const ArchiveItem = (props) => {
   );
 }
 
-export default ArchiveItem;
+export default Note;

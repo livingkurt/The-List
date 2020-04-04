@@ -1,7 +1,7 @@
 // React
 import React, { useState } from "react";
 import { useClipboard } from 'use-clipboard-copy';
-import Button from '../Button/Button';
+import ButtonSymbol from '../ButtonSymbol/ButtonSymbol';
 // Styles
 import './folder_title.css'
 
@@ -15,7 +15,7 @@ const FolderTitle = (props) => {
 
 
   return (
-    <div className="title" style={{ borderBottom: props.border, padding: "2px", justifyContent: "space-between" }}>
+    <div className="folder_title zoom" style={{ borderBottom: props.border, padding: "2px", justifyContent: "space-between" }}>
       {/* <h2 style={{ margin: props.margin, fontSize: props.fontSize }}>{props.children}</h2> */}
       {/* <input style={{ margin: props.margin, fontSize: props.fontSize }}>{props.children}</input> */}
       <input
@@ -28,7 +28,7 @@ const FolderTitle = (props) => {
         name="folder_name" />
 
 
-      <Button margin="1px 3px 0px 0px" padding="0px 2px 7px 0px" on_click_function={props.on_click_function} list_id={props.folder_id} folder={props.folder}><i className="fas fa-sort-up"></i></Button>
+      <ButtonSymbol margin="1px 3px 0px 0px" padding="0px 2px 7px 0px" on_click_function={props.on_click_function} list_id={props.folder_id} folder={props.folder}><i className="fas fa-sort-up"></i></ButtonSymbol>
     </div >
   );
 }

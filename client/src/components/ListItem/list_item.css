@@ -25,8 +25,13 @@
   outline: 0;
 }
 
-i {
-  -webkit-transform: rotate(-180deg)
+.fa-sort-up {
+  -webkit-transform: rotate(-180deg);
+  transition: all 0.5s;
+}
+
+.fa-sort-up :hover {
+  -webkit-transform: rotate(0deg);
 }
 
 .show_modal_button {
