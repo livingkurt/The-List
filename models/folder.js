@@ -6,7 +6,6 @@ const folder_schema = new Schema({
     type: String,
     // required: true
   },
-  folder_id: String,
   notes: [
     {
       type: Schema.Types.ObjectId,

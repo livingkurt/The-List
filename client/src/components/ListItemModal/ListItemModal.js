@@ -260,8 +260,7 @@ const ListItemModal = (props) => {
     const todo_id = e.target.id
     try {
       const res = await API.delete_note(todo_id)
-      props.get_all_notes_by_list_id("dump", props.index)
-      props.get_all_notes_by_list_id("master", props.index)
+      props.get_all_folders()
     }
     catch (err) {
       console.log(err);

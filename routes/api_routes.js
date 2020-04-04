@@ -115,7 +115,7 @@ module.exports = function (app) {
   app.get('/api/folders', async (req, res) => {
     // console.log({ "api_routes.js - get all folders": req.body })
     try {
-      const request = await db.Folders.find({})
+      const request = await db.Folders.find({}).sort({ _id: -1 })
       // Send the request back to the front end
       res.send(request)
     }
@@ -130,7 +130,6 @@ module.exports = function (app) {
     try {
       const request = await db.Folders.create({
         folder_name: req.body.folder_name,
-        folder_id: req.body.folder_id,
         notes: req.body.notes,
         folders: req.body.folders,
         completed: req.body.completed,
@@ -151,7 +150,6 @@ module.exports = function (app) {
       const request = await db.Folders.updateOne({ _id: req.params.id },
         {
           folder_name: req.body.folder_name,
-          folder_id: req.body.folder_id,
           notes: req.body.notes,
           folders: req.body.folders,
           completed: req.body.completed,
@@ -168,6 +166,18 @@ module.exports = function (app) {
     // console.log({ "api_routes.js - get one": req.body })
     try {
       const request = await db.Folders.findOne({ _id: req.params.id })
+      // Send the request back to the front end
+      res.send(request)
+    }
+    catch (err) {
+      console.log(err);
+    }
+  })
+  app.delete('/api/folder/:id', async (req, res) => {
+    // Create an empty workout object ready for exercises to get put into it
+    // console.log({ "api_routes.js - delete one": req.body })
+    try {
+      const request = await db.Folders.remove({ _id: req.params.id })
       // Send the request back to the front end
       res.send(request)
     }

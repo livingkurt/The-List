@@ -9,6 +9,7 @@ import './folder_title.css'
 
 
 const FolderTitle = (props) => {
+
   const clipboard = useClipboard();
   const copy_to_clipboard = () => {
     clipboard.copy(props.folder_id)
@@ -38,14 +39,14 @@ const FolderTitle = (props) => {
         onChange={e => props.on_change_folder_editor(e)}
         className="folder_id_input editor_inputs"
         id={props.folder_id}
-        placeholder="Folder ID"
+        placeholder="Folder Name"
         // onBlur={e => props.update_folder(e)}
         name="folder_name" />
       <div style={{ display: "flex" }}>
         <ButtonSymbol margin="1px 3px 0px 0px" padding="4px" on_click_function={show_hide_folder_modal} list_id={props.folder_id} folder={props.folder}><i className="fas fa-bars"></i></ButtonSymbol>
         <ButtonSymbol margin="1px 3px 0px 0px" padding="0px 2px 7px 0px" on_click_function={props.show_hide_by_folder} list_id={props.folder_id} folder={props.folder}><i className="fas fa-sort-up"></i></ButtonSymbol>
       </div>
-      <FolderAttributesModal id={props.id} show_hide_folder_modal={show_hide_folder_modal} folder_modal_state={folder_modal_state} />
+      <FolderAttributesModal id={props.folder_id} get_all_folders={props.get_all_folders} show_hide_folder_modal={show_hide_folder_modal} folder_modal_state={folder_modal_state} />
     </div >
   );
 }

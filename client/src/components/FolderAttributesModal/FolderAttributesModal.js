@@ -7,7 +7,6 @@ import ButtonWord from '../ButtonWord/ButtonWord';
 import Checkbox from '../Checkbox/Checkbox';
 import API from "../../utils/API";
 import Label from '../Label/Label';
-import NoteTextEditor from '../NoteTextEditor/NoteTextEditor';
 import ButtonSymbol from '../ButtonSymbol/ButtonSymbol';
 
 
@@ -18,18 +17,12 @@ const FolderAttributesModal = (props) => {
 
   // console.log({ "folder_id": folder_id })
 
-  const [note_state, set_note_state] = useState({
-    title: "",
-    body: "",
-    folder_id: "",
-    list_id: "",
-    priority: "",
-    scheduled: false,
-    scheduled_date: "",
-    scheduled_time: "",
-    completed: false,
-    date_created: "",
-    date_modified: "",
+  const [folder_state, set_folder_state] = useState({
+    folder_name: "",
+    notes: "",
+    folders: "",
+    completed: "",
+    date_modified: new Date().setDate(new Date().getDate())
   })
 
   const [dropdown_state, set_dropdown_state] = useState("none")
@@ -37,29 +30,29 @@ const FolderAttributesModal = (props) => {
   //   date_created: "",
   //   date_modified: "",
   // })
+  // console.log(folder_state)
+
   useEffect(() => {
-    get_note()
-    // get_formatted_date();
-    // get_formatted_time();
-    get_checkbox_state();
+    get_folder()
+
   }, [])
 
-  // const update_note = async (e) => {
+  // const update_folder = async (e) => {
   //   e.persist();
-  //   const todo_id = e.target.id
+  //   const folder_id = e.target.id
   //   const todo_data = e.target.value
   //   const field_name = e.target.name
   //   console.log(field_name)
-  //   if (todo_id != undefined) {
+  //   if (folder_id != undefined) {
   //     try {
-  //       const res = await API.get_note(todo_id)
-  //       console.log({ "update_note": res.data })
+  //       const res = await API.get_folder(folder_id)
+  //       console.log({ "update_folder": res.data })
   //       const update_todo = {
   //         ...res.data,
   //         [field_name]: todo_data,
   //         date_modified: new Date().setDate(new Date().getDate())
   //       }
-  //       API.update_note(todo_id, update_todo)
+  //       API.update_folder(folder_id, update_todo)
   //     }
   //     catch (err) {
   //       console.log(err);
@@ -67,22 +60,24 @@ const FolderAttributesModal = (props) => {
   //   }
 
   // }
-  const get_note = async () => {
-    const todo_id = props.id
-    if (todo_id != undefined) {
+  const get_folder = async () => {
+    const folder_id = props.id
+    // console.log({ "get_folder": folder_id })
+    if (folder_id != undefined) {
       try {
-        const res = await API.get_note(todo_id)
-        set_note_state(res.data)
+        const res = await API.get_folder(folder_id)
+        // console.log({ "get_folder": res.data })
+        set_folder_state(res.data)
         set_date_state(format_date_element(res.data.scheduled_date))
         set_time_state(res.data.scheduled_time)
 
-        // format_date(res.data.date_created)
-        set_note_state({
+        // // format_date(res.data.date_created)
+        set_folder_state({
           ...res.data, date_modified: format_date_display(res.data.date_modified),
           date_created: format_date_display(res.data.date_created)
         })
-        // set_note_state({
-        //   ...note_state,
+        // set_folder_state({
+        //   ...folder_state,
         //   date_created: format_date(res.data.date_created),
         //   date_modified: format_date(res.data.date_modified)
         // })
@@ -92,6 +87,7 @@ const FolderAttributesModal = (props) => {
       }
     }
   }
+  // get_folder();
 
   const format_date_element = unformatted_date => {
     if (unformatted_date !== null || unformatted_date !== undefined) {
@@ -110,7 +106,7 @@ const FolderAttributesModal = (props) => {
 
       var today = year + "-" + month + "-" + day;
       set_date_state(today)
-      // set_note_state({ ...note_state, date_modified: today })
+      // set_folder_state({ ...folder_state, date_modified: today })
       return today;
     }
   }
@@ -125,19 +121,6 @@ const FolderAttributesModal = (props) => {
 
   }
 
-  window.onclick = function (event) {
-    if (!event.target.matches('.dropbtn')) {
-      var dropdowns = document.getElementsByClassName("dropdown-content");
-      var i;
-      for (i = 0; i < dropdowns.length; i++) {
-        var openDropdown = dropdowns[i];
-        if (openDropdown.classList.contains('show')) {
-          openDropdown.classList.remove('show');
-        }
-      }
-    }
-  }
-
   const format_date_display = unformatted_date => {
     if (unformatted_date !== null || unformatted_date !== undefined) {
       unformatted_date = unformatted_date.toString()
@@ -149,69 +132,14 @@ const FolderAttributesModal = (props) => {
     }
   }
 
-  const [schedule_state, set_schedule_state] = useState(false)
-
-  const show_scheduling = () => {
-    // console.log("show_scheduling")
-    if (schedule_state === false) {
-      set_schedule_state(true)
-      set_note_state({ ...note_state, scheduled: false })
-
-      update_scheduled_checkbox(props.id, true)
-
-    }
-    else {
-      set_schedule_state(false)
-
-      set_note_state({ ...note_state, scheduled: true })
-      update_scheduled_checkbox(props.id, true)
-    }
-    console.log(note_state)
-
-  }
 
 
-  const update_scheduled_checkbox = async (id, scheduled) => {
-    const todo_id = id
-    try {
-      const res = await API.get_note(todo_id)
-      const update_todo = { ...res.data, scheduled: scheduled }
-      API.update_note(todo_id, update_todo)
-    }
-    catch (err) {
-      console.log({ "update_note": err });
-    }
-  }
   // const [date_state_2, set_date_state_2] = useState("")
   const [date_state, set_date_state] = useState("")
   const [time_state, set_time_state] = useState("")
 
   const date = new Date()
 
-  const get_checkbox_state = async () => {
-    const todo_id = props.id
-    if (todo_id != undefined) {
-      try {
-        const res = await API.get_note(todo_id)
-        set_schedule_state(res.data.scheduled)
-      }
-      catch (err) {
-        console.log({ "get_checkbox_state": err });
-      }
-    }
-
-  }
-
-  const [todo_state, set_todo_state] = useState({
-    title: "",
-    body: "",
-    folder_id: "",
-    list_id: "",
-    priority: "Low",
-    scheduled: false,
-    scheduled_date_time: "",
-    completed: false,
-  })
   // const date = new Date()
   let month = date.getMonth() + 1
   if (month.length === 1) {
@@ -227,13 +155,13 @@ const FolderAttributesModal = (props) => {
   const formatted_date_slash = `${month}/${day}/${year}`
 
   const on_change_note_editor = async (e) => {
-    const todo_id = props.id
+    const folder_id = props.id
     let todo_data = ""
     let field_name = ""
-    // const todo_id = e.target.id
+    // const folder_id = e.target.id
     console.log({ "on_change_note_editor": e })
     if (e.target === undefined) {
-      set_note_state({ ...note_state, scheduled: e })
+      set_folder_state({ ...folder_state, scheduled: e })
       todo_data = e
       field_name = "scheduled"
     }
@@ -241,17 +169,17 @@ const FolderAttributesModal = (props) => {
 
       todo_data = e.target.value
       field_name = e.target.name
-      set_note_state({ ...note_state, [field_name]: todo_data })
+      set_folder_state({ ...folder_state, [field_name]: todo_data })
     }
     console.log(field_name)
     try {
-      const res = await API.get_note(todo_id)
+      const res = await API.get_folder(folder_id)
       console.log({ "update_note": res.data })
       const update_todo = {
         ...res.data,
         [field_name]: todo_data
       }
-      API.update_note(todo_id, update_todo)
+      API.update_note(folder_id, update_todo)
     }
     catch (err) {
       console.log({ "save_scheduling": err });
@@ -259,12 +187,14 @@ const FolderAttributesModal = (props) => {
 
   }
 
-  const delete_note = async (e) => {
-    const todo_id = e.target.id
+  const delete_folder = async (e) => {
+    const folder_id = props.id
+    console.log()
     try {
-      const res = await API.delete_note(todo_id)
-      props.get_all_notes_by_list_id("dump", props.index)
-      props.get_all_notes_by_list_id("master", props.index)
+      const res = await API.delete_folder(folder_id)
+      props.get_all_folders()
+      // props.get_all_folders_by_list_id("dump", props.index)
+      // props.get_all_folders_by_list_id("master", props.index)
     }
     catch (err) {
       console.log(err);
@@ -283,20 +213,43 @@ const FolderAttributesModal = (props) => {
   //     set_folder_modal_state("none")
   //   }
   // }
+  // const [folders_state, set_folders_state] = useState([])
+  // const [folder_view_state, set_folder_view_state] = useState([])
+
+  // const get_all_folders = async () => {
+  //   try {
+  //     const res = await API.get_all_folders()
+  //     set_folders_state(res.data)
+  //     let array = []
+  //     res.data.map(folder => {
+  //       // console.log({ "folder": folder._id })
+  //       let id = folder._id
+  //       array = { ...array, [id]: "0px" }
+
+  //     })
+  //     // set_folder_view_state()
+  //     set_folder_view_state(array)
+  //     // console.log({ "App.js - get_all_folders": res.data })
+  //     // console.log({ "folder_view_state": folder_view_state })
+  //   }
+  //   catch (err) {
+  //     console.log(err);
+  //   }
+  // };
 
 
 
   return (
     <div style={{ display: props.folder_modal_state }} className="folder_attributes_modal zoom">
       <ButtonSymbol margin="-10px 0px 8px" list_id={props.id} on_click_function={props.show_hide_folder_modal}><i className="fas fa-times"></i></ButtonSymbol>
-      <div id="create_note_fields">
-        <div id="create_note_container">
+      <div id="create_folder_fields">
+        <div id="create_folder_container">
           <div >
             <div >
               <Label>Folder Name: </Label>
               <input
-                // defaultValue={props.note_state.priority}
-                onChange={e => props.on_change_note_editor(e)}
+                defaultValue={folder_state.folder_name}
+                onChange={e => props.on_change_folder_editor(e)}
                 className="folder_name_input editor_inputs"
                 placeholder="Folder Name"
                 name="folder_name" />
@@ -304,9 +257,9 @@ const FolderAttributesModal = (props) => {
             <div>
               <Label>Folder ID: </Label>
               <input
-                // defaultValue={props.note_state.list_id}
+                defaultValue={folder_state._id}
                 readOnly
-                onChange={e => props.on_change_note_editor(e)}
+                onChange={e => props.on_change_folder_editor(e)}
                 className="folder_id_input_2 editor_inputs"
                 placeholder="Folder ID"
                 name="folder_id" />
@@ -314,17 +267,17 @@ const FolderAttributesModal = (props) => {
             <div>
               <Label>Notes: </Label>
               <input
-                // defaultValue={props.note_state.folder_id}
-                onChange={e => props.on_change_note_editor(e)}
+                defaultValue={folder_state.notes}
+                onChange={e => props.on_change_folder_editor(e)}
                 className="notes_input editor_inputs"
-                placeholder="Notes"
+                placeholder="notes"
                 name="notes" />
             </div>
             <div>
               <Label>Folders: </Label>
               <input
-                // defaultValue={props.note_state.folder_id}
-                onChange={e => props.on_change_note_editor(e)}
+                defaultValue={folder_state.folders}
+                onChange={e => props.on_change_folder_editor(e)}
                 className="folders_input editor_inputs"
                 placeholder="Folders"
                 name="folders" />
@@ -332,9 +285,9 @@ const FolderAttributesModal = (props) => {
             <div>
               <Label>Date Created: </Label>
               <input
-                defaultValue={props.formatted_date_slash}
+                defaultValue={folder_state.date_created}
                 readOnly
-                onChange={e => props.on_change_note_editor(e)}
+                onChange={e => props.on_change_folder_editor(e)}
                 className="folder_id_input_2 editor_inputs"
                 // placeholder="Date"
                 name="folder_id" />
@@ -342,9 +295,9 @@ const FolderAttributesModal = (props) => {
             <div>
               <Label>Date Modified: </Label>
               <input
-                defaultValue={props.formatted_date_slash}
+                defaultValue={folder_state.date_modified}
                 readOnly
-                onChange={e => props.on_change_note_editor(e)}
+                onChange={e => props.on_change_folder_editor(e)}
                 className="folder_id_input_2 editor_inputs"
                 // placeholder="Folder ID"
                 name="folder_id" />
@@ -353,20 +306,20 @@ const FolderAttributesModal = (props) => {
         </div>
       </div>
       {/* <ButtonSymbol margin="-10px 0px 8px" list_id={props.id} on_click_function={props.show_hide_folder_modal}><i className="fas fa-times"></i></ButtonSymbol>
-      <NoteTextEditor
-        note_state={note_state}
-        on_change_note_editor={on_change_note_editor}
+      <folderTextEditor
+        folder_state={folder_state}
+        on_change_folder_editor={on_change_folder_editor}
         height="30vh" />
-      <NoteAttributeEditor
-        note_state={note_state}
+      <folderAttributeEditor
+        folder_state={folder_state}
         formatted_date_slash={formatted_date_slash}
-        on_change_note_editor={on_change_note_editor}
-        checkboxState={note_state.completed}
+        on_change_folder_editor={on_change_folder_editor}
+        checkboxState={folder_state.completed}
         show_scheduling={show_scheduling}
         schedule_state={schedule_state} /> */}
-      {/* <ButtonWord margin="10px 0px 0px 0px" on_click_function={delete_note} index={props.id} get_all_notes_by_list_id={props.get_all_notes_by_list_id} id={props.id}>
+      <ButtonWord margin="10px 0px 0px 0px" on_click_function={delete_folder} index={props.id} get_all_folders={props.get_all_folders} id={props.id}>
         Delete
-      </ButtonWord> */}
+      </ButtonWord>
     </div>
   );
 }

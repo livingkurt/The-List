@@ -102,7 +102,7 @@ const ListItem = (props) => {
       {/* <ListItemButtonSymbol index={props.id} get_all_notes_by_list_id={props.get_all_notes_by_list_id} id={props.id} /> */}
       {/* <ButtonSymbol onClick={() => show_modal()} className="show_modal_ButtonSymbol zoom"><i className="fas fa-sort-up"></i></ButtonSymbol> */}
       <ButtonSymbol margin="0px" padding="0px 2px 7px 0px" on_click_function={show_modal} ><i className="fas fa-sort-up"></i></ButtonSymbol>
-      <ListItemModal id={props.id} show_modal={show_modal} show_modal_state={modal_state} get_all_notes_by_list_id={props.get_all_notes_by_list_id}></ListItemModal>
+      <ListItemModal key={props.id} index={props.id} id={props.id} show_modal={show_modal} show_modal_state={modal_state} get_all_notes_by_list_id={props.get_all_notes_by_list_id}></ListItemModal>
       {/* <ListItemEditNote title="Edit Note" id={props.id} show_hide={show_modal} show_modal_state={modal_state} get_all_notes_by_list_id={props.get_all_notes_by_list_id}></ListItemEditNote> */}
 
     </div>

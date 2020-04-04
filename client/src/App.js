@@ -252,6 +252,7 @@ const App = () => {
   const get_all_folders = async () => {
     try {
       const res = await API.get_all_folders()
+      console.log({ "get_all_folders": res.data })
       set_folders_state(res.data)
       let array = []
       res.data.map(folder => {
@@ -369,16 +370,6 @@ const App = () => {
     }
   }
 
-  // const show_hide_new_note = () => {
-
-  //   if (show_hide_dump_state.display === "none") {
-  //     set_show_hide_dump_state({ ...show_hide_dump_state, name: "Hide Todo Dump", display: "block" })
-  //   }
-  //   else if (show_hide_dump_state.display === "block") {
-  //     set_show_hide_dump_state({ ...show_hide_dump_state, name: "Show Todo Dump", display: "none" })
-  //   }
-  // }
-
   const show_create_note_container = () => {
     if (show_hide_create_note_state.display === "none") {
       // set_create_note_state("block")
@@ -408,38 +399,6 @@ const App = () => {
     }
   }
 
-  // const [sidebar_state, set_sidebar_state] = useState(false)
-
-  // // const openMenu = () => {
-  // //   document.querySelector(".sidebar").classList.add("open");
-  // // }
-  // // const closeMenu = () => {
-  // //   document.querySelector(".sidebar").classList.remove("open")
-  // // }
-
-  // const sidebar_show_hide = () => {
-  //   if (sidebar_state) {
-  //     document.querySelector(".sidebar").classList.add("open");
-  //     set_sidebar_state(false)
-  //   }
-  //   else if (sidebar_state) {
-  //     document.querySelector(".sidebar").classList.remove("open");
-  //     set_sidebar_state(false)
-  //   }
-  // }
-
-  // const [folder_modal_state, set_folder_modal_state] = useState("none")
-
-  // const show_hide_folder_modal = async (e) => {
-  //   const todo_id = e.target.list_id
-  //   console.log(todo_id)
-  //   // if (folder_modal_state === "none") {
-  //   //   set_folder_modal_state("block")
-  //   // }
-  //   // else {
-  //   //   set_folder_modal_state("none")
-  //   // }
-  // }
 
   const [folder_modal_state, set_folder_modal_state] = useState([])
 
@@ -478,8 +437,8 @@ const App = () => {
             <ScrollContainer height={"77vh"}>
 
               {folders_state.map((folder, index) => {
-                return <FolderContainer >
-                  <FolderTitle show_hide_by_folder={show_hide_by_folder} show_hide_folder_modal={show_hide_folder_modal} on_change_folder_editor={on_change_folder_editor} fontSize="16px" folder_id={folder._id} margin="10px">{folder.folder_name}</FolderTitle>
+                return <FolderContainer index={folder._id} id={folder._id} key={folder._id}>
+                  <FolderTitle show_hide_by_folder={show_hide_by_folder} folder={folder} get_all_folders={get_all_folders} show_hide_folder_modal={show_hide_folder_modal} on_change_folder_editor={on_change_folder_editor} fontSize="16px" folder_id={folder._id} margin="10px">{folder.folder_name}</FolderTitle>
                   <FolderNoteContainer height={folder_view_state[folder._id]}>
                     {all_todo_state.map((note, index) => {
                       if (note.folder_id === folder._id) {

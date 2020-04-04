@@ -42,6 +42,10 @@ export default {
   get_folder: function (folder_id) {
     return axios.get('/api/folder/' + folder_id);
   },
+  delete_folder: function (folder_id, folder_data) {
+    console.log({ 'API.js': folder_data })
+    return axios.delete('/api/folder/' + folder_id, folder_data);
+  },
 
 }
 
