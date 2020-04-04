@@ -1,7 +1,7 @@
 // React
 import React, { useState, useEffect } from "react";
 // Styles
-import './list_item_modal.css'
+import './folder_attributes_modal.css'
 // import Checkbox from '../Checkbox/Checkbox';
 import ButtonWord from '../ButtonWord/ButtonWord';
 import Checkbox from '../Checkbox/Checkbox';
@@ -11,9 +11,12 @@ import NoteTextEditor from '../NoteTextEditor/NoteTextEditor';
 import ButtonSymbol from '../ButtonSymbol/ButtonSymbol';
 
 
-const ListItemModal = (props) => {
+const FolderAttributesModal = (props) => {
 
   // const [todo_state, set_todo_state] = useState("")
+  const folder_id = props.id
+
+  // console.log({ "folder_id": folder_id })
 
   const [note_state, set_note_state] = useState({
     title: "",
@@ -268,11 +271,24 @@ const ListItemModal = (props) => {
     }
   }
 
+  // const [folder_modal_state, set_folder_modal_state] = useState("none")
+
+  // const show_hide_folder_modal = async (e) => {
+  //   const folder_id = props.id
+  //   console.log(folder_id)
+  //   if (folder_modal_state === "none") {
+  //     set_folder_modal_state("block")
+  //   }
+  //   else {
+  //     set_folder_modal_state("none")
+  //   }
+  // }
+
 
 
   return (
-    <div style={{ display: props.show_modal_state }} className="list_modal zoom">
-      <ButtonSymbol margin="-10px 0px 8px" on_click_function={props.show_modal}><i className="fas fa-times"></i></ButtonSymbol>
+    <div style={{ display: props.folder_modal_state }} className="list_modal zoom">
+      <ButtonSymbol margin="-10px 0px 8px" list_id={props.id} on_click_function={props.show_hide_folder_modal}><i className="fas fa-times"></i></ButtonSymbol>
       <NoteTextEditor
         note_state={note_state}
         on_change_note_editor={on_change_note_editor}
@@ -284,11 +300,11 @@ const ListItemModal = (props) => {
         checkboxState={note_state.completed}
         show_scheduling={show_scheduling}
         schedule_state={schedule_state} />
-      <ButtonWord margin="10px 0px 0px 0px" on_click_function={delete_note} index={props.id} get_all_notes_by_list_id={props.get_all_notes_by_list_id} id={props.id}>
+      {/* <ButtonWord margin="10px 0px 0px 0px" on_click_function={delete_note} index={props.id} get_all_notes_by_list_id={props.get_all_notes_by_list_id} id={props.id}>
         Delete
-      </ButtonWord>
+      </ButtonWord> */}
     </div>
   );
 }
 
-export default ListItemModal;
+export default FolderAttributesModal;

@@ -12,7 +12,7 @@ import API from "../../utils/API";
 
 
 const ListItem = (props) => {
-  const [modal_state, set_modal_state] = useState("none")
+
   const [list_item_state, set_list_item_state] = useState({})
 
   useEffect(() => {
@@ -33,6 +33,8 @@ const ListItem = (props) => {
       console.log(err);
     }
   }
+
+  const [modal_state, set_modal_state] = useState("none")
 
   const show_modal = async (e) => {
     const todo_id = props.id

@@ -20,6 +20,8 @@ import FolderTitle from './components/FolderTitle/FolderTitle';
 import ButtonSymbol from './components/ButtonSymbol/ButtonSymbol';
 import ButtonWord from './components/ButtonWord/ButtonWord';
 import NoteEditor from './components/NoteEditor/NoteEditor';
+import FolderAttributesModal from './components/FolderAttributesModal/FolderAttributesModal';
+
 import API from "./utils/API";
 // import styled from 'styled-components';
 
@@ -427,6 +429,31 @@ const App = () => {
   //   }
   // }
 
+  // const [folder_modal_state, set_folder_modal_state] = useState("none")
+
+  // const show_hide_folder_modal = async (e) => {
+  //   const todo_id = e.target.list_id
+  //   console.log(todo_id)
+  //   // if (folder_modal_state === "none") {
+  //   //   set_folder_modal_state("block")
+  //   // }
+  //   // else {
+  //   //   set_folder_modal_state("none")
+  //   // }
+  // }
+
+  const [folder_modal_state, set_folder_modal_state] = useState([])
+
+  const show_hide_folder_modal = (folder_id) => {
+
+    if (folder_modal_state[folder_id] === "block") {
+      set_folder_modal_state({ ...folder_modal_state, [folder_id]: "none" })
+    }
+    else if (folder_modal_state[folder_id] === "none") {
+      set_folder_modal_state({ ...folder_modal_state, [folder_id]: "block%" })
+    }
+  }
+
 
 
   return (
@@ -442,6 +469,7 @@ const App = () => {
           <ButtonWord margin="20px" on_click_function={show_hide_dump} >{show_hide_dump_state.name}</ButtonWord>
         </Header>
         <Container>
+
           <NoteContainer >
             <div style={{ display: "flex", justifyContent: "space-between" }}>
               <Title >Notes</Title>
@@ -452,18 +480,22 @@ const App = () => {
 
               {folders_state.map((folder, index) => {
                 return <FolderContainer >
-                  <FolderTitle on_click_function={show_hide_by_folder} on_change_folder_editor={on_change_folder_editor} fontSize="16px" folder_id={folder._id} margin="10px">{folder.folder_name}</FolderTitle>
+                  <FolderTitle show_hide_by_folder={show_hide_by_folder} show_hide_folder_modal={show_hide_folder_modal} on_change_folder_editor={on_change_folder_editor} fontSize="16px" folder_id={folder._id} margin="10px">{folder.folder_name}</FolderTitle>
                   <FolderNoteContainer height={folder_view_state[folder._id]}>
                     {all_todo_state.map((note, index) => {
                       if (note.folder_id === folder._id) {
                         return <Note show_create_note_container={show_create_note_container} get_all_notes={get_all_notes} index={note._id} id={note._id} key={note._id}>{note.title}</Note>
+
                       }
                     })}
+
                   </FolderNoteContainer>
+
                 </FolderContainer>
               })}
             </ScrollContainer>
           </NoteContainer>
+
           {/* <Section show_hide={create_note_state}>
             <div style={{ display: "flex", justifyContent: "space-between" }}>
               <Title >Create Note</Title>
