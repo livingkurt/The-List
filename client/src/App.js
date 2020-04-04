@@ -19,6 +19,7 @@ import PriorityTitle from './components/PriorityTitle/PriorityTitle';
 import FolderTitle from './components/FolderTitle/FolderTitle';
 import ButtonSymbol from './components/ButtonSymbol/ButtonSymbol';
 import ButtonWord from './components/ButtonWord/ButtonWord';
+import NoteEditor from './components/NoteEditor/NoteEditor';
 import API from "./utils/API";
 // import styled from 'styled-components';
 
@@ -136,11 +137,11 @@ const App = () => {
         scheduled_date_time: "",
         completed: false,
       })
-      document.querySelector(".title_field").value = ""
-      document.querySelector(".text_field").value = ""
-      document.querySelector(".priority_input").value = "Low"
-      document.querySelector(".list_id_input").value = "dump"
-      document.querySelector(".folder_id_input").value = ""
+      document.querySelector(".title_field").defaultValue = ""
+      document.querySelector(".text_field").defaultValue = ""
+      document.querySelector(".priority_input").defaultValue = "Low"
+      document.querySelector(".list_id_input").defaultValue = "dump"
+      document.querySelector(".folder_id_input_2").defaultValue = ""
       document.querySelector("#checkbox_input").checked = false
     }
     catch (err) {
@@ -289,23 +290,9 @@ const App = () => {
     let field_name = list_id + "_" + priority
     if (priority_state[field_name] === "100%") {
       set_priority_state({ ...priority_state, [field_name]: "0px" })
-      // -webkit-transform: rotate(0deg);
-      document.querySelector(`#${list_id}`).setAttribute("style", "-webkit-transform: rotate(0deg)")
-      // document.querySelector(`#${list_id}`).classList.toggle = ('todo_container_collapsed')
-      // console.log({ "show_hide_by_priority": priority_state })
-      // console.log(field_name)
-      // document.querySelector(".todo_container").classList.add("open");
-      // console.log(document.querySelector(".todo_container").classList)
-
     }
     else if (priority_state[field_name] === "0px") {
       set_priority_state({ ...priority_state, [field_name]: "100%" })
-      // document.querySelector(`#${field_name}`).classList.toggle = ('todo_container_collapsed')
-      // console.log({ "show_hide_by_priority": priority_state })
-      // console.log(field_name)
-      // document.querySelector(".todo_container").classList.remove("open");
-      // console.log(document.querySelector(".todo_container").classList)
-
     }
   }
 
@@ -313,32 +300,14 @@ const App = () => {
   const [folder_view_state, set_folder_view_state] = useState([])
 
   const show_hide_by_folder = (folder_id) => {
-    // console.log({ "show_hide_by_folder_id": folder_id })
-    // console.log({ "show_hide_by_folder_view_state": folder_view_state })
 
     if (folder_view_state[folder_id] === "100%") {
       set_folder_view_state({ ...folder_view_state, [folder_id]: "0px" })
-      // document.querySelector(`#${field_name}`).classList.toggle = ('todo_container_collapsed')
-      // console.log({ "show_hide_by_folder": folder_view_state })
     }
     else if (folder_view_state[folder_id] === "0px") {
       set_folder_view_state({ ...folder_view_state, [folder_id]: "100%" })
-      // document.querySelector(`#${field_name}`).classList.toggle = ('todo_container_collapsed')
-      // console.log({ "show_hide_by_folder": folder_view_state })
     }
   }
-
-  // const on_change_folder_editor = (e) => {
-  //   if (e.target === undefined) {
-  //     set_folder_view_state({ ...note_state, scheduled: e })
-  //   }
-  //   else {
-  //     const folder_data = e.target.value
-  //     const field_name = e.target.name
-  //     set_folder_view_state({ ...folder_view_state, [field_name]: folder_data })
-  //   }
-
-  // }
 
   const [folder_state, set_folder_state] = useState({})
 
@@ -364,23 +333,99 @@ const App = () => {
     }
 
   }
+  const [create_note_state, set_create_note_state] = useState("none")
+  // const [new_note_button_state, set_new_note_button_state] = useState("New Note")
+  const [show_hide_create_note_state, set_show_hide_create_note_state] = useState({
+    name: "Create New Note",
+    display: "none"
+  })
+  const [show_hide_master_state, set_show_hide_master_state] = useState({
+    name: "Hide Todo Master",
+    display: "block"
+  })
+  const [show_hide_dump_state, set_show_hide_dump_state] = useState({
+    name: "Hide Todo Dump",
+    display: "block"
+  })
 
-  // const update_folder = async (e) => {
-  //   e.persist();
-  //   const todo_id = e.target.id
-  //   const todo_data = e.target.value
-  //   try {
-  //     const res = await API.get_note(todo_id)
-  //     set_list_item_state(res.data)
-  //     const update_todo = { ...res.data, title: todo_data }
-  //     API.update_note(todo_id, update_todo)
+  const show_hide_master = () => {
+
+    if (show_hide_master_state.display === "none") {
+      set_show_hide_master_state({ ...show_hide_master_state, name: "Hide Todo Master", display: "block" })
+    }
+    else if (show_hide_master_state.display === "block") {
+      set_show_hide_master_state({ ...show_hide_master_state, name: "Show Todo Master", display: "none" })
+    }
+  }
+
+  const show_hide_dump = () => {
+
+    if (show_hide_dump_state.display === "none") {
+      set_show_hide_dump_state({ ...show_hide_dump_state, name: "Hide Todo Dump", display: "block" })
+    }
+    else if (show_hide_dump_state.display === "block") {
+      set_show_hide_dump_state({ ...show_hide_dump_state, name: "Show Todo Dump", display: "none" })
+    }
+  }
+
+  // const show_hide_new_note = () => {
+
+  //   if (show_hide_dump_state.display === "none") {
+  //     set_show_hide_dump_state({ ...show_hide_dump_state, name: "Hide Todo Dump", display: "block" })
   //   }
-  //   catch (err) {
-  //     console.log(err);
+  //   else if (show_hide_dump_state.display === "block") {
+  //     set_show_hide_dump_state({ ...show_hide_dump_state, name: "Show Todo Dump", display: "none" })
   //   }
   // }
 
+  const show_create_note_container = () => {
+    if (show_hide_create_note_state.display === "none") {
+      // set_create_note_state("block")
+      set_show_hide_create_note_state({ ...show_hide_create_note_state, name: "Hide New Note", display: "block" })
+      // set_new_note_button_state("Discard Changes")
+      set_note_state({
+        title: "",
+        body: "",
+        folder_id: "",
+        list_id: "dump",
+        priority: "Low",
+        scheduled: false,
+        scheduled_date_time: "",
+        completed: false,
+      })
+      document.querySelector(".title_field").defaultValue = ""
+      document.querySelector(".text_field").defaultValue = ""
+      document.querySelector(".priority_input").defaultValue = "Low"
+      document.querySelector(".list_id_input").defaultValue = "dump"
+      document.querySelector(".folder_id_input").defaultValue = ""
+      document.querySelector("#checkbox_input").checked = false
+    }
+    else if (show_hide_create_note_state.display === "block") {
+      set_show_hide_create_note_state({ ...show_hide_create_note_state, name: "Create New Note", display: "none" })
+      // set_create_note_state("none")
+      // set_new_note_button_state("New Note")
+    }
+  }
 
+  // const [sidebar_state, set_sidebar_state] = useState(false)
+
+  // // const openMenu = () => {
+  // //   document.querySelector(".sidebar").classList.add("open");
+  // // }
+  // // const closeMenu = () => {
+  // //   document.querySelector(".sidebar").classList.remove("open")
+  // // }
+
+  // const sidebar_show_hide = () => {
+  //   if (sidebar_state) {
+  //     document.querySelector(".sidebar").classList.add("open");
+  //     set_sidebar_state(false)
+  //   }
+  //   else if (sidebar_state) {
+  //     document.querySelector(".sidebar").classList.remove("open");
+  //     set_sidebar_state(false)
+  //   }
+  // }
 
 
 
@@ -389,12 +434,19 @@ const App = () => {
       <Background>
         <Header sidebar_show_hide={sidebar_show_hide}>
           <Title margin="0px">TheList</Title>
+          {/* <ButtonWord margin="auto 20px" padding="20px" on_click_function={sidebar_show_hide} className="nav_button"><i className="fas fa-bars"></i></ButtonWord> */}
+          <button onClick={sidebar_show_hide} className="nav_button"><i className="fas fa-bars"></i></button>
+
+          <ButtonWord margin="20px" on_click_function={show_create_note_container} >{show_hide_create_note_state.name}</ButtonWord>
+          <ButtonWord margin="20px" on_click_function={show_hide_master} >{show_hide_master_state.name}</ButtonWord>
+          <ButtonWord margin="20px" on_click_function={show_hide_dump} >{show_hide_dump_state.name}</ButtonWord>
         </Header>
         <Container>
           <NoteContainer >
             <div style={{ display: "flex", justifyContent: "space-between" }}>
               <Title >Notes</Title>
-              <ButtonWord margin="18px 0px 18px 18px" on_click_function={create_new_folder} >New Folder</ButtonWord>
+
+              <ButtonWord on_click_function={create_new_folder} >New Folder</ButtonWord>
             </div>
             <ScrollContainer height={"77vh"}>
 
@@ -404,8 +456,7 @@ const App = () => {
                   <FolderNoteContainer height={folder_view_state[folder._id]}>
                     {all_todo_state.map((note, index) => {
                       if (note.folder_id === folder._id) {
-                        // console.log({ "note.folder_id": note.folder_id, "folder._id": folder._id })
-                        return <Note get_all_notes={get_all_notes} index={note._id} id={note._id} key={note._id}>{note.title}</Note>
+                        return <Note show_create_note_container={show_create_note_container} get_all_notes={get_all_notes} index={note._id} id={note._id} key={note._id}>{note.title}</Note>
                       }
                     })}
                   </FolderNoteContainer>
@@ -413,7 +464,7 @@ const App = () => {
               })}
             </ScrollContainer>
           </NoteContainer>
-          <Section>
+          {/* <Section show_hide={create_note_state}>
             <div style={{ display: "flex", justifyContent: "space-between" }}>
               <Title >Create Note</Title>
               <ButtonSymbol margin="18px 0px 18px 18px" on_click_function={create_new_note} >+</ButtonSymbol>
@@ -421,11 +472,9 @@ const App = () => {
             <Title margin="-30px 0px 0px 0px" fontSize="16px">Create a New Note Below</Title>
             <div>
               <NoteTextEditor
-                set_todo_state={set_todo_state}
                 note_state={note_state}
                 on_change_note_editor={on_change_note_editor} />
               <NoteAttributeEditor
-                set_todo_state={set_todo_state}
                 note_state={note_state}
                 formatted_date_slash={formatted_date_slash}
                 formatted_date_dash={formatted_date_dash}
@@ -433,29 +482,16 @@ const App = () => {
                 show_scheduling={show_scheduling}
                 schedule_state={schedule_state} />
             </div>
-          </Section>
-          <Section >
-            <div style={{ display: "flex", justifyContent: "space-between" }}>
-              <Title>Todo Dump</Title>
-              <ButtonSymbol margin="18px 0px 18px 18px" on_click_function={create_empty_list_item} list_id="dump" >+</ButtonSymbol>
-            </div>
-            <Title margin="-30px 0px 0px 0px" fontSize="16px">Get your Ideas Down Fast</Title>
-            <ScrollContainer>
-              {priority_state.priorites.map((priority, index) => {
-                return <PriorityContainer key={index}>
-                  <PriorityTitle fontSize="16px" on_click_function={show_hide_by_priority} list_id="dump" priority={priority} border="1px solid silver" margin="10px">{priority} Priority</PriorityTitle>
-                  <TodoContainer className={"dump_" + priority.toLowerCase()} height={priority_state["dump_" + priority.toLowerCase()]}>
-                    {todo_dump_state.map((note, index) => {
-                      if (note.priority === priority) {
-                        return <ListItem get_all_notes_by_list_id={get_all_notes_by_list_id} index={note._id} id={note._id} key={note._id}>{note.title}</ListItem>
-                      }
-                    })}
-                  </TodoContainer>
-                </PriorityContainer>
-              })}
-            </ScrollContainer>
-          </Section>
-          <Section>
+          </Section> */}
+          <NoteEditor show_hide={show_hide_create_note_state.display}
+            create_new_note={create_new_note}
+            note_state={note_state}
+            formatted_date_slash={formatted_date_slash}
+            formatted_date_dash={formatted_date_dash}
+            on_change_note_editor={on_change_note_editor}
+            show_scheduling={show_scheduling}
+            schedule_state={schedule_state} />
+          <Section show_hide={show_hide_master_state.display}>
             <div style={{ display: "flex", justifyContent: "space-between" }}>
               <Title>Master Todo List:</Title>
               <ButtonSymbol margin="18px 0px 18px 18px" on_click_function={create_empty_list_item} list_id="master" >+</ButtonSymbol>
@@ -468,7 +504,28 @@ const App = () => {
                   <TodoContainer className={"master_" + priority.toLowerCase()} height={priority_state["master_" + priority.toLowerCase()]}>
                     {todo_master_state.map((note, index) => {
                       if (note.priority === priority) {
-                        return <ListItem get_all_notes_by_list_id={get_all_notes_by_list_id} index={note._id} id={note._id} key={note._id}>{note.title}</ListItem>
+                        return <ListItem show_create_note_container={show_create_note_container} get_all_notes_by_list_id={get_all_notes_by_list_id} index={note._id} id={note._id} key={note._id}>{note.title}</ListItem>
+                      }
+                    })}
+                  </TodoContainer>
+                </PriorityContainer>
+              })}
+            </ScrollContainer>
+          </Section>
+          <Section show_hide={show_hide_dump_state.display}>
+            <div style={{ display: "flex", justifyContent: "space-between" }}>
+              <Title>Todo Dump</Title>
+              <ButtonSymbol margin="18px 0px 18px 18px" on_click_function={create_empty_list_item} list_id="dump" >+</ButtonSymbol>
+            </div>
+            <Title margin="-30px 0px 0px 0px" fontSize="16px">Get your Ideas Down Fast</Title>
+            <ScrollContainer>
+              {priority_state.priorites.map((priority, index) => {
+                return <PriorityContainer key={index}>
+                  <PriorityTitle fontSize="16px" on_click_function={show_hide_by_priority} list_id="dump" priority={priority} border="1px solid silver" margin="10px">{priority} Priority</PriorityTitle>
+                  <TodoContainer className={"dump_" + priority.toLowerCase()} height={priority_state["dump_" + priority.toLowerCase()]}>
+                    {todo_dump_state.map((note, index) => {
+                      if (note.priority === priority) {
+                        return <ListItem show_create_note_container={show_create_note_container} get_all_notes_by_list_id={get_all_notes_by_list_id} index={note._id} id={note._id} key={note._id}>{note.title}</ListItem>
                       }
                     })}
                   </TodoContainer>

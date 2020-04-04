@@ -8,7 +8,7 @@ function ButtonWord(props) {
 
   return (
     <div>
-      <button index={props.index} id={props.id} onClick={e => props.on_click_function(e)} className="button_word">{props.children}</button>
+      <button index={props.index} id={props.id} onClick={e => props.on_click_function(e)} style={{ margin: props.margin, padding: props.padding }} className="button_word">{props.children}</button>
     </div>
   );
 }

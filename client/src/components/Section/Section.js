@@ -4,12 +4,12 @@ import React from "react";
 import './section.css'
 
 
-const Section = ({ children }) => {
+const Section = (props) => {
 
 
   return (
-    <div className="section">
-      {children}
+    <div style={{ display: props.show_hide }} className="section">
+      {props.children}
     </div>
   );
 }

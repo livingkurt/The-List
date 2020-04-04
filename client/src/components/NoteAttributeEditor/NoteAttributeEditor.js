@@ -36,7 +36,7 @@ function NoteAttributeEditor(props) {
             <input
               defaultValue={props.note_state.folder_id}
               onChange={e => props.on_change_note_editor(e)}
-              className="folder_id_input editor_inputs"
+              className="folder_id_input_2 editor_inputs"
               placeholder="Folder ID"
               name="folder_id" />
           </div>
