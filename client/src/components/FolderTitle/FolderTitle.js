@@ -30,6 +30,8 @@ const FolderTitle = (props) => {
   }
 
 
+
+
   return (
     <div onClick={copy_to_clipboard} className="folder_title zoom" style={{ borderBottom: props.border, padding: "2px", justifyContent: "space-between" }}>
       {/* <h2 style={{ margin: props.margin, fontSize: props.fontSize }}>{props.children}</h2> */}
@@ -46,7 +48,7 @@ const FolderTitle = (props) => {
         <ButtonSymbol margin="1px 3px 0px 0px" padding="4px" on_click_function={show_hide_folder_modal} list_id={props.folder_id} folder={props.folder}><i className="fas fa-bars"></i></ButtonSymbol>
         <ButtonSymbol margin="1px 3px 0px 0px" padding="0px 2px 7px 0px" on_click_function={props.show_hide_by_folder} list_id={props.folder_id} folder={props.folder}><i className="fas fa-sort-up"></i></ButtonSymbol>
       </div>
-      <FolderAttributesModal id={props.folder_id} get_all_folders={props.get_all_folders} show_hide_folder_modal={show_hide_folder_modal} folder_modal_state={folder_modal_state} />
+      <FolderAttributesModal id={props.folder_id} on_change_folder_editor={props.on_change_folder_editor} get_all_folders={props.get_all_folders} show_hide_folder_modal={show_hide_folder_modal} folder_modal_state={folder_modal_state} />
     </div >
   );
 }

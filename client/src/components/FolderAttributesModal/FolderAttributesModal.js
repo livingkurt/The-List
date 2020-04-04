@@ -19,7 +19,7 @@ const FolderAttributesModal = (props) => {
 
   const [folder_state, set_folder_state] = useState({
     folder_name: "",
-    notes: "",
+    folders: "",
     folders: "",
     completed: "",
     date_modified: new Date().setDate(new Date().getDate())
@@ -154,12 +154,12 @@ const FolderAttributesModal = (props) => {
 
   const formatted_date_slash = `${month}/${day}/${year}`
 
-  const on_change_note_editor = async (e) => {
+  const on_change_folder_editor = async (e) => {
     const folder_id = props.id
     let todo_data = ""
     let field_name = ""
     // const folder_id = e.target.id
-    console.log({ "on_change_note_editor": e })
+    console.log({ "on_change_folder_editor": e })
     if (e.target === undefined) {
       set_folder_state({ ...folder_state, scheduled: e })
       todo_data = e
@@ -174,12 +174,12 @@ const FolderAttributesModal = (props) => {
     console.log(field_name)
     try {
       const res = await API.get_folder(folder_id)
-      console.log({ "update_note": res.data })
+      console.log({ "update_folder": res.data })
       const update_todo = {
         ...res.data,
         [field_name]: todo_data
       }
-      API.update_note(folder_id, update_todo)
+      API.update_folder(folder_id, update_todo)
     }
     catch (err) {
       console.log({ "save_scheduling": err });
@@ -251,6 +251,7 @@ const FolderAttributesModal = (props) => {
                 defaultValue={folder_state.folder_name}
                 onChange={e => props.on_change_folder_editor(e)}
                 className="folder_name_input editor_inputs"
+                id={props.id}
                 placeholder="Folder Name"
                 name="folder_name" />
             </div>
@@ -262,6 +263,7 @@ const FolderAttributesModal = (props) => {
                 onChange={e => props.on_change_folder_editor(e)}
                 className="folder_id_input_2 editor_inputs"
                 placeholder="Folder ID"
+                id={props.id}
                 name="folder_id" />
             </div>
             <div>
@@ -270,7 +272,8 @@ const FolderAttributesModal = (props) => {
                 defaultValue={folder_state.notes}
                 onChange={e => props.on_change_folder_editor(e)}
                 className="notes_input editor_inputs"
-                placeholder="notes"
+                placeholder="Notes"
+                id={props.id}
                 name="notes" />
             </div>
             <div>
@@ -280,6 +283,7 @@ const FolderAttributesModal = (props) => {
                 onChange={e => props.on_change_folder_editor(e)}
                 className="folders_input editor_inputs"
                 placeholder="Folders"
+                id={props.id}
                 name="folders" />
             </div>
             <div>
@@ -290,6 +294,7 @@ const FolderAttributesModal = (props) => {
                 onChange={e => props.on_change_folder_editor(e)}
                 className="folder_id_input_2 editor_inputs"
                 // placeholder="Date"
+                id={props.id}
                 name="folder_id" />
             </div>
             <div>
@@ -300,6 +305,7 @@ const FolderAttributesModal = (props) => {
                 onChange={e => props.on_change_folder_editor(e)}
                 className="folder_id_input_2 editor_inputs"
                 // placeholder="Folder ID"
+                id={props.id}
                 name="folder_id" />
             </div>
           </div>

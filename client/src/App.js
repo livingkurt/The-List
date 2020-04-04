@@ -437,17 +437,26 @@ const App = () => {
             <ScrollContainer height={"77vh"}>
 
               {folders_state.map((folder, index) => {
-                return <FolderContainer index={folder._id} id={folder._id} key={folder._id}>
-                  <FolderTitle show_hide_by_folder={show_hide_by_folder} folder={folder} get_all_folders={get_all_folders} show_hide_folder_modal={show_hide_folder_modal} on_change_folder_editor={on_change_folder_editor} fontSize="16px" folder_id={folder._id} margin="10px">{folder.folder_name}</FolderTitle>
-                  <FolderNoteContainer height={folder_view_state[folder._id]}>
-                    {all_todo_state.map((note, index) => {
-                      if (note.folder_id === folder._id) {
-                        return <Note show_create_note_container={show_create_note_container} get_all_notes={get_all_notes} index={note._id} id={note._id} key={note._id}>{note.title}</Note>
-                      }
-                    })}
+                console.log(folder.folders)
+                if (folder.folders !== []) {
+                  return <FolderContainer index={folder._id} id={folder._id} key={folder._id}>
+                    <FolderTitle show_hide_by_folder={show_hide_by_folder} folder={folder} get_all_folders={get_all_folders} show_hide_folder_modal={show_hide_folder_modal} on_change_folder_editor={on_change_folder_editor} fontSize="16px" folder_id={folder._id} margin="10px">{folder.folder_name}</FolderTitle>
+                    <FolderNoteContainer height={folder_view_state[folder._id]}>
+                      {folders_state.map((folder, index) => {
 
-                  </FolderNoteContainer>
-                </FolderContainer>
+                        // if (note.folder_id === folder._id) {
+                        // return <Note show_create_note_container={show_create_note_container} get_all_notes={get_all_notes} index={note._id} id={note._id} key={note._id}>{note.title}</Note>
+                        // }
+                      })}
+                      {all_todo_state.map((note, index) => {
+                        if (note.folder_id === folder._id) {
+                          return <Note show_create_note_container={show_create_note_container} get_all_notes={get_all_notes} index={note._id} id={note._id} key={note._id}>{note.title}</Note>
+                        }
+                      })}
+
+                    </FolderNoteContainer>
+                  </FolderContainer>
+                }
               })}
             </ScrollContainer>
           </NoteContainer>
