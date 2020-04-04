@@ -1,9 +1,9 @@
 .list_modal {
   position: absolute;
   /* height: 60%; */
-  width: 50%;
+  width: 40%;
   top: 10vh;
-  left: 25%;
+  left: 30%;
   z-index: 2;
   background: white;
   border-radius: 20px;

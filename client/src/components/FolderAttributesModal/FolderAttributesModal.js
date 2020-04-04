@@ -6,7 +6,7 @@ import './folder_attributes_modal.css'
 import ButtonWord from '../ButtonWord/ButtonWord';
 import Checkbox from '../Checkbox/Checkbox';
 import API from "../../utils/API";
-import NoteAttributeEditor from '../NoteAttributeEditor/NoteAttributeEditor';
+import Label from '../Label/Label';
 import NoteTextEditor from '../NoteTextEditor/NoteTextEditor';
 import ButtonSymbol from '../ButtonSymbol/ButtonSymbol';
 
@@ -287,8 +287,72 @@ const FolderAttributesModal = (props) => {
 
 
   return (
-    <div style={{ display: props.folder_modal_state }} className="list_modal zoom">
+    <div style={{ display: props.folder_modal_state }} className="folder_attributes_modal zoom">
       <ButtonSymbol margin="-10px 0px 8px" list_id={props.id} on_click_function={props.show_hide_folder_modal}><i className="fas fa-times"></i></ButtonSymbol>
+      <div id="create_note_fields">
+        <div id="create_note_container">
+          <div >
+            <div >
+              <Label>Folder Name: </Label>
+              <input
+                // defaultValue={props.note_state.priority}
+                onChange={e => props.on_change_note_editor(e)}
+                className="folder_name_input editor_inputs"
+                placeholder="Folder Name"
+                name="folder_name" />
+            </div>
+            <div>
+              <Label>Folder ID: </Label>
+              <input
+                // defaultValue={props.note_state.list_id}
+                readOnly
+                onChange={e => props.on_change_note_editor(e)}
+                className="folder_id_input_2 editor_inputs"
+                placeholder="Folder ID"
+                name="folder_id" />
+            </div>
+            <div>
+              <Label>Notes: </Label>
+              <input
+                // defaultValue={props.note_state.folder_id}
+                onChange={e => props.on_change_note_editor(e)}
+                className="notes_input editor_inputs"
+                placeholder="Notes"
+                name="notes" />
+            </div>
+            <div>
+              <Label>Folders: </Label>
+              <input
+                // defaultValue={props.note_state.folder_id}
+                onChange={e => props.on_change_note_editor(e)}
+                className="folders_input editor_inputs"
+                placeholder="Folders"
+                name="folders" />
+            </div>
+            <div>
+              <Label>Date Created: </Label>
+              <input
+                defaultValue={props.formatted_date_slash}
+                readOnly
+                onChange={e => props.on_change_note_editor(e)}
+                className="folder_id_input_2 editor_inputs"
+                // placeholder="Date"
+                name="folder_id" />
+            </div>
+            <div>
+              <Label>Date Modified: </Label>
+              <input
+                defaultValue={props.formatted_date_slash}
+                readOnly
+                onChange={e => props.on_change_note_editor(e)}
+                className="folder_id_input_2 editor_inputs"
+                // placeholder="Folder ID"
+                name="folder_id" />
+            </div>
+          </div>
+        </div>
+      </div>
+      {/* <ButtonSymbol margin="-10px 0px 8px" list_id={props.id} on_click_function={props.show_hide_folder_modal}><i className="fas fa-times"></i></ButtonSymbol>
       <NoteTextEditor
         note_state={note_state}
         on_change_note_editor={on_change_note_editor}
@@ -299,7 +363,7 @@ const FolderAttributesModal = (props) => {
         on_change_note_editor={on_change_note_editor}
         checkboxState={note_state.completed}
         show_scheduling={show_scheduling}
-        schedule_state={schedule_state} />
+        schedule_state={schedule_state} /> */}
       {/* <ButtonWord margin="10px 0px 0px 0px" on_click_function={delete_note} index={props.id} get_all_notes_by_list_id={props.get_all_notes_by_list_id} id={props.id}>
         Delete
       </ButtonWord> */}

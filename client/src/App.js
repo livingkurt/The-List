@@ -20,7 +20,6 @@ import FolderTitle from './components/FolderTitle/FolderTitle';
 import ButtonSymbol from './components/ButtonSymbol/ButtonSymbol';
 import ButtonWord from './components/ButtonWord/ButtonWord';
 import NoteEditor from './components/NoteEditor/NoteEditor';
-import FolderAttributesModal from './components/FolderAttributesModal/FolderAttributesModal';
 
 import API from "./utils/API";
 // import styled from 'styled-components';
@@ -485,12 +484,10 @@ const App = () => {
                     {all_todo_state.map((note, index) => {
                       if (note.folder_id === folder._id) {
                         return <Note show_create_note_container={show_create_note_container} get_all_notes={get_all_notes} index={note._id} id={note._id} key={note._id}>{note.title}</Note>
-
                       }
                     })}
 
                   </FolderNoteContainer>
-
                 </FolderContainer>
               })}
             </ScrollContainer>
