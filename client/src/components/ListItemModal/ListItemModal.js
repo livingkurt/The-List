@@ -85,14 +85,14 @@ const ListItemModal = (props) => {
         // })
       }
       catch (err) {
-        console.log(err);
+        // console.log(err);
       }
     }
   }
 
   const format_date_element = unformatted_date => {
     if (unformatted_date !== null || unformatted_date !== undefined) {
-      unformatted_date = unformatted_date.toString()
+      // unformatted_date = unformatted_date.toString()
       let year = unformatted_date.slice(0, 4)
       let month = unformatted_date.slice(5, 7)
       let day = unformatted_date.slice(8, 10)
@@ -137,7 +137,7 @@ const ListItemModal = (props) => {
 
   const format_date_display = unformatted_date => {
     if (unformatted_date !== null || unformatted_date !== undefined) {
-      unformatted_date = unformatted_date.toString()
+      // unformatted_date = unformatted_date.toString()
       const year = unformatted_date.slice(0, 4)
       const month = unformatted_date.slice(5, 7)
       const day = unformatted_date.slice(8, 10)
@@ -199,16 +199,6 @@ const ListItemModal = (props) => {
 
   }
 
-  const [todo_state, set_todo_state] = useState({
-    title: "",
-    body: "",
-    folder_id: "",
-    list_id: "",
-    priority: "Low",
-    scheduled: false,
-    scheduled_date_time: "",
-    completed: false,
-  })
   // const date = new Date()
   let month = date.getMonth() + 1
   if (month.length === 1) {
@@ -224,34 +214,69 @@ const ListItemModal = (props) => {
   const formatted_date_slash = `${month}/${day}/${year}`
 
   const on_change_note_editor = async (e) => {
-    const todo_id = props.id
-    let todo_data = ""
+    const note_id = props.id
+    let note_data = ""
     let field_name = ""
     // const todo_id = e.target.id
-    console.log({ "on_change_note_editor": e })
+    // console.log({ "on_change_note_editor": e })
     if (e.target === undefined) {
       set_note_state({ ...note_state, scheduled: e })
-      todo_data = e
+      note_data = e
       field_name = "scheduled"
     }
     else {
-
-      todo_data = e.target.value
+      note_data = e.target.value
       field_name = e.target.name
-      set_note_state({ ...note_state, [field_name]: todo_data })
+      // console.log({ "on_change_note_editor": field_name })
+      if (field_name == "folder_id") {
+        on_change_folder_editor(note_id, note_data)
+        // console.log({ "on_change_note_editor": field_name })
+      }
+      // on_change_folder_editor(note_id, note_data)
+
+      set_note_state({ ...note_state, [field_name]: note_data })
     }
-    console.log(field_name)
+    // console.log(field_name)
     try {
-      const res = await API.get_note(todo_id)
-      console.log({ "update_note": res.data })
+      const res = await API.get_note(note_id)
+      // console.log({ "update_note": res.data })
       const update_todo = {
         ...res.data,
-        [field_name]: todo_data
+        [field_name]: note_data
       }
-      API.update_note(todo_id, update_todo)
+      API.update_note(note_id, update_todo)
     }
     catch (err) {
       console.log({ "save_scheduling": err });
+    }
+
+  }
+
+  const on_change_folder_editor = async (note_id, folder_id) => {
+    // const note_id = e.target.id
+
+    // const folder_data = e.target.value
+    // const field_name = e.target.name
+    // console.log(note_id, folder_data, field_name)
+    // set_folder_state({ ...folder_state, [field_name]: folder_data })
+    // console.log({ "on_change_folder_editor": folder_id })
+    try {
+      const res = await API.get_folder(folder_id)
+
+      console.log({ "on_change_folder_editor": res.data })
+      console.log({ "note_id": note_id })
+      console.log({ "folder_id": folder_id })
+      const update_folder = {
+        ...res.data,
+        notes: [...res.data.notes, note_id]
+      }
+      // console.log(update_folder)
+      console.log({ "update_folder": update_folder })
+      const response = await API.update_folder(folder_id, update_folder)
+      // get_all_folders();
+    }
+    catch (err) {
+      console.log({ "on_change_folder_editor": err });
     }
 
   }

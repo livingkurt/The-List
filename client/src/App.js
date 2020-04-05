@@ -460,26 +460,6 @@ const App = () => {
               })}
             </ScrollContainer>
           </NoteContainer>
-
-          {/* <Section show_hide={create_note_state}>
-            <div style={{ display: "flex", justifyContent: "space-between" }}>
-              <Title >Create Note</Title>
-              <ButtonSymbol margin="18px 0px 18px 18px" on_click_function={create_new_note} >+</ButtonSymbol>
-            </div>
-            <Title margin="-30px 0px 0px 0px" fontSize="16px">Create a New Note Below</Title>
-            <div>
-              <NoteTextEditor
-                note_state={note_state}
-                on_change_note_editor={on_change_note_editor} />
-              <NoteAttributeEditor
-                note_state={note_state}
-                formatted_date_slash={formatted_date_slash}
-                formatted_date_dash={formatted_date_dash}
-                on_change_note_editor={on_change_note_editor}
-                show_scheduling={show_scheduling}
-                schedule_state={schedule_state} />
-            </div>
-          </Section> */}
           <NoteEditor show_hide={show_hide_create_note_state.display}
             create_new_note={create_new_note}
             note_state={note_state}

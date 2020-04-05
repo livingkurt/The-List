@@ -20,7 +20,7 @@ const FolderTitle = (props) => {
 
   const show_hide_folder_modal = async (e) => {
     const todo_id = props.id
-    console.log(todo_id)
+    // console.log(todo_id)
     if (folder_modal_state === "none") {
       set_folder_modal_state("block")
     }

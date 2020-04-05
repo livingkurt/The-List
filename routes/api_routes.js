@@ -145,7 +145,8 @@ module.exports = function (app) {
   })
   app.put('/api/folder/:id', async (req, res) => {
     // Create an empty workout object ready for exercises to get put into it
-    console.log({ "api_routes.js - delete one folder": req.params.id })
+    console.log({ "api_routes.js - update one folder": req.params.id })
+    console.log({ "api_routes.js - update one folder": req.body })
     try {
       const request = await db.Folders.updateOne({ _id: req.params.id },
         {
