@@ -10,7 +10,7 @@ const note_schema = new Schema({
   folder_id: String,
   list_id: {
     type: String,
-    default: "dump"
+    default: "Dump"
   },
   priority: {
     type: String,

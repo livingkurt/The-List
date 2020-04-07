@@ -23,25 +23,32 @@ function NoteAttributeEditor(props) {
               className="priority_input editor_inputs"
               placeholder="High, Medium, Low"
               name="priority" /> */}
-            <ButtonWord
-              on_click_function={props.show_dropdown}
-            >Priority <i className="fas fa-sort-up"></i>
-            </ButtonWord>
+
             <DropDownList
-              on_dropdown_choice={props.on_priority_change}
-              dropdown_items={props.dropdown_items}
+              on_dropdown_choice={props.on_attribute_change}
+              dropdown_items={props.priority_dropdown_items}
               dropdown_state={props.dropdown_state}
-              name="priority">
+              name="priority">{props.note_state.priority}
             </DropDownList>
           </div>
           <div>
             <Label>List Name: </Label>
-            <input
+            {/* <input
               defaultValue={props.note_state.list_id}
               onBlur={e => props.on_change_note_editor(e)}
               className="list_id_input editor_inputs"
               placeholder="List Name"
-              name="list_id" />
+              name="list_id" /> */}
+            {/* <ButtonWord
+              on_click_function={props.show_dropdown}
+            >List Name <i className="fas fa-sort-up"></i>
+            </ButtonWord> */}
+            <DropDownList
+              on_dropdown_choice={props.on_attribute_change}
+              dropdown_items={props.list_name_dropdown_items}
+              dropdown_state={props.dropdown_state}
+              name="list_id"> {props.note_state.list_id}
+            </DropDownList>
           </div>
           <div>
             <Label>Folder ID: </Label>

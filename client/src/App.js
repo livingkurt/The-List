@@ -28,8 +28,8 @@ const App = () => {
 
 
   useEffect(() => {
-    get_all_notes_by_list_id("master");
-    get_all_notes_by_list_id("dump");
+    get_all_notes_by_list_id("Master");
+    get_all_notes_by_list_id("Dump");
     get_all_notes();
     get_all_folders();
   }, []);
@@ -52,7 +52,7 @@ const App = () => {
     title: "",
     body: "",
     folder_id: "",
-    list_id: "dump",
+    list_id: "Dump",
     priority: "Low",
     scheduled: false,
     scheduled_date_time: "",
@@ -80,7 +80,7 @@ const App = () => {
   const get_all_notes_by_list_id = async (list_id) => {
     try {
       const res = await API.get_notes_by_list_id(list_id)
-      if (list_id === "dump") {
+      if (list_id === "Dump") {
         set_todo_dump_state(res.data)
       }
       else {
@@ -108,11 +108,11 @@ const App = () => {
       const res = await API.get_notes_by_list_id(list_id)
       const new_data = [...res.data, { ...todo_state, list_id: list_id }]
       const response = await API.post_note({ ...note_state, list_id: list_id })
-      if (list_id === "dump") {
+      if (list_id === "Dump") {
         set_todo_dump_state(new_data)
         set_todo_dump_state([response.data, ...todo_dump_state])
       }
-      else if (list_id === "master") {
+      else if (list_id === "Master") {
         set_todo_master_state(new_data)
         set_todo_master_state([response.data, ...todo_master_state])
       }
@@ -126,13 +126,13 @@ const App = () => {
   const create_new_note = async () => {
     try {
       const res = await API.post_note(note_state)
-      get_all_notes_by_list_id("master");
-      get_all_notes_by_list_id("dump");
+      get_all_notes_by_list_id("Master");
+      get_all_notes_by_list_id("Dump");
       set_note_state({
         title: "",
         body: "",
         folder_id: "",
-        list_id: "dump",
+        list_id: "Dump",
         priority: "Low",
         scheduled: false,
         scheduled_date_time: "",
@@ -141,7 +141,7 @@ const App = () => {
       document.querySelector(".title_field").defaultValue = ""
       document.querySelector(".text_field").defaultValue = ""
       document.querySelector(".priority_input").defaultValue = "Low"
-      document.querySelector(".list_id_input").defaultValue = "dump"
+      document.querySelector(".list_id_input").defaultValue = "Dump"
       document.querySelector(".folder_id_input_2").defaultValue = ""
       document.querySelector("#checkbox_input").checked = false
     }
@@ -379,7 +379,7 @@ const App = () => {
         title: "",
         body: "",
         folder_id: "",
-        list_id: "dump",
+        list_id: "Dump",
         priority: "Low",
         scheduled: false,
         scheduled_date_time: "",
@@ -388,7 +388,7 @@ const App = () => {
       document.querySelector(".title_field").defaultValue = ""
       document.querySelector(".text_field").defaultValue = ""
       document.querySelector(".priority_input").defaultValue = "Low"
-      document.querySelector(".list_id_input").defaultValue = "dump"
+      document.querySelector(".list_id_input").defaultValue = "Dump"
       document.querySelector(".folder_id_input").defaultValue = ""
       document.querySelector("#checkbox_input").checked = false
     }
@@ -408,7 +408,7 @@ const App = () => {
       set_folder_modal_state({ ...folder_modal_state, [folder_id]: "none" })
     }
     else if (folder_modal_state[folder_id] === "none") {
-      set_folder_modal_state({ ...folder_modal_state, [folder_id]: "block%" })
+      set_folder_modal_state({ ...folder_modal_state, [folder_id]: "block" })
     }
   }
 
@@ -434,7 +434,7 @@ const App = () => {
 
               <ButtonWord on_click_function={create_new_folder} >New Folder</ButtonWord>
             </div>
-            <ScrollContainer height={"77vh"}>
+            <ScrollContainer height="73vh">
 
               {folders_state.map((folder, index) => {
                 console.log(folder.folders)
@@ -474,7 +474,7 @@ const App = () => {
               <ButtonSymbol margin="18px 0px 18px 18px" on_click_function={create_empty_list_item} list_id="master" >+</ButtonSymbol>
             </div>
             <Title margin="-30px 0px 0px 0px" fontSize="16px">Today {formatted_date_slash}</Title>
-            <ScrollContainer>
+            <ScrollContainer height="73vh">
               {priority_state.priorites.map((priority, index) => {
                 return <PriorityContainer key={index}>
                   <PriorityTitle fontSize="16px" on_click_function={show_hide_by_priority} list_id="master" priority={priority} border="1px solid silver" margin="10px">{priority} Priority</PriorityTitle>
@@ -492,13 +492,13 @@ const App = () => {
           <Section show_hide={show_hide_dump_state.display}>
             <div style={{ display: "flex", justifyContent: "space-between" }}>
               <Title>Todo Dump</Title>
-              <ButtonSymbol margin="18px 0px 18px 18px" on_click_function={create_empty_list_item} list_id="dump" >+</ButtonSymbol>
+              <ButtonSymbol margin="18px 0px 18px 18px" on_click_function={create_empty_list_item} list_id="Dump" >+</ButtonSymbol>
             </div>
             <Title margin="-30px 0px 0px 0px" fontSize="16px">Get your Ideas Down Fast</Title>
-            <ScrollContainer>
+            <ScrollContainer height="73vh">
               {priority_state.priorites.map((priority, index) => {
                 return <PriorityContainer key={index}>
-                  <PriorityTitle fontSize="16px" on_click_function={show_hide_by_priority} list_id="dump" priority={priority} border="1px solid silver" margin="10px">{priority} Priority</PriorityTitle>
+                  <PriorityTitle fontSize="16px" on_click_function={show_hide_by_priority} list_id="Dump" priority={priority} border="1px solid silver" margin="10px">{priority} Priority</PriorityTitle>
                   <TodoContainer className={"dump_" + priority.toLowerCase()} height={priority_state["dump_" + priority.toLowerCase()]}>
                     {todo_dump_state.map((note, index) => {
                       if (note.priority === priority) {

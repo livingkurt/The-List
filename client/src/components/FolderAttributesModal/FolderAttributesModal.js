@@ -193,8 +193,8 @@ const FolderAttributesModal = (props) => {
     try {
       const res = await API.delete_folder(folder_id)
       props.get_all_folders()
-      // props.get_all_folders_by_list_id("dump", props.index)
-      // props.get_all_folders_by_list_id("master", props.index)
+      // props.get_all_folders_by_list_id("Dump", props.index)
+      // props.get_all_folders_by_list_id("Master", props.index)
     }
     catch (err) {
       console.log(err);

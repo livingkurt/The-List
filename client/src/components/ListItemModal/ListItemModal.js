@@ -223,8 +223,8 @@ const ListItemModal = (props) => {
         [field_name]: note_data
       }
       API.update_note(note_id, update_todo)
-      props.get_all_notes_by_list_id("dump")
-      props.get_all_notes_by_list_id("master")
+      props.get_all_notes_by_list_id("Dump")
+      props.get_all_notes_by_list_id("Master")
     }
     catch (err) {
       console.log({ "save_scheduling": err });
@@ -259,8 +259,8 @@ const ListItemModal = (props) => {
     const todo_id = props.id
     try {
       const res = await API.delete_note(todo_id)
-      props.get_all_notes_by_list_id("dump")
-      props.get_all_notes_by_list_id("master")
+      props.get_all_notes_by_list_id("Dump")
+      props.get_all_notes_by_list_id("Master")
     }
     catch (err) {
       console.log(err);
@@ -280,25 +280,25 @@ const ListItemModal = (props) => {
     }
   }
 
-  const on_priority_change = async (e) => {
+  const on_attribute_change = async (e) => {
 
     const note_id = props.id
-    const priority = e.target.id
+    const attribute_data = e.target.id
     const field_name = e.target.name
-    console.log({ "note_id": note_id, "priority": priority, "field_name": field_name })
+    console.log({ "note_id": note_id, "attribute_data": attribute_data, "field_name": field_name })
     try {
       const res = await API.get_note(note_id)
       // console.log({ "update_note": res.data })
       const update_todo = {
         ...res.data,
-        [field_name]: priority
+        [field_name]: attribute_data
       }
       const resp = await API.update_note(note_id, update_todo)
-      props.get_all_notes_by_list_id("dump")
-      props.get_all_notes_by_list_id("master")
+      props.get_all_notes_by_list_id("Dump")
+      props.get_all_notes_by_list_id("Master")
       API.update_note(note_id, update_todo)
-      props.get_all_notes_by_list_id("dump")
-      props.get_all_notes_by_list_id("master")
+      props.get_all_notes_by_list_id("Dump")
+      props.get_all_notes_by_list_id("Master")
     }
     catch (err) {
       console.log({ "save_scheduling": err });
@@ -317,7 +317,8 @@ const ListItemModal = (props) => {
   //     }
   //   }
   // }
-  const dropdown_items = ["High", "Medium", "Low"]
+  const priority_dropdown_items = ["High", "Medium", "Low"]
+  const list_name_dropdown_items = ["Master", "Dump", "No List"]
 
 
 
@@ -330,8 +331,9 @@ const ListItemModal = (props) => {
         height="30vh" />
       <NoteAttributeEditor
         note_state={note_state}
-        on_priority_change={on_priority_change}
-        dropdown_items={dropdown_items}
+        on_attribute_change={on_attribute_change}
+        priority_dropdown_items={priority_dropdown_items}
+        list_name_dropdown_items={list_name_dropdown_items}
         dropdown_state={dropdown_state}
         show_dropdown={show_dropdown}
         formatted_date_slash={formatted_date_slash}
