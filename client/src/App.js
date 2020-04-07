@@ -83,7 +83,7 @@ const App = () => {
       if (list_id === "Dump") {
         set_todo_dump_state(res.data)
       }
-      else {
+      else if (list_id === "Master") {
         set_todo_master_state(res.data)
       }
       return res;
@@ -104,6 +104,7 @@ const App = () => {
   };
 
   const create_empty_list_item = async (list_id) => {
+    console.log({ "list_id": list_id })
     try {
       const res = await API.get_notes_by_list_id(list_id)
       const new_data = [...res.data, { ...todo_state, list_id: list_id }]
@@ -485,7 +486,7 @@ const App = () => {
           <Section show_hide={show_hide_master_state.display}>
             <div style={{ display: "flex", justifyContent: "space-between" }}>
               <Title>Master Todo List:</Title>
-              <ButtonSymbol margin="18px 0px 18px 18px" on_click_function={create_empty_list_item} list_id="master" >+</ButtonSymbol>
+              <ButtonSymbol margin="18px 0px 18px 18px" on_click_function={create_empty_list_item} list_id="Master" >+</ButtonSymbol>
             </div>
             <Title margin="-30px 0px 0px 0px" fontSize="16px">Today {formatted_date_slash}</Title>
             <ScrollContainer height="73vh">

@@ -23,7 +23,7 @@ function DropDownList(props) {
       console.log("hide_dropdown")
     }
   }
-  console.log({ "props.dropdown_items": props.dropdown_items })
+  // console.log({ "props.dropdown_items": props.dropdown_items })
   return (
     <div>
       <ButtonWord
