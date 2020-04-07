@@ -39,6 +39,7 @@ const ListItemModal = (props) => {
     // get_formatted_date();
     // get_formatted_time();
     get_checkbox_state();
+    // get_all_folders();
   }, [])
 
   // const update_note = async (e) => {
@@ -316,9 +317,31 @@ const ListItemModal = (props) => {
   //       }
   //     }
   //   }
+
+
   // }
+
+  // const [folder_state, set_folder_state] = useState({})
+
+  // const get_all_folders = async () => {
+  //   try {
+  //     const res = await API.get_all_folders()
+  //     const folders = res.data
+  //     set_folder_state(folders)
+
+  //     // return folders;
+  //     // console.log({ "get_all_folders": res.data })
+  //   }
+  //   catch (err) {
+  //     console.log(err);
+  //   }
+  // };
+
+
   const priority_dropdown_items = ["High", "Medium", "Low"]
   const list_name_dropdown_items = ["Master", "Dump", "No List"]
+  const folder_name_dropdown_items = props.folder_state
+  // console.log({ "folder_name_dropdown_items": folder_state })
 
 
 
@@ -331,9 +354,11 @@ const ListItemModal = (props) => {
         height="30vh" />
       <NoteAttributeEditor
         note_state={note_state}
+        folders_state={props.folders_state}
         on_attribute_change={on_attribute_change}
         priority_dropdown_items={priority_dropdown_items}
         list_name_dropdown_items={list_name_dropdown_items}
+        folder_name_dropdown_items={folder_name_dropdown_items}
         dropdown_state={dropdown_state}
         show_dropdown={show_dropdown}
         formatted_date_slash={formatted_date_slash}

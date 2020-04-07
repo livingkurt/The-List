@@ -6,24 +6,38 @@ import ButtonWord from "../ButtonWord/ButtonWord"
 import DropDownList from "../DropDownList/DropDownList"
 // Styles
 import './note_attribute_editor.css'
+import API from "../../utils/API";
 
 
 function NoteAttributeEditor(props) {
+
+  useEffect(() => {
+    get_all_folders();
+  }, []);
+
+  const [folder_state, set_folder_state] = useState({})
+
+  const get_all_folders = async () => {
+    try {
+      const res = await API.get_all_folders()
+      const folders = res.data
+      set_folder_state(folders)
+
+      // return folders;
+      // console.log({ "get_all_folders": res.data })
+    }
+    catch (err) {
+      console.log(err);
+    }
+  };
 
 
   return (
     <div id="create_note_fields">
       <div id="create_note_container">
-        <div >
+        <div style={{ width: "50%" }}>
           <div >
             <Label>Priority: </Label>
-            {/* <input
-              defaultValue={props.note_state.priority}
-              onBlur={e => props.on_change_note_editor(e)}
-              className="priority_input editor_inputs"
-              placeholder="High, Medium, Low"
-              name="priority" /> */}
-
             <DropDownList
               on_dropdown_choice={props.on_attribute_change}
               dropdown_items={props.priority_dropdown_items}
@@ -33,16 +47,6 @@ function NoteAttributeEditor(props) {
           </div>
           <div>
             <Label>List Name: </Label>
-            {/* <input
-              defaultValue={props.note_state.list_id}
-              onBlur={e => props.on_change_note_editor(e)}
-              className="list_id_input editor_inputs"
-              placeholder="List Name"
-              name="list_id" /> */}
-            {/* <ButtonWord
-              on_click_function={props.show_dropdown}
-            >List Name <i className="fas fa-sort-up"></i>
-            </ButtonWord> */}
             <DropDownList
               on_dropdown_choice={props.on_attribute_change}
               dropdown_items={props.list_name_dropdown_items}
@@ -58,6 +62,14 @@ function NoteAttributeEditor(props) {
               className="folder_id_input_2 editor_inputs"
               placeholder="Folder ID"
               name="folder_id" />
+            {/* <Label>Folder: </Label> */}
+            {/* <DropDownList
+              dropdown_items={folder_state}
+              on_dropdown_choice={props.on_attribute_change}
+              // dropdown_items={props.folder_name_dropdown_items}
+              dropdown_state={props.dropdown_state}
+              name="folder_id">{props.note_state.folder_id}
+            </DropDownList> */}
           </div>
           <Label>Date Created: {props.formatted_date_slash}</Label>
           <div className="scheduled_field ">

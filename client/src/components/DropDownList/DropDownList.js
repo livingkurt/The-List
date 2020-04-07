@@ -23,7 +23,7 @@ function DropDownList(props) {
       console.log("hide_dropdown")
     }
   }
-  console.log(props.dropdown_items)
+  console.log({ "props.dropdown_items": props.dropdown_items })
   return (
     <div>
       <ButtonWord
@@ -33,7 +33,7 @@ function DropDownList(props) {
       <div className="dropdown_list" style={{ display: dropdown_state }}>
         <ScrollContainer>
           {props.dropdown_items ? props.dropdown_items.map((item, index) => {
-            return <DropDownItem name={props.name} on_dropdown_choice={props.on_dropdown_choice}>{item}</DropDownItem>
+            return <DropDownItem name={props.name} on_dropdown_choice={props.on_dropdown_choice}>{item.folder_name ? item.folder_name : item}</DropDownItem>
           }) : console.log("Nothing")}
 
         </ScrollContainer>

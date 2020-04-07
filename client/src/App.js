@@ -440,7 +440,16 @@ const App = () => {
                 console.log(folder.folders)
                 if (folder.folders !== []) {
                   return <FolderContainer index={folder._id} id={folder._id} key={folder._id}>
-                    <FolderTitle show_hide_by_folder={show_hide_by_folder} folder={folder} get_all_folders={get_all_folders} show_hide_folder_modal={show_hide_folder_modal} on_change_folder_editor={on_change_folder_editor} fontSize="16px" folder_id={folder._id} margin="10px">{folder.folder_name}</FolderTitle>
+                    <FolderTitle
+                      show_hide_by_folder={show_hide_by_folder}
+                      folder={folder}
+                      get_all_folders={get_all_folders}
+                      show_hide_folder_modal={show_hide_folder_modal}
+                      on_change_folder_editor={on_change_folder_editor}
+                      fontSize="16px"
+                      folder_id={folder._id}
+                      num_notes={folder.notes.length}
+                      margin="10px">{folder.folder_name}</FolderTitle>
                     <FolderNoteContainer height={folder_view_state[folder._id]}>
                       {folders_state.map((folder, index) => {
 
@@ -450,7 +459,12 @@ const App = () => {
                       })}
                       {all_todo_state.map((note, index) => {
                         if (note.folder_id === folder._id) {
-                          return <Note show_create_note_container={show_create_note_container} get_all_notes={get_all_notes} index={note._id} id={note._id} key={note._id}>{note.title}</Note>
+                          return <Note
+                            show_create_note_container={show_create_note_container}
+                            get_all_notes={get_all_notes}
+                            index={note._id}
+                            id={note._id}
+                            key={note._id}>{note.title}</Note>
                         }
                       })}
 
@@ -481,7 +495,13 @@ const App = () => {
                   <TodoContainer className={"master_" + priority.toLowerCase()} height={priority_state["master_" + priority.toLowerCase()]}>
                     {todo_master_state.map((note, index) => {
                       if (note.priority === priority) {
-                        return <ListItem show_create_note_container={show_create_note_container} get_all_notes_by_list_id={get_all_notes_by_list_id} index={note._id} id={note._id} key={note._id}>{note.title}</ListItem>
+                        return <ListItem
+                          folders_state={folders_state}
+                          show_create_note_container={show_create_note_container}
+                          get_all_notes_by_list_id={get_all_notes_by_list_id}
+                          index={note._id}
+                          id={note._id}
+                          key={note._id}>{note.title}</ListItem>
                       }
                     })}
                   </TodoContainer>
@@ -502,7 +522,13 @@ const App = () => {
                   <TodoContainer className={"dump_" + priority.toLowerCase()} height={priority_state["dump_" + priority.toLowerCase()]}>
                     {todo_dump_state.map((note, index) => {
                       if (note.priority === priority) {
-                        return <ListItem show_create_note_container={show_create_note_container} get_all_notes_by_list_id={get_all_notes_by_list_id} index={note._id} id={note._id} key={note._id}>{note.title}</ListItem>
+                        return <ListItem
+                          folders_state={folders_state}
+                          show_create_note_container={show_create_note_container}
+                          get_all_notes_by_list_id={get_all_notes_by_list_id}
+                          index={note._id}
+                          id={note._id}
+                          key={note._id}>{note.title}</ListItem>
                       }
                     })}
                   </TodoContainer>
