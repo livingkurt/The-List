@@ -17,7 +17,7 @@ function NoteAttributeEditor(props) {
             <Label>Priority: </Label>
             <input
               defaultValue={props.note_state.priority}
-              onChange={e => props.on_change_note_editor(e)}
+              onBlur={e => props.on_change_note_editor(e)}
               className="priority_input editor_inputs"
               placeholder="High, Medium, Low"
               name="priority" />
@@ -26,7 +26,7 @@ function NoteAttributeEditor(props) {
             <Label>List Name: </Label>
             <input
               defaultValue={props.note_state.list_id}
-              onChange={e => props.on_change_note_editor(e)}
+              onBlur={e => props.on_change_note_editor(e)}
               className="list_id_input editor_inputs"
               placeholder="List Name"
               name="list_id" />
@@ -35,7 +35,7 @@ function NoteAttributeEditor(props) {
             <Label>Folder ID: </Label>
             <input
               defaultValue={props.note_state.folder_id}
-              onChange={e => props.on_change_note_editor(e)}
+              onBlur={e => props.on_change_note_editor(e)}
               className="folder_id_input_2 editor_inputs"
               placeholder="Folder ID"
               name="folder_id" />
@@ -51,12 +51,12 @@ function NoteAttributeEditor(props) {
           <Label>Date: </Label>
           <input id="scheduled_date" type="date"
             defaultValue={props.date_state}
-            onChange={e => props.on_change_note_editor(e)}
+            onBlur={e => props.on_change_note_editor(e)}
             name="scheduled_date" />
           <Label>Time: </Label>
           <input id="scheduled_time" type="time"
             defaultValue={props.time_state}
-            onChange={e => props.on_change_note_editor(e)}
+            onBlur={e => props.on_change_note_editor(e)}
             name="scheduled_time" />
         </div>
       </div>

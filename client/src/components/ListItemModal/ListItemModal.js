@@ -245,6 +245,8 @@ const ListItemModal = (props) => {
         [field_name]: note_data
       }
       API.update_note(note_id, update_todo)
+      props.get_all_notes_by_list_id("dump")
+      props.get_all_notes_by_list_id("master")
     }
     catch (err) {
       console.log({ "save_scheduling": err });
@@ -253,13 +255,6 @@ const ListItemModal = (props) => {
   }
 
   const on_change_folder_editor = async (note_id, folder_id) => {
-    // const note_id = e.target.id
-
-    // const folder_data = e.target.value
-    // const field_name = e.target.name
-    // console.log(note_id, folder_data, field_name)
-    // set_folder_state({ ...folder_state, [field_name]: folder_data })
-    // console.log({ "on_change_folder_editor": folder_id })
     try {
       const res = await API.get_folder(folder_id)
 
@@ -274,6 +269,7 @@ const ListItemModal = (props) => {
       console.log({ "update_folder": update_folder })
       const response = await API.update_folder(folder_id, update_folder)
       // get_all_folders();
+
     }
     catch (err) {
       console.log({ "on_change_folder_editor": err });
@@ -285,7 +281,8 @@ const ListItemModal = (props) => {
     const todo_id = props.id
     try {
       const res = await API.delete_note(todo_id)
-      props.get_all_folders()
+      props.get_all_notes_by_list_id("dump")
+      props.get_all_notes_by_list_id("master")
     }
     catch (err) {
       console.log(err);

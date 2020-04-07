@@ -50,17 +50,17 @@ const ListItem = (props) => {
   const [checkboxState, setCheckboxState] = useState(false)
 
   const save_check_status = () => {
-    console.log("Hello")
-    console.log(props.id)
     if (checkboxState === false) {
       setCheckboxState(true)
       // console.log({ "false": checkboxState })
       update_note_checkbox(props.id, true)
+      document.getElementById(props.id).setAttribute("style", "color: gray; text-decoration: line-through;")
     }
     if (checkboxState === true) {
       setCheckboxState(false)
       // console.log({ "true": checkboxState })
       update_note_checkbox(props.id, false)
+      document.getElementById(props.id).setAttribute("style", "color: black; text-decoration: none;")
     }
   }
 
@@ -82,6 +82,16 @@ const ListItem = (props) => {
       try {
         const res = await API.get_note(todo_id)
         setCheckboxState(res.data.completed)
+        if (res.data.completed === false) {
+          // setCheckboxState(false)
+          document.getElementById(props.id).setAttribute("style", "color: black; text-decoration: none;")
+        }
+        if (res.data.completed === true) {
+          // setCheckboxState(true)
+
+          document.getElementById(props.id).setAttribute("style", "color: gray; text-decoration: line-through;")
+        }
+
       }
       catch (err) {
         console.log({ "get_checkbox_state": err });
