@@ -20,7 +20,7 @@ import FolderTitle from './components/FolderTitle/FolderTitle';
 import ButtonSymbol from './components/ButtonSymbol/ButtonSymbol';
 import ButtonWord from './components/ButtonWord/ButtonWord';
 import NoteEditor from './components/NoteEditor/NoteEditor';
-
+// 
 import API from "./utils/API";
 // import styled from 'styled-components';
 

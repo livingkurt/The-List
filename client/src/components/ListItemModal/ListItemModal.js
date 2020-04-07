@@ -29,7 +29,7 @@ const ListItemModal = (props) => {
     date_modified: "",
   })
 
-  const [dropdown_state, set_dropdown_state] = useState("none")
+  // const [dropdown_state, set_dropdown_state] = useState("none")
   // const [date_state, set_date_state] = useState({
   //   date_created: "",
   //   date_modified: "",
@@ -112,28 +112,7 @@ const ListItemModal = (props) => {
     }
   }
 
-  const drop_down = () => {
-    if (dropdown_state === "none") {
-      set_dropdown_state("flex")
-    }
-    else if (dropdown_state === "flex") {
-      set_dropdown_state("none")
-    }
 
-  }
-
-  window.onclick = function (event) {
-    if (!event.target.matches('.dropbtn')) {
-      var dropdowns = document.getElementsByClassName("dropdown-content");
-      var i;
-      for (i = 0; i < dropdowns.length; i++) {
-        var openDropdown = dropdowns[i];
-        if (openDropdown.classList.contains('show')) {
-          openDropdown.classList.remove('show');
-        }
-      }
-    }
-  }
 
   const format_date_display = unformatted_date => {
     if (unformatted_date !== null || unformatted_date !== undefined) {
@@ -217,8 +196,7 @@ const ListItemModal = (props) => {
     const note_id = props.id
     let note_data = ""
     let field_name = ""
-    // const todo_id = e.target.id
-    // console.log({ "on_change_note_editor": e })
+
     if (e.target === undefined) {
       set_note_state({ ...note_state, scheduled: e })
       note_data = e
@@ -288,6 +266,58 @@ const ListItemModal = (props) => {
       console.log(err);
     }
   }
+  const [dropdown_state, set_dropdown_state] = useState("none")
+
+  const show_dropdown = () => {
+
+    if (dropdown_state === "none") {
+      set_dropdown_state("flex")
+      console.log("show_dropdown")
+    }
+    else if (dropdown_state === "flex") {
+      set_dropdown_state("none")
+      console.log("hide_dropdown")
+    }
+  }
+
+  const on_priority_change = async (e) => {
+
+    const note_id = props.id
+    const priority = e.target.id
+    const field_name = e.target.name
+    console.log({ "note_id": note_id, "priority": priority, "field_name": field_name })
+    try {
+      const res = await API.get_note(note_id)
+      // console.log({ "update_note": res.data })
+      const update_todo = {
+        ...res.data,
+        [field_name]: priority
+      }
+      const resp = await API.update_note(note_id, update_todo)
+      props.get_all_notes_by_list_id("dump")
+      props.get_all_notes_by_list_id("master")
+      API.update_note(note_id, update_todo)
+      props.get_all_notes_by_list_id("dump")
+      props.get_all_notes_by_list_id("master")
+    }
+    catch (err) {
+      console.log({ "save_scheduling": err });
+    }
+  }
+
+  // window.onclick = function (event) {
+  //   if (!event.target.matches('.dropbtn')) {
+  //     var dropdowns = document.getElementsByClassName("dropdown-content");
+  //     var i;
+  //     for (i = 0; i < dropdowns.length; i++) {
+  //       var openDropdown = dropdowns[i];
+  //       if (openDropdown.classList.contains('show')) {
+  //         openDropdown.classList.remove('show');
+  //       }
+  //     }
+  //   }
+  // }
+  const dropdown_items = ["High", "Medium", "Low"]
 
 
 
@@ -300,6 +330,10 @@ const ListItemModal = (props) => {
         height="30vh" />
       <NoteAttributeEditor
         note_state={note_state}
+        on_priority_change={on_priority_change}
+        dropdown_items={dropdown_items}
+        dropdown_state={dropdown_state}
+        show_dropdown={show_dropdown}
         formatted_date_slash={formatted_date_slash}
         on_change_note_editor={on_change_note_editor}
         checkboxState={note_state.completed}

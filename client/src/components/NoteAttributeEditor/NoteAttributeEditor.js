@@ -2,6 +2,8 @@
 import React, { useState, useEffect } from "react";
 import Label from "../Label/Label"
 import Checkbox from "../Checkbox/Checkbox"
+import ButtonWord from "../ButtonWord/ButtonWord"
+import DropDownList from "../DropDownList/DropDownList"
 // Styles
 import './note_attribute_editor.css'
 
@@ -15,12 +17,22 @@ function NoteAttributeEditor(props) {
         <div >
           <div >
             <Label>Priority: </Label>
-            <input
+            {/* <input
               defaultValue={props.note_state.priority}
               onBlur={e => props.on_change_note_editor(e)}
               className="priority_input editor_inputs"
               placeholder="High, Medium, Low"
-              name="priority" />
+              name="priority" /> */}
+            <ButtonWord
+              on_click_function={props.show_dropdown}
+            >Priority <i className="fas fa-sort-up"></i>
+            </ButtonWord>
+            <DropDownList
+              on_dropdown_choice={props.on_priority_change}
+              dropdown_items={props.dropdown_items}
+              dropdown_state={props.dropdown_state}
+              name="priority">
+            </DropDownList>
           </div>
           <div>
             <Label>List Name: </Label>

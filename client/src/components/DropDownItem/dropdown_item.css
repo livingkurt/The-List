@@ -1,0 +1,15 @@
+.dropdown_item {
+  color: gray;
+  width: 100%;
+  font-size: 16px;
+  justify-content: flex-start;
+  text-align: left;
+  border: 0px;
+  border-bottom: 1px silver solid;
+  transition: color 0.5s;
+}
+
+.dropdown_item:hover {
+  /* background-color: black; */
+  color: black;
+}
