@@ -26,6 +26,7 @@ const note_schema = new Schema({
     type: Boolean,
     default: false
   },
+  date_completed: Date,
   date_created: {
     type: Date,
     default: new Date().setDate(new Date().getDate())

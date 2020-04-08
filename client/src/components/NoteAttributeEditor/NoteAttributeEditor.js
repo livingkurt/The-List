@@ -93,6 +93,7 @@ function NoteAttributeEditor(props) {
           <div>
             <Label>Date Created: {format_date_display(props.note_state.date_created)}</Label>
             <Label>Date Modified: {format_date_display(props.note_state.date_modified)}</Label>
+            <Label>Date Completed: {format_date_display(props.note_state.date_completed)}</Label>
           </div>
           <div className="scheduled_field ">
             <Label>Schedule: </Label>

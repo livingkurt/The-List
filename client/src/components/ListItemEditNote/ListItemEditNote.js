@@ -92,27 +92,27 @@ const ListItemEditNote = (props) => {
     }
   }
 
-  const format_date_element = unformatted_date => {
-    if (unformatted_date !== null || unformatted_date !== undefined) {
-      // unformatted_date = unformatted_date.toString()
-      let year = unformatted_date.slice(0, 4)
-      let month = unformatted_date.slice(5, 7)
-      let day = unformatted_date.slice(8, 10)
-      // const formatted_date = `${month}-${day}-${year}`
-      // return formatted_date;
-      // var day = date.getDate();
-      // var month = date.getMonth() + 1;
-      // var year = date.getFullYear();
+  // const format_date_element = unformatted_date => {
+  //   if (unformatted_date !== null || unformatted_date !== undefined) {
+  //     // unformatted_date = unformatted_date.toString()
+  //     let year = unformatted_date.slice(0, 4)
+  //     let month = unformatted_date.slice(5, 7)
+  //     let day = unformatted_date.slice(8, 10)
+  //     // const formatted_date = `${month}-${day}-${year}`
+  //     // return formatted_date;
+  //     // var day = date.getDate();
+  //     // var month = date.getMonth() + 1;
+  //     // var year = date.getFullYear();
 
-      if (month < 10) month = "0" + month;
-      if (day < 10) day = "0" + day;
+  //     if (month < 10) month = "0" + month;
+  //     if (day < 10) day = "0" + day;
 
-      var today = year + "-" + month + "-" + day;
-      set_date_state(today)
-      // set_note_state({ ...note_state, date_modified: today })
-      return today;
-    }
-  }
+  //     var today = year + "-" + month + "-" + day;
+  //     set_date_state(today)
+  //     // set_note_state({ ...note_state, date_modified: today })
+  //     return today;
+  //   }
+  // }
 
   const drop_down = () => {
     if (dropdown_state === "none") {
@@ -137,16 +137,16 @@ const ListItemEditNote = (props) => {
     }
   }
 
-  const format_date_display = unformatted_date => {
-    if (unformatted_date !== null || unformatted_date !== undefined) {
-      // unformatted_date = unformatted_date.toString()
-      const year = unformatted_date.slice(0, 4)
-      const month = unformatted_date.slice(5, 7)
-      const day = unformatted_date.slice(8, 10)
-      const formatted_date = `${month}/${day}/${year}`
-      return formatted_date;
-    }
-  }
+  // const format_date_display = unformatted_date => {
+  //   if (unformatted_date !== null || unformatted_date !== undefined) {
+  //     // unformatted_date = unformatted_date.toString()
+  //     const year = unformatted_date.slice(0, 4)
+  //     const month = unformatted_date.slice(5, 7)
+  //     const day = unformatted_date.slice(8, 10)
+  //     const formatted_date = `${month}/${day}/${year}`
+  //     return formatted_date;
+  //   }
+  // }
 
   const [schedule_state, set_schedule_state] = useState(false)
 
@@ -211,20 +211,38 @@ const ListItemEditNote = (props) => {
     scheduled_date_time: "",
     completed: false,
   })
-  // const date = new Date()
-  let month = date.getMonth() + 1
-  if (month.length === 1) {
-    month = `0${month}`
+
+  const format_date_display = unformatted_date => {
+    const date = new Date(unformatted_date)
+    const day = date.getDate();
+    const month = date.getMonth() + 1;
+    const year = date.getFullYear();
+    const formatted_date = `${month}/${day}/${year}`
+    return formatted_date;
   }
-  let day = date.getDate()
-  if (day.length === 1) {
-    day = `0${day}`
+
+  const format_date_element = unformatted_date => {
+    const date = new Date(unformatted_date)
+    const day = date.getDate();
+    const month = date.getMonth() + 1;
+    const year = date.getFullYear();
+    const formatted_date = `${month}-${day}-${year}`
+    return formatted_date;
   }
-  let year = date.getFullYear();
+  // // const date = new Date()
+  // let month = date.getMonth() + 1
+  // if (month.length === 1) {
+  //   month = `0${month}`
+  // }
+  // let day = date.getDate()
+  // if (day.length === 1) {
+  //   day = `0${day}`
+  // }
+  // let year = date.getFullYear();
 
 
-  const formatted_date_slash = `${month}/${day}/${year}`
-  const formatted_date_dash = `${year}-${month}-${day}`
+  // const formatted_date_slash = `${month}/${day}/${year}`
+  // const formatted_date_dash = `${year}-${month}-${day}`
 
   const on_change_note_editor = async (e) => {
     const todo_id = props.id
@@ -305,8 +323,8 @@ const ListItemEditNote = (props) => {
           on_change_note_editor={on_change_note_editor} />
         <NoteAttributeEditor
           note_state={note_state}
-          formatted_date_slash={formatted_date_slash}
-          formatted_date_dash={formatted_date_dash}
+          formatted_date_slash={format_date_display(new Date())}
+          formatted_date_dash={format_date_element(new Date())}
           on_change_note_editor={on_change_note_editor}
           show_scheduling={show_scheduling}
           schedule_state={schedule_state} />

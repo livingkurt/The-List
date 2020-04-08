@@ -42,48 +42,13 @@ const ListItemModal = (props) => {
     // get_all_folders();
   }, [])
 
-  // const update_note = async (e) => {
-  //   e.persist();
-  //   const todo_id = e.target.id
-  //   const todo_data = e.target.value
-  //   const field_name = e.target.name
-  //   console.log(field_name)
-  //   if (todo_id != undefined) {
-  //     try {
-  //       const res = await API.get_note(todo_id)
-  //       console.log({ "update_note": res.data })
-  //       const update_todo = {
-  //         ...res.data,
-  //         [field_name]: todo_data,
-  //         date_modified: new Date().setDate(new Date().getDate())
-  //       }
-  //       API.update_note(todo_id, update_todo)
-  //     }
-  //     catch (err) {
-  //       console.log(err);
-  //     }
-  //   }
-
-  // }
   const get_note = async () => {
     const todo_id = props.id
     if (todo_id != undefined) {
       try {
         const res = await API.get_note(todo_id)
         set_note_state(res.data)
-        // set_date_state(format_date_element(res.data.scheduled_date))
-        // set_time_state(res.data.scheduled_time)
 
-        // format_date(res.data.date_created)
-        // set_note_state({
-        //   ...res.data, date_modified: format_date_display(res.data.date_modified),
-        //   date_created: format_date_display(res.data.date_created)
-        // })
-        // set_note_state({
-        //   ...note_state,
-        //   date_created: format_date(res.data.date_created),
-        //   date_modified: format_date(res.data.date_modified)
-        // })
       }
       catch (err) {
         // console.log(err);
@@ -91,45 +56,28 @@ const ListItemModal = (props) => {
     }
   }
 
-  const format_date_element = unformatted_date => {
-    if (unformatted_date !== null || unformatted_date !== undefined) {
-      // unformatted_date = unformatted_date.toString()
-      let year = unformatted_date.slice(0, 4)
-      let month = unformatted_date.slice(5, 7)
-      let day = unformatted_date.slice(8, 10)
-      // const formatted_date = `${month}-${day}-${year}`
-      // return formatted_date;
-      // var day = date.getDate();
-      // var month = date.getMonth() + 1;
-      // var year = date.getFullYear();
-
-      if (month < 10) month = "0" + month;
-      if (day < 10) day = "0" + day;
-
-      var today = year + "-" + month + "-" + day;
-      set_date_state(today)
-      // set_note_state({ ...note_state, date_modified: today })
-      return today;
-    }
-  }
-
-
 
   const format_date_display = unformatted_date => {
-    if (unformatted_date !== null || unformatted_date !== undefined) {
-      // unformatted_date = unformatted_date.toString()
-      const year = unformatted_date.slice(0, 4)
-      const month = unformatted_date.slice(5, 7)
-      const day = unformatted_date.slice(8, 10)
-      const formatted_date = `${month}/${day}/${year}`
-      return formatted_date;
-    }
+    const date = new Date(unformatted_date)
+    const day = date.getDate();
+    const month = date.getMonth() + 1;
+    const year = date.getFullYear();
+    const formatted_date = `${month}/${day}/${year}`
+    return formatted_date;
+  }
+
+  const format_date_element = unformatted_date => {
+    const date = new Date(unformatted_date)
+    const day = date.getDate();
+    const month = date.getMonth() + 1;
+    const year = date.getFullYear();
+    const formatted_date = `${month}-${day}-${year}`
+    return formatted_date;
   }
 
   const [schedule_state, set_schedule_state] = useState(false)
 
   const show_scheduling = () => {
-    // console.log("show_scheduling")
     if (schedule_state === false) {
       set_schedule_state(true)
       set_note_state({ ...note_state, scheduled: false })
@@ -159,11 +107,6 @@ const ListItemModal = (props) => {
       console.log({ "update_note": err });
     }
   }
-  // const [date_state_2, set_date_state_2] = useState("")
-  const [date_state, set_date_state] = useState("")
-  const [time_state, set_time_state] = useState("")
-
-  const date = new Date()
 
   const get_checkbox_state = async () => {
     const todo_id = props.id
@@ -179,20 +122,6 @@ const ListItemModal = (props) => {
 
   }
 
-  // const date = new Date()
-  let month = date.getMonth() + 1
-  if (month.length === 1) {
-    month = `0${month}`
-  }
-  let day = date.getDate()
-  if (day.length === 1) {
-    day = `0${day}`
-  }
-  let year = date.getFullYear();
-
-
-  const formatted_date_slash = `${month}/${day}/${year}`
-
   const on_change_note_editor = async (e) => {
     const note_id = props.id
     let note_data = ""
@@ -206,24 +135,18 @@ const ListItemModal = (props) => {
     else {
       note_data = e.target.value
       field_name = e.target.name
-      // console.log({ "on_change_note_editor": field_name })
       if (field_name == "folder_id") {
         on_change_folder_editor(note_id, note_data)
-        // console.log({ "on_change_note_editor": field_name })
       }
-      // on_change_folder_editor(note_id, note_data)
 
       set_note_state({ ...note_state, [field_name]: note_data })
     }
     // console.log(field_name)
     try {
       const res = await API.get_note(note_id)
-      // console.log({ "update_note": res.data })
       const update_todo = {
         ...res.data,
         [field_name]: note_data,
-        // date_modified: date
-
       }
       API.update_note(note_id, update_todo)
       props.get_all_notes_by_list_id("Dump")
@@ -246,10 +169,8 @@ const ListItemModal = (props) => {
         ...res.data,
         notes: [...res.data.notes, note_id]
       }
-      // console.log(update_folder)
       console.log({ "update_folder": update_folder })
       const response = await API.update_folder(folder_id, update_folder)
-      // get_all_folders();
 
     }
     catch (err) {
@@ -343,9 +264,6 @@ const ListItemModal = (props) => {
   const priority_dropdown_items = ["High", "Medium", "Low"]
   const list_name_dropdown_items = ["Master", "Dump", "No List"]
   const folder_name_dropdown_items = props.folder_state
-  // console.log({ "folder_name_dropdown_items": folder_state })
-
-
 
   return (
     <div style={{ display: props.show_modal_state }} className="list_modal zoom">
@@ -363,7 +281,8 @@ const ListItemModal = (props) => {
         folder_name_dropdown_items={folder_name_dropdown_items}
         dropdown_state={dropdown_state}
         show_dropdown={show_dropdown}
-        formatted_date_slash={formatted_date_slash}
+        formatted_date_slash={format_date_display(new Date())}
+        formatted_date_dash={format_date_element(new Date())}
         on_change_note_editor={on_change_note_editor}
         checkboxState={note_state.completed}
         show_scheduling={show_scheduling}
