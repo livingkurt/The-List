@@ -71,14 +71,14 @@ const ListItemModal = (props) => {
       try {
         const res = await API.get_note(todo_id)
         set_note_state(res.data)
-        set_date_state(format_date_element(res.data.scheduled_date))
-        set_time_state(res.data.scheduled_time)
+        // set_date_state(format_date_element(res.data.scheduled_date))
+        // set_time_state(res.data.scheduled_time)
 
         // format_date(res.data.date_created)
-        set_note_state({
-          ...res.data, date_modified: format_date_display(res.data.date_modified),
-          date_created: format_date_display(res.data.date_created)
-        })
+        // set_note_state({
+        //   ...res.data, date_modified: format_date_display(res.data.date_modified),
+        //   date_created: format_date_display(res.data.date_created)
+        // })
         // set_note_state({
         //   ...note_state,
         //   date_created: format_date(res.data.date_created),
@@ -221,7 +221,9 @@ const ListItemModal = (props) => {
       // console.log({ "update_note": res.data })
       const update_todo = {
         ...res.data,
-        [field_name]: note_data
+        [field_name]: note_data,
+        // date_modified: date
+
       }
       API.update_note(note_id, update_todo)
       props.get_all_notes_by_list_id("Dump")

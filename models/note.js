@@ -34,6 +34,17 @@ const note_schema = new Schema({
   deleted: false,
 });
 
+
+
 const Note = mongoose.model('Note', note_schema);
+
+note_schema.pre('save', function (next) {
+  now = new Date();
+  this.date_modified = now;
+  // if (!this.date_created) {
+  //   this.date_created = now
+  // }
+  next();
+});
 
 module.exports = Note;

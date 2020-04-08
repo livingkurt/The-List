@@ -72,14 +72,14 @@ const ListItemEditNote = (props) => {
       try {
         const res = await API.get_note(todo_id)
         set_note_state(res.data)
-        set_date_state(format_date_element(res.data.scheduled_date))
-        set_time_state(res.data.scheduled_time)
+        // set_date_state(format_date_element(res.data.scheduled_date))
+        // set_time_state(res.data.scheduled_time)
 
         // format_date(res.data.date_created)
-        set_note_state({
-          ...res.data, date_modified: format_date_display(res.data.date_modified),
-          date_created: format_date_display(res.data.date_created)
-        })
+        // set_note_state({
+        //   ...res.data, date_modified: format_date_display(res.data.date_modified),
+        //   date_created: format_date_display(res.data.date_created)
+        // })
         // set_note_state({
         //   ...note_state,
         //   date_created: format_date(res.data.date_created),
