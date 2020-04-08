@@ -87,30 +87,6 @@ const FolderAttributesModal = (props) => {
       }
     }
   }
-  // get_folder();
-
-  const format_date_element = unformatted_date => {
-    if (unformatted_date !== null || unformatted_date !== undefined) {
-      // unformatted_date = unformatted_date.toString()
-      let year = unformatted_date.slice(0, 4)
-      let month = unformatted_date.slice(5, 7)
-      let day = unformatted_date.slice(8, 10)
-      // const formatted_date = `${month}-${day}-${year}`
-      // return formatted_date;
-      // var day = date.getDate();
-      // var month = date.getMonth() + 1;
-      // var year = date.getFullYear();
-
-      if (month < 10) month = "0" + month;
-      if (day < 10) day = "0" + day;
-
-      var today = year + "-" + month + "-" + day;
-      set_date_state(today)
-      // set_folder_state({ ...folder_state, date_modified: today })
-      return today;
-    }
-  }
-
   const drop_down = () => {
     if (dropdown_state === "none") {
       set_dropdown_state("flex")
@@ -120,19 +96,6 @@ const FolderAttributesModal = (props) => {
     }
 
   }
-
-  const format_date_display = unformatted_date => {
-    if (unformatted_date !== null || unformatted_date !== undefined) {
-      // unformatted_date = unformatted_date.toString()
-      const year = unformatted_date.slice(0, 4)
-      const month = unformatted_date.slice(5, 7)
-      const day = unformatted_date.slice(8, 10)
-      const formatted_date = `${month}/${day}/${year}`
-      return formatted_date;
-    }
-  }
-
-
 
   // const [date_state_2, set_date_state_2] = useState("")
   const [date_state, set_date_state] = useState("")
@@ -237,6 +200,26 @@ const FolderAttributesModal = (props) => {
   //   }
   // };
 
+  const format_date_display = unformatted_date => {
+    console.log({ "unformatted_date": unformatted_date })
+    const date = new Date(unformatted_date)
+    const day = date.getDate();
+    const month = date.getMonth() + 1;
+    const year = date.getFullYear();
+    const formatted_date = `${month}/${day}/${year}`
+    return formatted_date;
+  }
+
+  const format_date_element = unformatted_date => {
+    console.log({ "unformatted_date": unformatted_date })
+    const date = new Date(unformatted_date)
+    const day = date.getDate();
+    const month = date.getMonth() + 1;
+    const year = date.getFullYear();
+    const formatted_date = `${month}-${day}-${year}`
+    return formatted_date;
+  }
+
 
 
   return (
@@ -289,7 +272,7 @@ const FolderAttributesModal = (props) => {
             <div>
               <Label>Date Created: </Label>
               <input
-                defaultValue={folder_state.date_created}
+                defaultValue={format_date_display(folder_state.date_created)}
                 readOnly
                 onChange={e => props.on_change_folder_editor(e)}
                 className="folder_id_input_2 editor_inputs"
@@ -300,7 +283,7 @@ const FolderAttributesModal = (props) => {
             <div>
               <Label>Date Modified: </Label>
               <input
-                defaultValue={folder_state.date_modified}
+                defaultValue={format_date_display(folder_state.date_modified)}
                 readOnly
                 onChange={e => props.on_change_folder_editor(e)}
                 className="folder_id_input_2 editor_inputs"

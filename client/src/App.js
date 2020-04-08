@@ -508,6 +508,24 @@ const App = () => {
                   </TodoContainer>
                 </PriorityContainer>
               })}
+              {/* {priority_state.priorites.map((priority, index) => {
+                return <PriorityContainer key={index}>
+                  <PriorityTitle fontSize="16px" on_click_function={show_hide_by_priority} list_id="master" priority={priority} border="1px solid silver" margin="10px">{priority} Priority</PriorityTitle>
+                  <TodoContainer className={"master_" + priority.toLowerCase()} height={priority_state["master_" + priority.toLowerCase()]}>
+                    {todo_master_state.map((note, index) => {
+                      if (note.priority === priority) {
+                        return <ListItem
+                          folders_state={folders_state}
+                          show_create_note_container={show_create_note_container}
+                          get_all_notes_by_list_id={get_all_notes_by_list_id}
+                          index={note._id}
+                          id={note._id}
+                          key={note._id}>{note.title}</ListItem>
+                      }
+                    })}
+                  </TodoContainer>
+                </PriorityContainer>
+              })} */}
             </ScrollContainer>
           </Section>
           <Section show_hide={show_hide_dump_state.display}>

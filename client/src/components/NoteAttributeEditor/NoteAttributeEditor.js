@@ -32,6 +32,27 @@ function NoteAttributeEditor(props) {
   };
 
 
+  const format_date_display = unformatted_date => {
+    console.log({ "unformatted_date": unformatted_date })
+    const date = new Date(unformatted_date)
+    const day = date.getDate();
+    const month = date.getMonth() + 1;
+    const year = date.getFullYear();
+    const formatted_date = `${month}/${day}/${year}`
+    return formatted_date;
+  }
+
+  const format_date_element = unformatted_date => {
+    console.log({ "unformatted_date": unformatted_date })
+    const date = new Date(unformatted_date)
+    const day = date.getDate();
+    const month = date.getMonth() + 1;
+    const year = date.getFullYear();
+    const formatted_date = `${month}-${day}-${year}`
+    return formatted_date;
+  }
+
+
   return (
     <div id="create_note_fields">
       <div id="create_note_container">
@@ -71,7 +92,10 @@ function NoteAttributeEditor(props) {
               name="folder_id">{props.note_state.folder_id}
             </DropDownList> */}
           </div>
-          <Label>Date Created: {props.formatted_date_slash}</Label>
+          <div>
+            <Label>Date Created: {format_date_display(props.note_state.date_created)}</Label>
+            <Label>Date Modified: {format_date_display(props.note_state.date_modified)}</Label>
+          </div>
           <div className="scheduled_field ">
             <Label>Schedule: </Label>
             <Checkbox onCheck={props.show_scheduling} checkboxState={props.schedule_state} />
@@ -81,7 +105,7 @@ function NoteAttributeEditor(props) {
         <div id="schedule_div" style={{ display: props.schedule_state ? "flex" : "none" }}>
           <Label>Date: </Label>
           <input id="scheduled_date" type="date"
-            defaultValue={props.date_state}
+            defaultValue={format_date_element(props.date_state)}
             onBlur={e => props.on_change_note_editor(e)}
             name="scheduled_date" />
           <Label>Time: </Label>

@@ -28,6 +28,11 @@ const ListItem = (props) => {
       set_list_item_state(res.data)
       const update_todo = { ...res.data, title: todo_data }
       API.update_note(todo_id, update_todo)
+      props.get_all_notes_by_list_id("Master")
+      props.get_all_notes_by_list_id("Dump")
+      API.update_note(todo_id, update_todo)
+      props.get_all_notes_by_list_id("Master")
+      props.get_all_notes_by_list_id("Dump")
     }
     catch (err) {
       console.log(err);
