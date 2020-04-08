@@ -60,21 +60,25 @@ const App = () => {
   })
 
 
-
-  const date = new Date()
-  let month = date.getMonth() + 1
-  if (month.length === 1) {
-    month = `0${month}`
+  const format_date_display = unformatted_date => {
+    const date = new Date(unformatted_date)
+    const day = date.getDate();
+    const month = date.getMonth() + 1;
+    const year = date.getFullYear();
+    const formatted_date = `${month}/${day}/${year}`
+    return formatted_date;
   }
-  let day = date.getDate()
-  if (day.length === 1) {
-    day = `0${day}`
+
+  const format_date_element = unformatted_date => {
+    const date = new Date(unformatted_date)
+    const day = date.getDate();
+    const month = date.getMonth() + 1;
+    const year = date.getFullYear();
+    const formatted_date = `${month}-${day}-${year}`
+    return formatted_date;
   }
-  let year = date.getFullYear();
 
 
-  const formatted_date_slash = `${month}/${day}/${year}`
-  const formatted_date_dash = `${year}-${month}-${day}`
 
 
   const get_all_notes_by_list_id = async (list_id) => {
@@ -478,8 +482,8 @@ const App = () => {
           <NoteEditor show_hide={show_hide_create_note_state.display}
             create_new_note={create_new_note}
             note_state={note_state}
-            formatted_date_slash={formatted_date_slash}
-            formatted_date_dash={formatted_date_dash}
+            formatted_date_slash={format_date_display(new Date())}
+            formatted_date_dash={format_date_element(new Date())}
             on_change_note_editor={on_change_note_editor}
             show_scheduling={show_scheduling}
             schedule_state={schedule_state} />
@@ -488,7 +492,7 @@ const App = () => {
               <Title>Master Todo List:</Title>
               <ButtonSymbol margin="18px 0px 18px 18px" on_click_function={create_empty_list_item} list_id="Master" >+</ButtonSymbol>
             </div>
-            <Title margin="-30px 0px 0px 0px" fontSize="16px">Today {formatted_date_slash}</Title>
+            <Title margin="-30px 0px 0px 0px" fontSize="16px">Today {format_date_display(new Date())}</Title>
             <ScrollContainer height="73vh">
               {priority_state.priorites.map((priority, index) => {
                 return <PriorityContainer key={index}>

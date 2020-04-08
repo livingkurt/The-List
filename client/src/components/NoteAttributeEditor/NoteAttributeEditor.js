@@ -33,7 +33,6 @@ function NoteAttributeEditor(props) {
 
 
   const format_date_display = unformatted_date => {
-    console.log({ "unformatted_date": unformatted_date })
     const date = new Date(unformatted_date)
     const day = date.getDate();
     const month = date.getMonth() + 1;
@@ -43,7 +42,6 @@ function NoteAttributeEditor(props) {
   }
 
   const format_date_element = unformatted_date => {
-    console.log({ "unformatted_date": unformatted_date })
     const date = new Date(unformatted_date)
     const day = date.getDate();
     const month = date.getMonth() + 1;

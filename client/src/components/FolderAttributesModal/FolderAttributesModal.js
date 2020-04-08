@@ -22,65 +22,22 @@ const FolderAttributesModal = (props) => {
     folders: "",
     folders: "",
     completed: "",
-    date_modified: new Date().setDate(new Date().getDate())
+    date_modified: ""
   })
 
   const [dropdown_state, set_dropdown_state] = useState("none")
-  // const [date_state, set_date_state] = useState({
-  //   date_created: "",
-  //   date_modified: "",
-  // })
-  // console.log(folder_state)
 
   useEffect(() => {
     get_folder()
 
   }, [])
 
-  // const update_folder = async (e) => {
-  //   e.persist();
-  //   const folder_id = e.target.id
-  //   const todo_data = e.target.value
-  //   const field_name = e.target.name
-  //   console.log(field_name)
-  //   if (folder_id != undefined) {
-  //     try {
-  //       const res = await API.get_folder(folder_id)
-  //       console.log({ "update_folder": res.data })
-  //       const update_todo = {
-  //         ...res.data,
-  //         [field_name]: todo_data,
-  //         date_modified: new Date().setDate(new Date().getDate())
-  //       }
-  //       API.update_folder(folder_id, update_todo)
-  //     }
-  //     catch (err) {
-  //       console.log(err);
-  //     }
-  //   }
-
-  // }
   const get_folder = async () => {
     const folder_id = props.id
-    // console.log({ "get_folder": folder_id })
     if (folder_id != undefined) {
       try {
         const res = await API.get_folder(folder_id)
-        // console.log({ "get_folder": res.data })
         set_folder_state(res.data)
-        // set_date_state(format_date_element(res.data.scheduled_date))
-        // set_time_state(res.data.scheduled_time)
-
-        // // format_date(res.data.date_created)
-        // set_folder_state({
-        //   ...res.data, date_modified: format_date_display(res.data.date_modified),
-        //   date_created: format_date_display(res.data.date_created)
-        // })
-        // set_folder_state({
-        //   ...folder_state,
-        //   date_created: format_date(res.data.date_created),
-        //   date_modified: format_date(res.data.date_modified)
-        // })
       }
       catch (err) {
         // console.log(err);
@@ -96,27 +53,6 @@ const FolderAttributesModal = (props) => {
     }
 
   }
-
-  // const [date_state_2, set_date_state_2] = useState("")
-  const [date_state, set_date_state] = useState("")
-  const [time_state, set_time_state] = useState("")
-
-  const date = new Date()
-
-  // const date = new Date()
-  let month = date.getMonth() + 1
-  if (month.length === 1) {
-    month = `0${month}`
-  }
-  let day = date.getDate()
-  if (day.length === 1) {
-    day = `0${day}`
-  }
-  let year = date.getFullYear();
-
-
-  const formatted_date_slash = `${month}/${day}/${year}`
-
   const on_change_folder_editor = async (e) => {
     const folder_id = props.id
     let todo_data = ""
@@ -156,52 +92,14 @@ const FolderAttributesModal = (props) => {
     try {
       const res = await API.delete_folder(folder_id)
       props.get_all_folders()
-      // props.get_all_folders_by_list_id("Dump", props.index)
-      // props.get_all_folders_by_list_id("Master", props.index)
     }
     catch (err) {
       console.log(err);
     }
   }
 
-  // const [folder_modal_state, set_folder_modal_state] = useState("none")
-
-  // const show_hide_folder_modal = async (e) => {
-  //   const folder_id = props.id
-  //   console.log(folder_id)
-  //   if (folder_modal_state === "none") {
-  //     set_folder_modal_state("block")
-  //   }
-  //   else {
-  //     set_folder_modal_state("none")
-  //   }
-  // }
-  // const [folders_state, set_folders_state] = useState([])
-  // const [folder_view_state, set_folder_view_state] = useState([])
-
-  // const get_all_folders = async () => {
-  //   try {
-  //     const res = await API.get_all_folders()
-  //     set_folders_state(res.data)
-  //     let array = []
-  //     res.data.map(folder => {
-  //       // console.log({ "folder": folder._id })
-  //       let id = folder._id
-  //       array = { ...array, [id]: "0px" }
-
-  //     })
-  //     // set_folder_view_state()
-  //     set_folder_view_state(array)
-  //     // console.log({ "App.js - get_all_folders": res.data })
-  //     // console.log({ "folder_view_state": folder_view_state })
-  //   }
-  //   catch (err) {
-  //     console.log(err);
-  //   }
-  // };
 
   const format_date_display = unformatted_date => {
-    console.log({ "unformatted_date": unformatted_date })
     const date = new Date(unformatted_date)
     const day = date.getDate();
     const month = date.getMonth() + 1;
@@ -211,7 +109,6 @@ const FolderAttributesModal = (props) => {
   }
 
   const format_date_element = unformatted_date => {
-    console.log({ "unformatted_date": unformatted_date })
     const date = new Date(unformatted_date)
     const day = date.getDate();
     const month = date.getMonth() + 1;

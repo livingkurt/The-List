@@ -90,7 +90,6 @@ module.exports = function (app) {
           scheduled_date: req.body.scheduled_date,
           scheduled_time: req.body.scheduled_time,
           completed: req.body.completed,
-          // date_created: new Date().setDate(new Date().getDate()),
           date_modified: new Date().setDate(new Date().getDate())
         })
       // Send the request back to the front end
