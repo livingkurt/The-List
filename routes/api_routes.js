@@ -145,6 +145,7 @@ module.exports = function (app) {
         folder_name: req.body.folder_name,
         notes: req.body.notes,
         folders: req.body.folders,
+        hidden: req.body.hidden,
         date_created: new Date().setDate(new Date().getDate()),
         date_modified: new Date().setDate(new Date().getDate())
       })
@@ -165,6 +166,7 @@ module.exports = function (app) {
           folder_name: req.body.folder_name,
           notes: req.body.notes,
           folders: req.body.folders,
+          hidden: req.body.hidden,
           date_modified: new Date().setDate(new Date().getDate())
         })
       // Send the request back to the front end
@@ -221,6 +223,7 @@ module.exports = function (app) {
         category_name: req.body.category_name,
         priority: req.body.priority,
         notes: req.body.notes,
+        hidden: req.body.hidden,
         date_created: new Date().setDate(new Date().getDate()),
         date_modified: new Date().setDate(new Date().getDate())
       })
@@ -241,6 +244,7 @@ module.exports = function (app) {
           category_name: req.body.category_name,
           priority: req.body.priority,
           notes: req.body.notes,
+          hidden: req.body.hidden,
           date_modified: new Date().setDate(new Date().getDate())
         })
       // Send the request back to the front end

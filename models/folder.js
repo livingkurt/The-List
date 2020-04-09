@@ -18,6 +18,7 @@ const folder_schema = new Schema({
       ref: "folders"
     }
   ],
+  hidden: Boolean,
   date_created: {
     type: Date,
     default: new Date().setDate(new Date().getDate())

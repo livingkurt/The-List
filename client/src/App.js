@@ -47,7 +47,7 @@ const App = () => {
     folder_id: "",
     list_id: "",
     priority: "Low",
-    category_id: "",
+    category_id: "5e8f7c48d4e1a46221ddb732",
     scheduled: false,
     scheduled_date: "",
     scheduled_time: "",
@@ -61,7 +61,7 @@ const App = () => {
     folder_id: "",
     list_id: "",
     priority: "Dump",
-    category_id: "",
+    category_id: "5e8f7c48d4e1a46221ddb732",
     scheduled: false,
     scheduled_date: "",
     scheduled_time: "",
@@ -196,7 +196,7 @@ const App = () => {
         folder_id: "",
         list_id: "Dump",
         priority: "Low",
-        category_id: "",
+        category_id: "5e8f7c48d4e1a46221ddb732",
         scheduled: false,
         scheduled_date: "",
         scheduled_time: "",
@@ -263,7 +263,8 @@ const App = () => {
       folder_name: "",
       folder_id: "",
       notes: [],
-      folders: []
+      folders: [],
+      hidden: true
     }
     try {
       const res = await API.post_folder(blank_folder)
@@ -322,6 +323,7 @@ const App = () => {
       category_id: "",
       notes: [],
       priority: "Low",
+      hidden: false
     }
     try {
       const res = await API.post_category(blank_category)
@@ -385,6 +387,8 @@ const App = () => {
       set_category_view_state({ ...category_view_state, [category_id]: "100%" })
     }
   }
+
+
 
   const [folder_state, set_folder_state] = useState({})
 
@@ -573,7 +577,7 @@ const App = () => {
             <ScrollContainer height="73vh">
               {priority_state.priorites.map((priority, index) => {
                 return <PriorityContainer key={index}>
-                  <PriorityTitle fontSize="16px" on_click_function={show_hide_by_priority} list_id="master" priority={priority} border="1px solid silver" margin="10px">{priority} Priority</PriorityTitle>
+                  <PriorityTitle fontSize="18px" on_click_function={show_hide_by_priority} list_id="master" priority={priority} border="1px solid silver" margin="10px">{priority} Priority</PriorityTitle>
                   <TodoContainer className={"master_" + priority.toLowerCase()} height={priority_state["master_" + priority.toLowerCase()]}>
                     {categories_state.map((category, index) => {
                       console.log({ "category": category })
@@ -582,10 +586,17 @@ const App = () => {
                           <CategoryTitle
                             show_hide_by_category={show_hide_by_category}
                             fontSize="16px"
+                            get_all_notes_by_list_id={get_all_notes_by_list_id}
+                            category={category}
                             category_id={category._id}
                             on_change_category_editor={on_change_category_editor}
                             margin="10px">{category.category_name}</CategoryTitle>
-                          <CategoryNoteContainer height={category_view_state[category._id]}>
+                          <CategoryNoteContainer
+                            height={category.hidden ? "0px" : "100%"}
+                            hidden={category.hidden}
+                            get_all_notes_by_list_id={get_all_notes_by_list_id}
+                            category={category}
+                          >
                             {todo_master_state.map((note, index) => {
                               console.log({ "note.category_id": note.category_id, "category._id": category._id })
                               if (note.category_id === category._id) {
