@@ -379,51 +379,53 @@ const App = () => {
 
   const [category_view_state, set_category_view_state] = useState([])
 
-  const show_hide_by_category = (category_id) => {
-    console.log({ "category_id": category_view_state[category_id] })
-    if (category_view_state[category_id] === "100%") {
-      set_category_view_state({ ...category_view_state, [category_id]: "0px" })
+  // const show_hide_by_category = (category_id) => {
+  //   console.log({ "category_id": category_view_state[category_id] })
+  //   if (category_view_state[category_id] === "100%") {
+  //     set_category_view_state({ ...category_view_state, [category_id]: "0px" })
 
-    }
-    else if (category_view_state[category_id] === "0px") {
-      set_category_view_state({ ...category_view_state, [category_id]: "100%" })
-    }
-  }
-
-  // const show_hide_by_category = async (category_id) => {
-  //   let update_category = {}
-  //   try {
-  //     const res = await API.get_category(category_id)
-  //     // console.log({ "update_category": res.data })
-  //     const category = res.data
-
-  //     if (category.hidden === false) {
-  //       set_category_state({ ...category, hidden: true })
-  //       update_category = {
-  //         ...category,
-  //         hidden: true
-  //       }
-  //       set_category_view_state("0px")
-  //     }
-  //     else if (category.hidden === true) {
-  //       set_category_state({ ...category, hidden: false })
-  //       update_category = {
-  //         ...category,
-  //         hidden: false
-  //       }
-  //       set_category_view_state("100%")
-  //     }
-  //     const resp = await API.update_category(category_id, update_category)
-  //     get_all_notes_by_list_id("Dump")
-  //     get_all_notes_by_list_id("Master")
-  //     API.update_category(category_id, update_category)
-  //     get_all_notes_by_list_id("Dump")
-  //     get_all_notes_by_list_id("Master")
   //   }
-  //   catch (err) {
-  //     console.log({ "save_scheduling": err });
+  //   else if (category_view_state[category_id] === "0px") {
+  //     set_category_view_state({ ...category_view_state, [category_id]: "100%" })
   //   }
   // }
+
+  const show_hide_by_category = async (category_id) => {
+    let update_category = {}
+    try {
+      const res = await API.get_category(category_id)
+      // console.log({ "update_category": res.data })
+      const category = res.data
+
+      if (category.hidden === false) {
+        set_category_state({ ...category, hidden: true })
+        update_category = {
+          ...category,
+          hidden: true
+        }
+        set_category_view_state("0px")
+        set_category_view_state({ ...category_view_state, [category_id]: "0px" })
+      }
+      else if (category.hidden === true) {
+        set_category_state({ ...category, hidden: false })
+        update_category = {
+          ...category,
+          hidden: false
+        }
+        set_category_view_state("100%")
+        set_category_view_state({ ...category_view_state, [category_id]: "100%" })
+      }
+      const resp = await API.update_category(category_id, update_category)
+      get_all_notes_by_list_id("Dump")
+      get_all_notes_by_list_id("Master")
+      API.update_category(category_id, update_category)
+      get_all_notes_by_list_id("Dump")
+      get_all_notes_by_list_id("Master")
+    }
+    catch (err) {
+      console.log({ "save_scheduling": err });
+    }
+  }
 
 
 
@@ -628,7 +630,7 @@ const App = () => {
                             on_change_category_editor={on_change_category_editor}
                             margin="10px">{category.category_name}</CategoryTitle>
                           <CategoryNoteContainer
-                            height={category_view_state}
+                            height={category_view_state[category._id]}
                             // height={category.hidden ? "0px" : "100%"}
                             hidden={category.hidden}
                             get_all_notes_by_list_id={get_all_notes_by_list_id}
