@@ -300,13 +300,20 @@ const App = () => {
   const get_all_categories = async () => {
     try {
       const res = await API.get_all_categories()
-      console.log({ "get_all_categories": res.data })
-      set_categories_state(res.data)
+      const category = res.data
+      console.log({ "get_all_categories": category })
+      set_categories_state(category)
       let array = []
-      res.data.map(folder => {
-        // console.log({ "folder": folder._id })
-        let id = folder._id
-        array = { ...array, [id]: "100%" }
+      category.map(category => {
+        // console.log({ "category": category._id })
+        let id = category._id
+        if (category.hidden === false) {
+          array = { ...array, [id]: "100%" }
+        }
+        else if (category.hidden === true) {
+          array = { ...array, [id]: "0px" }
+        }
+
 
       })
       set_category_view_state(array)
