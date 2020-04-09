@@ -37,6 +37,9 @@ const CategoryTitle = (props) => {
     <div className="category_title zoom" style={{ borderBottom: props.border, padding: "2px", justifyContent: "space-between" }}>
       {/* <h2 style={{ margin: props.margin, fontSize: props.fontSize }}>{props.children}</h2> */}
       {/* <input style={{ margin: props.margin, fontSize: props.fontSize }}>{props.children}</input> */}
+      <div style={{ fontSize: "20px", color: "silver", transform: "rotate(270deg)", marginLeft: "10px", marginTop: "3px" }}>
+        <i className="fas fa-sort-up"></i>
+      </div>
       <input
         defaultValue={props.children}
         // onChange={e => props.on_change_category_editor(e)}

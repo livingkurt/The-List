@@ -15,6 +15,7 @@ import PriorityContainer from './components/PriorityContainer/PriorityContainer'
 import TodoContainer from './components/TodoContainer/TodoContainer';
 import FolderContainer from './components/FolderContainer/FolderContainer';
 import FolderNoteContainer from './components/FolderNoteContainer/FolderNoteContainer';
+import CategoryNoteContainer from './components/CategoryNoteContainer/CategoryNoteContainer';
 import PriorityTitle from './components/PriorityTitle/PriorityTitle';
 import FolderTitle from './components/FolderTitle/FolderTitle';
 import CategoryTitle from './components/CategoryTitle/CategoryTitle';
@@ -304,7 +305,7 @@ const App = () => {
       res.data.map(folder => {
         // console.log({ "folder": folder._id })
         let id = folder._id
-        array = { ...array, [id]: "0px" }
+        array = { ...array, [id]: "100%" }
 
       })
       set_category_view_state(array)
@@ -584,7 +585,7 @@ const App = () => {
                             category_id={category._id}
                             on_change_category_editor={on_change_category_editor}
                             margin="10px">{category.category_name}</CategoryTitle>
-                          <FolderNoteContainer height={category_view_state[category._id]}>
+                          <CategoryNoteContainer height={category_view_state[category._id]}>
                             {todo_master_state.map((note, index) => {
                               console.log({ "note.category_id": note.category_id, "category._id": category._id })
                               if (note.category_id === category._id) {
@@ -599,7 +600,7 @@ const App = () => {
 
                             })}
 
-                          </FolderNoteContainer>
+                          </CategoryNoteContainer>
                         </FolderContainer>
                         // }
 
