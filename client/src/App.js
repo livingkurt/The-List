@@ -196,7 +196,7 @@ const App = () => {
         folder_id: "",
         list_id: "Dump",
         priority: "Low",
-        category_id: "",
+        category_id: "5e8f7c48d4e1a46221ddb732",
         scheduled: false,
         scheduled_date: "",
         scheduled_time: "",
@@ -263,7 +263,8 @@ const App = () => {
       folder_name: "",
       folder_id: "",
       notes: [],
-      folders: []
+      folders: [],
+      hidden: true
     }
     try {
       const res = await API.post_folder(blank_folder)
@@ -322,6 +323,7 @@ const App = () => {
       category_id: "",
       notes: [],
       priority: "Low",
+      hidden: false
     }
     try {
       const res = await API.post_category(blank_category)
@@ -573,7 +575,7 @@ const App = () => {
             <ScrollContainer height="73vh">
               {priority_state.priorites.map((priority, index) => {
                 return <PriorityContainer key={index}>
-                  <PriorityTitle fontSize="16px" on_click_function={show_hide_by_priority} list_id="master" priority={priority} border="1px solid silver" margin="10px">{priority} Priority</PriorityTitle>
+                  <PriorityTitle fontSize="18px" on_click_function={show_hide_by_priority} list_id="master" priority={priority} border="1px solid silver" margin="10px">{priority} Priority</PriorityTitle>
                   <TodoContainer className={"master_" + priority.toLowerCase()} height={priority_state["master_" + priority.toLowerCase()]}>
                     {categories_state.map((category, index) => {
                       console.log({ "category": category })
@@ -581,6 +583,7 @@ const App = () => {
                         return <FolderContainer index={category._id} id={category._id} key={category._id}>
                           <CategoryTitle
                             show_hide_by_category={show_hide_by_category}
+                            get_all_notes_by_list_id={get_all_notes_by_list_id}
                             fontSize="16px"
                             category_id={category._id}
                             on_change_category_editor={on_change_category_editor}
