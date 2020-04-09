@@ -17,7 +17,6 @@ const CategoryTitle = (props) => {
   //   console.log(props.folder_id)
   // }
 
-
   const [category_modal_state, set_category_modal_state] = useState("none")
 
   const show_hide_category_modal = async (e) => {
@@ -30,7 +29,6 @@ const CategoryTitle = (props) => {
       set_category_modal_state("none")
     }
   }
-
 
 
 
@@ -55,7 +53,7 @@ const CategoryTitle = (props) => {
         <ButtonSymbol margin="5px 3px 7px 0px" padding="4px" on_click_function={show_hide_category_modal} list_id={props.category_id} category={props.category}><i className="fas fa-bars"></i></ButtonSymbol>
         <ButtonSymbol margin="5px 3px 7px 0px" padding="0px 2px 7px 0px" on_click_function={props.show_hide_by_category} list_id={props.category_id} category={props.category}><i className="fas fa-sort-up"></i></ButtonSymbol>
       </div>
-      <CategoryAttributesModal id={props.category_id} on_change_category_editor={props.on_change_category_editor} get_all_notes_by_list_id={props.get_all_notes_by_list_id} get_all_categorys={props.get_all_categorys} show_hide_category_modal={show_hide_category_modal} category_modal_state={category_modal_state} />
+      <CategoryAttributesModal id={props.category_id} on_change_category_editor={props.on_change_category_editor} get_all_notes_by_list_id={props.get_all_notes_by_list_id} get_all_categories={props.get_all_categories} show_hide_category_modal={show_hide_category_modal} category_modal_state={category_modal_state} />
     </div >
   );
 }
