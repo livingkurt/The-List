@@ -17,6 +17,7 @@ import FolderContainer from './components/FolderContainer/FolderContainer';
 import FolderNoteContainer from './components/FolderNoteContainer/FolderNoteContainer';
 import PriorityTitle from './components/PriorityTitle/PriorityTitle';
 import FolderTitle from './components/FolderTitle/FolderTitle';
+import CategoryTitle from './components/CategoryTitle/CategoryTitle';
 import ButtonSymbol from './components/ButtonSymbol/ButtonSymbol';
 import ButtonWord from './components/ButtonWord/ButtonWord';
 import NoteEditor from './components/NoteEditor/NoteEditor';
@@ -32,6 +33,7 @@ const App = () => {
     get_all_notes_by_list_id("Dump");
     get_all_notes();
     get_all_folders();
+    get_all_categories();
   }, []);
 
 
@@ -44,19 +46,27 @@ const App = () => {
     folder_id: "",
     list_id: "",
     priority: "Low",
+    category_id: "",
     scheduled: false,
-    scheduled_date_time: "",
+    scheduled_date: "",
+    scheduled_time: "",
     completed: false,
+    date_created: "",
+    date_modified: "",
   })
   const [note_state, set_note_state] = useState({
     title: "",
     body: "",
     folder_id: "",
-    list_id: "Dump",
-    priority: "Low",
+    list_id: "",
+    priority: "Dump",
+    category_id: "",
     scheduled: false,
-    scheduled_date_time: "",
+    scheduled_date: "",
+    scheduled_time: "",
     completed: false,
+    date_created: "",
+    date_modified: "",
   })
 
 
@@ -79,7 +89,31 @@ const App = () => {
   }
 
 
+  const [category_state, set_category_state] = useState([])
 
+
+  const on_change_category_editor = async (e) => {
+    const category_id = e.target.id
+    const category_data = e.target.value
+    const field_name = e.target.name
+    // console.log(category_id, category_data, field_name)
+    set_category_state({ ...category_state, [field_name]: category_data })
+    try {
+      const res = await API.get_category(category_id)
+
+      const update_category = {
+        ...res.data,
+        [field_name]: category_data
+      }
+      console.log({ "update_category": update_category })
+      API.update_category(category_id, update_category)
+      // get_all_folders();
+    }
+    catch (err) {
+      console.log({ "on_change_folder_editor": err });
+    }
+
+  }
 
   const get_all_notes_by_list_id = async (list_id) => {
     try {
@@ -89,6 +123,25 @@ const App = () => {
       }
       else if (list_id === "Master") {
         set_todo_master_state(res.data)
+        // let category_names = []
+        // let categories = []
+        // let category_views = []
+        // res.data.map(note => {
+        //   console.log({ "note": note })
+        //   categories.push({ "category_name": note.category, "priority": note.priority })
+        //   category_names = [...new Set(category_names)]
+        //   // categories.push({ ...categories, "category_name": note.category, "priority": note.priority })
+        //   category_names = [...category_names, note.category]
+        //   category_names = [...new Set(category_names)]
+        //   category_views = { ...category_views, [note.category]: "0px" }
+
+
+        // })
+        // console.log(category_views)
+        // console.log({ "categories": categories })
+        // set_category_state(categories)
+        // set_category_view_state(category_views)
+
       }
       return res;
     }
@@ -101,6 +154,9 @@ const App = () => {
     try {
       const res = await API.get_all_notes()
       set_all_todo_state(res.data)
+      // res.data.filter(note => {
+      //   note.category
+      // })
     }
     catch (err) {
       console.log(err);
@@ -139,9 +195,13 @@ const App = () => {
         folder_id: "",
         list_id: "Dump",
         priority: "Low",
+        category_id: "",
         scheduled: false,
-        scheduled_date_time: "",
+        scheduled_date: "",
+        scheduled_time: "",
         completed: false,
+        date_created: "",
+        date_modified: "",
       })
       document.querySelector(".title_field").defaultValue = ""
       document.querySelector(".text_field").defaultValue = ""
@@ -196,6 +256,7 @@ const App = () => {
 
   const [folders_state, set_folders_state] = useState([])
 
+
   const create_new_folder = async () => {
     const blank_folder = {
       folder_name: "",
@@ -226,6 +287,45 @@ const App = () => {
 
       })
       set_folder_view_state(array)
+    }
+    catch (err) {
+      console.log(err);
+    }
+  };
+
+  const [categories_state, set_categories_state] = useState([])
+
+  const get_all_categories = async () => {
+    try {
+      const res = await API.get_all_categories()
+      console.log({ "get_all_categories": res.data })
+      set_categories_state(res.data)
+      let array = []
+      res.data.map(folder => {
+        // console.log({ "folder": folder._id })
+        let id = folder._id
+        array = { ...array, [id]: "0px" }
+
+      })
+      set_category_view_state(array)
+    }
+    catch (err) {
+      console.log(err);
+    }
+  };
+
+
+  const create_new_category = async () => {
+    const blank_category = {
+      category_name: "",
+      category_id: "",
+      notes: [],
+      priority: "Low",
+    }
+    try {
+      const res = await API.post_category(blank_category)
+      console.log({ "post_category": res.data })
+      get_all_categories();
     }
     catch (err) {
       console.log(err);
@@ -269,6 +369,19 @@ const App = () => {
     }
     else if (folder_view_state[folder_id] === "0px") {
       set_folder_view_state({ ...folder_view_state, [folder_id]: "100%" })
+    }
+  }
+
+
+  const [category_view_state, set_category_view_state] = useState([])
+
+  const show_hide_by_category = (category_id) => {
+
+    if (category_view_state[category_id] === "100%") {
+      set_category_view_state({ ...category_view_state, [category_id]: "0px" })
+    }
+    else if (category_view_state[category_id] === "0px") {
+      set_category_view_state({ ...category_view_state, [category_id]: "100%" })
     }
   }
 
@@ -342,9 +455,13 @@ const App = () => {
         folder_id: "",
         list_id: "Dump",
         priority: "Low",
+        category_id: "",
         scheduled: false,
-        scheduled_date_time: "",
+        scheduled_date: "",
+        scheduled_time: "",
         completed: false,
+        date_created: "",
+        date_modified: "",
       })
       document.querySelector(".title_field").defaultValue = ""
       document.querySelector(".text_field").defaultValue = ""
@@ -446,11 +563,66 @@ const App = () => {
           <Section show_hide={show_hide_master_state.display}>
             <div style={{ display: "flex", justifyContent: "space-between" }}>
               <Title>Master Todo List:</Title>
-              <ButtonSymbol margin="18px 0px 18px 18px" on_click_function={create_empty_list_item} list_id="Master" >+</ButtonSymbol>
+              <div style={{ display: "flex", flexDirection: "row" }}>
+                <ButtonWord margin="20px" on_click_function={create_new_category} >Create Category</ButtonWord>
+                <ButtonSymbol margin="18px 0px 18px 18px" on_click_function={create_empty_list_item} list_id="Master" >+</ButtonSymbol>
+              </div>
             </div>
             <Title margin="-30px 0px 0px 0px" fontSize="16px">Today {format_date_display(new Date())}</Title>
             <ScrollContainer height="73vh">
               {priority_state.priorites.map((priority, index) => {
+                return <PriorityContainer key={index}>
+                  <PriorityTitle fontSize="16px" on_click_function={show_hide_by_priority} list_id="master" priority={priority} border="1px solid silver" margin="10px">{priority} Priority</PriorityTitle>
+                  <TodoContainer className={"master_" + priority.toLowerCase()} height={priority_state["master_" + priority.toLowerCase()]}>
+                    {categories_state.map((category, index) => {
+                      console.log({ "category": category })
+                      if (category.priority === priority) {
+                        return <FolderContainer index={category._id} id={category._id} key={category._id}>
+                          <CategoryTitle
+                            show_hide_by_category={show_hide_by_category}
+                            fontSize="16px"
+                            category_id={category._id}
+                            on_change_category_editor={on_change_category_editor}
+                            margin="10px">{category.category_name}</CategoryTitle>
+                          <FolderNoteContainer height={category_view_state[category._id]}>
+                            {todo_master_state.map((note, index) => {
+                              console.log({ "note.category_id": note.category_id, "category._id": category._id })
+                              if (note.category_id === category._id) {
+                                return <ListItem
+                                  category_state={category_state}
+                                  show_create_note_container={show_create_note_container}
+                                  get_all_notes_by_list_id={get_all_notes_by_list_id}
+                                  index={note._id}
+                                  id={note._id}
+                                  key={note._id}>{note.title}</ListItem>
+                              }
+
+                            })}
+
+                          </FolderNoteContainer>
+                        </FolderContainer>
+                        // }
+
+                      }
+                      // {
+                      //   todo_master_state.map((note, index) => {
+                      //     // if (note.category_id !== category._id) {
+                      //     return <ListItem
+                      //       category_state={category_state}
+                      //       show_create_note_container={show_create_note_container}
+                      //       get_all_notes_by_list_id={get_all_notes_by_list_id}
+                      //       index={note._id}
+                      //       id={note._id}
+                      //       key={note._id}>{note.title}</ListItem>
+                      //     // }
+
+                      //   })
+                      // }
+                    })}
+                  </TodoContainer>
+                </PriorityContainer>
+              })}
+              {/* {priority_state.priorites.map((priority, index) => {
                 return <PriorityContainer key={index}>
                   <PriorityTitle fontSize="16px" on_click_function={show_hide_by_priority} list_id="master" priority={priority} border="1px solid silver" margin="10px">{priority} Priority</PriorityTitle>
                   <TodoContainer className={"master_" + priority.toLowerCase()} height={priority_state["master_" + priority.toLowerCase()]}>
@@ -467,7 +639,7 @@ const App = () => {
                     })}
                   </TodoContainer>
                 </PriorityContainer>
-              })}
+              })} */}
               {/* {priority_state.priorites.map((priority, index) => {
                 return <PriorityContainer key={index}>
                   <PriorityTitle fontSize="16px" on_click_function={show_hide_by_priority} list_id="master" priority={priority} border="1px solid silver" margin="10px">{priority} Priority</PriorityTitle>

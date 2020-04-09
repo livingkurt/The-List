@@ -1,0 +1,110 @@
+.category_attributes_modal {
+  position: absolute;
+  /* height: 60%; */
+  width: 50%;
+  top: 10vh;
+  left: 25%;
+  z-index: 2;
+  background: white;
+  border-radius: 20px;
+  padding: 20px;
+  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+  flex-direction: column;
+  display: flex;
+  justify-content: flex-end;
+}
+
+.title_close_div {
+  display: flex;
+}
+
+.todays_date {
+  font-size: 16px;
+  /* margin: 10px; */
+  margin-top: -30px;
+  margin-bottom: 11px;
+  font-weight: 700;
+}
+
+#create_note_title_description {
+  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+  border-radius: 10px;
+  border: 1px silver solid;
+  margin-bottom: 10px;
+  padding: 1px;
+}
+
+#create_note_fields {
+  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+  border-radius: 10px;
+  border: 1px silver solid;
+  padding: 10px 10px 0px 10px;
+  /* height: 18vh; */
+}
+
+.editor_inputs {
+  border-radius: 5px;
+  display: flex;
+  width: 100%;
+  border: 0px;
+  font-size: 16px;
+  padding-left: 5px;
+  margin-top: -4px;
+  overflow: scroll;
+  overflow-y: auto;
+  /* box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.2), 0 2px 4px 0 rgba(0, 0, 0, 0.19); */
+  transition: box-shadow 1s ease;
+}
+
+.editor_inputs:hover {
+  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+}
+
+.priority_input {
+  width: 40%;
+}
+
+.category_id_input_2 {}
+
+#create_note_container {
+  display: flex;
+  flex-direction: row;
+}
+
+#schedule_div {
+  flex-direction: column;
+  height: 108px;
+}
+
+input[type="date"] {
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen', 'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue', sans-serif;
+  -webkit-font-smoothing: antialiased;
+  font-size: 14px;
+  width: 135px;
+  padding: 3px;
+  border-radius: 5px;
+  border: 0px;
+  transition: box-shadow 1s ease;
+  /* box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19); */
+}
+
+input[type="time"] {
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen', 'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue', sans-serif;
+  -webkit-font-smoothing: antialiased;
+  font-size: 14px;
+  width: 100px;
+  padding: 3px;
+  border-radius: 5px;
+  border: 0px;
+  transition: box-shadow 1s ease;
+  /* box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19); */
+}
+
+input[type="time"]:hover, input[type="date"]:hover {
+  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+}
+
+.scheduled_field {
+  display: flex;
+  flex-direction: row;
+}

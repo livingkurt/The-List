@@ -1,4 +1,5 @@
 module.exports = {
   Notes: require("./note"),
-  Folders: require("./folder")
+  Folders: require("./folder"),
+  Categories: require("./category")
 };

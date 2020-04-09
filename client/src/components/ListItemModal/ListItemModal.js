@@ -21,6 +21,7 @@ const ListItemModal = (props) => {
     folder_id: "",
     list_id: "",
     priority: "",
+    category_id: "",
     scheduled: false,
     scheduled_date: "",
     scheduled_time: "",
@@ -138,7 +139,7 @@ const ListItemModal = (props) => {
       if (field_name == "folder_id") {
         on_change_folder_editor(note_id, note_data)
       }
-
+      console.log({ "field_name": field_name });
       set_note_state({ ...note_state, [field_name]: note_data })
     }
     // console.log(field_name)

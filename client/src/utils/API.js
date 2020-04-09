@@ -18,6 +18,9 @@ export default {
   get_notes_by_priority: function (priority) {
     return axios.get('/api/notes/' + priority);
   },
+  get_notes_by_priority: function (priority) {
+    return axios.get('/api/notes/' + priority);
+  },
   get_note: function (note_id) {
     return axios.get('/api/note/' + note_id);
   },
@@ -49,6 +52,27 @@ export default {
   delete_folder: function (folder_id) {
     console.log({ 'API.js': folder_id })
     return axios.delete('/api/folder/' + folder_id);
+  },
+  // ==================================================
+  // Category Routes
+  // ==================================================
+  get_all_categories: function () {
+    return axios.get('/api/categories');
+  },
+  post_category: function (category_data) {
+    console.log({ 'API.js': category_data })
+    return axios.post('/api/category', category_data);
+  },
+  update_category: function (category_id, category_data) {
+    console.log({ 'API.js': category_data })
+    return axios.put('/api/category/' + category_id, category_data);
+  },
+  get_category: function (category_id) {
+    return axios.get('/api/category/' + category_id);
+  },
+  delete_category: function (category_id) {
+    console.log({ 'API.js': category_id })
+    return axios.delete('/api/category/' + category_id);
   },
 
 }

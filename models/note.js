@@ -16,6 +16,7 @@ const note_schema = new Schema({
     type: String,
     default: "Low"
   },
+  category_id: String,
   scheduled: {
     type: Boolean,
     default: false

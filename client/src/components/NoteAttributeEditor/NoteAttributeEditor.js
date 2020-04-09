@@ -91,6 +91,15 @@ function NoteAttributeEditor(props) {
             </DropDownList> */}
           </div>
           <div>
+            <Label>Category ID: </Label>
+            <input
+              defaultValue={props.note_state.category_id}
+              onBlur={e => props.on_change_note_editor(e)}
+              className="category_input editor_inputs"
+              placeholder="Category"
+              name="category_id" />
+          </div>
+          <div style={{ display: "flex", flexDirection: "column" }}>
             <Label>Date Created: {format_date_display(props.note_state.date_created)}</Label>
             <Label>Date Modified: {format_date_display(props.note_state.date_modified)}</Label>
             <Label>Date Completed: {format_date_display(props.note_state.date_completed)}</Label>

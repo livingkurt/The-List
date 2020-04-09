@@ -23,6 +23,7 @@ const ListItemEditNote = (props) => {
     folder_id: "",
     list_id: "",
     priority: "",
+    category_id: "",
     scheduled: false,
     scheduled_date: "",
     scheduled_time: "",
@@ -206,10 +207,14 @@ const ListItemEditNote = (props) => {
     body: "",
     folder_id: "",
     list_id: "",
-    priority: "Low",
+    priority: "",
+    category_id: "",
     scheduled: false,
-    scheduled_date_time: "",
+    scheduled_date: "",
+    scheduled_time: "",
     completed: false,
+    date_created: "",
+    date_modified: "",
   })
 
   const format_date_display = unformatted_date => {
