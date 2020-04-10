@@ -50,8 +50,8 @@ const CategoryTitle = (props) => {
         name="category_name" />
       <div style={{ display: "flex" }}>
         <Label fontSize="16px" margin="auto" marginRight="13px" color="gray">{props.num_notes}</Label>
-        <ButtonSymbol margin="5px 3px 7px 0px" padding="4px" on_click_function={show_hide_category_modal} list_id={props.category_id} category={props.category}><i className="fas fa-bars"></i></ButtonSymbol>
-        <ButtonSymbol margin="5px 3px 7px 0px" padding="0px 2px 7px 0px" on_click_function={props.show_hide_by_category} list_id={props.category_id} category={props.category}><i className="fas fa-sort-up"></i></ButtonSymbol>
+        <ButtonSymbol margin="5px 3px 7px 0px" padding="4px" on_click_function={show_hide_category_modal} id={props.category_id} category={props.category}><i className="fas fa-bars"></i></ButtonSymbol>
+        <ButtonSymbol margin="5px 3px 7px 0px" padding="0px 2px 7px 0px" on_click_function={props.show_hide_by_category} id={props.category_id} category={props.category}><i className="fas fa-sort-up"></i></ButtonSymbol>
       </div>
       <CategoryAttributesModal id={props.category_id} on_change_category_editor={props.on_change_category_editor} get_all_notes_by_list_id={props.get_all_notes_by_list_id} get_all_categories={props.get_all_categories} show_hide_category_modal={show_hide_category_modal} category_modal_state={category_modal_state} />
     </div >

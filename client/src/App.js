@@ -364,17 +364,19 @@ const App = () => {
     }
   )
 
-  const show_hide_by_priority = (list_id, priority) => {
+  const show_hide_by_priority = (id, priority) => {
     console.log({ "show_hide_by_priority": priority })
+    if (priority !== undefined) {
+      priority = priority.toLowerCase()
+      let field_name = id + "_" + priority
+      if (priority_state[field_name] === "100%") {
+        set_priority_state({ ...priority_state, [field_name]: "0px" })
+      }
+      else if (priority_state[field_name] === "0px") {
+        set_priority_state({ ...priority_state, [field_name]: "100%" })
+      }
+    }
 
-    priority = priority.toLowerCase()
-    let field_name = list_id + "_" + priority
-    if (priority_state[field_name] === "100%") {
-      set_priority_state({ ...priority_state, [field_name]: "0px" })
-    }
-    else if (priority_state[field_name] === "0px") {
-      set_priority_state({ ...priority_state, [field_name]: "100%" })
-    }
   }
 
 
@@ -638,14 +640,14 @@ const App = () => {
               <Title>Master Todo List:</Title>
               <div style={{ display: "flex", flexDirection: "row" }}>
                 <ButtonWord margin="20px" on_click_function={create_new_category} >Create Category</ButtonWord>
-                <ButtonSymbol margin="18px 0px 18px 18px" on_click_function={create_empty_todo} list_id="Master" >+</ButtonSymbol>
+                <ButtonSymbol margin="18px 0px 18px 18px" on_click_function={create_empty_todo} id="Master" >+</ButtonSymbol>
               </div>
             </div>
             <Title margin="-30px 0px 0px 0px" fontSize="16px">Today {format_date_display(new Date())}</Title>
             <ScrollContainer height="73vh">
               {priority_state.priorites.map((priority, index) => {
                 return <PriorityContainer key={index}>
-                  <PriorityTitle fontSize="18px" on_click_function={show_hide_by_priority} list_id="master" priority={priority} border="1px solid silver" margin="10px">{priority} Priority</PriorityTitle>
+                  <PriorityTitle fontSize="18px" on_click_function={show_hide_by_priority} id="master" priority={priority} border="1px solid silver" margin="10px">{priority} Priority</PriorityTitle>
                   <TodoContainer className={"master_" + priority.toLowerCase()} height={priority_state["master_" + priority.toLowerCase()]}>
                     {categories_state.map((category, index) => {
                       // console.log({ "category": category })
@@ -691,13 +693,13 @@ const App = () => {
           <Section show_hide={show_hide_dump_state.display}>
             <div style={{ display: "flex", justifyContent: "space-between" }}>
               <Title>Todo Dump</Title>
-              <ButtonSymbol margin="18px 0px 18px 18px" on_click_function={create_empty_todo} list_id="Dump" >+</ButtonSymbol>
+              <ButtonSymbol margin="18px 0px 18px 18px" on_click_function={create_empty_todo} id="Dump" >+</ButtonSymbol>
             </div>
             <Title margin="-30px 0px 0px 0px" fontSize="16px">Get your Ideas Down Fast</Title>
             <ScrollContainer height="73vh">
               {priority_state.priorites.map((priority, index) => {
                 return <PriorityContainer key={index}>
-                  <PriorityTitle fontSize="18px" on_click_function={show_hide_by_priority} list_id="Dump" priority={priority} border="1px solid silver" margin="10px">{priority} Priority</PriorityTitle>
+                  <PriorityTitle fontSize="18px" on_click_function={show_hide_by_priority} id="Dump" priority={priority} border="1px solid silver" margin="10px">{priority} Priority</PriorityTitle>
                   <TodoContainer className={"dump_" + priority.toLowerCase()} height={priority_state["dump_" + priority.toLowerCase()]}>
                     {todo_dump_state.map((note, index) => {
                       if (note.priority === priority) {

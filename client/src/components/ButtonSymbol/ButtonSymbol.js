@@ -9,7 +9,7 @@ const ButtonSymbol = (props) => {
 
   return (
     <div >
-      <button style={{ margin: props.margin, padding: props.padding }} id={props.list_id} onClick={() => props.on_click_function(props.list_id, props.priority)} className="button_symbol">{props.children}</button>
+      <button style={{ margin: props.margin, padding: props.padding }} id={props.id} onClick={() => props.on_click_function(props.id, props.priority)} className="button_symbol">{props.children}</button>
     </div>
   );
 }
