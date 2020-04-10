@@ -9,7 +9,7 @@
   border-bottom: 1px solid silver;
 }
 
-.list_input {
+.todo_input {
   border-radius: 5px;
   display: flex;
   border: 0px;
@@ -21,7 +21,7 @@
   overflow-y: auto;
 }
 
-.list_input:focus {
+.todo_input:focus {
   outline: 0;
 }
 
