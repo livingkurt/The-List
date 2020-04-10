@@ -287,6 +287,12 @@ const App = () => {
         // console.log({ "folder": folder._id })
         let id = folder._id
         array = { ...array, [id]: "0px" }
+        if (folder.hidden === false) {
+          array = { ...array, [id]: "100%" }
+        }
+        else if (folder.hidden === true) {
+          array = { ...array, [id]: "0px" }
+        }
 
       })
       set_folder_view_state(array)
@@ -374,13 +380,50 @@ const App = () => {
 
   const [folder_view_state, set_folder_view_state] = useState([])
 
-  const show_hide_by_folder = (folder_id) => {
+  // const show_hide_by_folder = (folder_id) => {
 
-    if (folder_view_state[folder_id] === "100%") {
-      set_folder_view_state({ ...folder_view_state, [folder_id]: "0px" })
+  //   if (folder_view_state[folder_id] === "100%") {
+  //     set_folder_view_state({ ...folder_view_state, [folder_id]: "0px" })
+  //   }
+  //   else if (folder_view_state[folder_id] === "0px") {
+  //     set_folder_view_state({ ...folder_view_state, [folder_id]: "100%" })
+  //   }
+  // }
+
+  const show_hide_by_folder = async (folder_id) => {
+    let update_folder = {}
+    try {
+      const res = await API.get_folder(folder_id)
+      // console.log({ "update_folder": res.data })
+      const folder = res.data
+
+      if (folder.hidden === false) {
+        set_folder_state({ ...folder, hidden: true })
+        update_folder = {
+          ...folder,
+          hidden: true
+        }
+        set_folder_view_state("0px")
+        set_folder_view_state({ ...folder_view_state, [folder_id]: "0px" })
+      }
+      else if (folder.hidden === true) {
+        set_folder_state({ ...folder, hidden: false })
+        update_folder = {
+          ...folder,
+          hidden: false
+        }
+        set_folder_view_state("100%")
+        set_folder_view_state({ ...folder_view_state, [folder_id]: "100%" })
+      }
+      const resp = await API.update_folder(folder_id, update_folder)
+      get_all_notes_by_list_id("Dump")
+      get_all_notes_by_list_id("Master")
+      API.update_folder(folder_id, update_folder)
+      get_all_notes_by_list_id("Dump")
+      get_all_notes_by_list_id("Master")
     }
-    else if (folder_view_state[folder_id] === "0px") {
-      set_folder_view_state({ ...folder_view_state, [folder_id]: "100%" })
+    catch (err) {
+      console.log({ "save_scheduling": err });
     }
   }
 
@@ -631,6 +674,7 @@ const App = () => {
                         return <FolderContainer index={category._id} id={category._id} key={category._id}>
                           <CategoryTitle
                             show_hide_by_category={show_hide_by_category}
+                            get_all_notes_by_list_id={get_all_notes_by_list_id}
                             fontSize="16px"
                             get_all_notes_by_list_id={get_all_notes_by_list_id}
                             category={category}
