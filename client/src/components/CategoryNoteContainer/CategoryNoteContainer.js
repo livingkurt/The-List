@@ -5,7 +5,7 @@ import React from "react";
 import './category_note_container.css'
 
 
-const FolderNoteContainer = (props) => {
+const CategoryNoteContainer = (props) => {
 
 
 
@@ -17,4 +17,4 @@ const FolderNoteContainer = (props) => {
   );
 }
 
-export default FolderNoteContainer;
+export default CategoryNoteContainer;

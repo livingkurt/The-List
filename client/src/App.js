@@ -45,9 +45,9 @@ const App = () => {
     title: "",
     body: "",
     folder_id: "",
-    list_id: "",
+    list_id: "Dump",
     priority: "Low",
-    category_id: "",
+    category_id: "5e8f7c48d4e1a46221ddb732",
     scheduled: false,
     scheduled_date: "",
     scheduled_time: "",
@@ -59,9 +59,9 @@ const App = () => {
     title: "",
     body: "",
     folder_id: "",
-    list_id: "",
-    priority: "Dump",
-    category_id: "",
+    list_id: "Dump",
+    priority: "Low",
+    category_id: "5e8f7c48d4e1a46221ddb732",
     scheduled: false,
     scheduled_date: "",
     scheduled_time: "",
@@ -178,7 +178,8 @@ const App = () => {
         set_todo_master_state(new_data)
         set_todo_master_state([response.data, ...todo_master_state])
       }
-      get_all_notes_by_list_id(list_id);
+      get_all_notes_by_list_id("Master");
+      get_all_notes_by_list_id("Dump");
     }
     catch (err) {
       console.log(err);
@@ -300,16 +301,24 @@ const App = () => {
   const get_all_categories = async () => {
     try {
       const res = await API.get_all_categories()
-      console.log({ "get_all_categories": res.data })
-      set_categories_state(res.data)
+      const category = res.data
+      console.log({ "get_all_categories": category })
+      set_categories_state(category)
       let array = []
-      res.data.map(folder => {
-        // console.log({ "folder": folder._id })
-        let id = folder._id
-        array = { ...array, [id]: "100%" }
+      category.map(category => {
+        // console.log({ "category": category._id })
+        let id = category._id
+        if (category.hidden === false) {
+          array = { ...array, [id]: "100%" }
+        }
+        else if (category.hidden === true) {
+          array = { ...array, [id]: "0px" }
+        }
+
 
       })
       set_category_view_state(array)
+
     }
     catch (err) {
       console.log(err);
@@ -378,15 +387,55 @@ const App = () => {
 
   const [category_view_state, set_category_view_state] = useState([])
 
-  const show_hide_by_category = (category_id) => {
+  // const show_hide_by_category = (category_id) => {
+  //   console.log({ "category_id": category_view_state[category_id] })
+  //   if (category_view_state[category_id] === "100%") {
+  //     set_category_view_state({ ...category_view_state, [category_id]: "0px" })
 
-    if (category_view_state[category_id] === "100%") {
-      set_category_view_state({ ...category_view_state, [category_id]: "0px" })
+  //   }
+  //   else if (category_view_state[category_id] === "0px") {
+  //     set_category_view_state({ ...category_view_state, [category_id]: "100%" })
+  //   }
+  // }
+
+  const show_hide_by_category = async (category_id) => {
+    let update_category = {}
+    try {
+      const res = await API.get_category(category_id)
+      // console.log({ "update_category": res.data })
+      const category = res.data
+
+      if (category.hidden === false) {
+        set_category_state({ ...category, hidden: true })
+        update_category = {
+          ...category,
+          hidden: true
+        }
+        set_category_view_state("0px")
+        set_category_view_state({ ...category_view_state, [category_id]: "0px" })
+      }
+      else if (category.hidden === true) {
+        set_category_state({ ...category, hidden: false })
+        update_category = {
+          ...category,
+          hidden: false
+        }
+        set_category_view_state("100%")
+        set_category_view_state({ ...category_view_state, [category_id]: "100%" })
+      }
+      const resp = await API.update_category(category_id, update_category)
+      get_all_notes_by_list_id("Dump")
+      get_all_notes_by_list_id("Master")
+      API.update_category(category_id, update_category)
+      get_all_notes_by_list_id("Dump")
+      get_all_notes_by_list_id("Master")
     }
-    else if (category_view_state[category_id] === "0px") {
-      set_category_view_state({ ...category_view_state, [category_id]: "100%" })
+    catch (err) {
+      console.log({ "save_scheduling": err });
     }
   }
+
+
 
   const [folder_state, set_folder_state] = useState({})
 
@@ -508,7 +557,6 @@ const App = () => {
           <ButtonWord margin="20px" on_click_function={show_hide_dump} >{show_hide_dump_state.name}</ButtonWord>
         </Header>
         <Container>
-
           <NoteContainer >
             <div style={{ display: "flex", justifyContent: "space-between" }}>
               <Title >Notes</Title>
@@ -578,19 +626,25 @@ const App = () => {
                   <PriorityTitle fontSize="18px" on_click_function={show_hide_by_priority} list_id="master" priority={priority} border="1px solid silver" margin="10px">{priority} Priority</PriorityTitle>
                   <TodoContainer className={"master_" + priority.toLowerCase()} height={priority_state["master_" + priority.toLowerCase()]}>
                     {categories_state.map((category, index) => {
-                      console.log({ "category": category })
+                      // console.log({ "category": category })
                       if (category.priority === priority) {
                         return <FolderContainer index={category._id} id={category._id} key={category._id}>
                           <CategoryTitle
                             show_hide_by_category={show_hide_by_category}
                             get_all_notes_by_list_id={get_all_notes_by_list_id}
                             fontSize="16px"
+                            get_all_notes_by_list_id={get_all_notes_by_list_id}
+                            category={category}
                             category_id={category._id}
                             on_change_category_editor={on_change_category_editor}
                             margin="10px">{category.category_name}</CategoryTitle>
-                          <CategoryNoteContainer height={category_view_state[category._id]}>
+                          <CategoryNoteContainer
+                            height={category_view_state[category._id]}
+                            hidden={category.hidden}
+                            get_all_notes_by_list_id={get_all_notes_by_list_id}
+                            category={category}
+                          >
                             {todo_master_state.map((note, index) => {
-                              console.log({ "note.category_id": note.category_id, "category._id": category._id })
                               if (note.category_id === category._id) {
                                 return <ListItem
                                   category_state={category_state}
@@ -600,68 +654,16 @@ const App = () => {
                                   id={note._id}
                                   key={note._id}>{note.title}</ListItem>
                               }
-
                             })}
 
                           </CategoryNoteContainer>
                         </FolderContainer>
-                        // }
 
                       }
-                      // {
-                      //   todo_master_state.map((note, index) => {
-                      //     // if (note.category_id !== category._id) {
-                      //     return <ListItem
-                      //       category_state={category_state}
-                      //       show_create_note_container={show_create_note_container}
-                      //       get_all_notes_by_list_id={get_all_notes_by_list_id}
-                      //       index={note._id}
-                      //       id={note._id}
-                      //       key={note._id}>{note.title}</ListItem>
-                      //     // }
-
-                      //   })
-                      // }
                     })}
                   </TodoContainer>
                 </PriorityContainer>
               })}
-              {/* {priority_state.priorites.map((priority, index) => {
-                return <PriorityContainer key={index}>
-                  <PriorityTitle fontSize="16px" on_click_function={show_hide_by_priority} list_id="master" priority={priority} border="1px solid silver" margin="10px">{priority} Priority</PriorityTitle>
-                  <TodoContainer className={"master_" + priority.toLowerCase()} height={priority_state["master_" + priority.toLowerCase()]}>
-                    {todo_master_state.map((note, index) => {
-                      if (note.priority === priority) {
-                        return <ListItem
-                          folders_state={folders_state}
-                          show_create_note_container={show_create_note_container}
-                          get_all_notes_by_list_id={get_all_notes_by_list_id}
-                          index={note._id}
-                          id={note._id}
-                          key={note._id}>{note.title}</ListItem>
-                      }
-                    })}
-                  </TodoContainer>
-                </PriorityContainer>
-              })} */}
-              {/* {priority_state.priorites.map((priority, index) => {
-                return <PriorityContainer key={index}>
-                  <PriorityTitle fontSize="16px" on_click_function={show_hide_by_priority} list_id="master" priority={priority} border="1px solid silver" margin="10px">{priority} Priority</PriorityTitle>
-                  <TodoContainer className={"master_" + priority.toLowerCase()} height={priority_state["master_" + priority.toLowerCase()]}>
-                    {todo_master_state.map((note, index) => {
-                      if (note.priority === priority) {
-                        return <ListItem
-                          folders_state={folders_state}
-                          show_create_note_container={show_create_note_container}
-                          get_all_notes_by_list_id={get_all_notes_by_list_id}
-                          index={note._id}
-                          id={note._id}
-                          key={note._id}>{note.title}</ListItem>
-                      }
-                    })}
-                  </TodoContainer>
-                </PriorityContainer>
-              })} */}
             </ScrollContainer>
           </Section>
           <Section show_hide={show_hide_dump_state.display}>
@@ -673,7 +675,7 @@ const App = () => {
             <ScrollContainer height="73vh">
               {priority_state.priorites.map((priority, index) => {
                 return <PriorityContainer key={index}>
-                  <PriorityTitle fontSize="16px" on_click_function={show_hide_by_priority} list_id="Dump" priority={priority} border="1px solid silver" margin="10px">{priority} Priority</PriorityTitle>
+                  <PriorityTitle fontSize="18px" on_click_function={show_hide_by_priority} list_id="Dump" priority={priority} border="1px solid silver" margin="10px">{priority} Priority</PriorityTitle>
                   <TodoContainer className={"dump_" + priority.toLowerCase()} height={priority_state["dump_" + priority.toLowerCase()]}>
                     {todo_dump_state.map((note, index) => {
                       if (note.priority === priority) {

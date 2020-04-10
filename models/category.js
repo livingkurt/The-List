@@ -12,6 +12,7 @@ const category_schema = new Schema({
       ref: "notes"
     }
   ],
+  hidden: Boolean,
   date_created: {
     type: Date,
     default: new Date().setDate(new Date().getDate())

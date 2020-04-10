@@ -131,6 +131,7 @@ module.exports = function (app) {
       const request = await db.Folders.find({}).sort({ folder_name: 1 })
       // Send the request back to the front end
       res.send(request)
+      // console.log({ "api_routes.js - get all folders": request })
     }
     catch (err) {
       console.log(err);
@@ -145,6 +146,7 @@ module.exports = function (app) {
         folder_name: req.body.folder_name,
         notes: req.body.notes,
         folders: req.body.folders,
+        hidden: req.body.hidden,
         date_created: new Date().setDate(new Date().getDate()),
         date_modified: new Date().setDate(new Date().getDate())
       })
@@ -157,14 +159,15 @@ module.exports = function (app) {
   })
   app.put('/api/folder/:id', async (req, res) => {
     // Create an empty workout object ready for exercises to get put into it
-    console.log({ "api_routes.js - update one folder": req.params.id })
-    console.log({ "api_routes.js - update one folder": req.body })
+    // console.log({ "api_routes.js - update one folder": req.params.id })
+    // console.log({ "api_routes.js - update one folder": req.body })
     try {
       const request = await db.Folders.updateOne({ _id: req.params.id },
         {
           folder_name: req.body.folder_name,
           notes: req.body.notes,
           folders: req.body.folders,
+          hidden: req.body.hidden,
           date_modified: new Date().setDate(new Date().getDate())
         })
       // Send the request back to the front end
@@ -221,6 +224,7 @@ module.exports = function (app) {
         category_name: req.body.category_name,
         priority: req.body.priority,
         notes: req.body.notes,
+        hidden: req.body.hidden,
         date_created: new Date().setDate(new Date().getDate()),
         date_modified: new Date().setDate(new Date().getDate())
       })
@@ -233,14 +237,15 @@ module.exports = function (app) {
   })
   app.put('/api/category/:id', async (req, res) => {
     // Create an empty workout object ready for exercises to get put into it
-    console.log({ "api_routes.js - update one category": req.params.id })
-    console.log({ "api_routes.js - update one category": req.body })
+    // console.log({ "api_routes.js - update one category": req.params.id })
+    // console.log({ "api_routes.js - update one category": req.body })
     try {
       const request = await db.Categories.updateOne({ _id: req.params.id },
         {
           category_name: req.body.category_name,
           priority: req.body.priority,
           notes: req.body.notes,
+          hidden: req.body.hidden,
           date_modified: new Date().setDate(new Date().getDate())
         })
       // Send the request back to the front end

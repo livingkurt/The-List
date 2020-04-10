@@ -8,6 +8,7 @@ import Checkbox from '../Checkbox/Checkbox';
 import API from "../../utils/API";
 import Label from '../Label/Label';
 import ButtonSymbol from '../ButtonSymbol/ButtonSymbol';
+import DropDownList from "../DropDownList/DropDownList"
 
 
 const CategoryAttributesModal = (props) => {
@@ -116,8 +117,33 @@ const CategoryAttributesModal = (props) => {
     return formatted_date;
   }
 
+  const on_attribute_change = async (e) => {
+
+    const category_id = props.id
+    const attribute_data = e.target.id
+    const field_name = e.target.name
+    console.log({ "category_id": category_id, "attribute_data": attribute_data, "field_name": field_name })
+    try {
+      const res = await API.get_category(category_id)
+      // console.log({ "update_category": res.data })
+      const update_category = {
+        ...res.data,
+        [field_name]: attribute_data
+      }
+      const resp = await API.update_category(category_id, update_category)
+      props.get_all_notes_by_list_id("Dump")
+      props.get_all_notes_by_list_id("Master")
+      API.update_category(category_id, update_category)
+      props.get_all_notes_by_list_id("Dump")
+      props.get_all_notes_by_list_id("Master")
+    }
+    catch (err) {
+      console.log({ "save_scheduling": err });
+    }
+  }
 
 
+  const priority_dropdown_items = ["High", "Medium", "Low"]
   return (
     <div style={{ display: props.category_modal_state }} className="category_attributes_modal zoom">
       <ButtonSymbol margin="-10px 0px 8px" list_id={props.id} on_click_function={props.show_hide_category_modal}><i className="fas fa-times"></i></ButtonSymbol>
@@ -145,6 +171,15 @@ const CategoryAttributesModal = (props) => {
                 id={props.id}
                 name="category_id" />
             </div>
+            <div >
+              <Label>Priority: </Label>
+              <DropDownList
+                on_dropdown_choice={on_attribute_change}
+                dropdown_items={priority_dropdown_items}
+                dropdown_state={dropdown_state}
+                name="priority">{category_state.priority}
+              </DropDownList>
+            </div>
             <div>
               <Label>Notes: </Label>
               <input
@@ -155,6 +190,7 @@ const CategoryAttributesModal = (props) => {
                 id={props.id}
                 name="notes" />
             </div>
+
             <div>
               <Label>Date Created: </Label>
               <input

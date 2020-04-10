@@ -5,6 +5,7 @@ import './button_symbol.css'
 
 
 const ButtonSymbol = (props) => {
+  // console.log({ "props.list_id": props.list_id })
 
   return (
     <div >
