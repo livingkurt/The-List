@@ -366,15 +366,13 @@ const App = () => {
 
   const show_hide_by_priority = (id, priority) => {
     console.log({ "show_hide_by_priority": priority })
-    if (priority !== undefined) {
-      priority = priority.toLowerCase()
-      let field_name = id + "_" + priority
-      if (priority_state[field_name] === "100%") {
-        set_priority_state({ ...priority_state, [field_name]: "0px" })
-      }
-      else if (priority_state[field_name] === "0px") {
-        set_priority_state({ ...priority_state, [field_name]: "100%" })
-      }
+    priority = priority.toLowerCase()
+    let field_name = id + "_" + priority
+    if (priority_state[field_name] === "100%") {
+      set_priority_state({ ...priority_state, [field_name]: "0px" })
+    }
+    else if (priority_state[field_name] === "0px") {
+      set_priority_state({ ...priority_state, [field_name]: "100%" })
     }
 
   }
@@ -699,7 +697,7 @@ const App = () => {
             <ScrollContainer height="73vh">
               {priority_state.priorites.map((priority, index) => {
                 return <PriorityContainer key={index}>
-                  <PriorityTitle fontSize="18px" on_click_function={show_hide_by_priority} id="Dump" priority={priority} border="1px solid silver" margin="10px">{priority} Priority</PriorityTitle>
+                  <PriorityTitle fontSize="18px" on_click_function={show_hide_by_priority} id="dump" priority={priority} border="1px solid silver" margin="10px">{priority} Priority</PriorityTitle>
                   <TodoContainer className={"dump_" + priority.toLowerCase()} height={priority_state["dump_" + priority.toLowerCase()]}>
                     {todo_dump_state.map((note, index) => {
                       if (note.priority === priority) {
