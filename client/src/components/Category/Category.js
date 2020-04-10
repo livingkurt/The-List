@@ -1,15 +1,15 @@
 // React
 import React from "react";
 // Styles
-import './list_item.css'
+import './todo.css'
 
 
-function ListItem({ children }) {
+function Todo({ children }) {
   return (
-    <div className="list_item">
+    <div className="todo">
       {children}
     </div>
   );
 }
 
-export default ListItem;
+export default Todo;

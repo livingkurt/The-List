@@ -4,7 +4,7 @@ import Background from './components/Background/Background';
 import Container from './components/Container/Container';
 import Section from './components/Section/Section';
 import Header from './components/Header/Header';
-import ListItem from './components/ListItem/ListItem';
+import Todo from './components/Todo/Todo';
 import ScrollContainer from './components/ScrollContainer/ScrollContainer.js';
 import Title from './components/Title/Title';
 import NoteContainer from './components/NoteContainer/NoteContainer';
@@ -164,7 +164,7 @@ const App = () => {
     }
   };
 
-  const create_empty_list_item = async (list_id) => {
+  const create_empty_todo = async (list_id) => {
     console.log({ "list_id": list_id })
     try {
       const res = await API.get_notes_by_list_id(list_id)
@@ -380,16 +380,6 @@ const App = () => {
 
   const [folder_view_state, set_folder_view_state] = useState([])
 
-  // const show_hide_by_folder = (folder_id) => {
-
-  //   if (folder_view_state[folder_id] === "100%") {
-  //     set_folder_view_state({ ...folder_view_state, [folder_id]: "0px" })
-  //   }
-  //   else if (folder_view_state[folder_id] === "0px") {
-  //     set_folder_view_state({ ...folder_view_state, [folder_id]: "100%" })
-  //   }
-  // }
-
   const show_hide_by_folder = async (folder_id) => {
     let update_folder = {}
     try {
@@ -429,17 +419,6 @@ const App = () => {
 
 
   const [category_view_state, set_category_view_state] = useState([])
-
-  // const show_hide_by_category = (category_id) => {
-  //   console.log({ "category_id": category_view_state[category_id] })
-  //   if (category_view_state[category_id] === "100%") {
-  //     set_category_view_state({ ...category_view_state, [category_id]: "0px" })
-
-  //   }
-  //   else if (category_view_state[category_id] === "0px") {
-  //     set_category_view_state({ ...category_view_state, [category_id]: "100%" })
-  //   }
-  // }
 
   const show_hide_by_category = async (category_id) => {
     let update_category = {}
@@ -505,7 +484,7 @@ const App = () => {
 
   }
   const [create_note_state, set_create_note_state] = useState("none")
-  // const [new_note_button_state, set_new_note_button_state] = useState("New Note")
+
   const [show_hide_create_note_state, set_show_hide_create_note_state] = useState({
     name: "Create New Note",
     display: "none"
@@ -659,7 +638,7 @@ const App = () => {
               <Title>Master Todo List:</Title>
               <div style={{ display: "flex", flexDirection: "row" }}>
                 <ButtonWord margin="20px" on_click_function={create_new_category} >Create Category</ButtonWord>
-                <ButtonSymbol margin="18px 0px 18px 18px" on_click_function={create_empty_list_item} list_id="Master" >+</ButtonSymbol>
+                <ButtonSymbol margin="18px 0px 18px 18px" on_click_function={create_empty_todo} list_id="Master" >+</ButtonSymbol>
               </div>
             </div>
             <Title margin="-30px 0px 0px 0px" fontSize="16px">Today {format_date_display(new Date())}</Title>
@@ -689,13 +668,13 @@ const App = () => {
                           >
                             {todo_master_state.map((note, index) => {
                               if (note.category_id === category._id) {
-                                return <ListItem
+                                return <Todo
                                   category_state={category_state}
                                   show_create_note_container={show_create_note_container}
                                   get_all_notes_by_list_id={get_all_notes_by_list_id}
                                   index={note._id}
                                   id={note._id}
-                                  key={note._id}>{note.title}</ListItem>
+                                  key={note._id}>{note.title}</Todo>
                               }
                             })}
 
@@ -712,7 +691,7 @@ const App = () => {
           <Section show_hide={show_hide_dump_state.display}>
             <div style={{ display: "flex", justifyContent: "space-between" }}>
               <Title>Todo Dump</Title>
-              <ButtonSymbol margin="18px 0px 18px 18px" on_click_function={create_empty_list_item} list_id="Dump" >+</ButtonSymbol>
+              <ButtonSymbol margin="18px 0px 18px 18px" on_click_function={create_empty_todo} list_id="Dump" >+</ButtonSymbol>
             </div>
             <Title margin="-30px 0px 0px 0px" fontSize="16px">Get your Ideas Down Fast</Title>
             <ScrollContainer height="73vh">
@@ -722,13 +701,13 @@ const App = () => {
                   <TodoContainer className={"dump_" + priority.toLowerCase()} height={priority_state["dump_" + priority.toLowerCase()]}>
                     {todo_dump_state.map((note, index) => {
                       if (note.priority === priority) {
-                        return <ListItem
+                        return <Todo
                           folders_state={folders_state}
                           show_create_note_container={show_create_note_container}
                           get_all_notes_by_list_id={get_all_notes_by_list_id}
                           index={note._id}
                           id={note._id}
-                          key={note._id}>{note.title}</ListItem>
+                          key={note._id}>{note.title}</Todo>
                       }
                     })}
                   </TodoContainer>

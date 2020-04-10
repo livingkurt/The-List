@@ -1,19 +1,19 @@
 // React
 import React, { useState, useEffect } from "react";
 // Styles
-import './list_item.css'
+import './todo.css'
 import Checkbox from '../Checkbox/Checkbox';
-import ListItemButton from '../ListItemButton/ListItemButton';
+// import TodoButton from '../TodoButton/TodoButton';
 import NoteEditor from '../NoteEditor/NoteEditor';
-import ListItemModal from '../ListItemModal/ListItemModal';
+import TodoModal from '../TodoModal/TodoModal';
 import ButtonSymbol from '../ButtonSymbol/ButtonSymbol';
-import ListItemEditNote from '../ListItemEditNote/ListItemEditNote';
+// import TodoEditNote from '../TodoEditNote/TodoEditNote';
 import API from "../../utils/API";
 
 
-const ListItem = (props) => {
+const Todo = (props) => {
 
-  const [list_item_state, set_list_item_state] = useState({})
+  const [todo_state, set_todo_state] = useState({})
 
   useEffect(() => {
     get_checkbox_state();
@@ -25,7 +25,7 @@ const ListItem = (props) => {
     const todo_data = e.target.value
     try {
       const res = await API.get_note(todo_id)
-      set_list_item_state(res.data)
+      set_todo_state(res.data)
       const update_todo = { ...res.data, title: todo_data }
       API.update_note(todo_id, update_todo)
       props.get_all_notes_by_list_id("Master")
@@ -106,22 +106,22 @@ const ListItem = (props) => {
   }
 
   return (
-    <div className="list_item zoom">
-      <Checkbox checkboxState={checkboxState} update_note_checkbox={update_note_checkbox} onCheck={save_check_status} list_item_state={list_item_state} id={props.id} />
+    <div className="todo zoom">
+      <Checkbox checkboxState={checkboxState} update_note_checkbox={update_note_checkbox} onCheck={save_check_status} todo_state={todo_state} id={props.id} />
       <input
         defaultValue={props.children}
         className="list_input"
         placeholder="Title"
         id={props.id}
         onBlur={e => update_note(e)} />
-      {/* <ListItemButtonSymbol index={props.id} get_all_notes_by_list_id={props.get_all_notes_by_list_id} id={props.id} /> */}
+      {/* <TodoButtonSymbol index={props.id} get_all_notes_by_list_id={props.get_all_notes_by_list_id} id={props.id} /> */}
       {/* <ButtonSymbol onClick={() => show_modal()} className="show_modal_ButtonSymbol zoom"><i className="fas fa-sort-up"></i></ButtonSymbol> */}
       <ButtonSymbol margin="0px" padding="0px" on_click_function={show_modal} ><i className="fas fa-bars"></i></ButtonSymbol>
-      <ListItemModal key={props.id} index={props.id} id={props.id} show_modal={show_modal} show_modal_state={modal_state} get_all_notes_by_list_id={props.get_all_notes_by_list_id}></ListItemModal>
-      {/* <ListItemEditNote title="Edit Note" id={props.id} show_hide={show_modal} show_modal_state={modal_state} get_all_notes_by_list_id={props.get_all_notes_by_list_id}></ListItemEditNote> */}
+      <TodoModal key={props.id} index={props.id} id={props.id} show_modal={show_modal} show_modal_state={modal_state} get_all_notes_by_list_id={props.get_all_notes_by_list_id}></TodoModal>
+      {/* <TodoEditNote title="Edit Note" id={props.id} show_hide={show_modal} show_modal_state={modal_state} get_all_notes_by_list_id={props.get_all_notes_by_list_id}></TodoEditNote> */}
 
     </div>
   );
 }
 
-export default ListItem;
+export default Todo;

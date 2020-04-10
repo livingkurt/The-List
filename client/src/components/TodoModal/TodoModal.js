@@ -1,7 +1,7 @@
 // React
 import React, { useState, useEffect } from "react";
 // Styles
-import './list_item_modal.css'
+import './todo_modal.css'
 // import Checkbox from '../Checkbox/Checkbox';
 import ButtonWord from '../ButtonWord/ButtonWord';
 import Checkbox from '../Checkbox/Checkbox';
@@ -11,7 +11,7 @@ import NoteTextEditor from '../NoteTextEditor/NoteTextEditor';
 import ButtonSymbol from '../ButtonSymbol/ButtonSymbol';
 
 
-const ListItemModal = (props) => {
+const TodoModal = (props) => {
 
   // const [todo_state, set_todo_state] = useState("")
 
@@ -267,7 +267,7 @@ const ListItemModal = (props) => {
   const folder_name_dropdown_items = props.folder_state
 
   return (
-    <div style={{ display: props.show_modal_state }} className="list_modal zoom">
+    <div style={{ display: props.show_modal_state }} className="todo_modal zoom">
       <ButtonSymbol margin="-10px 0px 8px" on_click_function={props.show_modal}><i className="fas fa-times"></i></ButtonSymbol>
       <NoteTextEditor
         note_state={note_state}
@@ -296,4 +296,4 @@ const ListItemModal = (props) => {
   );
 }
 
-export default ListItemModal;
+export default TodoModal;

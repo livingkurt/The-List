@@ -122,6 +122,19 @@ module.exports = function (app) {
     }
   })
 
+  app.delete('/api/notes', async (req, res) => {
+    // Create an empty workout object ready for exercises to get put into it
+    // console.log({ "api_routes.js - delete one": req.body })
+    try {
+      const request = await db.Notes.deleteMany({ title: "" })
+      // Send the request back to the front end
+      res.send(request)
+    }
+    catch (err) {
+      console.log(err);
+    }
+  })
+
   // ==================================================
   // Folder Routes
   // ==================================================
