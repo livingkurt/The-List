@@ -45,7 +45,7 @@ const App = () => {
     title: "",
     body: "",
     folder_id: "",
-    list_id: "",
+    list_id: "Dump",
     priority: "Low",
     category_id: "5e8f7c48d4e1a46221ddb732",
     scheduled: false,
@@ -59,8 +59,8 @@ const App = () => {
     title: "",
     body: "",
     folder_id: "",
-    list_id: "",
-    priority: "Dump",
+    list_id: "Dump",
+    priority: "Low",
     category_id: "5e8f7c48d4e1a46221ddb732",
     scheduled: false,
     scheduled_date: "",
@@ -178,7 +178,8 @@ const App = () => {
         set_todo_master_state(new_data)
         set_todo_master_state([response.data, ...todo_master_state])
       }
-      get_all_notes_by_list_id(list_id);
+      get_all_notes_by_list_id("Master");
+      get_all_notes_by_list_id("Dump");
     }
     catch (err) {
       console.log(err);
@@ -638,13 +639,11 @@ const App = () => {
                             margin="10px">{category.category_name}</CategoryTitle>
                           <CategoryNoteContainer
                             height={category_view_state[category._id]}
-                            // height={category.hidden ? "0px" : "100%"}
                             hidden={category.hidden}
                             get_all_notes_by_list_id={get_all_notes_by_list_id}
                             category={category}
                           >
                             {todo_master_state.map((note, index) => {
-                              // console.log({ "note.category_id": note.category_id, "category._id": category._id })
                               if (note.category_id === category._id) {
                                 return <ListItem
                                   category_state={category_state}
@@ -658,63 +657,12 @@ const App = () => {
 
                           </CategoryNoteContainer>
                         </FolderContainer>
-                        // }
 
                       }
-                      // {
-                      //   todo_master_state.map((note, index) => {
-                      //     // if (note.category_id !== category._id) {
-                      //     return <ListItem
-                      //       category_state={category_state}
-                      //       show_create_note_container={show_create_note_container}
-                      //       get_all_notes_by_list_id={get_all_notes_by_list_id}
-                      //       index={note._id}
-                      //       id={note._id}
-                      //       key={note._id}>{note.title}</ListItem>
-                      //     // }
-
-                      //   })
-                      // }
                     })}
                   </TodoContainer>
                 </PriorityContainer>
               })}
-              {/* {priority_state.priorites.map((priority, index) => {
-                return <PriorityContainer key={index}>
-                  <PriorityTitle fontSize="16px" on_click_function={show_hide_by_priority} list_id="master" priority={priority} border="1px solid silver" margin="10px">{priority} Priority</PriorityTitle>
-                  <TodoContainer className={"master_" + priority.toLowerCase()} height={priority_state["master_" + priority.toLowerCase()]}>
-                    {todo_master_state.map((note, index) => {
-                      if (note.priority === priority) {
-                        return <ListItem
-                          folders_state={folders_state}
-                          show_create_note_container={show_create_note_container}
-                          get_all_notes_by_list_id={get_all_notes_by_list_id}
-                          index={note._id}
-                          id={note._id}
-                          key={note._id}>{note.title}</ListItem>
-                      }
-                    })}
-                  </TodoContainer>
-                </PriorityContainer>
-              })} */}
-              {/* {priority_state.priorites.map((priority, index) => {
-                return <PriorityContainer key={index}>
-                  <PriorityTitle fontSize="16px" on_click_function={show_hide_by_priority} list_id="master" priority={priority} border="1px solid silver" margin="10px">{priority} Priority</PriorityTitle>
-                  <TodoContainer className={"master_" + priority.toLowerCase()} height={priority_state["master_" + priority.toLowerCase()]}>
-                    {todo_master_state.map((note, index) => {
-                      if (note.priority === priority) {
-                        return <ListItem
-                          folders_state={folders_state}
-                          show_create_note_container={show_create_note_container}
-                          get_all_notes_by_list_id={get_all_notes_by_list_id}
-                          index={note._id}
-                          id={note._id}
-                          key={note._id}>{note.title}</ListItem>
-                      }
-                    })}
-                  </TodoContainer>
-                </PriorityContainer>
-              })} */}
             </ScrollContainer>
           </Section>
           <Section show_hide={show_hide_dump_state.display}>
@@ -726,7 +674,7 @@ const App = () => {
             <ScrollContainer height="73vh">
               {priority_state.priorites.map((priority, index) => {
                 return <PriorityContainer key={index}>
-                  <PriorityTitle fontSize="16px" on_click_function={show_hide_by_priority} list_id="Dump" priority={priority} border="1px solid silver" margin="10px">{priority} Priority</PriorityTitle>
+                  <PriorityTitle fontSize="18px" on_click_function={show_hide_by_priority} list_id="Dump" priority={priority} border="1px solid silver" margin="10px">{priority} Priority</PriorityTitle>
                   <TodoContainer className={"dump_" + priority.toLowerCase()} height={priority_state["dump_" + priority.toLowerCase()]}>
                     {todo_dump_state.map((note, index) => {
                       if (note.priority === priority) {
