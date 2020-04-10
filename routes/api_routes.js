@@ -126,11 +126,12 @@ module.exports = function (app) {
   // ==================================================
 
   app.get('/api/folders', async (req, res) => {
-    // console.log({ "api_routes.js - get all folders": req.body })
+    console.log({ "api_routes.js - get all folders": req.body })
     try {
       const request = await db.Folders.find({}).sort({ folder_name: 1 })
       // Send the request back to the front end
       res.send(request)
+      console.log({ "api_routes.js - get all folders": request })
     }
     catch (err) {
       console.log(err);
