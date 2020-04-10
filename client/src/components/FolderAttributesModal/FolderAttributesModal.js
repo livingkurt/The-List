@@ -121,7 +121,7 @@ const FolderAttributesModal = (props) => {
 
   return (
     <div style={{ display: props.folder_modal_state }} className="folder_attributes_modal zoom">
-      <ButtonSymbol margin="-10px 0px 8px" list_id={props.id} on_click_function={props.show_hide_folder_modal}><i className="fas fa-times"></i></ButtonSymbol>
+      <ButtonSymbol margin="-10px 0px 8px" id={props.id} on_click_function={props.show_hide_folder_modal}><i className="fas fa-times"></i></ButtonSymbol>
       <div id="create_folder_fields">
         <div id="create_folder_container">
           <div >
@@ -191,7 +191,7 @@ const FolderAttributesModal = (props) => {
           </div>
         </div>
       </div>
-      {/* <ButtonSymbol margin="-10px 0px 8px" list_id={props.id} on_click_function={props.show_hide_folder_modal}><i className="fas fa-times"></i></ButtonSymbol>
+      {/* <ButtonSymbol margin="-10px 0px 8px" id={props.id} on_click_function={props.show_hide_folder_modal}><i className="fas fa-times"></i></ButtonSymbol>
       <folderTextEditor
         folder_state={folder_state}
         on_change_folder_editor={on_change_folder_editor}

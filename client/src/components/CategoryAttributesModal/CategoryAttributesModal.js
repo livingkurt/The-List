@@ -146,7 +146,7 @@ const CategoryAttributesModal = (props) => {
   const priority_dropdown_items = ["High", "Medium", "Low"]
   return (
     <div style={{ display: props.category_modal_state }} className="category_attributes_modal zoom">
-      <ButtonSymbol margin="-10px 0px 8px" list_id={props.id} on_click_function={props.show_hide_category_modal}><i className="fas fa-times"></i></ButtonSymbol>
+      <ButtonSymbol margin="-10px 0px 8px" id={props.id} on_click_function={props.show_hide_category_modal}><i className="fas fa-times"></i></ButtonSymbol>
       <div id="create_category_fields">
         <div id="create_category_container">
           <div >
