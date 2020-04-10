@@ -16,6 +16,8 @@
   overflow: scroll;
   overflow-y: auto;
   padding-left: 5px;
+  text-decoration: unset !important;
+  color: black !important;
 }
 
 .note_input:focus {
