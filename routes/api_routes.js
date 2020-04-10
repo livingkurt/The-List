@@ -92,7 +92,7 @@ module.exports = function (app) {
           folder_id: req.body.folder_id,
           list_id: req.body.list_id,
           priority: req.body.priority,
-          category_id: req.body.category_id,
+          category_id: req.body.category_id ? req.body.category_id : "5e8f7c48d4e1a46221ddb732",
           scheduled: req.body.scheduled,
           scheduled_date: req.body.scheduled_date,
           scheduled_time: req.body.scheduled_time,
@@ -103,6 +103,7 @@ module.exports = function (app) {
         })
       // Send the request back to the front end
       res.send(request)
+
     }
     catch (err) {
       console.log(err);
