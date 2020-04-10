@@ -110,7 +110,7 @@ const Todo = (props) => {
       <Checkbox checkboxState={checkboxState} update_note_checkbox={update_note_checkbox} onCheck={save_check_status} todo_state={todo_state} id={props.id} />
       <input
         defaultValue={props.children}
-        className="list_input"
+        className="todo_input"
         placeholder="Title"
         id={props.id}
         onBlur={e => update_note(e)} />
