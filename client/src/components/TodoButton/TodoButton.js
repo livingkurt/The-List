@@ -2,10 +2,10 @@
 import React, { useState } from "react";
 import API from "../../utils/API";
 // Styles
-import './list_item_button.css'
+import './todo_button.css'
 
 
-function ListItemButton(props) {
+function TodoButton(props) {
 
   // const [modal_state, set_modal_state] = useState(false)
 
@@ -27,6 +27,6 @@ function ListItemButton(props) {
   );
 }
 
-export default ListItemButton;
+export default TodoButton;
 
 // );

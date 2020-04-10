@@ -1,7 +1,7 @@
 // React
 import React, { useState, useEffect } from "react";
 // Styles
-import './list_item_edit_note.css'
+import './todo_edit_note.css'
 // import Checkbox from '../Checkbox/Checkbox';
 import ButtonWord from '../ButtonWord/ButtonWord';
 import Checkbox from '../Checkbox/Checkbox';
@@ -13,7 +13,7 @@ import Section from '../Section/Section';
 import Title from '../Title/Title';
 
 
-const ListItemEditNote = (props) => {
+const TodoEditNote = (props) => {
 
   // const [todo_state, set_todo_state] = useState("")
 
@@ -341,4 +341,4 @@ const ListItemEditNote = (props) => {
   );
 }
 
-export default ListItemEditNote;
+export default TodoEditNote;

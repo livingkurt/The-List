@@ -1,4 +1,4 @@
-.list_item_button {
+.todo_button {
   justify-content: center;
   font-size: 21px;
   padding-bottom: 3px;
@@ -9,10 +9,10 @@
   border: 0px;
 }
 
-.list_item_button:focus {
+.todo_button:focus {
   outline: 0;
 }
 
-.list_item_button:active {
+.todo_button:active {
   background-color: rgb(224, 224, 224);
 }

@@ -1,7 +1,7 @@
 // React
 import React, { useState, useEffect } from "react";
 import ButtonSymbol from '..//ButtonSymbol/ButtonSymbol';
-import ListItemModal from '../ListItemModal/ListItemModal';
+import TodoModal from '../TodoModal/TodoModal';
 // Styles
 import './note.css'
 import API from "../../utils/API";
@@ -50,7 +50,7 @@ const Note = (props) => {
         onBlur={e => update_note(e)} />
       <ButtonSymbol margin="0px" padding="0px" on_click_function={show_modal} ><i className="fas fa-bars"></i></ButtonSymbol>
       {/* <ButtonSymbol margin="0px" padding="0px" on_click_function={show_modal} ><i className="fas fa-sort-up"></i></ButtonSymbol> */}
-      <ListItemModal id={props.id} show_modal={show_modal} show_modal_state={modal_state} get_all_notes_by_list_id={props.get_all_notes_by_list_id}></ListItemModal>
+      <TodoModal id={props.id} show_modal={show_modal} show_modal_state={modal_state} get_all_notes_by_list_id={props.get_all_notes_by_list_id}></TodoModal>
     </div>
   );
 }
