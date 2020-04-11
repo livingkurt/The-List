@@ -22,6 +22,9 @@ import CategoryTitle from './components/CategoryTitle/CategoryTitle';
 import ButtonSymbol from './components/ButtonSymbol/ButtonSymbol';
 import ButtonWord from './components/ButtonWord/ButtonWord';
 import NoteEditor from './components/NoteEditor/NoteEditor';
+import CalenderContainer from './components/CalenderContainer/CalenderContainer';
+import CalenderColumns from './components/CalenderColumns/CalenderColumns';
+import CalenderRows from './components/CalenderRows/CalenderRows';
 // 
 import API from "./utils/API";
 // import styled from 'styled-components';
@@ -732,6 +735,201 @@ const App = () => {
         <Container>
           <Section width="100%">
             <Title>Calender</Title>
+            <div style={{ display: "flex", justifyContent: "space-around", marginTop: "10px" }}>
+              <Title>Sunday</Title>
+              <Title>Monday</Title>
+              <Title>Tuesday</Title>
+              <Title>Wednesday</Title>
+              <Title>Thursday</Title>
+              <Title>Friday</Title>
+              <Title>Saturday</Title>
+            </div>
+            <CalenderContainer height="73vh" margin="15px 0px 0px 0px">
+
+              <CalenderColumns >
+                <CalenderRows />
+                <CalenderRows />
+                <CalenderRows />
+                <CalenderRows />
+                <CalenderRows />
+                <CalenderRows />
+                <CalenderRows />
+                <CalenderRows />
+                <CalenderRows />
+                <CalenderRows />
+                <CalenderRows />
+                <CalenderRows />
+                <CalenderRows />
+                <CalenderRows />
+                <CalenderRows />
+                <CalenderRows />
+                <CalenderRows />
+                <CalenderRows />
+                <CalenderRows />
+                <CalenderRows />
+                <CalenderRows />
+                <CalenderRows />
+                <CalenderRows />
+                <CalenderRows />
+              </CalenderColumns>
+              <CalenderColumns >
+                <CalenderRows />
+                <CalenderRows />
+                <CalenderRows />
+                <CalenderRows />
+                <CalenderRows />
+                <CalenderRows />
+                <CalenderRows />
+                <CalenderRows />
+                <CalenderRows />
+                <CalenderRows />
+                <CalenderRows />
+                <CalenderRows />
+                <CalenderRows />
+                <CalenderRows />
+                <CalenderRows />
+                <CalenderRows />
+                <CalenderRows />
+                <CalenderRows />
+                <CalenderRows />
+                <CalenderRows />
+                <CalenderRows />
+                <CalenderRows />
+                <CalenderRows />
+                <CalenderRows />
+              </CalenderColumns>
+              <CalenderColumns >
+                <CalenderRows />
+                <CalenderRows />
+                <CalenderRows />
+                <CalenderRows />
+                <CalenderRows />
+                <CalenderRows />
+                <CalenderRows />
+                <CalenderRows />
+                <CalenderRows />
+                <CalenderRows />
+                <CalenderRows />
+                <CalenderRows />
+                <CalenderRows />
+                <CalenderRows />
+                <CalenderRows />
+                <CalenderRows />
+                <CalenderRows />
+                <CalenderRows />
+                <CalenderRows />
+                <CalenderRows />
+                <CalenderRows />
+                <CalenderRows />
+                <CalenderRows />
+                <CalenderRows />
+              </CalenderColumns>
+              <CalenderColumns >
+                <CalenderRows />
+                <CalenderRows />
+                <CalenderRows />
+                <CalenderRows />
+                <CalenderRows />
+                <CalenderRows />
+                <CalenderRows />
+                <CalenderRows />
+                <CalenderRows />
+                <CalenderRows />
+                <CalenderRows />
+                <CalenderRows />
+                <CalenderRows />
+                <CalenderRows />
+                <CalenderRows />
+                <CalenderRows />
+                <CalenderRows />
+                <CalenderRows />
+                <CalenderRows />
+                <CalenderRows />
+                <CalenderRows />
+                <CalenderRows />
+                <CalenderRows />
+                <CalenderRows />
+              </CalenderColumns>
+              <CalenderColumns >
+                <CalenderRows />
+                <CalenderRows />
+                <CalenderRows />
+                <CalenderRows />
+                <CalenderRows />
+                <CalenderRows />
+                <CalenderRows />
+                <CalenderRows />
+                <CalenderRows />
+                <CalenderRows />
+                <CalenderRows />
+                <CalenderRows />
+                <CalenderRows />
+                <CalenderRows />
+                <CalenderRows />
+                <CalenderRows />
+                <CalenderRows />
+                <CalenderRows />
+                <CalenderRows />
+                <CalenderRows />
+                <CalenderRows />
+                <CalenderRows />
+                <CalenderRows />
+                <CalenderRows />
+              </CalenderColumns>
+              <CalenderColumns >
+                <CalenderRows />
+                <CalenderRows />
+                <CalenderRows />
+                <CalenderRows />
+                <CalenderRows />
+                <CalenderRows />
+                <CalenderRows />
+                <CalenderRows />
+                <CalenderRows />
+                <CalenderRows />
+                <CalenderRows />
+                <CalenderRows />
+                <CalenderRows />
+                <CalenderRows />
+                <CalenderRows />
+                <CalenderRows />
+                <CalenderRows />
+                <CalenderRows />
+                <CalenderRows />
+                <CalenderRows />
+                <CalenderRows />
+                <CalenderRows />
+                <CalenderRows />
+                <CalenderRows />
+              </CalenderColumns>
+              <CalenderColumns >
+                <CalenderRows />
+                <CalenderRows />
+                <CalenderRows />
+                <CalenderRows />
+                <CalenderRows />
+                <CalenderRows />
+                <CalenderRows />
+                <CalenderRows />
+                <CalenderRows />
+                <CalenderRows />
+                <CalenderRows />
+                <CalenderRows />
+                <CalenderRows />
+                <CalenderRows />
+                <CalenderRows />
+                <CalenderRows />
+                <CalenderRows />
+                <CalenderRows />
+                <CalenderRows />
+                <CalenderRows />
+                <CalenderRows />
+                <CalenderRows />
+                <CalenderRows />
+                <CalenderRows />
+              </CalenderColumns>
+
+            </CalenderContainer>
           </Section>
         </Container>
 
