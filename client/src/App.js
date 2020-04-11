@@ -623,7 +623,7 @@ const App = () => {
               })}
             </ScrollContainer>
           </NoteContainer>
-          <NoteEditor show_hide={show_hide_create_note_state.display}
+          <NoteEditor show_hide={{ display: show_hide_create_note_state.display }}
             create_new_note={create_new_note}
             note_state={note_state}
             formatted_date_slash={format_date_display(new Date())}
@@ -631,7 +631,7 @@ const App = () => {
             on_change_note_editor={on_change_note_editor}
             show_scheduling={show_scheduling}
             schedule_state={schedule_state} />
-          <Section show_hide={show_hide_master_state.display}>
+          <Section styles={{ display: show_hide_dump_state.display }}>
             <div style={{ display: "flex", justifyContent: "space-between" }}>
               <Title>Master Todo List:</Title>
               <div style={{ display: "flex", flexDirection: "row" }}>
@@ -688,7 +688,7 @@ const App = () => {
               })}
             </ScrollContainer>
           </Section>
-          <Section show_hide={show_hide_dump_state.display}>
+          <Section styles={{ display: show_hide_dump_state.display }}>
             <div style={{ display: "flex", justifyContent: "space-between" }}>
               <Title>Todo Dump</Title>
               <ButtonSymbol styles={{ margin: "18px 0px 18px 18px" }} on_click_function={create_empty_todo} id="Dump" >+</ButtonSymbol>
@@ -717,7 +717,7 @@ const App = () => {
           </Section>
         </Container>
         <Container>
-          <Section width="100%">
+          <Section>
             <div style={{ display: "flex", flexDirection: "column", width: "100%" }}>
               <Title>Calender</Title>
               <Title styles={{ margin: "0px", fontSize: "20px" }}>Today {format_date_display(new Date())}</Title>
