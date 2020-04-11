@@ -2,18 +2,18 @@
 import React from "react";
 // import React, { useState, useEffect, useMemo, useCallback } from "react";
 // Styles
-import './scroll_container.css'
+import './calender_container.css'
 
 
-const ScrollContainer = (props) => {
+const CalenderContainer = (props) => {
 
 
   return (
-    <div className="scroll_container" style={{ margin: props.margin, height: props.height }}>
+    <div className="calender_container" style={{ margin: props.margin, height: props.height }}>
       {/* <div className="scroll_container" onMouseDown={handleMouseDown}></div> */}
       {props.children}
     </div>
   );
 }
 
-export default ScrollContainer;
+export default CalenderContainer;
