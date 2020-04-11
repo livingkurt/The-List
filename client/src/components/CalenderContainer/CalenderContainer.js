@@ -9,7 +9,7 @@ const CalenderContainer = (props) => {
 
 
   return (
-    <div className="calender_container" style={{ margin: props.margin, height: props.height }}>
+    <div className="calender_container" style={props.style}>
       {/* <div className="scroll_container" onMouseDown={handleMouseDown}></div> */}
       {props.children}
     </div>

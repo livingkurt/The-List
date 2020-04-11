@@ -34,7 +34,7 @@ const FolderTitle = (props) => {
 
 
   return (
-    <div onClick={copy_to_clipboard} className="folder_title zoom" style={{ borderBottom: props.border, padding: "2px", justifyContent: "space-between" }}>
+    <div onClick={copy_to_clipboard} className="folder_title zoom" >
       {/* <h2 style={{ margin: props.margin, fontSize: props.fontSize }}>{props.children}</h2> */}
       {/* <input style={{ margin: props.margin, fontSize: props.fontSize }}>{props.children}</input> */}
       <input
@@ -43,6 +43,7 @@ const FolderTitle = (props) => {
         className="folder_id_input editor_inputs"
         id={props.folder_id}
         placeholder="Folder Name"
+        style={props.styles}
         // onBlur={e => props.update_folder(e)}
         name="folder_name" />
       <div style={{ display: "flex" }}>

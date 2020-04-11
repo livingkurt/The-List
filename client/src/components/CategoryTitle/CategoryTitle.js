@@ -4,6 +4,8 @@ import { useClipboard } from 'use-clipboard-copy';
 import ButtonSymbol from '../ButtonSymbol/ButtonSymbol';
 import CategoryAttributesModal from '../CategoryAttributesModal/CategoryAttributesModal';
 import Label from '../Label/Label';
+import FlexContainer from '../FlexContainer/FlexContainer';
+import BlockContainer from '../BlockContainer/BlockContainer';
 
 // Styles
 import './category_title.css'
@@ -34,12 +36,12 @@ const CategoryTitle = (props) => {
 
 
   return (
-    <div className="category_title zoom" style={{ borderBottom: props.border, padding: "2px", justifyContent: "space-between" }}>
+    <div className="category_title zoom" >
       {/* <h2 style={{ margin: props.margin, fontSize: props.fontSize }}>{props.children}</h2> */}
       {/* <input style={{ margin: props.margin, fontSize: props.fontSize }}>{props.children}</input> */}
-      <div style={{ fontSize: "20px", color: "silver", transform: "rotate(270deg)", marginLeft: "10px", marginTop: "3px" }}>
+      <BlockContainer styles={{ fontSize: "20px", color: "silver", transform: "rotate(270deg)", marginLeft: "10px", marginTop: "3px" }}>
         <i className="fas fa-sort-up"></i>
-      </div>
+      </BlockContainer>
       <input
         defaultValue={props.children}
         // onChange={e => props.on_change_category_editor(e)}
@@ -48,11 +50,11 @@ const CategoryTitle = (props) => {
         placeholder="Category Name"
         onBlur={e => props.on_change_category_editor(e)}
         name="category_name" />
-      <div style={{ display: "flex" }}>
+      <FlexContainer >
         <Label fontSize="16px" margin="auto" marginRight="13px" color="gray">{props.num_notes}</Label>
         <ButtonSymbol styles={{ margin: "5px 3px 7px 0px", padding: "4px" }} on_click_function={show_hide_category_modal} id={props.category_id} category={props.category}><i className="fas fa-bars"></i></ButtonSymbol>
         <ButtonSymbol styles={{ margin: "5px 3px 7px 0px", padding: "0px 2px 7px 0px" }} on_click_function={props.show_hide_by_category} id={props.category_id} category={props.category}><i className="fas fa-sort-up"></i></ButtonSymbol>
-      </div>
+      </FlexContainer>
       <CategoryAttributesModal id={props.category_id} on_change_category_editor={props.on_change_category_editor} get_all_notes_by_list_id={props.get_all_notes_by_list_id} get_all_categories={props.get_all_categories} show_hide_category_modal={show_hide_category_modal} category_modal_state={category_modal_state} />
     </div >
   );

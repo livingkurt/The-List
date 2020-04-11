@@ -9,6 +9,7 @@ import API from "../../utils/API";
 import Label from '../Label/Label';
 import ButtonSymbol from '../ButtonSymbol/ButtonSymbol';
 import DropDownList from "../DropDownList/DropDownList"
+import FlexContainer from "../FlexContainer/FlexContainer"
 
 
 const CategoryAttributesModal = (props) => {
@@ -149,71 +150,70 @@ const CategoryAttributesModal = (props) => {
       <ButtonSymbol styles={{ margin: "-10px 0px 8px" }} id={props.id} on_click_function={props.show_hide_category_modal}><i className="fas fa-times"></i></ButtonSymbol>
       <div id="create_category_fields">
         <div id="create_category_container">
-          <div >
-            <div >
-              <Label>Category Name: </Label>
-              <input
-                defaultValue={category_state.category_name}
-                onBlur={e => props.on_change_category_editor(e)}
-                className="category_name_input editor_inputs"
-                id={props.id}
-                placeholder="category Name"
-                name="category_name" />
-            </div>
-            <div>
-              <Label>Category ID: </Label>
-              <input
-                defaultValue={category_state._id}
-                readOnly
-                onBlur={e => props.on_change_category_editor(e)}
-                className="category_id_input_2 editor_inputs"
-                placeholder="category ID"
-                id={props.id}
-                name="category_id" />
-            </div>
-            <div >
-              <Label>Priority: </Label>
-              <DropDownList
-                on_dropdown_choice={on_attribute_change}
-                dropdown_items={priority_dropdown_items}
-                dropdown_state={dropdown_state}
-                name="priority">{category_state.priority}
-              </DropDownList>
-            </div>
-            <div>
-              <Label>Notes: </Label>
-              <input
-                defaultValue={category_state.notes}
-                onBlur={e => props.on_change_category_editor(e)}
-                className="notes_input editor_inputs"
-                placeholder="Notes"
-                id={props.id}
-                name="notes" />
-            </div>
+          <FlexContainer styles={{ flexDirection: "column" }}>
+            <Label>Category Name: </Label>
+            <input
+              defaultValue={category_state.category_name}
+              onBlur={e => props.on_change_category_editor(e)}
+              className="category_name_input editor_inputs"
+              id={props.id}
+              placeholder="category Name"
+              name="category_name" />
+          </FlexContainer>
+          <FlexContainer styles={{ flexDirection: "column" }}>
+            <Label>Category ID: </Label>
+            <input
+              defaultValue={category_state._id}
+              readOnly
+              onBlur={e => props.on_change_category_editor(e)}
+              className="category_id_input_2 editor_inputs"
+              placeholder="category ID"
+              id={props.id}
+              name="category_id" />
+          </FlexContainer>
+          <FlexContainer styles={{ flexDirection: "column" }}>
+            <Label>Priority: </Label>
+            <DropDownList
+              on_dropdown_choice={on_attribute_change}
+              dropdown_items={priority_dropdown_items}
+              dropdown_state={dropdown_state}
+              name="priority">{category_state.priority}
+            </DropDownList>
+          </FlexContainer>
+          <FlexContainer styles={{ flexDirection: "column" }}>
+            <Label>Notes: </Label>
+            <input
+              defaultValue={category_state.notes}
+              onBlur={e => props.on_change_category_editor(e)}
+              className="notes_input editor_inputs"
+              placeholder="Notes"
+              id={props.id}
+              name="notes" />
+          </FlexContainer>
 
-            <div>
-              <Label>Date Created: </Label>
-              <input
-                defaultValue={format_date_display(category_state.date_created)}
-                readOnly
-                onChange={e => props.on_change_category_editor(e)}
-                className="category_id_input_2 editor_inputs"
-                // placeholder="Date"
-                id={props.id}
-                name="category_id" />
-            </div>
-            <div>
-              <Label>Date Modified: </Label>
-              <input
-                defaultValue={format_date_display(category_state.date_modified)}
-                readOnly
-                onChange={e => props.on_change_category_editor(e)}
-                className="category_id_input_2 editor_inputs"
-                // placeholder="category ID"
-                id={props.id}
-                name="category_id" />
-            </div>
-          </div>
+          <FlexContainer styles={{ flexDirection: "column" }}>
+            <Label>Date Created: </Label>
+            <input
+              defaultValue={format_date_display(category_state.date_created)}
+              readOnly
+              onChange={e => props.on_change_category_editor(e)}
+              className="category_id_input_2 editor_inputs"
+              // placeholder="Date"
+              id={props.id}
+              name="category_id" />
+          </FlexContainer>
+          <FlexContainer styles={{ flexDirection: "column" }}>
+            <Label>Date Modified: </Label>
+            <input
+              defaultValue={format_date_display(category_state.date_modified)}
+              readOnly
+              onChange={e => props.on_change_category_editor(e)}
+              className="category_id_input_2 editor_inputs"
+              // placeholder="category ID"
+              id={props.id}
+              name="category_id" />
+          </FlexContainer>
+
         </div>
       </div>
       <ButtonWord styles={{ margin: "10px 0px 0px 0px" }} on_click_function={delete_category} index={props.id} get_all_categories={props.get_all_categories} id={props.id}>

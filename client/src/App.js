@@ -25,6 +25,7 @@ import NoteEditor from './components/NoteEditor/NoteEditor';
 import CalenderContainer from './components/CalenderContainer/CalenderContainer';
 import CalenderColumns from './components/CalenderColumns/CalenderColumns';
 import CalenderRows from './components/CalenderRows/CalenderRows';
+import FlexContainer from './components/FlexContainer/FlexContainer';
 // 
 import API from "./utils/API";
 // import styled from 'styled-components';
@@ -578,11 +579,11 @@ const App = () => {
         </Header>
         <Container>
           <NoteContainer >
-            <div style={{ display: "flex", justifyContent: "space-between" }}>
+            <FlexContainer styles={{ justifyContent: "space-between" }}>
               <Title >Notes</Title>
 
               <ButtonWord on_click_function={create_new_folder} >New Folder</ButtonWord>
-            </div>
+            </FlexContainer>
             <ScrollContainer styles={{ height: "73vh" }}>
 
               {folders_state.map((folder, index) => {
@@ -595,10 +596,10 @@ const App = () => {
                       get_all_folders={get_all_folders}
                       show_hide_folder_modal={show_hide_folder_modal}
                       on_change_folder_editor={on_change_folder_editor}
-                      fontSize="16px"
+                      styles={{ fontSize: "16px", margin: "2px" }}
                       folder_id={folder._id}
                       num_notes={folder.notes.length}
-                      margin="10px">{folder.folder_name}</FolderTitle>
+                    >{folder.folder_name}</FolderTitle>
                     <FolderNoteContainer height={folder_view_state[folder._id]}>
                       {folders_state.map((folder, index) => {
 
@@ -632,15 +633,15 @@ const App = () => {
             show_scheduling={show_scheduling}
             schedule_state={schedule_state} />
           <Section styles={{ display: show_hide_dump_state.display }}>
-            <div style={{ display: "flex", justifyContent: "space-between" }}>
+            <FlexContainer styles={{ justifyContent: "space-between" }}>
               <Title>Master Todo List:</Title>
-              <div style={{ display: "flex", flexDirection: "row" }}>
+              <FlexContainer styles={{ flexDirection: "row" }}>
                 <ButtonWord styles={{ margin: "20px" }} on_click_function={create_new_category} >Create Category</ButtonWord>
                 <ButtonSymbol styles={{ webkitTransform: "rotate(90deg)", margin: "18px 0px 18px 18px" }} id="backward" on_click_function={change_date} ><i className="fas fa-sort-up"></i></ButtonSymbol>
                 <ButtonSymbol styles={{ webkitTransform: "rotate(-90deg)", margin: "18px 0px 18px 18px" }} id="forward" on_click_function={change_date} ><i className="fas fa-sort-up"></i></ButtonSymbol>
                 <ButtonSymbol styles={{ margin: "18px 0px 18px 18px" }} on_click_function={create_empty_todo} id="Master" >+</ButtonSymbol>
-              </div>
-            </div>
+              </FlexContainer>
+            </FlexContainer>
             <Title styles={{ margin: "-30px 0px 0px 0px", fontSize: "16px" }}>Today {format_date_display(new Date())}</Title>
             <ScrollContainer styles={{ height: "73vh" }}>
               {priority_state.priorites.map((priority, index) => {
@@ -654,12 +655,11 @@ const App = () => {
                           <CategoryTitle
                             show_hide_by_category={show_hide_by_category}
                             get_all_notes_by_list_id={get_all_notes_by_list_id}
-                            fontSize="16px"
                             get_all_notes_by_list_id={get_all_notes_by_list_id}
                             category={category}
                             category_id={category._id}
                             on_change_category_editor={on_change_category_editor}
-                            margin="10px">{category.category_name}</CategoryTitle>
+                          >{category.category_name}</CategoryTitle>
                           <CategoryNoteContainer
                             height={category_view_state[category._id]}
                             hidden={category.hidden}
@@ -689,10 +689,10 @@ const App = () => {
             </ScrollContainer>
           </Section>
           <Section styles={{ display: show_hide_dump_state.display }}>
-            <div style={{ display: "flex", justifyContent: "space-between" }}>
+            <FlexContainer styles={{ justifyContent: "space-between" }}>
               <Title>Todo Dump</Title>
               <ButtonSymbol styles={{ margin: "18px 0px 18px 18px" }} on_click_function={create_empty_todo} id="Dump" >+</ButtonSymbol>
-            </div>
+            </FlexContainer>
             <Title styles={{ margin: "-30px 0px 0px 0px", fontSize: "16px" }}>Get your Ideas Down Fast</Title>
             <ScrollContainer styles={{ height: "73vh" }}>
               {priority_state.priorites.map((priority, index) => {
@@ -718,17 +718,17 @@ const App = () => {
         </Container>
         <Container>
           <Section>
-            <div style={{ display: "flex", flexDirection: "column", width: "100%" }}>
+            <FlexContainer styles={{ flexDirection: "column", width: "100%" }}>
               <Title>Calender</Title>
               <Title styles={{ margin: "0px", fontSize: "20px" }}>Today {format_date_display(new Date())}</Title>
-            </div>
+            </FlexContainer>
 
-            <div style={{ display: "flex", justifyContent: "space-around", marginTop: "10px" }}>
+            <FlexContainer styles={{ justifyContent: "space-around", marginTop: "10px" }}>
               {days.map((day, index) => {
                 return <Title>{day}</Title>
               })}
-            </div>
-            <CalenderContainer height="73vh" margin="15px 0px 0px 0px">
+            </FlexContainer>
+            <CalenderContainer styles={{ height: "73vh", margin: "15px 0px 0px 0px" }}>
               {days.map((day, index) => {
                 return <CalenderColumns >
                   {/* {day} */}
