@@ -127,25 +127,6 @@ const App = () => {
       }
       else if (list_id === "Master") {
         set_todo_master_state(res.data)
-        // let category_names = []
-        // let categories = []
-        // let category_views = []
-        // res.data.map(note => {
-        //   console.log({ "note": note })
-        //   categories.push({ "category_name": note.category, "priority": note.priority })
-        //   category_names = [...new Set(category_names)]
-        //   // categories.push({ ...categories, "category_name": note.category, "priority": note.priority })
-        //   category_names = [...category_names, note.category]
-        //   category_names = [...new Set(category_names)]
-        //   category_views = { ...category_views, [note.category]: "0px" }
-
-
-        // })
-        // console.log(category_views)
-        // console.log({ "categories": categories })
-        // set_category_state(categories)
-        // set_category_view_state(category_views)
-
       }
       return res;
     }
@@ -587,13 +568,13 @@ const App = () => {
     <div >
       <Background>
         <Header sidebar_show_hide={sidebar_show_hide}>
-          <Title margin="0px">TheList</Title>
+          <Title styles={{ margin: "0px" }}>TheList</Title>
           {/* <ButtonWord margin="auto 20px" padding="20px" on_click_function={sidebar_show_hide} className="nav_button"><i className="fas fa-bars"></i></ButtonWord> */}
           <button onClick={sidebar_show_hide} className="nav_button"><i className="fas fa-bars"></i></button>
 
-          <ButtonWord margin="20px" on_click_function={show_create_note_container} >{show_hide_create_note_state.name}</ButtonWord>
-          <ButtonWord margin="20px" on_click_function={show_hide_master} >{show_hide_master_state.name}</ButtonWord>
-          <ButtonWord margin="20px" on_click_function={show_hide_dump} >{show_hide_dump_state.name}</ButtonWord>
+          <ButtonWord styles={{ margin: "20px" }} on_click_function={show_create_note_container} >{show_hide_create_note_state.name}</ButtonWord>
+          <ButtonWord styles={{ margin: "20px" }} on_click_function={show_hide_master} >{show_hide_master_state.name}</ButtonWord>
+          <ButtonWord styles={{ margin: "20px" }} on_click_function={show_hide_dump} >{show_hide_dump_state.name}</ButtonWord>
         </Header>
         <Container>
           <NoteContainer >
@@ -602,7 +583,7 @@ const App = () => {
 
               <ButtonWord on_click_function={create_new_folder} >New Folder</ButtonWord>
             </div>
-            <ScrollContainer height="73vh">
+            <ScrollContainer styles={{ height: "73vh" }}>
 
               {folders_state.map((folder, index) => {
                 console.log(folder.folders)
@@ -654,17 +635,17 @@ const App = () => {
             <div style={{ display: "flex", justifyContent: "space-between" }}>
               <Title>Master Todo List:</Title>
               <div style={{ display: "flex", flexDirection: "row" }}>
-                <ButtonWord margin="20px" on_click_function={create_new_category} >Create Category</ButtonWord>
+                <ButtonWord styles={{ margin: "20px" }} on_click_function={create_new_category} >Create Category</ButtonWord>
                 <ButtonSymbol rotation="rotate(90deg)" id="backward" on_click_function={change_date} margin="18px 0px 18px 18px" ><i className="fas fa-sort-up"></i></ButtonSymbol>
                 <ButtonSymbol rotation="rotate(-90deg)" id="forward" on_click_function={change_date} margin="18px 0px 18px 18px" ><i className="fas fa-sort-up"></i></ButtonSymbol>
                 <ButtonSymbol margin="18px 0px 18px 18px" on_click_function={create_empty_todo} id="Master" >+</ButtonSymbol>
               </div>
             </div>
-            <Title margin="-30px 0px 0px 0px" fontSize="16px">Today {format_date_display(new Date())}</Title>
-            <ScrollContainer height="73vh">
+            <Title styles={{ margin: "-30px 0px 0px 0px", fontSize: "16px" }}>Today {format_date_display(new Date())}</Title>
+            <ScrollContainer styles={{ height: "73vh" }}>
               {priority_state.priorites.map((priority, index) => {
                 return <PriorityContainer key={index}>
-                  <PriorityTitle fontSize="18px" on_click_function={show_hide_by_priority} id="master" priority={priority} border="1px solid silver" margin="10px">{priority} Priority</PriorityTitle>
+                  <PriorityTitle styles={{ fontSize: "18px", margin: "10px" }} on_click_function={show_hide_by_priority} id="master" priority={priority} >{priority} Priority</PriorityTitle>
                   <TodoContainer className={"master_" + priority.toLowerCase()} height={priority_state["master_" + priority.toLowerCase()]}>
                     {categories_state.map((category, index) => {
                       // console.log({ "category": category })
@@ -712,11 +693,11 @@ const App = () => {
               <Title>Todo Dump</Title>
               <ButtonSymbol margin="18px 0px 18px 18px" on_click_function={create_empty_todo} id="Dump" >+</ButtonSymbol>
             </div>
-            <Title margin="-30px 0px 0px 0px" fontSize="16px">Get your Ideas Down Fast</Title>
-            <ScrollContainer height="73vh">
+            <Title styles={{ margin: "-30px 0px 0px 0px", fontSize: "16px" }}>Get your Ideas Down Fast</Title>
+            <ScrollContainer styles={{ height: "73vh" }}>
               {priority_state.priorites.map((priority, index) => {
                 return <PriorityContainer key={index}>
-                  <PriorityTitle fontSize="18px" on_click_function={show_hide_by_priority} id="dump" priority={priority} border="1px solid silver" margin="10px">{priority} Priority</PriorityTitle>
+                  <PriorityTitle styles={{ fontSize: "18px", margin: "10px" }} on_click_function={show_hide_by_priority} id="dump" priority={priority} >{priority} Priority</PriorityTitle>
                   <TodoContainer className={"dump_" + priority.toLowerCase()} height={priority_state["dump_" + priority.toLowerCase()]}>
                     {todo_dump_state.map((note, index) => {
                       if (note.priority === priority) {
@@ -739,7 +720,7 @@ const App = () => {
           <Section width="100%">
             <div style={{ display: "flex", flexDirection: "column", width: "100%" }}>
               <Title>Calender</Title>
-              <Title margin="0px" fontSize="20px">Today {format_date_display(new Date())}</Title>
+              <Title styles={{ margin: "0px", fontSize: "20px" }}>Today {format_date_display(new Date())}</Title>
             </div>
 
             <div style={{ display: "flex", justifyContent: "space-around", marginTop: "10px" }}>

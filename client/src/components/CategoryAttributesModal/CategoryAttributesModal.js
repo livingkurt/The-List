@@ -216,7 +216,7 @@ const CategoryAttributesModal = (props) => {
           </div>
         </div>
       </div>
-      <ButtonWord margin="10px 0px 0px 0px" on_click_function={delete_category} index={props.id} get_all_categories={props.get_all_categories} id={props.id}>
+      <ButtonWord styles={{ margin: "10px 0px 0px 0px" }} on_click_function={delete_category} index={props.id} get_all_categories={props.get_all_categories} id={props.id}>
         Delete
       </ButtonWord>
     </div>

@@ -5,9 +5,11 @@ import './title.css'
 
 
 const Title = (props) => {
+  console.log({ [props.children]: props.styles })
   return (
-    <div className="title" style={{ borderBottom: props.border }}>
-      <h2 style={{ margin: props.margin, fontSize: props.fontSize }}>{props.children}</h2>
+    <div className="title">
+      {/* // <div className="title" style={props.styles}> */}
+      <h2 style={props.styles}>{props.children}</h2>
     </div >
   );
 }

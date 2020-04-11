@@ -289,7 +289,7 @@ const TodoModal = (props) => {
         show_scheduling={show_scheduling}
         schedule_state={schedule_state} />
 
-      <ButtonWord margin="10px 0px 0px 0px" on_click_function={delete_note} index={props.id} get_all_notes_by_list_id={props.get_all_notes_by_list_id} id={props.id}>
+      <ButtonWord styles={{ margin: "10px 0px 0px 0px" }} on_click_function={delete_note} index={props.id} get_all_notes_by_list_id={props.get_all_notes_by_list_id} id={props.id}>
         Delete
       </ButtonWord>
     </div>
