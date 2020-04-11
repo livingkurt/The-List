@@ -564,6 +564,17 @@ const App = () => {
     }
   }
 
+  const change_date = (id) => {
+
+    if (id === "forward") {
+      console.log("Going Forward in Time")
+    }
+    else if (id === "backward") {
+      console.log("Going Backward in Time")
+
+    }
+  }
+
 
 
   return (
@@ -638,6 +649,8 @@ const App = () => {
               <Title>Master Todo List:</Title>
               <div style={{ display: "flex", flexDirection: "row" }}>
                 <ButtonWord margin="20px" on_click_function={create_new_category} >Create Category</ButtonWord>
+                <ButtonSymbol rotation="rotate(90deg)" id="backward" on_click_function={change_date} margin="18px 0px 18px 18px" ><i className="fas fa-sort-up"></i></ButtonSymbol>
+                <ButtonSymbol rotation="rotate(-90deg)" id="forward" on_click_function={change_date} margin="18px 0px 18px 18px" ><i className="fas fa-sort-up"></i></ButtonSymbol>
                 <ButtonSymbol margin="18px 0px 18px 18px" on_click_function={create_empty_todo} id="Master" >+</ButtonSymbol>
               </div>
             </div>
