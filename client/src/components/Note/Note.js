@@ -48,7 +48,7 @@ const Note = (props) => {
         placeholder="Title"
         id={props.id}
         onBlur={e => update_note(e)} />
-      <ButtonSymbol margin="0px" padding="0px" on_click_function={show_modal} ><i className="fas fa-bars"></i></ButtonSymbol>
+      <ButtonSymbol styles={{ margin: "0px", padding: "0px" }} on_click_function={show_modal} ><i className="fas fa-bars"></i></ButtonSymbol>
       {/* <ButtonSymbol margin="0px" padding="0px" on_click_function={show_modal} ><i className="fas fa-sort-up"></i></ButtonSymbol> */}
       <TodoModal id={props.id} show_modal={show_modal} show_modal_state={modal_state} get_all_notes_by_list_id={props.get_all_notes_by_list_id}></TodoModal>
     </div>

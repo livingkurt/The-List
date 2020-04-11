@@ -268,7 +268,7 @@ const TodoModal = (props) => {
 
   return (
     <div style={{ display: props.show_modal_state }} className="todo_modal zoom">
-      <ButtonSymbol margin="-10px 0px 8px" on_click_function={props.show_modal}><i className="fas fa-times"></i></ButtonSymbol>
+      <ButtonSymbol styles={{ margin: "-10px 0px 8px" }} on_click_function={props.show_modal}><i className="fas fa-times"></i></ButtonSymbol>
       <NoteTextEditor
         note_state={note_state}
         on_change_note_editor={on_change_note_editor}

@@ -316,10 +316,10 @@ const TodoEditNote = (props) => {
 
     // </div>
     <Section show_hide={props.show_modal_state}>
-      <ButtonSymbol margin="-10px 0px 8px" on_click_function={props.show_modal}><i className="fas fa-times"></i></ButtonSymbol>
+      <ButtonSymbol styles={{ margin: "-10px 0px 8px" }} on_click_function={props.show_modal}><i className="fas fa-times"></i></ButtonSymbol>
       <div style={{ display: "flex", justifyContent: "space-between" }}>
         <Title >{props.title}</Title>
-        <ButtonSymbol margin="18px 0px 18px 18px" on_click_function={props.create_new_note} >+</ButtonSymbol>
+        <ButtonSymbol styles={{ margin: "18px 0px 18px 18px" }} on_click_function={props.create_new_note} >+</ButtonSymbol>
       </div>
       <Title margin="-30px 0px 0px 0px" fontSize="16px">Create a New Note Below</Title>
       <div>

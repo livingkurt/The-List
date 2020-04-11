@@ -636,9 +636,9 @@ const App = () => {
               <Title>Master Todo List:</Title>
               <div style={{ display: "flex", flexDirection: "row" }}>
                 <ButtonWord styles={{ margin: "20px" }} on_click_function={create_new_category} >Create Category</ButtonWord>
-                <ButtonSymbol rotation="rotate(90deg)" id="backward" on_click_function={change_date} margin="18px 0px 18px 18px" ><i className="fas fa-sort-up"></i></ButtonSymbol>
-                <ButtonSymbol rotation="rotate(-90deg)" id="forward" on_click_function={change_date} margin="18px 0px 18px 18px" ><i className="fas fa-sort-up"></i></ButtonSymbol>
-                <ButtonSymbol margin="18px 0px 18px 18px" on_click_function={create_empty_todo} id="Master" >+</ButtonSymbol>
+                <ButtonSymbol styles={{ webkitTransform: "rotate(90deg)", margin: "18px 0px 18px 18px" }} id="backward" on_click_function={change_date} ><i className="fas fa-sort-up"></i></ButtonSymbol>
+                <ButtonSymbol styles={{ webkitTransform: "rotate(-90deg)", margin: "18px 0px 18px 18px" }} id="forward" on_click_function={change_date} ><i className="fas fa-sort-up"></i></ButtonSymbol>
+                <ButtonSymbol styles={{ margin: "18px 0px 18px 18px" }} on_click_function={create_empty_todo} id="Master" >+</ButtonSymbol>
               </div>
             </div>
             <Title styles={{ margin: "-30px 0px 0px 0px", fontSize: "16px" }}>Today {format_date_display(new Date())}</Title>
@@ -691,7 +691,7 @@ const App = () => {
           <Section show_hide={show_hide_dump_state.display}>
             <div style={{ display: "flex", justifyContent: "space-between" }}>
               <Title>Todo Dump</Title>
-              <ButtonSymbol margin="18px 0px 18px 18px" on_click_function={create_empty_todo} id="Dump" >+</ButtonSymbol>
+              <ButtonSymbol styles={{ margin: "18px 0px 18px 18px" }} on_click_function={create_empty_todo} id="Dump" >+</ButtonSymbol>
             </div>
             <Title styles={{ margin: "-30px 0px 0px 0px", fontSize: "16px" }}>Get your Ideas Down Fast</Title>
             <ScrollContainer styles={{ height: "73vh" }}>
