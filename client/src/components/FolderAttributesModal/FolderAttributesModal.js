@@ -8,6 +8,7 @@ import Checkbox from '../Checkbox/Checkbox';
 import API from "../../utils/API";
 import Label from '../Label/Label';
 import ButtonSymbol from '../ButtonSymbol/ButtonSymbol';
+import FlexContainer from '../FlexContainer/FlexContainer';
 
 
 const FolderAttributesModal = (props) => {
@@ -124,71 +125,69 @@ const FolderAttributesModal = (props) => {
       <ButtonSymbol styles={{ margin: "-10px 0px 8px" }} id={props.id} on_click_function={props.show_hide_folder_modal}><i className="fas fa-times"></i></ButtonSymbol>
       <div id="create_folder_fields">
         <div id="create_folder_container">
-          <div >
-            <div >
-              <Label>Folder Name: </Label>
-              <input
-                defaultValue={folder_state.folder_name}
-                onChange={e => props.on_change_folder_editor(e)}
-                className="folder_name_input editor_inputs"
-                id={props.id}
-                placeholder="Folder Name"
-                name="folder_name" />
-            </div>
-            <div>
-              <Label>Folder ID: </Label>
-              <input
-                defaultValue={folder_state._id}
-                readOnly
-                onChange={e => props.on_change_folder_editor(e)}
-                className="folder_id_input_2 editor_inputs"
-                placeholder="Folder ID"
-                id={props.id}
-                name="folder_id" />
-            </div>
-            <div>
-              <Label>Notes: </Label>
-              <input
-                defaultValue={folder_state.notes}
-                onChange={e => props.on_change_folder_editor(e)}
-                className="notes_input editor_inputs"
-                placeholder="Notes"
-                id={props.id}
-                name="notes" />
-            </div>
-            <div>
-              <Label>Folders: </Label>
-              <input
-                defaultValue={folder_state.folders}
-                onChange={e => props.on_change_folder_editor(e)}
-                className="folders_input editor_inputs"
-                placeholder="Folders"
-                id={props.id}
-                name="folders" />
-            </div>
-            <div>
-              <Label>Date Created: </Label>
-              <input
-                defaultValue={format_date_display(folder_state.date_created)}
-                readOnly
-                onChange={e => props.on_change_folder_editor(e)}
-                className="folder_id_input_2 editor_inputs"
-                // placeholder="Date"
-                id={props.id}
-                name="folder_id" />
-            </div>
-            <div>
-              <Label>Date Modified: </Label>
-              <input
-                defaultValue={format_date_display(folder_state.date_modified)}
-                readOnly
-                onChange={e => props.on_change_folder_editor(e)}
-                className="folder_id_input_2 editor_inputs"
-                // placeholder="Folder ID"
-                id={props.id}
-                name="folder_id" />
-            </div>
-          </div>
+          <FlexContainer styles={{ flexDirection: "column" }}>
+            <Label>Folder Name: </Label>
+            <input
+              defaultValue={folder_state.folder_name}
+              onChange={e => props.on_change_folder_editor(e)}
+              className="folder_name_input editor_inputs"
+              id={props.id}
+              placeholder="Folder Name"
+              name="folder_name" />
+          </FlexContainer>
+          <FlexContainer styles={{ flexDirection: "column" }}>
+            <Label>Folder ID: </Label>
+            <input
+              defaultValue={folder_state._id}
+              readOnly
+              onChange={e => props.on_change_folder_editor(e)}
+              className="folder_id_input_2 editor_inputs"
+              placeholder="Folder ID"
+              id={props.id}
+              name="folder_id" />
+          </FlexContainer>
+          <FlexContainer styles={{ flexDirection: "column" }}>
+            <Label>Notes: </Label>
+            <input
+              defaultValue={folder_state.notes}
+              onChange={e => props.on_change_folder_editor(e)}
+              className="notes_input editor_inputs"
+              placeholder="Notes"
+              id={props.id}
+              name="notes" />
+          </FlexContainer>
+          <FlexContainer styles={{ flexDirection: "column" }}>
+            <Label>Folders: </Label>
+            <input
+              defaultValue={folder_state.folders}
+              onChange={e => props.on_change_folder_editor(e)}
+              className="folders_input editor_inputs"
+              placeholder="Folders"
+              id={props.id}
+              name="folders" />
+          </FlexContainer>
+          <FlexContainer styles={{ flexDirection: "column" }}>
+            <Label>Date Created: </Label>
+            <input
+              defaultValue={format_date_display(folder_state.date_created)}
+              readOnly
+              onChange={e => props.on_change_folder_editor(e)}
+              className="folder_id_input_2 editor_inputs"
+              // placeholder="Date"
+              id={props.id}
+              name="folder_id" />
+          </FlexContainer>
+          <FlexContainer styles={{ flexDirection: "column" }}>
+            <Label>Date Modified: </Label>
+            <input
+              defaultValue={format_date_display(folder_state.date_modified)}
+              readOnly
+              onChange={e => props.on_change_folder_editor(e)}
+              className="folder_id_input_2 editor_inputs"
+              // placeholder="Folder ID"
+              id={props.id}
+              name="folder_id" />
+          </FlexContainer>
         </div>
       </div>
       {/* <ButtonSymbol margin="-10px 0px 8px" id={props.id} on_click_function={props.show_hide_folder_modal}><i className="fas fa-times"></i></ButtonSymbol>

@@ -4,6 +4,8 @@ import Label from "../Label/Label"
 import Checkbox from "../Checkbox/Checkbox"
 import ButtonWord from "../ButtonWord/ButtonWord"
 import DropDownList from "../DropDownList/DropDownList"
+import FlexContainer from "../FlexContainer/FlexContainer"
+import BlockContainer from "../BlockContainer/BlockContainer"
 // Styles
 import './note_attribute_editor.css'
 import API from "../../utils/API";
@@ -54,8 +56,8 @@ function NoteAttributeEditor(props) {
   return (
     <div id="create_note_fields">
       <div id="create_note_container">
-        <div style={{ width: "50%" }}>
-          <div >
+        <BlockContainer styles={{ width: "50%" }}>
+          <FlexContainer styles={{ flexDirection: "column" }}>
             <Label>Priority: </Label>
             <DropDownList
               on_dropdown_choice={props.on_attribute_change}
@@ -63,8 +65,8 @@ function NoteAttributeEditor(props) {
               dropdown_state={props.dropdown_state}
               name="priority">{props.note_state.priority}
             </DropDownList>
-          </div>
-          <div>
+          </FlexContainer>
+          <FlexContainer styles={{ flexDirection: "column" }}>
             <Label>List Name: </Label>
             <DropDownList
               on_dropdown_choice={props.on_attribute_change}
@@ -72,8 +74,8 @@ function NoteAttributeEditor(props) {
               dropdown_state={props.dropdown_state}
               name="list_id"> {props.note_state.list_id}
             </DropDownList>
-          </div>
-          <div>
+          </FlexContainer>
+          <FlexContainer styles={{ flexDirection: "column" }}>
             <Label>Folder ID: </Label>
             <input
               defaultValue={props.note_state.folder_id}
@@ -89,8 +91,8 @@ function NoteAttributeEditor(props) {
               dropdown_state={props.dropdown_state}
               name="folder_id">{props.note_state.folder_id}
             </DropDownList> */}
-          </div>
-          <div>
+          </FlexContainer>
+          <FlexContainer styles={{ flexDirection: "column" }}>
             <Label>Category ID: </Label>
             <input
               defaultValue={props.note_state.category_id}
@@ -98,17 +100,17 @@ function NoteAttributeEditor(props) {
               className="category_input editor_inputs"
               placeholder="Category"
               name="category_id" />
-          </div>
-          <div style={{ display: "flex", flexDirection: "column" }}>
+          </FlexContainer>
+          <FlexContainer style={{ flexDirection: "column" }}>
             <Label>Date Created: {format_date_display(props.note_state.date_created)}</Label>
             <Label>Date Modified: {format_date_display(props.note_state.date_modified)}</Label>
             <Label>Date Completed: {format_date_display(props.note_state.date_completed)}</Label>
-          </div>
-          <div className="scheduled_field ">
+          </FlexContainer>
+          <FlexContainer className="scheduled_field" style={{ flexDirection: "column" }}>
             <Label>Schedule: </Label>
             <Checkbox onCheck={props.show_scheduling} checkboxState={props.schedule_state} />
-          </div>
-        </div>
+          </FlexContainer>
+        </BlockContainer>
 
         <div id="schedule_div" style={{ display: props.schedule_state ? "flex" : "none" }}>
           <Label>Date: </Label>

@@ -114,12 +114,8 @@ const Todo = (props) => {
         placeholder="Title"
         id={props.id}
         onBlur={e => update_note(e)} />
-      {/* <TodoButtonSymbol index={props.id} get_all_notes_by_list_id={props.get_all_notes_by_list_id} id={props.id} /> */}
-      {/* <ButtonSymbol onClick={() => show_modal()} className="show_modal_ButtonSymbol zoom"><i className="fas fa-sort-up"></i></ButtonSymbol> */}
       <ButtonSymbol styles={{ margin: "0px", padding: "0px" }} on_click_function={show_modal} ><i className="fas fa-bars"></i></ButtonSymbol>
       <TodoModal key={props.id} index={props.id} id={props.id} show_modal={show_modal} show_modal_state={modal_state} get_all_notes_by_list_id={props.get_all_notes_by_list_id}></TodoModal>
-      {/* <TodoEditNote title="Edit Note" id={props.id} show_hide={show_modal} show_modal_state={modal_state} get_all_notes_by_list_id={props.get_all_notes_by_list_id}></TodoEditNote> */}
-
     </div>
   );
 }

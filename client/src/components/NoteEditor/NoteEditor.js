@@ -7,18 +7,20 @@ import NoteAttributeEditor from '../NoteAttributeEditor/NoteAttributeEditor';
 import Title from '../Title/Title';
 // Styles
 import './note_editor.css'
+import FlexContainer from "../FlexContainer/FlexContainer";
+import BlockContainer from "../BlockContainer/BlockContainer";
 
 
 function NoteEditor(props) {
   return (
     // <div style={{ display: props.show_hide }}>
     <Section styles={props.show_hide}>
-      <div style={{ display: "flex", justifyContent: "space-between" }}>
+      <FlexContainer styles={{ justifyContent: "space-between" }}>
         <Title >Create Note</Title>
         <ButtonSymbol styles={{ margin: "18px 0px 18px 18px" }} on_click_function={props.create_new_note} >+</ButtonSymbol>
-      </div>
+      </FlexContainer>
       <Title styles={{ margin: "-30px 0px 0px 0px", fontSize: "16px" }}>Create a New Note Below</Title>
-      <div>
+      <BlockContainer>
         <NoteTextEditor
           note_state={props.note_state}
           on_change_note_editor={props.on_change_note_editor} />
@@ -29,7 +31,7 @@ function NoteEditor(props) {
           on_change_note_editor={props.on_change_note_editor}
           show_scheduling={props.show_scheduling}
           schedule_state={props.schedule_state} />
-      </div>
+      </BlockContainer>
     </Section>
     // </div>
   );

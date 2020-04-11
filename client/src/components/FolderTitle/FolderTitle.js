@@ -4,6 +4,7 @@ import { useClipboard } from 'use-clipboard-copy';
 import ButtonSymbol from '../ButtonSymbol/ButtonSymbol';
 import FolderAttributesModal from '../FolderAttributesModal/FolderAttributesModal';
 import Label from '../Label/Label';
+import FlexContainer from '../FlexContainer/FlexContainer';
 
 // Styles
 import './folder_title.css'
@@ -46,11 +47,11 @@ const FolderTitle = (props) => {
         style={props.styles}
         // onBlur={e => props.update_folder(e)}
         name="folder_name" />
-      <div style={{ display: "flex" }}>
+      <FlexContainer >
         <Label fontSize="16px" margin="auto" marginRight="13px" color="gray">{props.num_notes}</Label>
         <ButtonSymbol styles={{ margin: "5px 3px 7px 0px", padding: "4px" }} on_click_function={show_hide_folder_modal} id={props.folder_id} folder={props.folder}><i className="fas fa-bars"></i></ButtonSymbol>
         <ButtonSymbol styles={{ margin: "5px 3px 7px 0px", padding: "0px 2px 7px 0px" }} on_click_function={props.show_hide_by_folder} id={props.folder_id} folder={props.folder}><i className="fas fa-sort-up"></i></ButtonSymbol>
-      </div>
+      </FlexContainer>
       <FolderAttributesModal id={props.folder_id} on_change_folder_editor={props.on_change_folder_editor} get_all_folders={props.get_all_folders} show_hide_folder_modal={show_hide_folder_modal} folder_modal_state={folder_modal_state} />
     </div >
   );

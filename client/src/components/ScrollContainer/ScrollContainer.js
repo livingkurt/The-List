@@ -10,7 +10,6 @@ const ScrollContainer = (props) => {
 
   return (
     <div className="scroll_container" style={props.styles}>
-      {/* <div className="scroll_container" onMouseDown={handleMouseDown}></div> */}
       {props.children}
     </div>
   );

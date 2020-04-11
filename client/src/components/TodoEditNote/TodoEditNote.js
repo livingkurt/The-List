@@ -11,6 +11,8 @@ import NoteTextEditor from '../NoteTextEditor/NoteTextEditor';
 import ButtonSymbol from '../ButtonSymbol/ButtonSymbol';
 import Section from '../Section/Section';
 import Title from '../Title/Title';
+import FlexContainer from "../FlexContainer/FlexContainer";
+import BlockContainer from "../BlockContainer/BlockContainer";
 
 
 const TodoEditNote = (props) => {
@@ -297,32 +299,14 @@ const TodoEditNote = (props) => {
 
 
   return (
-    // <div style={{ display: props.show_modal_state }} className="list_modal zoom">
-    //   <ButtonSymbol margin="-10px 0px 8px" on_click_function={props.show_modal}><i className="fas fa-times"></i></ButtonSymbol>
-    //   <NoteTextEditor
-    //     note_state={note_state}
-    //     on_change_note_editor={on_change_note_editor}
-    //     height="20vh" />
-    //   <NoteAttributeEditor
-    //     note_state={note_state}
-    //     formatted_date_slash={formatted_date_slash}
-    //     on_change_note_editor={on_change_note_editor}
-    //     checkboxState={note_state.completed}
-    //     show_scheduling={show_scheduling}
-    //     schedule_state={schedule_state} />
-    //   <ButtonWord on_click_function={delete_note} index={props.id} get_all_notes_by_list_id={props.get_all_notes_by_list_id} id={props.id}>
-    //     Delete
-    //   </ButtonWord>
-
-    // </div>
     <Section show_hide={props.show_modal_state}>
       <ButtonSymbol styles={{ margin: "-10px 0px 8px" }} on_click_function={props.show_modal}><i className="fas fa-times"></i></ButtonSymbol>
-      <div style={{ display: "flex", justifyContent: "space-between" }}>
+      <FlexContainer styles={{ justifyContent: "space-between" }}>
         <Title >{props.title}</Title>
         <ButtonSymbol styles={{ margin: "18px 0px 18px 18px" }} on_click_function={props.create_new_note} >+</ButtonSymbol>
-      </div>
+      </FlexContainer>
       <Title margin="-30px 0px 0px 0px" fontSize="16px">Create a New Note Below</Title>
-      <div>
+      <BlockContainer>
         <NoteTextEditor
           note_state={note_state}
           on_change_note_editor={on_change_note_editor} />
@@ -333,7 +317,7 @@ const TodoEditNote = (props) => {
           on_change_note_editor={on_change_note_editor}
           show_scheduling={show_scheduling}
           schedule_state={schedule_state} />
-      </div>
+      </BlockContainer>
       <ButtonWord on_click_function={delete_note} index={props.id} get_all_notes_by_list_id={props.get_all_notes_by_list_id} id={props.id}>
         Delete
       </ButtonWord>

@@ -5,6 +5,7 @@ import TodoModal from '../TodoModal/TodoModal';
 // Styles
 import './note.css'
 import API from "../../utils/API";
+import BlockContainer from "../BlockContainer/BlockContainer";
 
 
 const Note = (props) => {
@@ -39,9 +40,9 @@ const Note = (props) => {
   return (
     <div className="note zoom">
       {/* <Checkbox /> */}
-      <div style={{ fontSize: "20px", color: "silver", transform: "rotate(270deg)", paddingBottom: "10px" }}>
+      <BlockContainer styles={{ fontSize: "20px", color: "silver", transform: "rotate(270deg)", paddingBottom: "10px" }}>
         <i className="fas fa-sort-up"></i>
-      </div>
+      </BlockContainer>
       <input
         defaultValue={props.children}
         className="note_input"

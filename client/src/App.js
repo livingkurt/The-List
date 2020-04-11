@@ -647,7 +647,7 @@ const App = () => {
               {priority_state.priorites.map((priority, index) => {
                 return <PriorityContainer key={index}>
                   <PriorityTitle styles={{ fontSize: "18px", margin: "10px" }} on_click_function={show_hide_by_priority} id="master" priority={priority} >{priority} Priority</PriorityTitle>
-                  <TodoContainer className={"master_" + priority.toLowerCase()} height={priority_state["master_" + priority.toLowerCase()]}>
+                  <TodoContainer className={"master_" + priority.toLowerCase()} styles={{ height: priority_state["master_" + priority.toLowerCase()] }}>
                     {categories_state.map((category, index) => {
                       // console.log({ "category": category })
                       if (category.priority === priority) {
@@ -698,7 +698,7 @@ const App = () => {
               {priority_state.priorites.map((priority, index) => {
                 return <PriorityContainer key={index}>
                   <PriorityTitle styles={{ fontSize: "18px", margin: "10px" }} on_click_function={show_hide_by_priority} id="dump" priority={priority} >{priority} Priority</PriorityTitle>
-                  <TodoContainer className={"dump_" + priority.toLowerCase()} height={priority_state["dump_" + priority.toLowerCase()]}>
+                  <TodoContainer className={"dump_" + priority.toLowerCase()} styles={{ height: priority_state["dump_" + priority.toLowerCase()] }}>
                     {todo_dump_state.map((note, index) => {
                       if (note.priority === priority) {
                         return <Todo

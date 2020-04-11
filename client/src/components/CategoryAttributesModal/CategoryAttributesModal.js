@@ -10,6 +10,7 @@ import Label from '../Label/Label';
 import ButtonSymbol from '../ButtonSymbol/ButtonSymbol';
 import DropDownList from "../DropDownList/DropDownList"
 import FlexContainer from "../FlexContainer/FlexContainer"
+import BlockContainer from "../BlockContainer/BlockContainer"
 
 
 const CategoryAttributesModal = (props) => {
