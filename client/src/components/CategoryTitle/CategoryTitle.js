@@ -45,7 +45,7 @@ const CategoryTitle = (props) => {
           name="category_name" />
       </FlexContainer>
       <FlexContainer >
-        <Label fontSize="16px" margin="auto" marginRight="13px" color="gray">{props.num_notes}</Label>
+        <Label styles={{ fontSize: "16px", margin: "auto", marginRight: "13px", color: "gray" }}>{props.num_notes}</Label>
         <ButtonSymbol styles={{ margin: "5px 3px 7px 0px", padding: "4px" }} on_click_function={show_hide_category_modal} id={props.category_id} category={props.category}><i className="fas fa-bars"></i></ButtonSymbol>
         <ButtonSymbol styles={{ margin: "5px 3px 7px 0px", padding: "0px 2px 7px 0px" }} on_click_function={props.show_hide_by_category} id={props.category_id} category={props.category}><i className="fas fa-sort-up"></i></ButtonSymbol>
       </FlexContainer>

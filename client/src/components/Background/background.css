@@ -1,13 +1,16 @@
 #bg {
-  background-image: url('./bg.png');
+  /* background-image: url('./bg.png'); */
   /* background-size: cover; */
+  background: rgb(71, 125, 226);
+  background: linear-gradient(180deg, rgb(85, 103, 138) 12%, rgb(156, 83, 83) 56%);
   background-repeat: repeat;
-  /* background-position: center; */
   background-attachment: fixed;
-  /* height: 100vh; */
   width: 100%;
   z-index: -1;
-  /* padding-top: 100px; */
+  width: 100%;
+  margin: 0;
+  padding: 0;
+  overflow-y: overlay;
 }
 
 @media screen and (max-width: 930px) {

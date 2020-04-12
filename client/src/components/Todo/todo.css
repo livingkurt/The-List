@@ -58,25 +58,6 @@
 }
 
 .show_modal_button:active {
-  background-color: rgb(224, 224, 224);
+  /* background-color: rgb(224, 224, 224); */
+  color: rgb(83, 100, 135);
 }
-
-/* 
-.zoom {
-  -webkit-transition: all 0.6s cubic-bezier(0.165, 0.84, 0.44, 1);
-  transition: all 0.6s cubic-bezier(0.165, 0.84, 0.44, 1);
-}
-
-.zoom::after {
-  -webkit-transition: all 0.6s cubic-bezier(0.165, 0.84, 0.44, 1);
-  transition: all 0.6s cubic-bezier(0.165, 0.84, 0.44, 1);
-}
-
-.zoom:hover {
-  -webkit-transform: scale(1.03, 1.03);
-  transform: scale(1.03, 1.03);
-}
-
-.zoom:hover::after {
-  opacity: 1;
-} */

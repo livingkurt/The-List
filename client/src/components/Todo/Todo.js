@@ -9,6 +9,7 @@ import TodoModal from '../TodoModal/TodoModal';
 import ButtonSymbol from '../ButtonSymbol/ButtonSymbol';
 // import TodoEditNote from '../TodoEditNote/TodoEditNote';
 import API from "../../utils/API";
+import EditorInput from "../EditorInput/EditorInput";
 
 
 const Todo = (props) => {
@@ -108,12 +109,14 @@ const Todo = (props) => {
   return (
     <div className="todo zoom">
       <Checkbox checkboxState={checkboxState} update_note_checkbox={update_note_checkbox} onCheck={save_check_status} todo_state={todo_state} id={props.id} />
-      <input
-        defaultValue={props.children}
-        className="todo_input"
+      <EditorInput
+        value={props.children}
+        // className="todo_input"
         placeholder="Title"
+        styles={{ boxShadow: "unset", width: "100%" }}
         id={props.id}
-        onBlur={e => update_note(e)} />
+        on_change_function={update_note} />
+
       <ButtonSymbol styles={{ margin: "0px", padding: "0px" }} on_click_function={show_modal} ><i className="fas fa-bars"></i></ButtonSymbol>
       <TodoModal key={props.id} index={props.id} id={props.id} show_modal={show_modal} show_modal_state={modal_state} get_all_notes_by_list_id={props.get_all_notes_by_list_id}></TodoModal>
     </div>

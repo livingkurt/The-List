@@ -1,31 +1,19 @@
-/* .note_archive {
-  width: 1000px;
-  background-color: white;
-  z-index: 1;
-  height: 90vh;
-} */
-
-/* Sidebar */
-
-.note_archive {
+.note_container {
   display: none;
   position: relative;
   transition: all .5s;
   transform: translateX(-51rem);
-  /* width: 0px; */
   background-color: white;
-  /* border: 1px silver solid; */
   box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
   border-radius: 0px 0px 20px;
   padding: 20px;
-  /* height: 100%; */
-  height: 81vh;
+  height: 100%;
   width: 1500px;
-  /* width: 300px; */
   left: 0;
+  opacity: .8;
 }
 
-.note_archive.open {
+.note_container.open {
   display: unset;
   transform: translateX(-0);
   /* width: 1500px; */

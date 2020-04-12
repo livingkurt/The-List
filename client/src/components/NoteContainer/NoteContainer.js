@@ -7,7 +7,7 @@ import './note_container.css'
 const NoteContainer = ({ children }) => {
 
   return (
-    <div className="note_archive">
+    <div className="note_container">
       {children}
     </div>
   );

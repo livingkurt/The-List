@@ -7,11 +7,11 @@ import './editor_input.css'
 const EditorInput = (props) => {
 
   return (
-    <div >
+    <div style={{ width: "100%" }}>
       <input
         defaultValue={props.value}
         onBlur={e => props.on_change_function(e)}
-        className="editor_inputs"
+        className="editor_input"
         style={props.styles}
         id={props.id}
         placeholder={props.placeholder}
