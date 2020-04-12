@@ -163,12 +163,12 @@ const CategoryAttributesModal = (props) => {
           </FlexContainer>
           <FlexContainer styles={{ flexDirection: "column" }}>
             <Label>Category ID: </Label>
-            <EditorInput
+            <input
               defaultValue={category_state._id}
               readOnly
               onBlur={e => props.on_change_category_editor(e)}
               className="category_id_input_2 editor_inputs"
-              placeholder="category ID"
+              placeholder="Category ID"
               id={props.id}
               name="category_id" />
           </FlexContainer>

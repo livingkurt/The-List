@@ -45,7 +45,7 @@ const FolderTitle = (props) => {
         styles={{ fontWeight: "700", fontSize: "16px", margin: "2px", boxShadow: "unset" }}
         name="folder_name" />
       <FlexContainer >
-        <Label fontSize="16px" margin="auto" marginRight="13px" color="gray">{props.num_notes}</Label>
+        <Label styles={{ fontSize: "16px", margin: "auto", marginRight: "13px", color: "gray" }}>{props.num_notes}</Label>
         <ButtonSymbol styles={{ margin: "5px 3px 7px 0px", padding: "4px" }} on_click_function={show_hide_folder_modal} id={props.folder_id} folder={props.folder}><i className="fas fa-bars"></i></ButtonSymbol>
         <ButtonSymbol styles={{ margin: "5px 3px 7px 0px", padding: "0px 2px 7px 0px" }} on_click_function={props.show_hide_by_folder} id={props.folder_id} folder={props.folder}><i className="fas fa-sort-up"></i></ButtonSymbol>
       </FlexContainer>

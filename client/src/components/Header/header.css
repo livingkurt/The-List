@@ -3,7 +3,7 @@
     src: local('Anders'), url(./Anders.ttf) format('ttf');
   } */
 
-.nav {
+.header {
   list-style-type: none;
   text-decoration: none;
   /* justify-content: center; */
@@ -14,14 +14,18 @@
   /* height: 10vh; */
   background-color: white;
   box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+  background-color: rgb(83, 100, 135);
+  /* margin: 0px 10px 0px 10px; */
+  font-size: 50px;
+  padding: 10px;
+  display: flex;
+  /* position: absolute; */
+  flex-direction: row;
+  color: white;
+  background-color: rgb(83, 100, 135);
 }
 
-.nav_items {
-  margin: 0px 10px 0px 10px;
-  font-size: 50px;
-  display: flex;
-  flex-direction: row;
-}
+/* .nav_items {}
 
 .nav_button {
   margin: auto 20px;
@@ -41,4 +45,4 @@
 
 .nav_button:active {
   background-color: rgb(224, 224, 224);
-}
+} */

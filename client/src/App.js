@@ -477,7 +477,24 @@ const App = () => {
     display: "block"
   })
 
+  const [show_hide_calender_state, set_show_hide_calender_state] = useState({
+    name: "Hide Calender",
+    display: "block"
+  })
+
+  const show_hide_calender = () => {
+    console.log("show_hide_calender")
+
+    if (show_hide_calender_state.display === "none") {
+      set_show_hide_calender_state({ ...show_hide_calender_state, name: "Hide Todo Calender", display: "block" })
+    }
+    else if (show_hide_calender_state.display === "block") {
+      set_show_hide_calender_state({ ...show_hide_calender_state, name: "Show Todo Calender", display: "none" })
+    }
+  }
+
   const show_hide_master = () => {
+    console.log("show_hide_master")
 
     if (show_hide_master_state.display === "none") {
       set_show_hide_master_state({ ...show_hide_master_state, name: "Hide Todo Master", display: "block" })
@@ -492,13 +509,13 @@ const App = () => {
 
   const show_hide_notes = () => {
     if (sidebar_state) {
-      document.querySelector(".note_archive").classList.remove("open");
+      document.querySelector(".note_container").classList.remove("open");
       set_sidebar_state(false)
       set_show_hide_notes_state({ ...show_hide_notes_state, name: "Show Notes", display: "none" })
 
     }
     else {
-      document.querySelector(".note_archive").classList.add("open");
+      document.querySelector(".note_container").classList.add("open");
       set_sidebar_state(true)
       set_show_hide_notes_state({ ...show_hide_notes_state, name: "Hide Notes", display: "block" })
     }
@@ -585,6 +602,7 @@ const App = () => {
           <ButtonWord styles={{ margin: "20px" }} on_click_function={show_create_note_container} >{show_hide_create_note_state.name}</ButtonWord>
           <ButtonWord styles={{ margin: "20px" }} on_click_function={show_hide_master} >{show_hide_master_state.name}</ButtonWord>
           <ButtonWord styles={{ margin: "20px" }} on_click_function={show_hide_dump} >{show_hide_dump_state.name}</ButtonWord>
+          <ButtonWord styles={{ margin: "20px" }} on_click_function={show_hide_calender} >{show_hide_calender_state.name}</ButtonWord>
         </Header>
         <Container>
           <NoteContainer >
@@ -592,7 +610,7 @@ const App = () => {
               <Title >Notes</Title>
               <ButtonWord on_click_function={create_new_folder} >New Folder</ButtonWord>
             </FlexContainer>
-            <ScrollContainer styles={{ height: "73vh" }}>
+            <ScrollContainer styles={{ height: "85vh" }}>
 
               {folders_state.map((folder, index) => {
                 console.log(folder.folders)
@@ -633,7 +651,7 @@ const App = () => {
             on_change_note_editor={on_change_note_editor}
             show_scheduling={show_scheduling}
             schedule_state={schedule_state} />
-          <Section styles={{ display: show_hide_dump_state.display }}>
+          <Section styles={{ display: show_hide_master_state.display }}>
             <FlexContainer styles={{ justifyContent: "space-between" }}>
               <Title>Master Todo List:</Title>
               <FlexContainer styles={{ flexDirection: "row" }}>
@@ -644,7 +662,7 @@ const App = () => {
               </FlexContainer>
             </FlexContainer>
             <Title styles={{ margin: "-30px 0px 0px 0px", fontSize: "16px" }}>Today {format_date_display(new Date())}</Title>
-            <ScrollContainer styles={{ height: "73vh" }}>
+            <ScrollContainer >
               {priority_state.priorites.map((priority, index) => {
                 return <PriorityContainer key={index}>
                   <PriorityTitle styles={{ fontSize: "18px", margin: "10px" }} on_click_function={show_hide_by_priority} id="master" priority={priority} >{priority} Priority</PriorityTitle>
@@ -695,7 +713,7 @@ const App = () => {
               <ButtonSymbol styles={{ margin: "18px 0px 18px 18px" }} on_click_function={create_empty_todo} id="Dump" >+</ButtonSymbol>
             </FlexContainer>
             <Title styles={{ margin: "-30px 0px 0px 0px", fontSize: "16px" }}>Get your Ideas Down Fast</Title>
-            <ScrollContainer styles={{ height: "73vh" }}>
+            <ScrollContainer >
               {priority_state.priorites.map((priority, index) => {
                 return <PriorityContainer key={index}>
                   <PriorityTitle styles={{ fontSize: "18px", margin: "10px" }} on_click_function={show_hide_by_priority} id="dump" priority={priority} >{priority} Priority</PriorityTitle>
@@ -718,7 +736,7 @@ const App = () => {
           </Section>
         </Container>
         <Container>
-          <Section>
+          <Section styles={{ display: show_hide_calender_state.display }} >
             <FlexContainer styles={{ flexDirection: "column", width: "100%" }}>
               <Title>Calender</Title>
               <Title styles={{ margin: "0px", fontSize: "20px" }}>Today {format_date_display(new Date())}</Title>
@@ -729,7 +747,7 @@ const App = () => {
                 return <Title>{day}</Title>
               })}
             </FlexContainer>
-            <CalenderContainer styles={{ height: "73vh", margin: "15px 0px 0px 0px" }}>
+            <CalenderContainer styles={{ margin: "15px 0px 0px 0px" }}>
               {days.map((day, index) => {
                 return <CalenderColumns >
                   {/* {day} */}
