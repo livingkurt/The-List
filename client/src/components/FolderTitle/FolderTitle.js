@@ -8,6 +8,7 @@ import FlexContainer from '../FlexContainer/FlexContainer';
 
 // Styles
 import './folder_title.css'
+import EditorInput from "../EditorInput/EditorInput";
 
 
 const FolderTitle = (props) => {
@@ -36,16 +37,12 @@ const FolderTitle = (props) => {
 
   return (
     <div onClick={copy_to_clipboard} className="folder_title zoom" >
-      {/* <h2 style={{ margin: props.margin, fontSize: props.fontSize }}>{props.children}</h2> */}
-      {/* <input style={{ margin: props.margin, fontSize: props.fontSize }}>{props.children}</input> */}
-      <input
-        defaultValue={props.children}
-        onChange={e => props.on_change_folder_editor(e)}
-        className="folder_id_input editor_inputs"
+      <EditorInput
+        value={props.children}
+        on_change_function={e => props.on_change_folder_editor(e)}
         id={props.folder_id}
         placeholder="Folder Name"
-        style={props.styles}
-        // onBlur={e => props.update_folder(e)}
+        styles={{ fontWeight: "700", fontSize: "16px", margin: "2px", boxShadow: "unset" }}
         name="folder_name" />
       <FlexContainer >
         <Label fontSize="16px" margin="auto" marginRight="13px" color="gray">{props.num_notes}</Label>

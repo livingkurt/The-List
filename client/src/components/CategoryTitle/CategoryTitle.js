@@ -9,15 +9,10 @@ import BlockContainer from '../BlockContainer/BlockContainer';
 
 // Styles
 import './category_title.css'
+import EditorInput from "../EditorInput/EditorInput";
 
 
 const CategoryTitle = (props) => {
-
-  // const clipboard = useClipboard();
-  // const copy_to_clipboard = () => {
-  //   clipboard.copy(props.folder_id)
-  //   console.log(props.folder_id)
-  // }
 
   const [category_modal_state, set_category_modal_state] = useState("none")
 
@@ -37,19 +32,18 @@ const CategoryTitle = (props) => {
 
   return (
     <div className="category_title zoom" >
-      {/* <h2 style={{ margin: props.margin, fontSize: props.fontSize }}>{props.children}</h2> */}
-      {/* <input style={{ margin: props.margin, fontSize: props.fontSize }}>{props.children}</input> */}
-      <BlockContainer styles={{ fontSize: "20px", color: "silver", transform: "rotate(270deg)", marginLeft: "10px", marginTop: "3px" }}>
-        <i className="fas fa-sort-up"></i>
-      </BlockContainer>
-      <input
-        defaultValue={props.children}
-        // onChange={e => props.on_change_category_editor(e)}
-        className="category_id_input editor_inputs"
-        id={props.category_id}
-        placeholder="Category Name"
-        onBlur={e => props.on_change_category_editor(e)}
-        name="category_name" />
+      <FlexContainer>
+        <BlockContainer styles={{ fontSize: "20px", color: "silver", transform: "rotate(270deg)", marginLeft: "10px", marginTop: "3px" }}>
+          <i className="fas fa-sort-up"></i>
+        </BlockContainer>
+        <EditorInput
+          value={props.children}
+          styles={{ fontWeight: "700", margin: "0px", boxShadow: "unset" }}
+          id={props.category_id}
+          placeholder="Category Name"
+          on_change_function={e => props.on_change_category_editor(e)}
+          name="category_name" />
+      </FlexContainer>
       <FlexContainer >
         <Label fontSize="16px" margin="auto" marginRight="13px" color="gray">{props.num_notes}</Label>
         <ButtonSymbol styles={{ margin: "5px 3px 7px 0px", padding: "4px" }} on_click_function={show_hide_category_modal} id={props.category_id} category={props.category}><i className="fas fa-bars"></i></ButtonSymbol>

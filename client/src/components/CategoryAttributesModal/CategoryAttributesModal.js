@@ -11,6 +11,7 @@ import ButtonSymbol from '../ButtonSymbol/ButtonSymbol';
 import DropDownList from "../DropDownList/DropDownList"
 import FlexContainer from "../FlexContainer/FlexContainer"
 import BlockContainer from "../BlockContainer/BlockContainer"
+import EditorInput from "../EditorInput/EditorInput";
 
 
 const CategoryAttributesModal = (props) => {
@@ -153,17 +154,16 @@ const CategoryAttributesModal = (props) => {
         <div id="create_category_container">
           <FlexContainer styles={{ flexDirection: "column" }}>
             <Label>Category Name: </Label>
-            <input
-              defaultValue={category_state.category_name}
-              onBlur={e => props.on_change_category_editor(e)}
-              className="category_name_input editor_inputs"
+            <EditorInput
+              value={category_state.category_name}
+              on_change_function={props.on_change_category_editor}
               id={props.id}
-              placeholder="category Name"
+              placeholder="Category Name"
               name="category_name" />
           </FlexContainer>
           <FlexContainer styles={{ flexDirection: "column" }}>
             <Label>Category ID: </Label>
-            <input
+            <EditorInput
               defaultValue={category_state._id}
               readOnly
               onBlur={e => props.on_change_category_editor(e)}

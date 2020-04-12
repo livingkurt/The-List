@@ -9,6 +9,7 @@ import API from "../../utils/API";
 import Label from '../Label/Label';
 import ButtonSymbol from '../ButtonSymbol/ButtonSymbol';
 import FlexContainer from '../FlexContainer/FlexContainer';
+import EditorInput from "../EditorInput/EditorInput";
 
 
 const FolderAttributesModal = (props) => {
@@ -127,9 +128,9 @@ const FolderAttributesModal = (props) => {
         <div id="create_folder_container">
           <FlexContainer styles={{ flexDirection: "column" }}>
             <Label>Folder Name: </Label>
-            <input
-              defaultValue={folder_state.folder_name}
-              onChange={e => props.on_change_folder_editor(e)}
+            <EditorInput
+              value={folder_state.folder_name}
+              on_change_function={e => props.on_change_folder_editor(e)}
               className="folder_name_input editor_inputs"
               id={props.id}
               placeholder="Folder Name"

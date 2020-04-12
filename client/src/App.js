@@ -604,7 +604,6 @@ const App = () => {
                       get_all_folders={get_all_folders}
                       show_hide_folder_modal={show_hide_folder_modal}
                       on_change_folder_editor={on_change_folder_editor}
-                      styles={{ fontSize: "16px", margin: "2px" }}
                       folder_id={folder._id}
                       num_notes={folder.notes.length}
                     >{folder.folder_name}</FolderTitle>
