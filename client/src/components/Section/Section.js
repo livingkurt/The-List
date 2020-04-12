@@ -8,7 +8,7 @@ const Section = (props) => {
 
 
   return (
-    <div style={{ display: props.show_hide }} className="section">
+    <div style={props.styles} className="section">
       {props.children}
     </div>
   );

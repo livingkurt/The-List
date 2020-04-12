@@ -8,7 +8,7 @@ const ButtonSymbol = (props) => {
 
   return (
     <div >
-      <button style={{ webkitTransform: props.rotation, margin: props.margin, padding: props.padding }} id={props.id} onClick={() => props.on_click_function(props.id, props.priority)} className="button_symbol">{props.children}</button>
+      <button style={props.styles} id={props.id} onClick={() => props.on_click_function(props.id, props.priority)} className="button_symbol">{props.children}</button>
     </div>
   );
 }

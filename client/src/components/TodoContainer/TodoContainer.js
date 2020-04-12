@@ -9,7 +9,7 @@ const TodoContainer = (props) => {
 
 
   return (
-    <div className="todo_container" style={{ height: props.height }}>
+    <div className="todo_container" style={props.styles}>
       {props.children}
     </div>
   );

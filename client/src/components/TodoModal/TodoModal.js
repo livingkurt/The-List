@@ -268,7 +268,7 @@ const TodoModal = (props) => {
 
   return (
     <div style={{ display: props.show_modal_state }} className="todo_modal zoom">
-      <ButtonSymbol margin="-10px 0px 8px" on_click_function={props.show_modal}><i className="fas fa-times"></i></ButtonSymbol>
+      <ButtonSymbol styles={{ margin: "-10px 0px 8px" }} on_click_function={props.show_modal}><i className="fas fa-times"></i></ButtonSymbol>
       <NoteTextEditor
         note_state={note_state}
         on_change_note_editor={on_change_note_editor}
@@ -289,7 +289,7 @@ const TodoModal = (props) => {
         show_scheduling={show_scheduling}
         schedule_state={schedule_state} />
 
-      <ButtonWord margin="10px 0px 0px 0px" on_click_function={delete_note} index={props.id} get_all_notes_by_list_id={props.get_all_notes_by_list_id} id={props.id}>
+      <ButtonWord styles={{ margin: "10px 0px 0px 0px" }} on_click_function={delete_note} index={props.id} get_all_notes_by_list_id={props.get_all_notes_by_list_id} id={props.id}>
         Delete
       </ButtonWord>
     </div>
