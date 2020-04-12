@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useReducer } from 'react';
 import './App.css';
 import Background from './components/Background/Background';
 import Container from './components/Container/Container';
@@ -29,6 +29,7 @@ import FlexContainer from './components/FlexContainer/FlexContainer';
 // 
 import API from "./utils/API";
 import { format_date_element, format_date_display } from "./utils/HelperFunctions";
+import { CategoryContext } from './state/context';
 // import styled from 'styled-components';
 
 const App = () => {
@@ -41,6 +42,10 @@ const App = () => {
     get_all_folders();
     get_all_categories();
   }, []);
+
+  // const initialState = useContext(UserContext);
+  // const [state, dispatch] = useReducer(category_state  );
+
 
 
   const [todo_master_state, set_todo_master_state] = useState([])
@@ -79,15 +84,15 @@ const App = () => {
   const [category_state, set_category_state] = useState([])
 
 
-  const on_change_category_editor = async (e) => {
-    const category_id = e.target.id
+  const on_change_category_editor = async (e, category) => {
+    const category_id = category.id
     const category_data = e.target.value
     const field_name = e.target.name
     set_category_state({ ...category_state, [field_name]: category_data })
     try {
-      const res = await API.get_category(category_id)
+      // const res = await API.get_category(category_id)
       const update_category = {
-        ...res.data,
+        ...category,
         [field_name]: category_data
       }
       console.log({ "update_category": update_category })
@@ -641,6 +646,7 @@ const App = () => {
               </FlexContainer>
             </FlexContainer>
             <Title styles={{ margin: "-30px 0px 0px 0px", fontSize: "16px" }}>Today {format_date_display(new Date())}</Title>
+
             <ScrollContainer >
               {priority_state.priorites.map((priority, index) => {
                 return <PriorityContainer key={index}>
@@ -649,35 +655,39 @@ const App = () => {
                     {categories_state.map((category, index) => {
                       // console.log({ "category": category })
                       if (category.priority === priority) {
-                        return <FolderContainer index={category._id} id={category._id} key={category._id}>
-                          <CategoryTitle
-                            show_hide_by_category={show_hide_by_category}
-                            get_all_notes_by_list_id={get_all_notes_by_list_id}
-                            get_all_notes_by_list_id={get_all_notes_by_list_id}
-                            category={category}
-                            category_id={category._id}
-                            on_change_category_editor={on_change_category_editor}
-                          >{category.category_name}</CategoryTitle>
-                          <CategoryNoteContainer
-                            height={category_view_state[category._id]}
-                            hidden={category.hidden}
-                            get_all_notes_by_list_id={get_all_notes_by_list_id}
-                            category={category}
-                          >
-                            {todo_master_state.map((note, index) => {
-                              if (note.category_id === category._id) {
-                                return <Todo
-                                  category_state={category_state}
-                                  show_create_note_container={show_create_note_container}
-                                  get_all_notes_by_list_id={get_all_notes_by_list_id}
-                                  index={note._id}
-                                  id={note._id}
-                                  key={note._id}>{note.title}</Todo>
-                              }
-                            })}
+                        return <CategoryContext.Provider value={category}>
+                          <FolderContainer index={category._id} id={category._id} key={category._id}>
 
-                          </CategoryNoteContainer>
-                        </FolderContainer>
+                            <CategoryTitle
+                              show_hide_by_category={show_hide_by_category}
+                              get_all_notes_by_list_id={get_all_notes_by_list_id}
+                              get_all_notes_by_list_id={get_all_notes_by_list_id}
+                              category={category}
+                              category_id={category._id}
+                              on_change_category_editor={on_change_category_editor}
+                            >{category.category_name}</CategoryTitle>
+
+                            <CategoryNoteContainer
+                              height={category_view_state[category._id]}
+                              hidden={category.hidden}
+                              get_all_notes_by_list_id={get_all_notes_by_list_id}
+                              category={category}
+                            >
+                              {todo_master_state.map((note, index) => {
+                                if (note.category_id === category._id) {
+                                  return <Todo
+                                    category_state={category_state}
+                                    show_create_note_container={show_create_note_container}
+                                    get_all_notes_by_list_id={get_all_notes_by_list_id}
+                                    index={note._id}
+                                    id={note._id}
+                                    key={note._id}>{note.title}</Todo>
+                                }
+                              })}
+
+                            </CategoryNoteContainer>
+                          </FolderContainer>
+                        </CategoryContext.Provider>
 
                       }
                     })}
@@ -685,6 +695,7 @@ const App = () => {
                 </PriorityContainer>
               })}
             </ScrollContainer>
+
           </Section>
           <Section styles={{ display: show_hide_dump_state.display }}>
             <FlexContainer styles={{ justifyContent: "space-between" }}>

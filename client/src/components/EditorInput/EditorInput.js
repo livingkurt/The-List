@@ -10,7 +10,7 @@ const EditorInput = (props) => {
     <div style={{ width: "100%" }}>
       <input
         defaultValue={props.value}
-        onBlur={e => props.on_change_function(e)}
+        onBlur={(e) => props.on_change_function(e, props.state)}
         className="editor_input"
         style={props.styles}
         id={props.id}

@@ -1,5 +1,5 @@
 // React
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useContext } from "react";
 // Styles
 import './category_attributes_modal.css'
 // import Checkbox from '../Checkbox/Checkbox';
@@ -12,6 +12,7 @@ import DropDownList from "../DropDownList/DropDownList"
 import FlexContainer from "../FlexContainer/FlexContainer"
 import BlockContainer from "../BlockContainer/BlockContainer"
 import EditorInput from "../EditorInput/EditorInput";
+import { CategoryContext } from "../../state/context"
 
 
 const CategoryAttributesModal = (props) => {
@@ -20,6 +21,8 @@ const CategoryAttributesModal = (props) => {
   const category_id = props.id
 
   // console.log({ "category_id": category_id })
+  const category_context = useContext(CategoryContext)
+  console.log({ "category_context": category_context })
 
   const [category_state, set_category_state] = useState({
     category_name: "",
@@ -31,22 +34,23 @@ const CategoryAttributesModal = (props) => {
   const [dropdown_state, set_dropdown_state] = useState("none")
 
   useEffect(() => {
-    get_category()
+    // get_category()
+    set_category_state(category_context)
 
   }, [])
 
-  const get_category = async () => {
-    const category_id = props.id
-    if (category_id != undefined) {
-      try {
-        const res = await API.get_category(category_id)
-        set_category_state(res.data)
-      }
-      catch (err) {
-        // console.log(err);
-      }
-    }
-  }
+  // const get_category = async () => {
+  //   const category_id = props.id
+  //   if (category_id != undefined) {
+  //     try {
+  //       const res = await API.get_category(category_id)
+  //       set_category_state(res.data)
+  //     }
+  //     catch (err) {
+  //       // console.log(err);
+  //     }
+  //   }
+  // }
   const drop_down = () => {
     if (dropdown_state === "none") {
       set_dropdown_state("flex")
@@ -56,38 +60,38 @@ const CategoryAttributesModal = (props) => {
     }
 
   }
-  const on_change_category_editor = async (e) => {
-    const category_id = props.id
-    let todo_data = ""
-    let field_name = ""
-    // const category_id = e.target.id
-    console.log({ "on_change_category_editor": e })
-    if (e.target === undefined) {
-      set_category_state({ ...category_state, scheduled: e })
-      todo_data = e
-      field_name = "scheduled"
-    }
-    else {
+  // const on_change_category_editor = async (e) => {
+  //   const category_id = props.id
+  //   let todo_data = ""
+  //   let field_name = ""
+  //   // const category_id = e.target.id
+  //   console.log({ "on_change_category_editor": e })
+  //   if (e.target === undefined) {
+  //     set_category_state({ ...category_state, scheduled: e })
+  //     todo_data = e
+  //     field_name = "scheduled"
+  //   }
+  //   else {
 
-      todo_data = e.target.value
-      field_name = e.target.name
-      set_category_state({ ...category_state, [field_name]: todo_data })
-    }
-    console.log(field_name)
-    try {
-      const res = await API.get_category(category_id)
-      console.log({ "update_category": res.data })
-      const update_todo = {
-        ...res.data,
-        [field_name]: todo_data
-      }
-      API.update_category(category_id, update_todo)
-    }
-    catch (err) {
-      console.log({ "save_scheduling": err });
-    }
+  //     todo_data = e.target.value
+  //     field_name = e.target.name
+  //     set_category_state({ ...category_state, [field_name]: todo_data })
+  //   }
+  //   console.log(field_name)
+  //   try {
+  //     const res = await API.get_category(category_id)
+  //     console.log({ "update_category": res.data })
+  //     const update_todo = {
+  //       ...res.data,
+  //       [field_name]: todo_data
+  //     }
+  //     API.update_category(category_id, update_todo)
+  //   }
+  //   catch (err) {
+  //     console.log({ "save_scheduling": err });
+  //   }
 
-  }
+  // }
 
   const delete_category = async (e) => {
     const category_id = props.id
@@ -155,6 +159,7 @@ const CategoryAttributesModal = (props) => {
           <FlexContainer styles={{ flexDirection: "column" }}>
             <Label>Category Name: </Label>
             <EditorInput
+              state={props.category}
               value={category_state.category_name}
               on_change_function={props.on_change_category_editor}
               id={props.id}
