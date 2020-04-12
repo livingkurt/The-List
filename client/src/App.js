@@ -202,18 +202,7 @@ const App = () => {
     }
   }
 
-  const [sidebar_state, set_sidebar_state] = useState(false)
 
-  const sidebar_show_hide = () => {
-    if (sidebar_state) {
-      document.querySelector(".note_archive").classList.remove("open");
-      set_sidebar_state(false)
-    }
-    else {
-      document.querySelector(".note_archive").classList.add("open");
-      set_sidebar_state(true)
-    }
-  }
 
   const on_change_note_editor = (e) => {
     if (e.target === undefined) {
@@ -483,6 +472,11 @@ const App = () => {
     display: "block"
   })
 
+  const [show_hide_notes_state, set_show_hide_notes_state] = useState({
+    name: "Show Notes",
+    display: "block"
+  })
+
   const show_hide_master = () => {
 
     if (show_hide_master_state.display === "none") {
@@ -490,6 +484,23 @@ const App = () => {
     }
     else if (show_hide_master_state.display === "block") {
       set_show_hide_master_state({ ...show_hide_master_state, name: "Show Todo Master", display: "none" })
+    }
+  }
+
+
+  const [sidebar_state, set_sidebar_state] = useState(false)
+
+  const show_hide_notes = () => {
+    if (sidebar_state) {
+      document.querySelector(".note_archive").classList.remove("open");
+      set_sidebar_state(false)
+      set_show_hide_notes_state({ ...show_hide_notes_state, name: "Show Notes", display: "none" })
+
+    }
+    else {
+      document.querySelector(".note_archive").classList.add("open");
+      set_sidebar_state(true)
+      set_show_hide_notes_state({ ...show_hide_notes_state, name: "Hide Notes", display: "block" })
     }
   }
 
@@ -568,11 +579,9 @@ const App = () => {
   return (
     <div >
       <Background>
-        <Header sidebar_show_hide={sidebar_show_hide}>
+        <Header show_hide_notes={show_hide_notes}>
           <Title styles={{ margin: "0px" }}>TheList</Title>
-          {/* <ButtonWord margin="auto 20px" padding="20px" on_click_function={sidebar_show_hide} className="nav_button"><i className="fas fa-bars"></i></ButtonWord> */}
-          <button onClick={sidebar_show_hide} className="nav_button"><i className="fas fa-bars"></i></button>
-
+          <ButtonWord styles={{ margin: "20px" }} on_click_function={show_hide_notes} >{show_hide_notes_state.name}</ButtonWord>
           <ButtonWord styles={{ margin: "20px" }} on_click_function={show_create_note_container} >{show_hide_create_note_state.name}</ButtonWord>
           <ButtonWord styles={{ margin: "20px" }} on_click_function={show_hide_master} >{show_hide_master_state.name}</ButtonWord>
           <ButtonWord styles={{ margin: "20px" }} on_click_function={show_hide_dump} >{show_hide_dump_state.name}</ButtonWord>
@@ -581,7 +590,6 @@ const App = () => {
           <NoteContainer >
             <FlexContainer styles={{ justifyContent: "space-between" }}>
               <Title >Notes</Title>
-
               <ButtonWord on_click_function={create_new_folder} >New Folder</ButtonWord>
             </FlexContainer>
             <ScrollContainer styles={{ height: "73vh" }}>
@@ -601,12 +609,6 @@ const App = () => {
                       num_notes={folder.notes.length}
                     >{folder.folder_name}</FolderTitle>
                     <FolderNoteContainer height={folder_view_state[folder._id]}>
-                      {folders_state.map((folder, index) => {
-
-                        // if (note.folder_id === folder._id) {
-                        // return <Note show_create_note_container={show_create_note_container} get_all_notes={get_all_notes} index={note._id} id={note._id} key={note._id}>{note.title}</Note>
-                        // }
-                      })}
                       {all_todo_state.map((note, index) => {
                         if (note.folder_id === folder._id) {
                           return <Note
