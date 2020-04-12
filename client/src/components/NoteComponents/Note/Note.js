@@ -1,11 +1,11 @@
 // React
 import React, { useState, useEffect } from "react";
-import ButtonSymbol from '..//ButtonSymbol/ButtonSymbol';
-import TodoModal from '../TodoModal/TodoModal';
+import ButtonSymbol from '../../ButtonSymbol/ButtonSymbol';
+import TodoModal from '../../TodoComponents/TodoModal/TodoModal';
 // Styles
 import './note.css'
-import API from "../../utils/API";
-import BlockContainer from "../BlockContainer/BlockContainer";
+import API from "../../../utils/API";
+import BlockContainer from "../../BlockContainer/BlockContainer";
 
 
 const Note = (props) => {

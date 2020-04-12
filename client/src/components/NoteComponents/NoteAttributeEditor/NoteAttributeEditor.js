@@ -1,14 +1,14 @@
 // React
 import React, { useState, useEffect } from "react";
-import Label from "../Label/Label"
-import Checkbox from "../Checkbox/Checkbox"
-import ButtonWord from "../ButtonWord/ButtonWord"
-import DropDownList from "../DropDownList/DropDownList"
-import FlexContainer from "../FlexContainer/FlexContainer"
-import BlockContainer from "../BlockContainer/BlockContainer"
+import Label from "../../Label/Label"
+import Checkbox from "../../Checkbox/Checkbox"
+import ButtonWord from "../../ButtonWord/ButtonWord"
+import DropDownList from "../../DropDownList/DropDownList"
+import FlexContainer from "../../FlexContainer/FlexContainer"
+import BlockContainer from "../../BlockContainer/BlockContainer"
 // Styles
 import './note_attribute_editor.css'
-import API from "../../utils/API";
+import API from "../../../utils/API";
 
 
 function NoteAttributeEditor(props) {

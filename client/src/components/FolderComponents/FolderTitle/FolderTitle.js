@@ -1,14 +1,14 @@
 // React
 import React, { useState } from "react";
 import { useClipboard } from 'use-clipboard-copy';
-import ButtonSymbol from '../ButtonSymbol/ButtonSymbol';
+import ButtonSymbol from '../../ButtonSymbol/ButtonSymbol';
 import FolderAttributesModal from '../FolderAttributesModal/FolderAttributesModal';
-import Label from '../Label/Label';
-import FlexContainer from '../FlexContainer/FlexContainer';
+import Label from '../../Label/Label';
+import FlexContainer from '../../FlexContainer/FlexContainer';
 
 // Styles
 import './folder_title.css'
-import EditorInput from "../EditorInput/EditorInput";
+import EditorInput from "../../EditorInput/EditorInput";
 
 
 const FolderTitle = (props) => {

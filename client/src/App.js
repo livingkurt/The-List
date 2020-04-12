@@ -1,35 +1,41 @@
 import React, { useState, useEffect } from 'react';
 import './App.css';
+// Container Components
 import Background from './components/Background/Background';
+import FlexContainer from './components/FlexContainer/FlexContainer';
 import Container from './components/Container/Container';
 import Section from './components/Section/Section';
 import Header from './components/Header/Header';
-import Todo from './components/Todo/Todo';
 import ScrollContainer from './components/ScrollContainer/ScrollContainer.js';
-import Title from './components/Title/Title';
-import NoteContainer from './components/NoteContainer/NoteContainer';
-import Note from './components/Note/Note';
-import NoteAttributeEditor from './components/NoteAttributeEditor/NoteAttributeEditor';
-import NoteTextEditor from './components/NoteTextEditor/NoteTextEditor';
-import PriorityContainer from './components/PriorityContainer/PriorityContainer';
-import TodoContainer from './components/TodoContainer/TodoContainer';
-import FolderContainer from './components/FolderContainer/FolderContainer';
-import FolderNoteContainer from './components/FolderNoteContainer/FolderNoteContainer';
-import CategoryNoteContainer from './components/CategoryNoteContainer/CategoryNoteContainer';
-import PriorityTitle from './components/PriorityTitle/PriorityTitle';
-import FolderTitle from './components/FolderTitle/FolderTitle';
-import CategoryTitle from './components/CategoryTitle/CategoryTitle';
+// Note Components
+import NoteContainer from './components/NoteComponents/NoteContainer/NoteContainer';
+import Note from './components/NoteComponents/Note/Note';
+import NoteEditor from './components/NoteComponents/NoteEditor/NoteEditor';
+// Todo Components
+import TodoContainer from './components/TodoComponents/TodoContainer/TodoContainer';
+import Todo from './components/TodoComponents/Todo/Todo';
+// Folder Components
+import FolderTitle from './components/FolderComponents/FolderTitle/FolderTitle';
+import FolderContainer from './components/FolderComponents/FolderContainer/FolderContainer';
+import FolderNoteContainer from './components/FolderComponents/FolderNoteContainer/FolderNoteContainer';
+// Category Components
+import CategoryTitle from './components/CategoryComponents/CategoryTitle/CategoryTitle';
+import CategoryNoteContainer from './components/CategoryComponents/CategoryNoteContainer/CategoryNoteContainer';
+import CategoryContainer from './components/CategoryComponents/CategoryContainer/CategoryContainer';
+// Utility Components
 import ButtonSymbol from './components/ButtonSymbol/ButtonSymbol';
 import ButtonWord from './components/ButtonWord/ButtonWord';
-import NoteEditor from './components/NoteEditor/NoteEditor';
-import CalenderContainer from './components/CalenderContainer/CalenderContainer';
-import CalenderColumns from './components/CalenderColumns/CalenderColumns';
-import CalenderRows from './components/CalenderRows/CalenderRows';
-import FlexContainer from './components/FlexContainer/FlexContainer';
-// 
+import Title from './components/Title/Title';
+// Calender Components
+import CalenderContainer from './components/CalenderComponents/CalenderContainer/CalenderContainer';
+import CalenderColumns from './components/CalenderComponents/CalenderColumns/CalenderColumns';
+import CalenderRows from './components/CalenderComponents/CalenderRows/CalenderRows';
+// Priority Components
+import PriorityTitle from './components/PriorityTitle/PriorityTitle';
+import PriorityContainer from './components/PriorityContainer/PriorityContainer';
+// Utils
 import API from "./utils/API";
 import { format_date_element, format_date_display } from "./utils/HelperFunctions";
-// import styled from 'styled-components';
 
 const App = () => {
 
@@ -649,7 +655,7 @@ const App = () => {
                     {categories_state.map((category, index) => {
                       // console.log({ "category": category })
                       if (category.priority === priority) {
-                        return <FolderContainer index={category._id} id={category._id} key={category._id}>
+                        return <CategoryContainer index={category._id} id={category._id} key={category._id}>
                           <CategoryTitle
                             show_hide_by_category={show_hide_by_category}
                             get_all_notes_by_list_id={get_all_notes_by_list_id}
@@ -677,8 +683,7 @@ const App = () => {
                             })}
 
                           </CategoryNoteContainer>
-                        </FolderContainer>
-
+                        </CategoryContainer>
                       }
                     })}
                   </TodoContainer>

@@ -1,14 +1,14 @@
 // React
 import React from "react";
-import Section from '../Section/Section';
-import ButtonSymbol from '../ButtonSymbol/ButtonSymbol';
+import Section from '../../Section/Section';
+import ButtonSymbol from '../../ButtonSymbol/ButtonSymbol';
 import NoteTextEditor from '../NoteTextEditor/NoteTextEditor';
 import NoteAttributeEditor from '../NoteAttributeEditor/NoteAttributeEditor';
-import Title from '../Title/Title';
+import Title from '../../Title/Title';
 // Styles
 import './note_editor.css'
-import FlexContainer from "../FlexContainer/FlexContainer";
-import BlockContainer from "../BlockContainer/BlockContainer";
+import FlexContainer from "../../FlexContainer/FlexContainer";
+import BlockContainer from "../../BlockContainer/BlockContainer";
 
 
 function NoteEditor(props) {

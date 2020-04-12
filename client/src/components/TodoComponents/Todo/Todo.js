@@ -2,14 +2,14 @@
 import React, { useState, useEffect } from "react";
 // Styles
 import './todo.css'
-import Checkbox from '../Checkbox/Checkbox';
+import Checkbox from '../../Checkbox/Checkbox';
 // import TodoButton from '../TodoButton/TodoButton';
-import NoteEditor from '../NoteEditor/NoteEditor';
+// import NoteEditor from '../../NoteEditor/NoteEditor';
 import TodoModal from '../TodoModal/TodoModal';
-import ButtonSymbol from '../ButtonSymbol/ButtonSymbol';
+import ButtonSymbol from '../../ButtonSymbol/ButtonSymbol';
 // import TodoEditNote from '../TodoEditNote/TodoEditNote';
-import API from "../../utils/API";
-import EditorInput from "../EditorInput/EditorInput";
+import API from "../../../utils/API";
+import EditorInput from "../../EditorInput/EditorInput";
 
 
 const Todo = (props) => {

@@ -1,17 +1,16 @@
 // React
 import React, { useState, useEffect } from "react";
-import { useClipboard } from 'use-clipboard-copy';
-import ButtonSymbol from '../ButtonSymbol/ButtonSymbol';
+import ButtonSymbol from '../../ButtonSymbol/ButtonSymbol';
 import CategoryAttributesModal from '../CategoryAttributesModal/CategoryAttributesModal';
-import Label from '../Label/Label';
-import FlexContainer from '../FlexContainer/FlexContainer';
-import BlockContainer from '../BlockContainer/BlockContainer';
+import Label from '../../Label/Label';
+import FlexContainer from '../../FlexContainer/FlexContainer';
+import BlockContainer from '../../BlockContainer/BlockContainer';
 
 // Styles
 import './category_title.css'
-import EditorInput from "../EditorInput/EditorInput";
-import API from '../../utils/API'
-import CategoryContext from '../../utils/CategoryContext'
+import EditorInput from "../../EditorInput/EditorInput";
+import API from '../../../utils/API'
+import CategoryContext from '../../../utils/CategoryContext'
 
 
 const CategoryTitle = (props) => {
