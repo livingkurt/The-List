@@ -28,6 +28,7 @@ import CalenderRows from './components/CalenderRows/CalenderRows';
 import FlexContainer from './components/FlexContainer/FlexContainer';
 // 
 import API from "./utils/API";
+import { format_date_element, format_date_display } from "./utils/HelperFunctions";
 // import styled from 'styled-components';
 
 const App = () => {
@@ -75,25 +76,6 @@ const App = () => {
   })
 
 
-  const format_date_display = unformatted_date => {
-    const date = new Date(unformatted_date)
-    const day = date.getDate();
-    const month = date.getMonth() + 1;
-    const year = date.getFullYear();
-    const formatted_date = `${month}/${day}/${year}`
-    return formatted_date;
-  }
-
-  const format_date_element = unformatted_date => {
-    const date = new Date(unformatted_date)
-    const day = date.getDate();
-    const month = date.getMonth() + 1;
-    const year = date.getFullYear();
-    const formatted_date = `${month}-${day}-${year}`
-    return formatted_date;
-  }
-
-
   const [category_state, set_category_state] = useState([])
 
 
@@ -101,18 +83,15 @@ const App = () => {
     const category_id = e.target.id
     const category_data = e.target.value
     const field_name = e.target.name
-    // console.log(category_id, category_data, field_name)
     set_category_state({ ...category_state, [field_name]: category_data })
     try {
       const res = await API.get_category(category_id)
-
       const update_category = {
         ...res.data,
         [field_name]: category_data
       }
       console.log({ "update_category": update_category })
       API.update_category(category_id, update_category)
-      // get_all_folders();
     }
     catch (err) {
       console.log({ "on_change_folder_editor": err });
