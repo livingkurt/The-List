@@ -79,25 +79,25 @@ const App = () => {
   const [category_state, set_category_state] = useState([])
 
 
-  const on_change_category_editor = async (e) => {
-    const category_id = e.target.id
-    const category_data = e.target.value
-    const field_name = e.target.name
-    set_category_state({ ...category_state, [field_name]: category_data })
-    try {
-      const res = await API.get_category(category_id)
-      const update_category = {
-        ...res.data,
-        [field_name]: category_data
-      }
-      console.log({ "update_category": update_category })
-      API.update_category(category_id, update_category)
-    }
-    catch (err) {
-      console.log({ "on_change_folder_editor": err });
-    }
+  // const on_change_category_editor = async (e) => {
+  //   const category_id = e.target.id
+  //   const category_data = e.target.value
+  //   const field_name = e.target.name
+  //   set_category_state({ ...category_state, [field_name]: category_data })
+  //   try {
+  //     const res = await API.get_category(category_id)
+  //     const update_category = {
+  //       ...res.data,
+  //       [field_name]: category_data
+  //     }
+  //     console.log({ "update_category": update_category })
+  //     API.update_category(category_id, update_category)
+  //   }
+  //   catch (err) {
+  //     console.log({ "on_change_folder_editor": err });
+  //   }
 
-  }
+  // }
 
   const get_all_notes_by_list_id = async (list_id) => {
     try {
@@ -656,7 +656,7 @@ const App = () => {
                             get_all_notes_by_list_id={get_all_notes_by_list_id}
                             category={category}
                             category_id={category._id}
-                            on_change_category_editor={on_change_category_editor}
+                          // on_change_category_editor={on_change_category_editor}
                           >{category.category_name}</CategoryTitle>
                           <CategoryNoteContainer
                             height={category_view_state[category._id]}

@@ -21,32 +21,27 @@ const CategoryAttributesModal = (props) => {
 
   // console.log({ "category_id": category_id })
 
-  const [category_state, set_category_state] = useState({
-    category_name: "",
-    category_id: "",
-    notes: [],
-    priority: "Low",
-  })
+  const [category_state, set_category_state] = useState(props.category_state)
 
   const [dropdown_state, set_dropdown_state] = useState("none")
 
   useEffect(() => {
-    get_category()
+    // get_category()
 
-  }, [])
+  }, [props.category_state])
 
-  const get_category = async () => {
-    const category_id = props.id
-    if (category_id != undefined) {
-      try {
-        const res = await API.get_category(category_id)
-        set_category_state(res.data)
-      }
-      catch (err) {
-        // console.log(err);
-      }
-    }
-  }
+  // const get_category = async () => {
+  //   const category_id = props.id
+  //   if (category_id != undefined) {
+  //     try {
+  //       const res = await API.get_category(category_id)
+  //       set_category_state(res.data)
+  //     }
+  //     catch (err) {
+  //       // console.log(err);
+  //     }
+  //   }
+  // }
   const drop_down = () => {
     if (dropdown_state === "none") {
       set_dropdown_state("flex")
@@ -175,6 +170,7 @@ const CategoryAttributesModal = (props) => {
           <FlexContainer styles={{ flexDirection: "column" }}>
             <Label>Priority: </Label>
             <DropDownList
+              styles={{ left: "104px", top: "207px" }}
               on_dropdown_choice={on_attribute_change}
               dropdown_items={priority_dropdown_items}
               dropdown_state={dropdown_state}

@@ -254,7 +254,7 @@ module.exports = function (app) {
     // console.log({ "api_routes.js - update one category": req.params.id })
     // console.log({ "api_routes.js - update one category": req.body })
     try {
-      const request = await db.Categories.updateOne({ _id: req.params.id },
+      const request = await db.Categories.updateOne({ _id: req.params.id }, 
         {
           category_name: req.body.category_name,
           priority: req.body.priority,

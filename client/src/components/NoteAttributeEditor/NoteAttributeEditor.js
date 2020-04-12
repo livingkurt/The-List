@@ -60,6 +60,7 @@ function NoteAttributeEditor(props) {
           <FlexContainer styles={{ flexDirection: "column" }}>
             <Label>Priority: </Label>
             <DropDownList
+              styles={{ left: "115px" }}
               on_dropdown_choice={props.on_attribute_change}
               dropdown_items={props.priority_dropdown_items}
               dropdown_state={props.dropdown_state}
@@ -69,6 +70,7 @@ function NoteAttributeEditor(props) {
           <FlexContainer styles={{ flexDirection: "column" }}>
             <Label>List Name: </Label>
             <DropDownList
+              styles={{ top: "692px" }}
               on_dropdown_choice={props.on_attribute_change}
               dropdown_items={props.list_name_dropdown_items}
               dropdown_state={props.dropdown_state}
