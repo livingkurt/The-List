@@ -7,6 +7,7 @@ import { ButtonWord, ButtonSymbol, EditorInput, Label } from '../../UtilityCompo
 import { FlexContainer } from '../../ContainerComponents';
 // Utils
 import { API } from "../../../utils/";
+import { format_date_element, format_date_display } from "../../../utils/HelperFunctions";
 
 
 const FolderAttributesModal = (props) => {
@@ -98,23 +99,23 @@ const FolderAttributesModal = (props) => {
   }
 
 
-  const format_date_display = unformatted_date => {
-    const date = new Date(unformatted_date)
-    const day = date.getDate();
-    const month = date.getMonth() + 1;
-    const year = date.getFullYear();
-    const formatted_date = `${month}/${day}/${year}`
-    return formatted_date;
-  }
+  // const format_date_display = unformatted_date => {
+  //   const date = new Date(unformatted_date)
+  //   const day = date.getDate();
+  //   const month = date.getMonth() + 1;
+  //   const year = date.getFullYear();
+  //   const formatted_date = `${month}/${day}/${year}`
+  //   return formatted_date;
+  // }
 
-  const format_date_element = unformatted_date => {
-    const date = new Date(unformatted_date)
-    const day = date.getDate();
-    const month = date.getMonth() + 1;
-    const year = date.getFullYear();
-    const formatted_date = `${month}-${day}-${year}`
-    return formatted_date;
-  }
+  // const format_date_element = unformatted_date => {
+  //   const date = new Date(unformatted_date)
+  //   const day = date.getDate();
+  //   const month = date.getMonth() + 1;
+  //   const year = date.getFullYear();
+  //   const formatted_date = `${month}-${day}-${year}`
+  //   return formatted_date;
+  // }
 
 
 
