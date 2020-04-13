@@ -1,10 +1,9 @@
 // React
 import React, { useState } from "react";
 import { useClipboard } from 'use-clipboard-copy';
-import ButtonSymbol from '../../ButtonSymbol/ButtonSymbol';
+import { ButtonSymbol, Label } from '../../UtilityComponents';
 import FolderAttributesModal from '../FolderAttributesModal/FolderAttributesModal';
-import Label from '../../Label/Label';
-import FlexContainer from '../../FlexContainer/FlexContainer';
+import { FlexContainer } from '../../ContainerComponents';
 
 // Styles
 import './folder_title.css'

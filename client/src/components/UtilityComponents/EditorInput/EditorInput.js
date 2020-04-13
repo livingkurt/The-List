@@ -11,7 +11,7 @@ const EditorInput = (props) => {
       <input
         defaultValue={props.value}
         onBlur={e => props.on_change_function(e)}
-        className="editor_input"
+        className="input_editor"
         style={props.styles}
         id={props.id}
         placeholder={props.placeholder}

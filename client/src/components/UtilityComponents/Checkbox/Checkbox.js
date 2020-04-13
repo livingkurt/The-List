@@ -2,7 +2,7 @@
 import React, { useState, useEffect } from "react";
 // Styles
 import './checkbox.css'
-import API from "../../utils/API";
+import { API } from "../../../utils";
 
 
 function Checkbox(props) {

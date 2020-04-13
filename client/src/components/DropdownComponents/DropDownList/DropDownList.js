@@ -1,8 +1,8 @@
 // React
 import React, { useState } from "react";
-import ScrollContainer from '../ScrollContainer/ScrollContainer';
+import { ScrollContainer } from '../../ContainerComponents';
 import DropDownItem from "../DropDownItem/DropDownItem";
-import ButtonWord from "../ButtonWord/ButtonWord";
+import { ButtonWord } from "../../UtilityComponents";
 // Styles
 import './dropdown_list.css'
 

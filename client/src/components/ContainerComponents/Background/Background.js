@@ -1,5 +1,4 @@
 import React from "react";
-import Container from "../Container/Container"
 import './background.css'
 
 function Background({ children }) {

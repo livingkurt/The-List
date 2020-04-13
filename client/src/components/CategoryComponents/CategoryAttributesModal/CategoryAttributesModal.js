@@ -1,17 +1,13 @@
 // React
 import React, { useState, useEffect } from "react";
+// Components
+import { ButtonSymbol, ButtonWord, Label, EditorInput } from '../../UtilityComponents';
+import { DropDownList } from "../../DropdownComponents"
+import { FlexContainer } from "../../ContainerComponents"
+// Utils
+import { API } from "../../../utils";
 // Styles
 import './category_attributes_modal.css'
-// import Checkbox from '../../Checkbox/Checkbox';
-import ButtonWord from '../../ButtonWord/ButtonWord';
-import Checkbox from '../../Checkbox/Checkbox';
-import API from "../../../utils/API";
-import Label from '../../Label/Label';
-import ButtonSymbol from '../../ButtonSymbol/ButtonSymbol';
-import DropDownList from "../../DropDownList/DropDownList"
-import FlexContainer from "../../FlexContainer/FlexContainer"
-import BlockContainer from "../../BlockContainer/BlockContainer"
-import EditorInput from "../../EditorInput/EditorInput";
 
 
 const CategoryAttributesModal = (props) => {

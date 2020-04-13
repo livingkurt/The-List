@@ -1,11 +1,10 @@
 // React
-import React, { useState, useEffect } from "react";
+import React from "react";
 // Styles
 import './note_text_editor.css'
 
 
 function NoteTextEditor(props) {
-  // console.log(props.note_state)
 
   return (
     <div id="create_note_title_description">

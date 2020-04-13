@@ -1,40 +1,23 @@
 import React, { useState, useEffect } from 'react';
 import './App.css';
 // Container Components
-import Background from './components/Background/Background';
-import FlexContainer from './components/FlexContainer/FlexContainer';
-import Container from './components/Container/Container';
-import Section from './components/Section/Section';
-import Header from './components/Header/Header';
-import ScrollContainer from './components/ScrollContainer/ScrollContainer.js';
+import { Background, FlexContainer, Container, Section, Header, ScrollContainer } from './components/ContainerComponents';
 // Note Components
-import NoteContainer from './components/NoteComponents/NoteContainer/NoteContainer';
-import Note from './components/NoteComponents/Note/Note';
-import NoteEditor from './components/NoteComponents/NoteEditor/NoteEditor';
+import { NoteContainer, Note, NoteEditor } from './components/NoteComponents/'
 // Todo Components
-import TodoContainer from './components/TodoComponents/TodoContainer/TodoContainer';
-import Todo from './components/TodoComponents/Todo/Todo';
+import { Todo, TodoContainer } from './components/TodoComponents/'
 // Folder Components
-import FolderTitle from './components/FolderComponents/FolderTitle/FolderTitle';
-import FolderContainer from './components/FolderComponents/FolderContainer/FolderContainer';
-import FolderNoteContainer from './components/FolderComponents/FolderNoteContainer/FolderNoteContainer';
+import { FolderTitle, FolderContainer, FolderNoteContainer } from './components/FolderComponents/'
 // Category Components
-import CategoryTitle from './components/CategoryComponents/CategoryTitle/CategoryTitle';
-import CategoryNoteContainer from './components/CategoryComponents/CategoryNoteContainer/CategoryNoteContainer';
-import CategoryContainer from './components/CategoryComponents/CategoryContainer/CategoryContainer';
+import { CategoryTitle, CategoryNoteContainer, CategoryContainer } from './components/CategoryComponents/'
 // Utility Components
-import ButtonSymbol from './components/ButtonSymbol/ButtonSymbol';
-import ButtonWord from './components/ButtonWord/ButtonWord';
-import Title from './components/Title/Title';
+import { ButtonSymbol, ButtonWord, Title } from './components/UtilityComponents/'
 // Calender Components
-import CalenderContainer from './components/CalenderComponents/CalenderContainer/CalenderContainer';
-import CalenderColumns from './components/CalenderComponents/CalenderColumns/CalenderColumns';
-import CalenderRows from './components/CalenderComponents/CalenderRows/CalenderRows';
+import { CalenderContainer, CalenderColumns, CalenderRows } from './components/CalenderComponents/'
 // Priority Components
-import PriorityTitle from './components/PriorityTitle/PriorityTitle';
-import PriorityContainer from './components/PriorityContainer/PriorityContainer';
+import { PriorityTitle, PriorityContainer } from './components/PriorityComponents';
 // Utils
-import API from "./utils/API";
+import { API } from "./utils";
 import { format_date_element, format_date_display } from "./utils/HelperFunctions";
 
 const App = () => {

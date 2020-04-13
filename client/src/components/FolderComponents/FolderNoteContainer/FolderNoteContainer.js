@@ -1,6 +1,5 @@
 // React
 import React from "react";
-// import React, { useState, useEffect, useMemo, useCallback } from "react";
 // Styles
 import './folder_note_container.css'
 

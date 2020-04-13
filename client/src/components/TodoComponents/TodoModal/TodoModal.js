@@ -1,15 +1,11 @@
 // React
 import React, { useState, useEffect } from "react";
+// Components
+import { ButtonWord, ButtonSymbol } from '../../UtilityComponents';
+import { API } from "../../../utils";
+import { NoteAttributeEditor, NoteTextEditor } from '../../NoteComponents/';
 // Styles
 import './todo_modal.css'
-// import Checkbox from '../Checkbox/Checkbox';
-import ButtonWord from '../../ButtonWord/ButtonWord';
-import Checkbox from '../../Checkbox/Checkbox';
-import API from "../../../utils/API";
-import NoteAttributeEditor from '../../NoteComponents/NoteAttributeEditor/NoteAttributeEditor';
-import NoteTextEditor from '../../NoteComponents/NoteTextEditor/NoteTextEditor';
-import ButtonSymbol from '../../ButtonSymbol/ButtonSymbol';
-
 
 const TodoModal = (props) => {
 

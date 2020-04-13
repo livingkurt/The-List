@@ -2,14 +2,11 @@
 import React, { useState, useEffect } from "react";
 // Styles
 import './folder_attributes_modal.css'
-// import Checkbox from '../Checkbox/Checkbox';
-import ButtonWord from '../../ButtonWord/ButtonWord';
-import Checkbox from '../../Checkbox/Checkbox';
-import API from "../../../utils/API";
-import Label from '../../Label/Label';
-import ButtonSymbol from '../../ButtonSymbol/ButtonSymbol';
-import FlexContainer from '../../FlexContainer/FlexContainer';
-import EditorInput from "../../EditorInput/EditorInput";
+// Components
+import { ButtonWord, ButtonSymbol, EditorInput, Label } from '../../UtilityComponents';
+import { FlexContainer } from '../../ContainerComponents';
+// Utils
+import { API } from "../../../utils/";
 
 
 const FolderAttributesModal = (props) => {

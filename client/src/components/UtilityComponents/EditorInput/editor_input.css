@@ -1,4 +1,4 @@
-.editor_input {
+.input_editor {
   border-radius: 5px;
   display: flex;
   width: 100%;
@@ -12,14 +12,14 @@
   transition: box-shadow 1s ease;
 }
 
-.editor_input:hover {
+.input_editor:hover {
   box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
 }
 
-.editor_input:focus {
+.input_editor:focus {
   outline: 0;
 }
 
-.editor_input:active {
+/* .editor_input:active {
   background-color: rgb(224, 224, 224);
-}
+} */

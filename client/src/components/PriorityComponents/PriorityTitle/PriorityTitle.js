@@ -1,6 +1,7 @@
 // React
 import React from "react";
-import ButtonSymbol from '../ButtonSymbol/ButtonSymbol';
+// Components
+import { ButtonSymbol } from '../../UtilityComponents';
 // Styles
 import './priority_title.css'
 
