@@ -68,26 +68,6 @@ const App = () => {
   const [category_state, set_category_state] = useState([])
 
 
-  // const on_change_category_editor = async (e) => {
-  //   const category_id = e.target.id
-  //   const category_data = e.target.value
-  //   const field_name = e.target.name
-  //   set_category_state({ ...category_state, [field_name]: category_data })
-  //   try {
-  //     const res = await API.get_category(category_id)
-  //     const update_category = {
-  //       ...res.data,
-  //       [field_name]: category_data
-  //     }
-  //     console.log({ "update_category": update_category })
-  //     API.update_category(category_id, update_category)
-  //   }
-  //   catch (err) {
-  //     console.log({ "on_change_folder_editor": err });
-  //   }
-
-  // }
-
   const get_all_notes_by_list_id = async (list_id) => {
     try {
       const res = await API.get_notes_by_list_id(list_id)
@@ -108,9 +88,6 @@ const App = () => {
     try {
       const res = await API.get_all_notes()
       set_all_todo_state(res.data)
-      // res.data.filter(note => {
-      //   note.category
-      // })
     }
     catch (err) {
       console.log(err);
@@ -403,28 +380,28 @@ const App = () => {
 
   const [folder_state, set_folder_state] = useState({})
 
-  const on_change_folder_editor = async (e) => {
-    const folder_id = e.target.id
-    const folder_data = e.target.value
-    const field_name = e.target.name
-    console.log(folder_id, folder_data, field_name)
-    set_folder_state({ ...folder_state, [field_name]: folder_data })
-    try {
-      const res = await API.get_folder(folder_id)
+  // const on_change_folder_editor = async (e) => {
+  //   const folder_id = e.target.id
+  //   const folder_data = e.target.value
+  //   const field_name = e.target.name
+  //   console.log(folder_id, folder_data, field_name)
+  //   set_folder_state({ ...folder_state, [field_name]: folder_data })
+  //   try {
+  //     const res = await API.get_folder(folder_id)
 
-      const update_folder = {
-        ...res.data,
-        [field_name]: folder_data
-      }
-      console.log({ "update_folder": update_folder })
-      API.update_folder(folder_id, update_folder)
-      // get_all_folders();
-    }
-    catch (err) {
-      console.log({ "on_change_folder_editor": err });
-    }
+  //     const update_folder = {
+  //       ...res.data,
+  //       [field_name]: folder_data
+  //     }
+  //     console.log({ "update_folder": update_folder })
+  //     API.update_folder(folder_id, update_folder)
+  //     // get_all_folders();
+  //   }
+  //   catch (err) {
+  //     console.log({ "on_change_folder_editor": err });
+  //   }
 
-  }
+  // }
   const [create_note_state, set_create_note_state] = useState("none")
 
   const [show_hide_create_note_state, set_show_hide_create_note_state] = useState({
@@ -533,17 +510,17 @@ const App = () => {
   }
 
 
-  const [folder_modal_state, set_folder_modal_state] = useState([])
+  // const [folder_modal_state, set_folder_modal_state] = useState([])
 
-  const show_hide_folder_modal = (folder_id) => {
+  // const show_hide_folder_modal = (folder_id) => {
 
-    if (folder_modal_state[folder_id] === "block") {
-      set_folder_modal_state({ ...folder_modal_state, [folder_id]: "none" })
-    }
-    else if (folder_modal_state[folder_id] === "none") {
-      set_folder_modal_state({ ...folder_modal_state, [folder_id]: "block" })
-    }
-  }
+  //   if (folder_modal_state[folder_id] === "block") {
+  //     set_folder_modal_state({ ...folder_modal_state, [folder_id]: "none" })
+  //   }
+  //   else if (folder_modal_state[folder_id] === "none") {
+  //     set_folder_modal_state({ ...folder_modal_state, [folder_id]: "block" })
+  //   }
+  // }
 
   const change_date = (id) => {
 
@@ -588,9 +565,6 @@ const App = () => {
                       show_hide_by_folder={show_hide_by_folder}
                       folder={folder}
                       get_all_folders={get_all_folders}
-                      show_hide_folder_modal={show_hide_folder_modal}
-                      on_change_folder_editor={on_change_folder_editor}
-                      folder_id={folder._id}
                       num_notes={folder.notes.length}
                     >{folder.folder_name}</FolderTitle>
                     <FolderNoteContainer height={folder_view_state[folder._id]}>
@@ -600,7 +574,8 @@ const App = () => {
                             show_create_note_container={show_create_note_container}
                             get_all_notes={get_all_notes}
                             index={note._id}
-                            id={note._id}
+                            note={note}
+                            // id={note._id}
                             key={note._id}>{note.title}</Note>
                         }
                       })}
@@ -655,11 +630,13 @@ const App = () => {
                           >
                             {todo_master_state.map((note, index) => {
                               if (note.category_id === category._id) {
+                                console.log({ "note": note })
                                 return <Todo
                                   category_state={category_state}
                                   show_create_note_container={show_create_note_container}
                                   get_all_notes_by_list_id={get_all_notes_by_list_id}
                                   index={note._id}
+                                  note={note}
                                   id={note._id}
                                   key={note._id}>{note.title}</Todo>
                               }
@@ -693,6 +670,7 @@ const App = () => {
                           get_all_notes_by_list_id={get_all_notes_by_list_id}
                           index={note._id}
                           id={note._id}
+                          note={note}
                           key={note._id}>{note.title}</Todo>
                       }
                     })}

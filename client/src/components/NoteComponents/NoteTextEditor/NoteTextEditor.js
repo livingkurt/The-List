@@ -11,7 +11,6 @@ function NoteTextEditor(props) {
       <input
         className="title_field"
         defaultValue={props.note_state.title}
-        // onChange={e => props.on_change_note_editor(e)}
         placeholder="Title"
         name="title"
         onBlur={(e) => {
@@ -21,7 +20,6 @@ function NoteTextEditor(props) {
         onFocus={(e) => e.target.placeholder = ""}></input>
       <textarea
         className="text_field"
-        // onChange={e => props.on_change_note_editor(e)}
         placeholder="Description"
         defaultValue={props.note_state.body}
         name="body"

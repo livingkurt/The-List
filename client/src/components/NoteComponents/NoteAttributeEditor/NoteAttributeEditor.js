@@ -8,47 +8,42 @@ import { FlexContainer, BlockContainer } from "../../ContainerComponents"
 import './note_attribute_editor.css'
 // Utils
 import { API } from "../../../utils";
+import { format_date_element, format_date_display } from "../../../utils/HelperFunctions";
 
 
 function NoteAttributeEditor(props) {
 
   useEffect(() => {
-    get_all_folders();
+    // get_all_folders();
   }, []);
 
-  const [folder_state, set_folder_state] = useState({})
+  // const [folder_state, set_folder_state] = useState({})
 
-  const get_all_folders = async () => {
-    try {
-      const res = await API.get_all_folders()
-      const folders = res.data
-      set_folder_state(folders)
+  // const get_all_folders = async () => {
+  //   try {
+  //     const res = await API.get_all_folders()
+  //     const folders = res.data
+  //     set_folder_state(folders)
 
-      // return folders;
-      // console.log({ "get_all_folders": res.data })
+  //     // return folders;
+  //     // console.log({ "get_all_folders": res.data })
+  //   }
+  //   catch (err) {
+  //     console.log(err);
+  //   }
+  // };
+
+  const [schedule_state, set_schedule_state] = useState()
+
+  const show_scheduling = () => {
+    if (schedule_state === false) {
+      set_schedule_state(true)
+      // on_change_note_editor(true)
     }
-    catch (err) {
-      console.log(err);
+    else {
+      set_schedule_state(false)
+      // on_change_note_editor(false)
     }
-  };
-
-
-  const format_date_display = unformatted_date => {
-    const date = new Date(unformatted_date)
-    const day = date.getDate();
-    const month = date.getMonth() + 1;
-    const year = date.getFullYear();
-    const formatted_date = `${month}/${day}/${year}`
-    return formatted_date;
-  }
-
-  const format_date_element = unformatted_date => {
-    const date = new Date(unformatted_date)
-    const day = date.getDate();
-    const month = date.getMonth() + 1;
-    const year = date.getFullYear();
-    const formatted_date = `${month}-${day}-${year}`
-    return formatted_date;
   }
 
 
@@ -60,7 +55,7 @@ function NoteAttributeEditor(props) {
             <Label>Priority: </Label>
             <DropDownList
               styles={{ left: "115px" }}
-              on_dropdown_choice={props.on_attribute_change}
+              on_dropdown_choice={props.on_dropdown_choice}
               dropdown_items={props.priority_dropdown_items}
               dropdown_state={props.dropdown_state}
               name="priority">{props.note_state.priority}
@@ -70,7 +65,7 @@ function NoteAttributeEditor(props) {
             <Label>List Name: </Label>
             <DropDownList
               styles={{ top: "692px" }}
-              on_dropdown_choice={props.on_attribute_change}
+              on_dropdown_choice={props.on_dropdown_choice}
               dropdown_items={props.list_name_dropdown_items}
               dropdown_state={props.dropdown_state}
               name="list_id"> {props.note_state.list_id}
@@ -87,7 +82,7 @@ function NoteAttributeEditor(props) {
             {/* <Label>Folder: </Label> */}
             {/* <DropDownList
               dropdown_items={folder_state}
-              on_dropdown_choice={props.on_attribute_change}
+              on_dropdown_choice={props.on_change_note_editor}
               // dropdown_items={props.folder_name_dropdown_items}
               dropdown_state={props.dropdown_state}
               name="folder_id">{props.note_state.folder_id}
@@ -109,11 +104,11 @@ function NoteAttributeEditor(props) {
           </FlexContainer>
           <FlexContainer className="scheduled_field" style={{ flexDirection: "column" }}>
             <Label>Schedule: </Label>
-            <Checkbox onCheck={props.show_scheduling} checkboxState={props.schedule_state} />
+            <Checkbox onCheck={show_scheduling} checkboxState={schedule_state} />
           </FlexContainer>
         </BlockContainer>
 
-        <div id="schedule_div" style={{ display: props.schedule_state ? "flex" : "none" }}>
+        <div id="schedule_div" style={{ display: schedule_state ? "flex" : "none" }}>
           <Label>Date: </Label>
           <input id="scheduled_date" type="date"
             defaultValue={format_date_element(props.date_state)}

@@ -13,9 +13,15 @@ const Todo = (props) => {
 
   const [todo_state, set_todo_state] = useState({})
 
+  const [note_state, set_note_state] = useState(props.note)
   useEffect(() => {
     get_checkbox_state();
   }, [])
+
+  // useEffect(() => {
+  //   console.log("Reload")
+  // }, [note_state])
+
 
   const update_note = async (e) => {
     e.persist();
@@ -103,6 +109,29 @@ const Todo = (props) => {
 
   }
 
+
+
+  const on_change_note_editor = async (e) => {
+
+    const note_id = note_state._id
+    const note_data = e.target.value
+    const field_name = e.target.name
+    console.log({ "note_id": note_id, "note_data": note_data, "field_name": field_name })
+    try {
+      const update_note = {
+        ...note_state,
+        [field_name]: note_data
+      }
+      console.log({ "update_note": update_note })
+      const res = await API.update_note(note_id, update_note)
+      set_note_state(res.data)
+    }
+    catch (err) {
+      console.log({ "on_change_note_editor": err });
+    }
+
+  }
+
   return (
     <div className="todo zoom">
       <Checkbox checkboxState={checkboxState} update_note_checkbox={update_note_checkbox} onCheck={save_check_status} todo_state={todo_state} id={props.id} />
@@ -112,10 +141,11 @@ const Todo = (props) => {
         placeholder="Title"
         styles={{ boxShadow: "unset", width: "100%" }}
         id={props.id}
-        on_change_function={update_note} />
+        name="title"
+        on_change_function={on_change_note_editor} />
 
       <ButtonSymbol styles={{ margin: "0px", padding: "0px" }} on_click_function={show_modal} ><i className="fas fa-bars"></i></ButtonSymbol>
-      <TodoModal key={props.id} index={props.id} id={props.id} show_modal={show_modal} show_modal_state={modal_state} get_all_notes_by_list_id={props.get_all_notes_by_list_id}></TodoModal>
+      <TodoModal key={props.id} index={props.id} id={props.id} note_state={note_state} show_modal={show_modal} show_modal_state={modal_state} get_all_notes_by_list_id={props.get_all_notes_by_list_id}></TodoModal>
     </div>
   );
 }
