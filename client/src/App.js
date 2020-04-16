@@ -1,30 +1,24 @@
 import React, { useState, useEffect } from 'react';
 import './App.css';
-import Background from './components/Background/Background';
-import Container from './components/Container/Container';
-import Section from './components/Section/Section';
-import Header from './components/Header/Header';
-import ListItem from './components/ListItem/ListItem';
-import ScrollContainer from './components/ScrollContainer/ScrollContainer.js';
-import Title from './components/Title/Title';
-import NoteContainer from './components/NoteContainer/NoteContainer';
-import Note from './components/Note/Note';
-import NoteAttributeEditor from './components/NoteAttributeEditor/NoteAttributeEditor';
-import NoteTextEditor from './components/NoteTextEditor/NoteTextEditor';
-import PriorityContainer from './components/PriorityContainer/PriorityContainer';
-import TodoContainer from './components/TodoContainer/TodoContainer';
-import FolderContainer from './components/FolderContainer/FolderContainer';
-import FolderNoteContainer from './components/FolderNoteContainer/FolderNoteContainer';
-import CategoryNoteContainer from './components/CategoryNoteContainer/CategoryNoteContainer';
-import PriorityTitle from './components/PriorityTitle/PriorityTitle';
-import FolderTitle from './components/FolderTitle/FolderTitle';
-import CategoryTitle from './components/CategoryTitle/CategoryTitle';
-import ButtonSymbol from './components/ButtonSymbol/ButtonSymbol';
-import ButtonWord from './components/ButtonWord/ButtonWord';
-import NoteEditor from './components/NoteEditor/NoteEditor';
-// 
-import API from "./utils/API";
-// import styled from 'styled-components';
+// Container Components
+import { Background, FlexContainer, Container, Section, Header, ScrollContainer } from './components/ContainerComponents';
+// Note Components
+import { NoteContainer, Note, NoteEditor } from './components/NoteComponents/'
+// Todo Components
+import { Todo, TodoContainer } from './components/TodoComponents/'
+// Folder Components
+import { FolderTitle, FolderContainer, FolderNoteContainer } from './components/FolderComponents/'
+// Category Components
+import { CategoryTitle, CategoryNoteContainer, CategoryContainer } from './components/CategoryComponents/'
+// Utility Components
+import { ButtonSymbol, ButtonWord, Title } from './components/UtilityComponents/'
+// Calender Components
+import { CalenderContainer, CalenderColumns, CalenderRows } from './components/CalenderComponents/'
+// Priority Components
+import { PriorityTitle, PriorityContainer } from './components/PriorityComponents';
+// Utils
+import { API } from "./utils";
+import { format_date_element, format_date_display } from "./utils/HelperFunctions";
 
 const App = () => {
 
@@ -71,50 +65,8 @@ const App = () => {
   })
 
 
-  const format_date_display = unformatted_date => {
-    const date = new Date(unformatted_date)
-    const day = date.getDate();
-    const month = date.getMonth() + 1;
-    const year = date.getFullYear();
-    const formatted_date = `${month}/${day}/${year}`
-    return formatted_date;
-  }
-
-  const format_date_element = unformatted_date => {
-    const date = new Date(unformatted_date)
-    const day = date.getDate();
-    const month = date.getMonth() + 1;
-    const year = date.getFullYear();
-    const formatted_date = `${month}-${day}-${year}`
-    return formatted_date;
-  }
-
-
   const [category_state, set_category_state] = useState([])
 
-
-  const on_change_category_editor = async (e) => {
-    const category_id = e.target.id
-    const category_data = e.target.value
-    const field_name = e.target.name
-    // console.log(category_id, category_data, field_name)
-    set_category_state({ ...category_state, [field_name]: category_data })
-    try {
-      const res = await API.get_category(category_id)
-
-      const update_category = {
-        ...res.data,
-        [field_name]: category_data
-      }
-      console.log({ "update_category": update_category })
-      API.update_category(category_id, update_category)
-      // get_all_folders();
-    }
-    catch (err) {
-      console.log({ "on_change_folder_editor": err });
-    }
-
-  }
 
   const get_all_notes_by_list_id = async (list_id) => {
     try {
@@ -124,25 +76,6 @@ const App = () => {
       }
       else if (list_id === "Master") {
         set_todo_master_state(res.data)
-        // let category_names = []
-        // let categories = []
-        // let category_views = []
-        // res.data.map(note => {
-        //   console.log({ "note": note })
-        //   categories.push({ "category_name": note.category, "priority": note.priority })
-        //   category_names = [...new Set(category_names)]
-        //   // categories.push({ ...categories, "category_name": note.category, "priority": note.priority })
-        //   category_names = [...category_names, note.category]
-        //   category_names = [...new Set(category_names)]
-        //   category_views = { ...category_views, [note.category]: "0px" }
-
-
-        // })
-        // console.log(category_views)
-        // console.log({ "categories": categories })
-        // set_category_state(categories)
-        // set_category_view_state(category_views)
-
       }
       return res;
     }
@@ -155,16 +88,13 @@ const App = () => {
     try {
       const res = await API.get_all_notes()
       set_all_todo_state(res.data)
-      // res.data.filter(note => {
-      //   note.category
-      // })
     }
     catch (err) {
       console.log(err);
     }
   };
 
-  const create_empty_list_item = async (list_id) => {
+  const create_empty_todo = async (list_id) => {
     console.log({ "list_id": list_id })
     try {
       const res = await API.get_notes_by_list_id(list_id)
@@ -217,18 +147,7 @@ const App = () => {
     }
   }
 
-  const [sidebar_state, set_sidebar_state] = useState(false)
 
-  const sidebar_show_hide = () => {
-    if (sidebar_state) {
-      document.querySelector(".note_archive").classList.remove("open");
-      set_sidebar_state(false)
-    }
-    else {
-      document.querySelector(".note_archive").classList.add("open");
-      set_sidebar_state(true)
-    }
-  }
 
   const on_change_note_editor = (e) => {
     if (e.target === undefined) {
@@ -364,31 +283,21 @@ const App = () => {
     }
   )
 
-  const show_hide_by_priority = (list_id, priority) => {
+  const show_hide_by_priority = (id, priority) => {
     console.log({ "show_hide_by_priority": priority })
-
     priority = priority.toLowerCase()
-    let field_name = list_id + "_" + priority
+    let field_name = id + "_" + priority
     if (priority_state[field_name] === "100%") {
       set_priority_state({ ...priority_state, [field_name]: "0px" })
     }
     else if (priority_state[field_name] === "0px") {
       set_priority_state({ ...priority_state, [field_name]: "100%" })
     }
+
   }
 
 
   const [folder_view_state, set_folder_view_state] = useState([])
-
-  // const show_hide_by_folder = (folder_id) => {
-
-  //   if (folder_view_state[folder_id] === "100%") {
-  //     set_folder_view_state({ ...folder_view_state, [folder_id]: "0px" })
-  //   }
-  //   else if (folder_view_state[folder_id] === "0px") {
-  //     set_folder_view_state({ ...folder_view_state, [folder_id]: "100%" })
-  //   }
-  // }
 
   const show_hide_by_folder = async (folder_id) => {
     let update_folder = {}
@@ -429,17 +338,6 @@ const App = () => {
 
 
   const [category_view_state, set_category_view_state] = useState([])
-
-  // const show_hide_by_category = (category_id) => {
-  //   console.log({ "category_id": category_view_state[category_id] })
-  //   if (category_view_state[category_id] === "100%") {
-  //     set_category_view_state({ ...category_view_state, [category_id]: "0px" })
-
-  //   }
-  //   else if (category_view_state[category_id] === "0px") {
-  //     set_category_view_state({ ...category_view_state, [category_id]: "100%" })
-  //   }
-  // }
 
   const show_hide_by_category = async (category_id) => {
     let update_category = {}
@@ -482,30 +380,30 @@ const App = () => {
 
   const [folder_state, set_folder_state] = useState({})
 
-  const on_change_folder_editor = async (e) => {
-    const folder_id = e.target.id
-    const folder_data = e.target.value
-    const field_name = e.target.name
-    console.log(folder_id, folder_data, field_name)
-    set_folder_state({ ...folder_state, [field_name]: folder_data })
-    try {
-      const res = await API.get_folder(folder_id)
+  // const on_change_folder_editor = async (e) => {
+  //   const folder_id = e.target.id
+  //   const folder_data = e.target.value
+  //   const field_name = e.target.name
+  //   console.log(folder_id, folder_data, field_name)
+  //   set_folder_state({ ...folder_state, [field_name]: folder_data })
+  //   try {
+  //     const res = await API.get_folder(folder_id)
 
-      const update_folder = {
-        ...res.data,
-        [field_name]: folder_data
-      }
-      console.log({ "update_folder": update_folder })
-      API.update_folder(folder_id, update_folder)
-      // get_all_folders();
-    }
-    catch (err) {
-      console.log({ "on_change_folder_editor": err });
-    }
+  //     const update_folder = {
+  //       ...res.data,
+  //       [field_name]: folder_data
+  //     }
+  //     console.log({ "update_folder": update_folder })
+  //     API.update_folder(folder_id, update_folder)
+  //     // get_all_folders();
+  //   }
+  //   catch (err) {
+  //     console.log({ "on_change_folder_editor": err });
+  //   }
 
-  }
+  // }
   const [create_note_state, set_create_note_state] = useState("none")
-  // const [new_note_button_state, set_new_note_button_state] = useState("New Note")
+
   const [show_hide_create_note_state, set_show_hide_create_note_state] = useState({
     name: "Create New Note",
     display: "none"
@@ -519,13 +417,52 @@ const App = () => {
     display: "block"
   })
 
+  const [show_hide_notes_state, set_show_hide_notes_state] = useState({
+    name: "Show Notes",
+    display: "block"
+  })
+
+  const [show_hide_calender_state, set_show_hide_calender_state] = useState({
+    name: "Hide Calender",
+    display: "block"
+  })
+
+  const show_hide_calender = () => {
+    console.log("show_hide_calender")
+
+    if (show_hide_calender_state.display === "none") {
+      set_show_hide_calender_state({ ...show_hide_calender_state, name: "Hide Todo Calender", display: "block" })
+    }
+    else if (show_hide_calender_state.display === "block") {
+      set_show_hide_calender_state({ ...show_hide_calender_state, name: "Show Todo Calender", display: "none" })
+    }
+  }
+
   const show_hide_master = () => {
+    console.log("show_hide_master")
 
     if (show_hide_master_state.display === "none") {
       set_show_hide_master_state({ ...show_hide_master_state, name: "Hide Todo Master", display: "block" })
     }
     else if (show_hide_master_state.display === "block") {
       set_show_hide_master_state({ ...show_hide_master_state, name: "Show Todo Master", display: "none" })
+    }
+  }
+
+
+  const [sidebar_state, set_sidebar_state] = useState(false)
+
+  const show_hide_notes = () => {
+    if (sidebar_state) {
+      document.querySelector(".note_container").classList.remove("open");
+      set_sidebar_state(false)
+      set_show_hide_notes_state({ ...show_hide_notes_state, name: "Show Notes", display: "none" })
+
+    }
+    else {
+      document.querySelector(".note_container").classList.add("open");
+      set_sidebar_state(true)
+      set_show_hide_notes_state({ ...show_hide_notes_state, name: "Hide Notes", display: "block" })
     }
   }
 
@@ -573,40 +510,52 @@ const App = () => {
   }
 
 
-  const [folder_modal_state, set_folder_modal_state] = useState([])
+  // const [folder_modal_state, set_folder_modal_state] = useState([])
 
-  const show_hide_folder_modal = (folder_id) => {
+  // const show_hide_folder_modal = (folder_id) => {
 
-    if (folder_modal_state[folder_id] === "block") {
-      set_folder_modal_state({ ...folder_modal_state, [folder_id]: "none" })
+  //   if (folder_modal_state[folder_id] === "block") {
+  //     set_folder_modal_state({ ...folder_modal_state, [folder_id]: "none" })
+  //   }
+  //   else if (folder_modal_state[folder_id] === "none") {
+  //     set_folder_modal_state({ ...folder_modal_state, [folder_id]: "block" })
+  //   }
+  // }
+
+  const change_date = (id) => {
+
+    if (id === "forward") {
+      console.log("Going Forward in Time")
     }
-    else if (folder_modal_state[folder_id] === "none") {
-      set_folder_modal_state({ ...folder_modal_state, [folder_id]: "block" })
+    else if (id === "backward") {
+      console.log("Going Backward in Time")
+
     }
   }
+
+  const hours = [12, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11]
+  const days = ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"]
 
 
 
   return (
     <div >
       <Background>
-        <Header sidebar_show_hide={sidebar_show_hide}>
-          <Title margin="0px">TheList</Title>
-          {/* <ButtonWord margin="auto 20px" padding="20px" on_click_function={sidebar_show_hide} className="nav_button"><i className="fas fa-bars"></i></ButtonWord> */}
-          <button onClick={sidebar_show_hide} className="nav_button"><i className="fas fa-bars"></i></button>
-
-          <ButtonWord margin="20px" on_click_function={show_create_note_container} >{show_hide_create_note_state.name}</ButtonWord>
-          <ButtonWord margin="20px" on_click_function={show_hide_master} >{show_hide_master_state.name}</ButtonWord>
-          <ButtonWord margin="20px" on_click_function={show_hide_dump} >{show_hide_dump_state.name}</ButtonWord>
+        <Header show_hide_notes={show_hide_notes}>
+          <Title styles={{ margin: "0px" }}>TheList</Title>
+          <ButtonWord styles={{ margin: "20px" }} on_click_function={show_hide_notes} >{show_hide_notes_state.name}</ButtonWord>
+          <ButtonWord styles={{ margin: "20px" }} on_click_function={show_create_note_container} >{show_hide_create_note_state.name}</ButtonWord>
+          <ButtonWord styles={{ margin: "20px" }} on_click_function={show_hide_master} >{show_hide_master_state.name}</ButtonWord>
+          <ButtonWord styles={{ margin: "20px" }} on_click_function={show_hide_dump} >{show_hide_dump_state.name}</ButtonWord>
+          <ButtonWord styles={{ margin: "20px" }} on_click_function={show_hide_calender} >{show_hide_calender_state.name}</ButtonWord>
         </Header>
         <Container>
           <NoteContainer >
-            <div style={{ display: "flex", justifyContent: "space-between" }}>
+            <FlexContainer styles={{ justifyContent: "space-between" }}>
               <Title >Notes</Title>
-
               <ButtonWord on_click_function={create_new_folder} >New Folder</ButtonWord>
-            </div>
-            <ScrollContainer height="73vh">
+            </FlexContainer>
+            <ScrollContainer styles={{ height: "85vh" }}>
 
               {folders_state.map((folder, index) => {
                 console.log(folder.folders)
@@ -616,26 +565,17 @@ const App = () => {
                       show_hide_by_folder={show_hide_by_folder}
                       folder={folder}
                       get_all_folders={get_all_folders}
-                      show_hide_folder_modal={show_hide_folder_modal}
-                      on_change_folder_editor={on_change_folder_editor}
-                      fontSize="16px"
-                      folder_id={folder._id}
                       num_notes={folder.notes.length}
-                      margin="10px">{folder.folder_name}</FolderTitle>
+                    >{folder.folder_name}</FolderTitle>
                     <FolderNoteContainer height={folder_view_state[folder._id]}>
-                      {folders_state.map((folder, index) => {
-
-                        // if (note.folder_id === folder._id) {
-                        // return <Note show_create_note_container={show_create_note_container} get_all_notes={get_all_notes} index={note._id} id={note._id} key={note._id}>{note.title}</Note>
-                        // }
-                      })}
                       {all_todo_state.map((note, index) => {
                         if (note.folder_id === folder._id) {
                           return <Note
                             show_create_note_container={show_create_note_container}
                             get_all_notes={get_all_notes}
                             index={note._id}
-                            id={note._id}
+                            note={note}
+                            // id={note._id}
                             key={note._id}>{note.title}</Note>
                         }
                       })}
@@ -646,7 +586,7 @@ const App = () => {
               })}
             </ScrollContainer>
           </NoteContainer>
-          <NoteEditor show_hide={show_hide_create_note_state.display}
+          <NoteEditor show_hide={{ display: show_hide_create_note_state.display }}
             create_new_note={create_new_note}
             note_state={note_state}
             formatted_date_slash={format_date_display(new Date())}
@@ -654,33 +594,34 @@ const App = () => {
             on_change_note_editor={on_change_note_editor}
             show_scheduling={show_scheduling}
             schedule_state={schedule_state} />
-          <Section show_hide={show_hide_master_state.display}>
-            <div style={{ display: "flex", justifyContent: "space-between" }}>
+          <Section styles={{ display: show_hide_master_state.display }}>
+            <FlexContainer styles={{ justifyContent: "space-between" }}>
               <Title>Master Todo List:</Title>
-              <div style={{ display: "flex", flexDirection: "row" }}>
-                <ButtonWord margin="20px" on_click_function={create_new_category} >Create Category</ButtonWord>
-                <ButtonSymbol margin="18px 0px 18px 18px" on_click_function={create_empty_list_item} list_id="Master" >+</ButtonSymbol>
-              </div>
-            </div>
-            <Title margin="-30px 0px 0px 0px" fontSize="16px">Today {format_date_display(new Date())}</Title>
-            <ScrollContainer height="73vh">
+              <FlexContainer styles={{ flexDirection: "row" }}>
+                <ButtonWord styles={{ margin: "20px" }} on_click_function={create_new_category} >Create Category</ButtonWord>
+                <ButtonSymbol styles={{ webkitTransform: "rotate(90deg)", margin: "18px 0px 18px 18px" }} id="backward" on_click_function={change_date} ><i className="fas fa-sort-up"></i></ButtonSymbol>
+                <ButtonSymbol styles={{ webkitTransform: "rotate(-90deg)", margin: "18px 0px 18px 18px" }} id="forward" on_click_function={change_date} ><i className="fas fa-sort-up"></i></ButtonSymbol>
+                <ButtonSymbol styles={{ margin: "18px 0px 18px 18px" }} on_click_function={create_empty_todo} id="Master" >+</ButtonSymbol>
+              </FlexContainer>
+            </FlexContainer>
+            <Title styles={{ margin: "-30px 0px 0px 0px", fontSize: "16px" }}>Today {format_date_display(new Date())}</Title>
+            <ScrollContainer >
               {priority_state.priorites.map((priority, index) => {
                 return <PriorityContainer key={index}>
-                  <PriorityTitle fontSize="18px" on_click_function={show_hide_by_priority} list_id="master" priority={priority} border="1px solid silver" margin="10px">{priority} Priority</PriorityTitle>
-                  <TodoContainer className={"master_" + priority.toLowerCase()} height={priority_state["master_" + priority.toLowerCase()]}>
+                  <PriorityTitle styles={{ fontSize: "18px", margin: "10px" }} on_click_function={show_hide_by_priority} id="master" priority={priority} >{priority} Priority</PriorityTitle>
+                  <TodoContainer className={"master_" + priority.toLowerCase()} styles={{ height: priority_state["master_" + priority.toLowerCase()] }}>
                     {categories_state.map((category, index) => {
                       // console.log({ "category": category })
                       if (category.priority === priority) {
-                        return <FolderContainer index={category._id} id={category._id} key={category._id}>
+                        return <CategoryContainer index={category._id} id={category._id} key={category._id}>
                           <CategoryTitle
                             show_hide_by_category={show_hide_by_category}
                             get_all_notes_by_list_id={get_all_notes_by_list_id}
-                            fontSize="16px"
                             get_all_notes_by_list_id={get_all_notes_by_list_id}
                             category={category}
                             category_id={category._id}
-                            on_change_category_editor={on_change_category_editor}
-                            margin="10px">{category.category_name}</CategoryTitle>
+                          // on_change_category_editor={on_change_category_editor}
+                          >{category.category_name}</CategoryTitle>
                           <CategoryNoteContainer
                             height={category_view_state[category._id]}
                             hidden={category.hidden}
@@ -689,19 +630,20 @@ const App = () => {
                           >
                             {todo_master_state.map((note, index) => {
                               if (note.category_id === category._id) {
-                                return <ListItem
+                                console.log({ "note": note })
+                                return <Todo
                                   category_state={category_state}
                                   show_create_note_container={show_create_note_container}
                                   get_all_notes_by_list_id={get_all_notes_by_list_id}
                                   index={note._id}
+                                  note={note}
                                   id={note._id}
-                                  key={note._id}>{note.title}</ListItem>
+                                  key={note._id}>{note.title}</Todo>
                               }
                             })}
 
                           </CategoryNoteContainer>
-                        </FolderContainer>
-
+                        </CategoryContainer>
                       }
                     })}
                   </TodoContainer>
@@ -709,26 +651,27 @@ const App = () => {
               })}
             </ScrollContainer>
           </Section>
-          <Section show_hide={show_hide_dump_state.display}>
-            <div style={{ display: "flex", justifyContent: "space-between" }}>
+          <Section styles={{ display: show_hide_dump_state.display }}>
+            <FlexContainer styles={{ justifyContent: "space-between" }}>
               <Title>Todo Dump</Title>
-              <ButtonSymbol margin="18px 0px 18px 18px" on_click_function={create_empty_list_item} list_id="Dump" >+</ButtonSymbol>
-            </div>
-            <Title margin="-30px 0px 0px 0px" fontSize="16px">Get your Ideas Down Fast</Title>
-            <ScrollContainer height="73vh">
+              <ButtonSymbol styles={{ margin: "18px 0px 18px 18px" }} on_click_function={create_empty_todo} id="Dump" >+</ButtonSymbol>
+            </FlexContainer>
+            <Title styles={{ margin: "-30px 0px 0px 0px", fontSize: "16px" }}>Get your Ideas Down Fast</Title>
+            <ScrollContainer >
               {priority_state.priorites.map((priority, index) => {
                 return <PriorityContainer key={index}>
-                  <PriorityTitle fontSize="18px" on_click_function={show_hide_by_priority} list_id="Dump" priority={priority} border="1px solid silver" margin="10px">{priority} Priority</PriorityTitle>
-                  <TodoContainer className={"dump_" + priority.toLowerCase()} height={priority_state["dump_" + priority.toLowerCase()]}>
+                  <PriorityTitle styles={{ fontSize: "18px", margin: "10px" }} on_click_function={show_hide_by_priority} id="dump" priority={priority} >{priority} Priority</PriorityTitle>
+                  <TodoContainer className={"dump_" + priority.toLowerCase()} styles={{ height: priority_state["dump_" + priority.toLowerCase()] }}>
                     {todo_dump_state.map((note, index) => {
                       if (note.priority === priority) {
-                        return <ListItem
+                        return <Todo
                           folders_state={folders_state}
                           show_create_note_container={show_create_note_container}
                           get_all_notes_by_list_id={get_all_notes_by_list_id}
                           index={note._id}
                           id={note._id}
-                          key={note._id}>{note.title}</ListItem>
+                          note={note}
+                          key={note._id}>{note.title}</Todo>
                       }
                     })}
                   </TodoContainer>
@@ -738,8 +681,29 @@ const App = () => {
           </Section>
         </Container>
         <Container>
-          <Section width="100%">
-            <Title>Calender</Title>
+          <Section styles={{ display: show_hide_calender_state.display }} >
+            <FlexContainer styles={{ flexDirection: "column", width: "100%" }}>
+              <Title>Calender</Title>
+              <Title styles={{ margin: "0px", fontSize: "20px" }}>Today {format_date_display(new Date())}</Title>
+            </FlexContainer>
+
+            <FlexContainer styles={{ justifyContent: "space-around", marginTop: "10px" }}>
+              {days.map((day, index) => {
+                return <Title>{day}</Title>
+              })}
+            </FlexContainer>
+            <CalenderContainer styles={{ margin: "15px 0px 0px 0px" }}>
+              {days.map((day, index) => {
+                return <CalenderColumns >
+                  {/* {day} */}
+                  {hours.map((hour, index) => {
+                    return <CalenderRows>
+                      {hour}:00
+                    </CalenderRows>
+                  })}
+                </CalenderColumns>
+              })}
+            </CalenderContainer>
           </Section>
         </Container>
 

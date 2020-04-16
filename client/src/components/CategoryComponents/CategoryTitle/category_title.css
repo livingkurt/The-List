@@ -1,0 +1,14 @@
+.category_title {
+  display: flex;
+  /* border: 1px silver solid; */
+  /* border-radius: 5px; */
+  border-bottom: 1px solid silver;
+  padding: 2px;
+  justify-content: space-between;
+  /* border: 1px silver; */
+}
+
+.category_id_input {
+  font-weight: 700;
+  margin: 0px;
+}

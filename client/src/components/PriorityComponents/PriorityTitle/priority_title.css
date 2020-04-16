@@ -1,0 +1,8 @@
+.priority_title {
+  display: flex;
+  border-bottom: 1px solid silver;
+  padding: 2px;
+  justify-content: space-between;
+}
+
+.show_hide_sidebar_button {}

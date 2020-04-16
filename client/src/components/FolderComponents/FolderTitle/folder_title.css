@@ -1,0 +1,10 @@
+.folder_title {
+  display: flex;
+  border-bottom: 1px solid silver;
+  justify-content: space-between;
+}
+
+.folder_id_input {
+  font-weight: 700;
+  margin: 0px;
+}
