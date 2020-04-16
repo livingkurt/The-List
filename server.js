@@ -9,9 +9,12 @@ const PORT = process.env.PORT || 5000
 
 mongoose.connect(
   process.env.MONGODB_URI || "mongodb://localhost/thelist_db",
-  { useNewUrlParser: true }
+  {
+    useNewUrlParser: true,
+    useUnifiedTopology: true,
+    useCreateIndex: true
+  }
 );
-
 
 app.use(express.urlencoded({ extended: true }))
 app.use(express.json())

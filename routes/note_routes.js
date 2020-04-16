@@ -1,5 +1,5 @@
 const db = require("../models/index");
-// const axios = require("axios");
+const axios = require("axios");
 // const mongojs = require('mongojs')
 
 // Export API Routes to Express
@@ -85,14 +85,43 @@ module.exports = function (app) {
     // Create an empty workout object ready for exercises to get put into it
     console.log({ "api_routes.js - update one note": req.body })
     try {
-      const request = await db.Notes.updateOne({ _id: req.params.id },
+      // if (!req.body.category_id) {
+      //   try {
+      //     const category = await db.Categories.create({
+      //       category_name: "Uncategorized",
+      //       priority: "Low",
+      //       notes: [req.params.id],
+      //       hidden: false,
+      //       date_created: new Date().setDate(new Date().getDate()),
+      //       date_modified: new Date().setDate(new Date().getDate())
+      //     })
+      //     // Send the request back to the front end
+      //     res.send(category)
+      //     console.log({ "request.data": category._id })
+      //   }
+      //   catch (err) {
+      //     console.log(err);
+      //   }
+      // }
+      // const category_data = {
+      //   category_name: "Uncategorized",
+      //   priority: "Low",
+      //   notes: [],
+      //   hidden: false,
+      //   date_created: new Date().setDate(new Date().getDate()),
+      //   date_modified: new Date().setDate(new Date().getDate())
+      // }
+      // const category = await axios.post('/api/category', category_data);
+      // console.log({ "category.data": category.data })
+      const note = await db.Notes.updateOne({ _id: req.params.id },
         {
           title: req.body.title,
           body: req.body.body,
           folder_id: req.body.folder_id,
           list_id: req.body.list_id,
           priority: req.body.priority,
-          category_id: req.body.category_id ? req.body.category_id : "5e8f7c48d4e1a46221ddb732",
+          category_id: req.body.category,
+          // category_id: req.body.category_id ? req.body.category_id : "5e8f7c48d4e1a46221ddb732",
           scheduled: req.body.scheduled,
           scheduled_date: req.body.scheduled_date,
           scheduled_time: req.body.scheduled_time,
@@ -102,7 +131,8 @@ module.exports = function (app) {
           date_modified: new Date().setDate(new Date().getDate())
         })
       // Send the request back to the front end
-      res.send(request)
+      res.send(note)
+      console.log({ "note.data": note.data })
 
     }
     catch (err) {

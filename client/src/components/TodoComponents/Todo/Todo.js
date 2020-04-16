@@ -124,7 +124,8 @@ const Todo = (props) => {
       }
       console.log({ "update_note": update_note })
       const res = await API.update_note(note_id, update_note)
-      set_note_state(res.data)
+      // set_note_state(res.data)
+      set_note_state({ ...note_state, [field_name]: note_data })
     }
     catch (err) {
       console.log({ "on_change_note_editor": err });

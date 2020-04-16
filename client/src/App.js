@@ -41,7 +41,7 @@ const App = () => {
     folder_id: "",
     list_id: "Dump",
     priority: "Low",
-    category_id: "5e8f7c48d4e1a46221ddb732",
+    category_id: "",
     scheduled: false,
     scheduled_date: "",
     scheduled_time: "",
@@ -55,7 +55,7 @@ const App = () => {
     folder_id: "",
     list_id: "Dump",
     priority: "Low",
-    category_id: "5e8f7c48d4e1a46221ddb732",
+    category_id: "",
     scheduled: false,
     scheduled_date: "",
     scheduled_time: "",
@@ -127,7 +127,7 @@ const App = () => {
         folder_id: "",
         list_id: "Dump",
         priority: "Low",
-        category_id: "5e8f7c48d4e1a46221ddb732",
+        category_id: "",
         scheduled: false,
         scheduled_date: "",
         scheduled_time: "",
@@ -643,7 +643,22 @@ const App = () => {
                             })}
 
                           </CategoryNoteContainer>
+                          {todo_master_state.map((note, index) => {
+                            if (note.category_id === "" && note.priority === priority || note.category_id === null && note.priority === priority) {
+                              console.log({ "note": note })
+                              return <Todo
+                                category_state={category_state}
+                                show_create_note_container={show_create_note_container}
+                                get_all_notes_by_list_id={get_all_notes_by_list_id}
+                                styles={{ borderRadius: "5px" }}
+                                index={note._id}
+                                note={note}
+                                id={note._id}
+                                key={note._id}>{note.title}</Todo>
+                            }
+                          })}
                         </CategoryContainer>
+
                       }
                     })}
                   </TodoContainer>
