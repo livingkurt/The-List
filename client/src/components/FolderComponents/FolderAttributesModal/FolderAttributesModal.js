@@ -17,33 +17,27 @@ const FolderAttributesModal = (props) => {
 
   // console.log({ "folder_id": folder_id })
 
-  const [folder_state, set_folder_state] = useState({
-    folder_name: "",
-    folders: "",
-    folders: "",
-    completed: "",
-    date_modified: ""
-  })
+  const [folder_state, set_folder_state] = useState(props.folder_state)
 
   const [dropdown_state, set_dropdown_state] = useState("none")
 
   useEffect(() => {
-    get_folder()
+    // get_folder()
 
-  }, [])
+  }, [props.folder_state])
 
-  const get_folder = async () => {
-    const folder_id = props.id
-    if (folder_id != undefined) {
-      try {
-        const res = await API.get_folder(folder_id)
-        set_folder_state(res.data)
-      }
-      catch (err) {
-        // console.log(err);
-      }
-    }
-  }
+  // const get_folder = async () => {
+  //   const folder_id = props.id
+  //   if (folder_id != undefined) {
+  //     try {
+  //       const res = await API.get_folder(folder_id)
+  //       set_folder_state(res.data)
+  //     }
+  //     catch (err) {
+  //       // console.log(err);
+  //     }
+  //   }
+  // }
   const drop_down = () => {
     if (dropdown_state === "none") {
       set_dropdown_state("flex")
@@ -119,6 +113,8 @@ const FolderAttributesModal = (props) => {
 
 
 
+
+
   return (
     <div style={{ display: props.folder_modal_state }} className="folder_attributes_modal zoom">
       <ButtonSymbol styles={{ margin: "-10px 0px 8px" }} id={props.id} on_click_function={props.show_hide_folder_modal}><i className="fas fa-times"></i></ButtonSymbol>
@@ -189,18 +185,6 @@ const FolderAttributesModal = (props) => {
           </FlexContainer>
         </div>
       </div>
-      {/* <ButtonSymbol margin="-10px 0px 8px" id={props.id} on_click_function={props.show_hide_folder_modal}><i className="fas fa-times"></i></ButtonSymbol>
-      <folderTextEditor
-        folder_state={folder_state}
-        on_change_folder_editor={on_change_folder_editor}
-        height="30vh" />
-      <folderAttributeEditor
-        folder_state={folder_state}
-        formatted_date_slash={formatted_date_slash}
-        on_change_folder_editor={on_change_folder_editor}
-        checkboxState={folder_state.completed}
-        show_scheduling={show_scheduling}
-        schedule_state={schedule_state} /> */}
       <ButtonWord styles={{ margin: "10px 0px 0px 0px" }} on_click_function={delete_folder} index={props.id} get_all_folders={props.get_all_folders} id={props.id}>
         Delete
       </ButtonWord>

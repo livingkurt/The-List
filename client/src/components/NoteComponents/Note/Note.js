@@ -1,5 +1,5 @@
 // React
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 // Components
 import { ButtonSymbol } from '../../UtilityComponents';
 import { BlockContainer } from "../../ContainerComponents";
@@ -14,23 +14,14 @@ import { API } from "../../../utils";
 const Note = (props) => {
 
   const [modal_state, set_modal_state] = useState("none")
+  const [note_state, set_note_state] = useState(props.note)
 
-  const update_note = async (e) => {
-    e.persist();
-    const todo_id = e.target.id
-    const todo_data = e.target.value
-    try {
-      const res = await API.get_note(todo_id)
-      const update_todo = { ...res.data, title: todo_data }
-      API.update_note(todo_id, update_todo)
-    }
-    catch (err) {
-      console.log(err);
-    }
-  }
+  useEffect(() => {
+    console.log("Reload")
+  }, [note_state])
 
   const show_modal = async (e) => {
-    const todo_id = props.id
+    const todo_id = note_state._id
     console.log(todo_id)
     if (modal_state === "none") {
       set_modal_state("flex")
@@ -40,6 +31,29 @@ const Note = (props) => {
     }
   }
 
+
+
+  const on_change_note_editor = async (e) => {
+    const note_id = note_state._id
+    const note_data = e.target.value
+    const field_name = e.target.name
+    console.log({ "note_id": note_id, "note_data": note_data, "field_name": field_name })
+    try {
+      const update_note = {
+        ...note_state,
+        [field_name]: note_data
+      }
+      console.log({ "update_note": update_note })
+      const res = await API.update_note(note_id, update_note)
+      set_note_state(res.data)
+    }
+    catch (err) {
+      console.log({ "on_change_note_editor": err });
+    }
+
+  }
+
+
   return (
     <div className="note zoom">
       {/* <Checkbox /> */}
@@ -47,14 +61,15 @@ const Note = (props) => {
         <i className="fas fa-sort-up"></i>
       </BlockContainer>
       <input
-        defaultValue={props.children}
+        defaultValue={note_state.title}
         className="note_input"
         placeholder="Title"
-        id={props.id}
-        onBlur={e => update_note(e)} />
+        id={note_state._id}
+        name="title"
+        onBlur={e => on_change_note_editor(e)} />
       <ButtonSymbol styles={{ margin: "0px", padding: "0px" }} on_click_function={show_modal} ><i className="fas fa-bars"></i></ButtonSymbol>
       {/* <ButtonSymbol margin="0px" padding="0px" on_click_function={show_modal} ><i className="fas fa-sort-up"></i></ButtonSymbol> */}
-      <TodoModal id={props.id} show_modal={show_modal} show_modal_state={modal_state} get_all_notes_by_list_id={props.get_all_notes_by_list_id}></TodoModal>
+      <TodoModal id={note_state._id} show_modal={show_modal} note_state={note_state} show_modal_state={modal_state} get_all_notes_by_list_id={props.get_all_notes_by_list_id}></TodoModal>
     </div>
   );
 }

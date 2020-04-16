@@ -13,26 +13,28 @@ const TodoModal = (props) => {
 
   // const [todo_state, set_todo_state] = useState("")
 
-  const [note_state, set_note_state] = useState({
-    title: "",
-    body: "",
-    folder_id: "",
-    list_id: "",
-    priority: "",
-    category_id: "",
-    scheduled: false,
-    scheduled_date: "",
-    scheduled_time: "",
-    completed: false,
-    date_created: "",
-    date_modified: "",
-  })
+  // const [note_state, set_note_state] = useState({
+  //   title: "",
+  //   body: "",
+  //   folder_id: "",
+  //   list_id: "",
+  //   priority: "",
+  //   category_id: "",
+  //   scheduled: false,
+  //   scheduled_date: "",
+  //   scheduled_time: "",
+  //   completed: false,
+  //   date_created: "",
+  //   date_modified: "",
+  // })
 
   // const [dropdown_state, set_dropdown_state] = useState("none")
   // const [date_state, set_date_state] = useState({
   //   date_created: "",
   //   date_modified: "",
   // })
+
+  const [note_state, set_note_state] = useState(props.note_state)
   useEffect(() => {
     get_note()
     // get_formatted_date();
@@ -40,6 +42,11 @@ const TodoModal = (props) => {
     get_checkbox_state();
     // get_all_folders();
   }, [])
+
+  // useEffect(() => {
+  //   console.log("Reload")
+  //   set_note_state(props.note_state)
+  // }, [note_state])
 
   const get_note = async () => {
     const todo_id = props.id
@@ -121,62 +128,62 @@ const TodoModal = (props) => {
 
   }
 
-  const on_change_note_editor = async (e) => {
-    const note_id = props.id
-    let note_data = ""
-    let field_name = ""
+  // const on_change_note_editor = async (e) => {
+  //   const note_id = props.id
+  //   let note_data = ""
+  //   let field_name = ""
 
-    if (e.target === undefined) {
-      set_note_state({ ...note_state, scheduled: e })
-      note_data = e
-      field_name = "scheduled"
-    }
-    else {
-      note_data = e.target.value
-      field_name = e.target.name
-      if (field_name == "folder_id") {
-        on_change_folder_editor(note_id, note_data)
-      }
-      console.log({ "field_name": field_name });
-      set_note_state({ ...note_state, [field_name]: note_data })
-    }
-    // console.log(field_name)
-    try {
-      const res = await API.get_note(note_id)
-      const update_todo = {
-        ...res.data,
-        [field_name]: note_data,
-      }
-      API.update_note(note_id, update_todo)
-      props.get_all_notes_by_list_id("Dump")
-      props.get_all_notes_by_list_id("Master")
-    }
-    catch (err) {
-      console.log({ "save_scheduling": err });
-    }
+  //   if (e.target === undefined) {
+  //     set_note_state({ ...note_state, scheduled: e })
+  //     note_data = e
+  //     field_name = "scheduled"
+  //   }
+  //   else {
+  //     note_data = e.target.value
+  //     field_name = e.target.name
+  //     if (field_name == "folder_id") {
+  //       on_change_folder_editor(note_id, note_data)
+  //     }
+  //     console.log({ "field_name": field_name });
+  //     set_note_state({ ...note_state, [field_name]: note_data })
+  //   }
+  //   // console.log(field_name)
+  //   try {
+  //     const res = await API.get_note(note_id)
+  //     const update_todo = {
+  //       ...res.data,
+  //       [field_name]: note_data,
+  //     }
+  //     API.update_note(note_id, update_todo)
+  //     props.get_all_notes_by_list_id("Dump")
+  //     props.get_all_notes_by_list_id("Master")
+  //   }
+  //   catch (err) {
+  //     console.log({ "save_scheduling": err });
+  //   }
 
-  }
+  // }
 
-  const on_change_folder_editor = async (note_id, folder_id) => {
-    try {
-      const res = await API.get_folder(folder_id)
+  // const on_change_folder_editor = async (note_id, folder_id) => {
+  //   try {
+  //     const res = await API.get_folder(folder_id)
 
-      console.log({ "on_change_folder_editor": res.data })
-      console.log({ "note_id": note_id })
-      console.log({ "folder_id": folder_id })
-      const update_folder = {
-        ...res.data,
-        notes: [...res.data.notes, note_id]
-      }
-      console.log({ "update_folder": update_folder })
-      const response = await API.update_folder(folder_id, update_folder)
+  //     console.log({ "on_change_folder_editor": res.data })
+  //     console.log({ "note_id": note_id })
+  //     console.log({ "folder_id": folder_id })
+  //     const update_folder = {
+  //       ...res.data,
+  //       notes: [...res.data.notes, note_id]
+  //     }
+  //     console.log({ "update_folder": update_folder })
+  //     const response = await API.update_folder(folder_id, update_folder)
 
-    }
-    catch (err) {
-      console.log({ "on_change_folder_editor": err });
-    }
+  //   }
+  //   catch (err) {
+  //     console.log({ "on_change_folder_editor": err });
+  //   }
 
-  }
+  // }
 
   const delete_note = async (e) => {
     const todo_id = props.id
@@ -203,7 +210,7 @@ const TodoModal = (props) => {
     }
   }
 
-  const on_attribute_change = async (e) => {
+  const on_dropdown_choice = async (e) => {
 
     const note_id = props.id
     const attribute_data = e.target.id
@@ -260,6 +267,28 @@ const TodoModal = (props) => {
   // };
 
 
+
+  const on_change_note_editor = async (e) => {
+    const note_id = note_state._id
+    const note_data = e.target.value
+    const field_name = e.target.name
+    console.log(note_id, note_data, field_name)
+    try {
+      const update_note = {
+        ...note_state,
+        [field_name]: note_data
+      }
+      console.log({ "update_note": update_note })
+      const res = await API.update_note(note_id, update_note)
+      set_note_state(res.data)
+    }
+    catch (err) {
+      console.log({ "on_change_note_editor": err });
+    }
+
+  }
+
+
   const priority_dropdown_items = ["High", "Medium", "Low"]
   const list_name_dropdown_items = ["Master", "Dump", "No List"]
   const folder_name_dropdown_items = props.folder_state
@@ -274,7 +303,7 @@ const TodoModal = (props) => {
       <NoteAttributeEditor
         note_state={note_state}
         folders_state={props.folders_state}
-        on_attribute_change={on_attribute_change}
+        on_dropdown_choice={on_dropdown_choice}
         priority_dropdown_items={priority_dropdown_items}
         list_name_dropdown_items={list_name_dropdown_items}
         folder_name_dropdown_items={folder_name_dropdown_items}
