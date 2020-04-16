@@ -17,7 +17,10 @@ app.use(express.urlencoded({ extended: true }))
 app.use(express.json())
 
 
-require('./routes/api_routes')(app);
+
+require('./routes/category_routes')(app);
+require('./routes/note_routes')(app);
+require('./routes/folder_routes')(app);
 
 if (process.env.NODE_ENV === 'production') {
   app.use(express.static('client/build'))
