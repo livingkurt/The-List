@@ -273,6 +273,7 @@ const TodoModal = (props) => {
     const note_data = e.target.value
     const field_name = e.target.name
     console.log(note_id, note_data, field_name)
+    set_note_state({ ...note_state, [field_name]: note_state })
     try {
       const update_note = {
         ...note_state,
@@ -280,7 +281,7 @@ const TodoModal = (props) => {
       }
       console.log({ "update_note": update_note })
       const res = await API.update_note(note_id, update_note)
-      set_note_state({ ...note_state, [field_name]: note_state })
+
       // set_note_state(res.data)
     }
     catch (err) {

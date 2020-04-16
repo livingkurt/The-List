@@ -38,6 +38,7 @@ const Note = (props) => {
     const note_data = e.target.value
     const field_name = e.target.name
     console.log({ "note_id": note_id, "note_data": note_data, "field_name": field_name })
+    set_note_state({ ...note_state, [field_name]: note_state })
     try {
       const update_note = {
         ...note_state,
